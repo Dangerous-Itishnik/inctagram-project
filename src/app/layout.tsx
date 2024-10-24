@@ -12,15 +12,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={'en'}>
-      <header>
-        <Link href={'/signUp'}>signUp</Link>
-        <br />
-        <Link href={'/signIn'}>signIn</Link>
-        <br />
-        <Link href={'/profile'}>profile</Link>
-      </header>
-
-      <body>{children}</body>
+      <body>
+        <header>
+          <Link href={'/signUp'}>signUp</Link>
+          <br />
+          <Link href={'/signIn'}>signIn</Link>
+          <br />
+          <Link href={'/profile'}>profile</Link>
+        </header>
+        {children}
+      </body>
     </html>
   )
 }
