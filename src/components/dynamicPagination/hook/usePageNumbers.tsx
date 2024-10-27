@@ -31,6 +31,9 @@ export const usePageNumbers = (
   )
 
   return useMemo(() => {
+    if (totalPages <= 1) {
+      return []
+    }
     const pageNumbers = []
     const maxPagesToShow = 3
     const startPage = Math.max(2, currentPage - Math.floor(maxPagesToShow / 2))

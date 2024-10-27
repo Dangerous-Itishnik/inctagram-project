@@ -7,11 +7,12 @@ import { RadixSelect } from '@/components/radixSelect'
 import Arrow from '@/icon/arrow/arrow'
 
 import s from './dynamicPagination.module.scss'
-
-export const DynamicPagination = () => {
+type Props = {
+  totalItems?: number
+}
+export const DynamicPagination = ({ totalItems = 5500 }: Props) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(100)
-  const totalItems = 5500
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -51,7 +52,9 @@ export const DynamicPagination = () => {
         handlePaginationButtonClick={handleNextPage}
         icon={<Arrow direction={'left'} />}
       />
+      <span className={s.paginationContainerText}>Show</span>
       <RadixSelect onChange={handleItemsPerPageChange} value={itemsPerPage} />
+      <span className={s.paginationContainerText}>on page</span>
     </div>
   )
 }

@@ -9,5 +9,11 @@
   color: var(--color-light-100);
 
   background-color: var(--color-dark-900);
+  &Text {
+    font-size: var(--font-size-s);
+    font-weight:var(--font-weight-thin);
+    line-height: var(--line-height-m);
+    color: var( --color-light-100);
+  }
 }
 
