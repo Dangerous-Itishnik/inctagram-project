@@ -21,5 +21,9 @@ export const Button = ({ children, disabled, type }: Props) => {
     className = `${styles.button} ${styles.buttonDefault}`
   }
 
-  return <button className={className} disabled={disabled}>{children}</button>
+  return (
+    <button className={className} disabled={disabled} type={'button'}>
+      {children}
+    </button>
+  )
 }
