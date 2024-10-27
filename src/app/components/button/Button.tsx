@@ -23,7 +23,7 @@ export const Button = ({ children, disabled, type }: Props) => {
 
   return (
     <button className={className} disabled={disabled} type={'button'}>
-      {children}
+      <span>{children}</span>
     </button>
   )
 }
