@@ -1,0 +1,49 @@
+.select {
+  &Triger {
+    cursor: pointer;
+
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+
+    padding: 4px 2px 4px 6px;
+
+    background-color: var(--color-dark-700);
+    border: 1px solid var(--color-dark-500);
+    border-radius: 2px;
+    outline: none;
+
+    &Icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &Content {
+    width: var(--radix-select-trigger-width);
+  }
+
+  &Viewport {
+    background-color: var(--color-dark-700);
+    border: 1px solid var(--color-dark-500);
+    border-radius: 2px;
+  }
+
+  &Item {
+    cursor: pointer;
+
+    height: 24px;
+    padding: 1px 0 1px 6px;
+
+    border: none;
+    outline: none;
+
+    &:hover {
+      color: var(--color-light-100);
+      background-color: var(--color-dark-100);
+    }
+  }
+}

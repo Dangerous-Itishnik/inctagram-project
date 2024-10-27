@@ -1,0 +1,13 @@
+.paginationContainer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-900);
+}
+
