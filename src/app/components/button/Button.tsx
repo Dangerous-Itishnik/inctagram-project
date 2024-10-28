@@ -1,29 +1,35 @@
-import { ReactNode } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ElementType,
+  ReactNode,
+  Ref,
+  forwardRef,
+} from 'react'
 
-import styles from './button.module.scss'
+import clsx from 'clsx'
 
-type Props = {
-  children: ReactNode
-  disabled: boolean
-  type?: 'default' | 'outline' | 'secondary' | 'text'
+import s from './button.module.scss'
+
+type ButtonOwnProps<T extends ElementType> = {
+  as?: T
+  variant?: 'icon' | 'link' | 'outline' | 'primary' | 'secondary'
 }
 
-export const Button = ({ children, disabled, type }: Props) => {
-  let className
+export type ButtonProps<T extends ElementType = 'button'> = ButtonOwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof ButtonOwnProps<T>>
 
-  if (type === 'outline') {
-    className = `${styles.button} ${styles.buttonOutline}`
-  } else if (type === 'secondary') {
-    className = `${styles.button} ${styles.buttonSecondary}`
-  } else if (type === 'text') {
-    className = styles.buttonText
-  } else {
-    className = `${styles.button} ${styles.buttonDefault}`
+type ButtonWithRef = <T extends ElementType = 'button'>(
+  props: ButtonProps<T>,
+  ref?: Ref<ElementRef<T>>
+) => ReactNode
+
+export const Button: ButtonWithRef = forwardRef(
+  <T extends ElementType>(props: ButtonProps<T>, ref: Ref<ElementRef<T>>) => {
+    const { as, className, variant = 'primary', ...rest } = props
+    const Tag: ElementType = as || 'button'
+    const classNames = clsx(s.button, s[variant], className)
+
+    return <Tag className={classNames} ref={ref} {...rest} />
   }
-
-  return (
-    <button className={className} disabled={disabled} type={'button'}>
-      <span>{children}</span>
-    </button>
-  )
-}
+)
