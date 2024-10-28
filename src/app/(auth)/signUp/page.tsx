@@ -62,15 +62,16 @@ export default function SignUp() {
             minLength: { message: 'Минимум 6 символа', value: 6 },
             pattern: {
               message: 'Только латинские буквы, цифры и специальные символы',
-              value: /^[A-Za-z0-9!"#$%&'()*+,\-.\/:;<=>?@[\\\]^_`{|}~]+$/,
+              value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
             },
             required: 'Поле обязательно для заполнения',
           })}
         />
-        //TODO сделать кнопку правильно //TODO Доделать валидацию
+
         <button type={'submit'}>Отправить</button>
         <Button disabled={false}>Sign Up</Button>
       </form>
     </AuthorizationContainer>
   )
 }
+//TODO сделать кнопку правильно //TODO Доделать валидацию
