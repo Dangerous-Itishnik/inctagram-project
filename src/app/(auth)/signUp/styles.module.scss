@@ -1,0 +1,14 @@
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & > div > input {
+    margin-bottom: 24px;
+  }
+}
