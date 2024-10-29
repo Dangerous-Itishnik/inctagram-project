@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
+import Link from 'next/link'
 
 import styles from './styles.module.scss'
 
@@ -84,9 +85,13 @@ export default function SignUp() {
             validate: value => value === password || 'Пароли не совпадают',
           })}
         />
-
         <Button>Sign Up</Button>
       </form>
+      <p>Do you have an account?</p>
+
+      <Button variant={'link'}>
+        <Link href={'/signIn'}>Sign In</Link>
+      </Button>
     </AuthorizationContainer>
   )
 }
