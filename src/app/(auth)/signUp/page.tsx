@@ -17,16 +17,18 @@ type Props = {
 
 export default function SignUp() {
   const {
+    clearErrors,
     formState: { errors, isValid },
+    getValues,
     handleSubmit,
     register,
-    watch,
-  } = useForm<Props>()
+  } = useForm<Props>({
+    mode: 'onBlur',
+  })
 
   const onSubmit = (data: Props) => {
     console.log(data)
   }
-  const password = watch('Password')
 
   return (
     <AuthorizationContainer>
@@ -38,13 +40,16 @@ export default function SignUp() {
           propsClassName={styles.input}
           {...register('UserName', {
             //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
-            maxLength: { message: 'Максимум 30 символов', value: 30 },
-            minLength: { message: 'Минимум 6 символа', value: 6 },
+            maxLength: { message: 'Max number of characters 30', value: 30 },
+            minLength: { message: 'Minimum number of characters 6', value: 6 },
+            onChange: () => {
+              clearErrors('UserName') // Убираем ошибку, если пользователь вводит что-то
+            },
             pattern: {
-              message: 'Только латинские буквы',
+              message: 'Only Latin letters',
               value: /^[A-Za-z0-9_-]+$/,
             },
-            required: 'Поле обязательно для заполнения',
+            required: 'This field is required',
           })}
         />
         <Input
@@ -52,11 +57,14 @@ export default function SignUp() {
           label={'Email'}
           propsClassName={styles.input}
           {...register('Email', {
+            onChange: () => {
+              clearErrors('Email') // Убираем ошибку, если пользователь вводит что-то
+            },
             pattern: {
-              message: 'Введите корректный email',
+              message: 'Please enter a valid email',
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             },
-            required: 'Поле обязательно для заполнения',
+            required: 'This field is required',
           })}
         />
         <Input
@@ -66,13 +74,16 @@ export default function SignUp() {
           type={'password'}
           {...register('Password', {
             //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
-            maxLength: { message: 'Максимум 20 символов', value: 20 },
-            minLength: { message: 'Минимум 6 символа', value: 6 },
+            maxLength: { message: 'Max number of characters 20', value: 20 },
+            minLength: { message: 'Minimum number of characters 6', value: 6 },
+            onChange: () => {
+              clearErrors('Password') // Убираем ошибку, если пользователь вводит что-то
+            },
             pattern: {
-              message: 'Только латинские буквы, цифры и специальные символы',
+              message: 'Only Latin letters, numbers and special characters',
               value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
             },
-            required: 'Поле обязательно для заполнения',
+            required: 'This field is required',
           })}
         />
         <Input
@@ -81,8 +92,17 @@ export default function SignUp() {
           propsClassName={styles.input}
           type={'password'}
           {...register('confirmPassword', {
-            required: 'Подтверждение пароля обязательно',
-            validate: value => value === password || 'Пароли не совпадают',
+            onChange: () => {
+              clearErrors('confirmPassword') // Убираем ошибку, если пользователь вводит что-то
+            },
+            required: 'Password confirmation is required',
+            validate: {
+              matchesPreviousPassword: value => {
+                const { Password } = getValues() // Получаем значения всех полей
+
+                return value.trim() === Password || 'Пароли не совпадают'
+              },
+            },
           })}
         />
         <Button className={styles.button} disabled={!isValid}>
@@ -97,4 +117,4 @@ export default function SignUp() {
     </AuthorizationContainer>
   )
 }
-//TODO Доделать валидацию
+//TODO В Input  confirmPassword неправильно работает валидация

@@ -13,7 +13,7 @@ export type InputProps = {
   onFocus?: () => void
   propsClassName?: string
   type?: 'password' | 'search' | 'text'
-} & React.HTMLAttributes<HTMLInputElement>
+} & React.InputHTMLAttributes<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ errorMessage, label, onChange, onFocus, propsClassName, type, ...inputProps }, ref) => {
