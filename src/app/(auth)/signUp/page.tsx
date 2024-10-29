@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
+import { Checkbox, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './styles.module.scss'
@@ -108,6 +109,15 @@ export default function SignUp() {
         <Button className={styles.button} disabled={!isValid}>
           Sign Up
         </Button>
+        <Flex gap={'2'} justify={'center'}>
+          <Checkbox color={'gray'} defaultChecked size={'3'} variant={'surface'} />
+
+          <p className={styles.checkboxText}>
+            I agree to the
+            <Link href={''}>Terms of Service</Link>
+            and <Link href={''}>Privacy Policy</Link>
+          </p>
+        </Flex>
       </form>
       <p className={styles.text}>Do you have an account?</p>
 

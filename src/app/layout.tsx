@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
 
+import { Theme } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import '@/styles/index.scss'
@@ -17,14 +18,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={'en'}>
       <body>
-        <header className={styles.header}>
-          <Link href={'/signUp'}>signUp</Link>
-          <br />
-          <Link href={'/signIn'}>signIn</Link>
-          <br />
-          <Link href={'/profile'}>profile</Link>
-        </header>
-        <main className={styles.main}>{children}</main>
+        <Theme>
+          <header className={styles.header}>
+            <Link href={'/signUp'}>signUp</Link>
+            <br />
+            <Link href={'/signIn'}>signIn</Link>
+            <br />
+            <Link href={'/profile'}>profile</Link>
+          </header>
+          <main className={styles.main}>{children}</main>
+        </Theme>
       </body>
     </html>
   )
