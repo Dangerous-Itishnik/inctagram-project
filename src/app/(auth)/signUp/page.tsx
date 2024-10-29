@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
-import { Checkbox, Flex } from '@radix-ui/themes'
+import { Checkbox, Flex, Theme } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './styles.module.scss'

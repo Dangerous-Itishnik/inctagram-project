@@ -1,3 +1,14 @@
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+
+  height: 100dvh;
+
+  color: var(--color-light-100);
+
+  background-color: transparent;
+}
+
 .header {
   display: flex;
   gap: 20px;

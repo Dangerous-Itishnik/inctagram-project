@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={'en'}>
       <body>
-        <Theme>
+        <Theme className={styles.bodyContainer} style={{ backgroundColor: 'transparent' }}>
           <header className={styles.header}>
             <Link href={'/signUp'}>signUp</Link>
             <br />
