@@ -2,6 +2,8 @@
 
 import React, { forwardRef, useState } from 'react'
 
+import { combineClasses } from '@/common/utils/combineClasses'
+
 import styles from './input.module.scss'
 
 export type InputProps = {
@@ -9,11 +11,12 @@ export type InputProps = {
   label: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onFocus?: () => void
+  propsClassName?: string
   type?: 'password' | 'search' | 'text'
 } & React.HTMLAttributes<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ errorMessage, label, onChange, onFocus, type, ...inputProps }, ref) => {
+  ({ errorMessage, label, onChange, onFocus, propsClassName, type, ...inputProps }, ref) => {
     const [showText, setShowText] = useState(false)
 
     const togglePasswordVisibility = () => {
@@ -41,7 +44,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     }
 
     return (
-      <div className={`${styles.container} ${errorMessage && styles.error}`}>
+      <div
+        className={combineClasses(styles.container, propsClassName, errorMessage && styles.error)}
+      >
         <label className={styles.label} htmlFor={label}>
           {label}
         </label>

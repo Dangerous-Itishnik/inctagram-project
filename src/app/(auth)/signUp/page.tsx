@@ -1,9 +1,9 @@
 'use client'
 import { useForm } from 'react-hook-form'
 
-import { Input } from '@/app/components/Input/Input'
-import { AuthorizationContainer } from '@/app/components/authorizationContainer/AutoritationContainer'
-import { Button } from '@/app/components/button/Button'
+import { Input } from '@/common/components/Input/Input'
+import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
+import { Button } from '@/common/components/button/Button'
 
 import styles from './styles.module.scss'
 type Props = {
@@ -31,6 +31,7 @@ export default function SignUp() {
         <Input
           errorMessage={errors.UserName?.message}
           label={'UserName'}
+          propsClassName={styles.input}
           {...register('UserName', {
             //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
             maxLength: { message: 'Максимум 30 символов', value: 30 },
@@ -45,6 +46,7 @@ export default function SignUp() {
         <Input
           errorMessage={errors.Email?.message}
           label={'Email'}
+          propsClassName={styles.input}
           {...register('Email', {
             pattern: {
               message: 'Введите корректный email',
@@ -56,6 +58,7 @@ export default function SignUp() {
         <Input
           errorMessage={errors.Password?.message}
           label={'Password'}
+          propsClassName={styles.input}
           {...register('Password', {
             //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
             maxLength: { message: 'Максимум 20 символов', value: 20 },
