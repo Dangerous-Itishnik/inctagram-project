@@ -41,6 +41,8 @@
 }
 
 .errorMessage {
+  position: absolute;
+  bottom: -25px;
   align-self: flex-start;
   color: var(--color-danger-500);
 }
