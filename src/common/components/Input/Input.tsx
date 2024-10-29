@@ -54,7 +54,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           onFocus={onFocus}
           type={inputType}
         ></input>
-        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+        <p className={styles.errorMessage}>{errorMessage}</p>
+        {/*{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}*/}
         {buttonType}
       </div>
     )

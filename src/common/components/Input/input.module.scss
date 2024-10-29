@@ -45,10 +45,13 @@
 }
 
 .errorMessage {
-  position: absolute;
-  bottom: -25px;
   align-self: flex-start;
+  min-height: 24px;
   color: var(--color-danger-500);
+}
+
+.hidden {
+  overflow: hidden;
 }
 
 .button {
