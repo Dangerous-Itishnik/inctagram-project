@@ -25,23 +25,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const classNameInput =
       type === 'search' ? `${styles.input} ${styles.inputSearch}` : styles.input
-    const inputType = type === 'password' && showText ? 'password' : 'text'
-    let buttonType
 
-    if (type === 'password') {
-      buttonType = (
+    const inputType = type === 'password' && showText ? 'password' : 'text'
+    const buttonType =
+      type === 'password' ? (
         <button
           className={styles.button}
           onClick={togglePasswordVisibility}
           type={'button'}
         ></button>
-      )
-    }
-    if (type === 'search') {
-      buttonType = (
+      ) : type === 'search' ? (
         <button className={styles.buttonSearch} onClick={() => {}} type={'button'}></button>
-      )
-    }
+      ) : null
 
     return (
       <div
