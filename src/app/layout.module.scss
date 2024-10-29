@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  width: 100%;
+  min-height: 60px;
+  margin-bottom: 24px;
+  padding: 12px 60px;
+}
+
+.main {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  width: 100%;
+}
