@@ -80,7 +80,6 @@ export default function SignUp() {
           propsClassName={styles.input}
           type={'password'}
           {...register('confirmPassword', {
-            //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
             required: 'Подтверждение пароля обязательно',
             validate: value => value === password || 'Пароли не совпадают',
           })}
@@ -91,4 +90,4 @@ export default function SignUp() {
     </AuthorizationContainer>
   )
 }
-//TODO сделать кнопку правильно //TODO Доделать валидацию
+//TODO Доделать валидацию
