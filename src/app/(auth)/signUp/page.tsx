@@ -17,7 +17,7 @@ type Props = {
 
 export default function SignUp() {
   const {
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     register,
     watch,
@@ -85,7 +85,9 @@ export default function SignUp() {
             validate: value => value === password || 'Пароли не совпадают',
           })}
         />
-        <Button className={styles.button}>Sign Up</Button>
+        <Button className={styles.button} disabled={!isValid}>
+          Sign Up
+        </Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
 
