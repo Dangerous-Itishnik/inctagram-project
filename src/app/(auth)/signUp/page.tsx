@@ -19,7 +19,7 @@ type Props = {
 export default function SignUp() {
   const {
     clearErrors,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     register,
     reset,
@@ -44,7 +44,6 @@ export default function SignUp() {
           label={'UserName'}
           propsClassName={styles.input}
           {...register('UserName', {
-            //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
             maxLength: { message: 'Max number of characters 30', value: 30 },
             minLength: { message: 'Minimum number of characters 6', value: 6 },
             onChange: () => {
@@ -78,7 +77,6 @@ export default function SignUp() {
           propsClassName={styles.input}
           type={'password'}
           {...register('Password', {
-            //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
             maxLength: { message: 'Max number of characters 20', value: 20 },
             minLength: { message: 'Minimum number of characters 6', value: 6 },
             onChange: () => {
@@ -112,12 +110,14 @@ export default function SignUp() {
             <Link href={''}>Privacy Policy</Link>
           </p>
         </Flex>
-        <Button className={styles.button}>Sign Up</Button>
+        <Button className={styles.button} disabled={!isValid}>
+          Sign Up
+        </Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
 
-      <Button variant={'link'}>
-        <Link href={'/signIn'}>Sign In</Link>
+      <Button as={'a'} href={'/signIn'} variant={'link'}>
+        Sign In
       </Button>
     </AuthorizationContainer>
   )
