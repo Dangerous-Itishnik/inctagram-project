@@ -11,4 +11,17 @@
 
 .input {
   margin-bottom: 24px;
+
+  &:last-of-type {
+    margin-bottom: 36px;
+  }
+}
+
+.text {
+  margin-bottom: 6px;
+  color: var(--color-light-100);
+}
+
+.button {
+  margin-bottom: 18px;
 }

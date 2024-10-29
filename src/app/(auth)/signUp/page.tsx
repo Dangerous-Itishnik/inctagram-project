@@ -85,9 +85,9 @@ export default function SignUp() {
             validate: value => value === password || 'Пароли не совпадают',
           })}
         />
-        <Button>Sign Up</Button>
+        <Button className={styles.button}>Sign Up</Button>
       </form>
-      <p>Do you have an account?</p>
+      <p className={styles.text}>Do you have an account?</p>
 
       <Button variant={'link'}>
         <Link href={'/signIn'}>Sign In</Link>
