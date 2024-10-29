@@ -6,10 +6,12 @@ import { AuthorizationContainer } from '@/common/components/authorizationContain
 import { Button } from '@/common/components/button/Button'
 
 import styles from './styles.module.scss'
+
 type Props = {
   Email: string
   Password: string
   UserName: string
+  confirmPassword: string
 }
 
 export default function SignUp() {
@@ -17,12 +19,14 @@ export default function SignUp() {
     formState: { errors },
     handleSubmit,
     register,
+    watch,
   } = useForm<Props>()
 
   const onSubmit = (data: Props) => {
     console.log('Submitted data:', data)
     console.log(errors)
   }
+  const password = watch('Password')
 
   return (
     <AuthorizationContainer>
@@ -59,6 +63,7 @@ export default function SignUp() {
           errorMessage={errors.Password?.message}
           label={'Password'}
           propsClassName={styles.input}
+          type={'password'}
           {...register('Password', {
             //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
             maxLength: { message: 'Максимум 20 символов', value: 20 },
@@ -70,8 +75,18 @@ export default function SignUp() {
             required: 'Поле обязательно для заполнения',
           })}
         />
+        <Input
+          errorMessage={errors.confirmPassword?.message}
+          label={'Password confirmation'}
+          propsClassName={styles.input}
+          type={'password'}
+          {...register('confirmPassword', {
+            //TODO бага с maxLength что бы работало надо поставить ниже minLength. При сохранении происходит изменение
+            required: 'Подтверждение пароля обязательно',
+            validate: value => value === password || 'Пароли не совпадают',
+          })}
+        />
 
-        <button type={'submit'}>Отправить</button>
         <Button>Sign Up</Button>
       </form>
     </AuthorizationContainer>

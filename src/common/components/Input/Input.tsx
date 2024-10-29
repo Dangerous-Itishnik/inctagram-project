@@ -17,7 +17,7 @@ export type InputProps = {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ errorMessage, label, onChange, onFocus, propsClassName, type, ...inputProps }, ref) => {
-    const [showText, setShowText] = useState(false)
+    const [showText, setShowText] = useState(true)
 
     const togglePasswordVisibility = () => {
       setShowText(prev => !prev)
