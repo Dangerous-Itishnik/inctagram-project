@@ -19,17 +19,21 @@ type Props = {
 export default function SignUp() {
   const {
     clearErrors,
-    formState: { errors, isValid },
-    getValues,
+    formState: { errors },
     handleSubmit,
     register,
+    reset,
+    watch,
   } = useForm<Props>({
     mode: 'onBlur',
   })
 
   const onSubmit = (data: Props) => {
-    console.log(data)
+    console.log(data, 'dsfsd')
+    reset()
   }
+
+  const password = watch('Password')
 
   return (
     <AuthorizationContainer>
@@ -44,7 +48,7 @@ export default function SignUp() {
             maxLength: { message: 'Max number of characters 30', value: 30 },
             minLength: { message: 'Minimum number of characters 6', value: 6 },
             onChange: () => {
-              clearErrors('UserName') // Убираем ошибку, если пользователь вводит что-то
+              clearErrors('UserName')
             },
             pattern: {
               message: 'Only Latin letters',
@@ -59,7 +63,7 @@ export default function SignUp() {
           propsClassName={styles.input}
           {...register('Email', {
             onChange: () => {
-              clearErrors('Email') // Убираем ошибку, если пользователь вводит что-то
+              clearErrors('Email')
             },
             pattern: {
               message: 'Please enter a valid email',
@@ -78,7 +82,7 @@ export default function SignUp() {
             maxLength: { message: 'Max number of characters 20', value: 20 },
             minLength: { message: 'Minimum number of characters 6', value: 6 },
             onChange: () => {
-              clearErrors('Password') // Убираем ошибку, если пользователь вводит что-то
+              clearErrors('Password')
             },
             pattern: {
               message: 'Only Latin letters, numbers and special characters',
@@ -94,16 +98,10 @@ export default function SignUp() {
           type={'password'}
           {...register('confirmPassword', {
             onChange: () => {
-              clearErrors('confirmPassword') // Убираем ошибку, если пользователь вводит что-то
+              clearErrors('confirmPassword')
             },
             required: 'Password confirmation is required',
-            validate: {
-              matchesPreviousPassword: value => {
-                const { Password } = getValues() // Получаем значения всех полей
-
-                return value.trim() === Password || 'Пароли не совпадают'
-              },
-            },
+            validate: value => value === password || 'Пароли не совпадают',
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
@@ -114,9 +112,7 @@ export default function SignUp() {
             <Link href={''}>Privacy Policy</Link>
           </p>
         </Flex>
-        <Button className={styles.button} disabled={!isValid}>
-          Sign Up
-        </Button>
+        <Button className={styles.button}>Sign Up</Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
 
