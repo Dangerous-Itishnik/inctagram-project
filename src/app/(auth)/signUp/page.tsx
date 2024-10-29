@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
-import { Checkbox, Flex, Theme } from '@radix-ui/themes'
+import { Checkbox, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './styles.module.scss'
@@ -110,7 +110,7 @@ export default function SignUp() {
           Sign Up
         </Button>
         <Flex gap={'2'} justify={'center'}>
-          <Checkbox color={'gray'} defaultChecked size={'3'} variant={'surface'} />
+          <Checkbox color={'gray'} defaultChecked required size={'3'} variant={'surface'} />
 
           <p className={styles.checkboxText}>
             I agree to the
