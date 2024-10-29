@@ -22,7 +22,9 @@ export default function SignUp() {
     watch,
   } = useForm<Props>()
 
-  const onSubmit = (data: Props) => {}
+  const onSubmit = (data: Props) => {
+    console.log(data)
+  }
   const password = watch('Password')
 
   return (
