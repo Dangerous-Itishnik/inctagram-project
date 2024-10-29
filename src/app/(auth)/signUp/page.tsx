@@ -69,7 +69,7 @@ export default function SignUp() {
         />
 
         <button type={'submit'}>Отправить</button>
-        <Button disabled={false}>Sign Up</Button>
+        <Button>Sign Up</Button>
       </form>
     </AuthorizationContainer>
   )

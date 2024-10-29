@@ -13,6 +13,7 @@ import s from './button.module.scss'
 
 type ButtonOwnProps<T extends ElementType> = {
   as?: T
+  type?: 'button' | 'reset' | 'submit'
   variant?: 'icon' | 'link' | 'outline' | 'primary' | 'secondary'
 }
 
