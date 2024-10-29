@@ -106,18 +106,17 @@ export default function SignUp() {
             },
           })}
         />
+        <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
+          <Checkbox color={'indigo'} defaultChecked required size={'2'} variant={'surface'} />
+
+          <p className={styles.checkboxText}>
+            I agree to the <Link href={''}>Terms of Service</Link> and{' '}
+            <Link href={''}>Privacy Policy</Link>
+          </p>
+        </Flex>
         <Button className={styles.button} disabled={!isValid}>
           Sign Up
         </Button>
-        <Flex gap={'2'} justify={'center'}>
-          <Checkbox color={'gray'} defaultChecked required size={'3'} variant={'surface'} />
-
-          <p className={styles.checkboxText}>
-            I agree to the
-            <Link href={''}>Terms of Service</Link>
-            and <Link href={''}>Privacy Policy</Link>
-          </p>
-        </Flex>
       </form>
       <p className={styles.text}>Do you have an account?</p>
 
