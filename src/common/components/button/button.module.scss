@@ -9,6 +9,10 @@
 
   border-style: none;
   border-radius: 2px;
+
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .primary {
