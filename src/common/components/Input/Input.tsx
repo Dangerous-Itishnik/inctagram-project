@@ -27,16 +27,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       type === 'search' ? `${styles.input} ${styles.inputSearch}` : styles.input
 
     const inputType = type === 'password' && showText ? 'password' : 'text'
-    const buttonType =
-      type === 'password' ? (
+
+    let buttonType = null
+
+    if (type === 'password') {
+      buttonType = (
         <button
           className={styles.button}
           onClick={togglePasswordVisibility}
           type={'button'}
         ></button>
-      ) : type === 'search' ? (
+      )
+    } else if (type === 'search') {
+      buttonType = (
         <button className={styles.buttonSearch} onClick={() => {}} type={'button'}></button>
-      ) : null
+      )
+    }
 
     return (
       <div
@@ -46,13 +52,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {label}
         </label>
         <input
-          ref={ref}
-          {...inputProps}
           className={classNameInput}
           name={label}
           onChange={onChange}
           onFocus={onFocus}
+          ref={ref}
           type={inputType}
+          {...inputProps}
         ></input>
         <p className={styles.errorMessage}>{errorMessage}</p>
         {/*{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}*/}

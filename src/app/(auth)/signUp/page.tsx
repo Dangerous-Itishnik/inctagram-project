@@ -29,7 +29,7 @@ export default function SignUp() {
   })
 
   const onSubmit = (data: Props) => {
-    console.log(data, 'dsfsd')
+    console.log('SIGN UP 😎', data)
     reset()
   }
 
@@ -99,7 +99,7 @@ export default function SignUp() {
               clearErrors('confirmPassword')
             },
             required: 'Password confirmation is required',
-            validate: value => value === password || 'Пароли не совпадают',
+            validate: value => value === password || 'The passwords must match',
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
@@ -110,7 +110,7 @@ export default function SignUp() {
             <Link href={''}>Privacy Policy</Link>
           </p>
         </Flex>
-        <Button className={styles.button} disabled={!isValid}>
+        <Button className={styles.button} disabled={!isValid} type={'submit'}>
           Sign Up
         </Button>
       </form>
@@ -122,4 +122,3 @@ export default function SignUp() {
     </AuthorizationContainer>
   )
 }
-//TODO В Input  confirmPassword неправильно работает валидация
