@@ -1,0 +1,72 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  max-width: 220px;
+  align-items: center;
+
+  &Wrapper {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    padding: 72px 0 36px;
+    width: max-content;
+  }
+
+  &WrapperSpan {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    height: 24px;
+  }
+  &MenuItem {
+    width: max-content;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover path {
+      color: var(--color-accent-100);
+      fill: var(--color-accent-100);
+    }
+
+    &:focus {
+      outline: none;
+    }
+    &:not(.disabled):focus {
+      outline: 2px solid var(--color-accent-500);
+      border-radius: 2px;
+    }
+    &:nth-child(5) {
+      margin-bottom: 36px;
+    }
+    &:nth-child(7) {
+      margin-bottom: 156px;
+    }
+    &:hover {
+      color: var(--color-accent-100);
+    }
+  }
+}
+
+.sidebar .active {
+  color:var(--color-accent-500);
+  font-weight: var(--font-weight-bold);
+  &:hover {
+    color: var(--color-accent-100) ;
+  }
+}
+
+
+.icon {
+
+}
+
+.label {
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+}
+
+.disabled {
+  color: var(--color-dark-100);
+  pointer-events: none;
+  cursor: not-allowed;
+}
