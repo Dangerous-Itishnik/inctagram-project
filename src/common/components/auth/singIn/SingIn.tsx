@@ -2,9 +2,12 @@
 
 import { useForm } from 'react-hook-form'
 
+import { GitHubSvg } from '@/assets/icons/github'
+import { GoogleSvg } from '@/assets/icons/google'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button'
+import { Typography } from '@/common/components/typography'
 import Link from 'next/link'
 
 import styles from './singIn.module.scss'
@@ -31,7 +34,15 @@ export default function SignIn({ onSubmit }: SignInProps) {
 
   return (
     <AuthorizationContainer>
-      <h2 className={styles.title}>Sign In</h2>
+      <Typography variant={'h1'}>Sign In</Typography>
+      <div className={styles.auth_icons}>
+        <Button variant={'link'}>
+          <GoogleSvg />
+        </Button>
+        <Button variant={'link'}>
+          <GitHubSvg />
+        </Button>
+      </div>
       <form
         className={styles.form}
         onSubmit={handleSubmit(data => {
@@ -71,12 +82,18 @@ export default function SignIn({ onSubmit }: SignInProps) {
         />
         <div className={styles.container}>
           <div className={styles.linkContainer}>
-            <Button as={Link} href={'/forgot-password'} variant={'link'}>
+            <Typography as={Link} href={'/forgot-password'} variant={'body2'}>
               Forgot Password
+            </Typography>
+          </div>
+          <Button type={'submit'}>Sign In</Button>
+          <div className={styles.centerTextContainer}>
+            <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
+            <Button as={Link} href={'/signUp'} variant={'link'}>
+              Sign Up
             </Button>
           </div>
         </div>
-        <Button type={'submit'}>Sign In</Button>
       </form>
     </AuthorizationContainer>
   )
