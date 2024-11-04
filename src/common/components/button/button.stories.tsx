@@ -6,7 +6,7 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'radio' },
-      options: ['primary', 'secondary', 'tertiary', 'link'],
+      options: ['primary', 'secondary', 'outline', 'link'],
     },
   },
   component: Button,
