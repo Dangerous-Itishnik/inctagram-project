@@ -40,8 +40,7 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
       <form
         className={styles.form}
         onSubmit={handleSubmit(data => {
-          console.log('SIGN UP 😎', data)
-          onSubmit?.(data)
+          onSubmit(data)
           reset()
         })}
       >
@@ -89,8 +88,12 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
               clearErrors('Password')
             },
             pattern: {
-              message: 'Only Latin letters, numbers and special characters',
-              value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
+              message: `The password must contain:
+              \n- one digit (0-9),
+              \n- one uppercase and lowercase letter (A-Z)
+              \n- one special character: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ { | } ~\`.\``,
+              value:
+                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~]).{8,}$/,
             },
             required: 'This field is required',
           })}

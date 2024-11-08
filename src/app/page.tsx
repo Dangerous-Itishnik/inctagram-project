@@ -1,7 +1,5 @@
 import '@/styles/index.scss'
 
-import { Button } from '../common/components/button'
-
 export default function Home() {
   return (
     <>

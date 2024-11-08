@@ -1,11 +1,20 @@
 'use client'
 
+import { useSignUpMutation } from '@/features/auth/signUp/api/signUpApi'
 import SignUp, { SignUpProps } from '@/features/auth/signUp/ui/SignUp'
 
-function handleSubmit(data: SignUpProps) {
-  console.log('Form submitted:', data)
-}
-
 export default function SignUpPage() {
-  return <SignUp onSubmit={handleSubmit} />
+  const [signUp] = useSignUpMutation()
+
+  const signUpHandler = (data: SignUpProps) => {
+    const signUpData = {
+      email: data.Email,
+      password: data.Password,
+      userName: data.UserName,
+    }
+
+    signUp(signUpData)
+  }
+
+  return <SignUp onSubmit={signUpHandler} />
 }
