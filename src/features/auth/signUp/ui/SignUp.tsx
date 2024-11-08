@@ -70,7 +70,7 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
               clearErrors('Email')
             },
             pattern: {
-              message: 'Please enter a valid email',
+              message: 'The email must match the format example@example.com',
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             },
             required: 'This field is required',
@@ -88,10 +88,8 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
               clearErrors('Password')
             },
             pattern: {
-              message: `The password must contain:
-              \n- one digit (0-9),
-              \n- one uppercase and lowercase letter (A-Z)
-              \n- one special character: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ { | } ~\`.\``,
+              message:
+                'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~',
               value:
                 /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~]).{8,}$/,
             },
