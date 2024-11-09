@@ -11,7 +11,7 @@ import styles from '@/common/components/popUp/popUp.module.scss'
 
 export default function SignUpPage() {
   const [signUp] = useSignUpMutation()
-  const [isPopUpOpen, setIsPopUpOpen] = useState(true)
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
 
   const signUpHandler = (data: SignUpProps) => {
