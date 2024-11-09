@@ -1,10 +1,18 @@
 'use client'
 
+import { useState } from 'react'
+
+import { Button } from '@/common/components/button'
+import PopUp from '@/common/components/popUp/PopUp'
 import { useSignUpMutation } from '@/features/auth/signUp/api/signUpApi'
 import SignUp, { SignUpProps } from '@/features/auth/signUp/ui/SignUp'
 
+import styles from '@/common/components/popUp/popUp.module.scss'
+
 export default function SignUpPage() {
   const [signUp] = useSignUpMutation()
+  const [isPopUpOpen, setIsPopUpOpen] = useState(true)
+  const [signUpEmail, setSignUpEmail] = useState('')
 
   const signUpHandler = (data: SignUpProps) => {
     const signUpData = {
@@ -14,7 +22,29 @@ export default function SignUpPage() {
     }
 
     signUp(signUpData)
+    setIsPopUpOpen(true)
+    setSignUpEmail(data.Email)
   }
 
-  return <SignUp onSubmit={signUpHandler} />
+  const closePopUp = () => {
+    setIsPopUpOpen(false)
+  }
+
+  return (
+    <>
+      <SignUp onSubmit={signUpHandler} />
+      {isPopUpOpen && (
+        <PopUp onClose={closePopUp} title={'Email sent'}>
+          <p>
+            We have sent a link to confirm your email to
+            <br />
+            {signUpEmail}
+          </p>
+          <Button className={styles.okButton} onClick={closePopUp}>
+            OK
+          </Button>
+        </PopUp>
+      )}
+    </>
+  )
 }
