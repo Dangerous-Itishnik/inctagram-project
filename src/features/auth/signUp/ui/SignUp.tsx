@@ -40,8 +40,7 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
       <form
         className={styles.form}
         onSubmit={handleSubmit(data => {
-          console.log('SIGN UP 😎', data)
-          onSubmit?.(data)
+          onSubmit(data)
           reset()
         })}
       >
@@ -71,7 +70,7 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
               clearErrors('Email')
             },
             pattern: {
-              message: 'Please enter a valid email',
+              message: 'The email must match the format example@example.com',
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             },
             required: 'This field is required',
@@ -89,8 +88,10 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
               clearErrors('Password')
             },
             pattern: {
-              message: 'Only Latin letters, numbers and special characters',
-              value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
+              message:
+                'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~',
+              value:
+                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~]).{8,}$/,
             },
             required: 'This field is required',
           })}
