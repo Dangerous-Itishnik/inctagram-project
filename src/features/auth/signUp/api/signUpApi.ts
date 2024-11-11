@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { ArgSignUpType, SignUpResponseType } from './signUp.types'
+import { ArgConfirmationCode, ArgSignUp, AuthResponse } from './signUp.types'
 
 export const signUpApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -9,7 +9,16 @@ export const signUpApi = createApi({
 
   endpoints: build => {
     return {
-      signUp: build.mutation<SignUpResponseType, ArgSignUpType>({
+      registrationConfirmation: build.mutation<AuthResponse, ArgConfirmationCode>({
+        query: confirmationCode => {
+          return {
+            body: confirmationCode,
+            method: 'POST',
+            url: 'auth/registration-confirmation',
+          }
+        },
+      }),
+      signUp: build.mutation<AuthResponse, ArgSignUp>({
         query: data => {
           return {
             body: data,
@@ -24,4 +33,4 @@ export const signUpApi = createApi({
   reducerPath: 'signUpApi',
 })
 
-export const { useSignUpMutation } = signUpApi
+export const { useRegistrationConfirmationMutation, useSignUpMutation } = signUpApi

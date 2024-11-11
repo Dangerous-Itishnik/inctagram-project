@@ -1,16 +1,20 @@
-export type SignUpResponseType = {
-  error: 'string'
-  messages: [
-    {
-      field: 'string'
-      message: 'string'
-    },
-  ]
+type Message = {
+  field: string
+  message: string
+}
+
+export type AuthResponse = {
+  error: string
+  messages: Message[]
   statusCode: number
 }
 
-export type ArgSignUpType = {
+export type ArgSignUp = {
   email: string
   password: string
   userName: string
+}
+
+export type ArgConfirmationCode = {
+  confirmationCode: string
 }
