@@ -13,8 +13,8 @@ import Link from 'next/link'
 import styles from './singIn.module.scss'
 
 export type PropsSingIn = {
-  Email: string
   Password: string
+  UserName: string
 }
 
 export type SignInProps = {
@@ -52,17 +52,14 @@ export default function SignIn({ onSubmit }: SignInProps) {
         })}
       >
         <Input
-          errorMessage={errors.Email?.message}
-          label={'Email'}
+          errorMessage={errors.UserName?.message}
+          label={'UserName'}
           propsClassName={styles.input}
-          {...register('Email', {
-            onChange: () => {
-              clearErrors('Email')
-            },
-            pattern: {
-              message: 'The email must match the format example@example.com',
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            },
+          {...register('UserName', {
+            maxLength: { message: 'Max number of characters 30', value: 30 },
+            minLength: { message: 'Minimum number of characters 6', value: 6 },
+            onChange: () => clearErrors('UserName'),
+            pattern: { message: 'Only Latin letters', value: /^[A-Za-z0-9_-]+$/ },
             required: 'This field is required',
           })}
         />
