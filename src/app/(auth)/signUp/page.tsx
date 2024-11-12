@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
+import { AuthBaseResponse } from '@/features/auth/signUp/api/signUp.types'
 import { useSignUpMutation } from '@/features/auth/signUp/api/signUpApi'
 import SignUp, { SignUpProps } from '@/features/auth/signUp/ui/SignUp'
 
@@ -13,32 +14,47 @@ export default function SignUpPage() {
   const [signUp] = useSignUpMutation()
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
+  const [onSubmitError, setOnSubmitError] = useState({})
 
-  const signUpHandler = (data: SignUpProps) => {
+  const signUpHandler = async (data: SignUpProps) => {
     const signUpData = {
       email: data.Email,
       password: data.Password,
       userName: data.UserName,
     }
 
-    signUp(signUpData)
-      .unwrap()
-      .then(() => {
-        setIsPopUpOpen(true)
-        setSignUpEmail(data.Email)
-      })
-      .catch(error => {
-        console.error('Sign up failed:', error)
-      })
+    try {
+      const result = await signUp(signUpData).unwrap()
+
+      setIsPopUpOpen(true)
+      setSignUpEmail(data.Email)
+
+      return result
+    } catch (error) {
+      const authError = error as AuthBaseResponse
+
+      if (authError.data?.messages) {
+        setOnSubmitError(authError.data.messages[0])
+      }
+      throw error
+    }
   }
 
   const closePopUp = () => {
     setIsPopUpOpen(false)
   }
 
+  const clearErrorOnChange = () => {
+    setOnSubmitError({})
+  }
+
   return (
     <>
-      <SignUp onSubmit={signUpHandler} />
+      <SignUp
+        clearErrorOnChange={clearErrorOnChange}
+        onSubmit={signUpHandler}
+        onSubmitError={onSubmitError}
+      />
       {isPopUpOpen && (
         <PopUp onClose={closePopUp} title={'Email sent'}>
           <p>
