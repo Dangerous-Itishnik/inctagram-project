@@ -22,8 +22,14 @@ export default function SignUpPage() {
     }
 
     signUp(signUpData)
-    setIsPopUpOpen(true)
-    setSignUpEmail(data.Email)
+      .unwrap()
+      .then(() => {
+        setIsPopUpOpen(true)
+        setSignUpEmail(data.Email)
+      })
+      .catch(error => {
+        console.error('Sign up failed:', error)
+      })
   }
 
   const closePopUp = () => {
