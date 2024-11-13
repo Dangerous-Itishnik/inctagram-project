@@ -2,13 +2,13 @@
 
 import { useForm } from 'react-hook-form'
 
-import { useAppDispatch } from '@/app/store/store'
 import { GitHubSvg } from '@/assets/icons/github'
 import { GoogleSvg } from '@/assets/icons/google'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button'
 import { Typography } from '@/common/components/typography'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useLogInMutation } from '@/features/auth/signIn/api/signInApi'
 import { setCredentials } from '@/features/auth/signIn/model/authSlice'
 import Link from 'next/link'

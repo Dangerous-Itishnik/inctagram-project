@@ -1,3 +1,3 @@
-import { RootState, useAppSelector } from '@/app/store/store'
+import { RootState } from '@/app/store/store'
 
-export const selectorToken = useAppSelector((state: RootState) => state.auth.token)
+export const selectorToken = (state: RootState) => state.auth.token

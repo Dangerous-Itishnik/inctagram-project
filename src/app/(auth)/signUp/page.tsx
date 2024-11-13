@@ -13,7 +13,6 @@ export default function SignUpPage() {
   const [signUp] = useSignUpMutation()
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
-
   const signUpHandler = (data: SignUpProps) => {
     const signUpData = {
       email: data.Email,
@@ -25,7 +24,6 @@ export default function SignUpPage() {
     setIsPopUpOpen(true)
     setSignUpEmail(data.Email)
   }
-
   const closePopUp = () => {
     setIsPopUpOpen(false)
   }

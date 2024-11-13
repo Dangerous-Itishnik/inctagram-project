@@ -4,8 +4,11 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { selectorIsAuthenticated } from '@/features/createAccount/model/useSelectorsCreateAccount'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import styles from './SignUp.module.scss'
 
@@ -31,8 +34,13 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
   } = useForm<SignUpProps>({
     mode: 'onBlur',
   })
-
+  const router = useRouter()
   const password = watch('Password')
+  const isAuthenticated = useAppSelector(selectorIsAuthenticated)
+
+  if (isAuthenticated) {
+    return router.push('/createAccount')
+  }
 
   return (
     <AuthorizationContainer>

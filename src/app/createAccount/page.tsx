@@ -2,11 +2,13 @@
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store/store'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { selectorIsAuthenticated } from '@/features/createAccount/model/useSelectorsCreateAccount'
+import { CreateAccount } from '@/features/createAccount/ui/CreateAccount'
 import { useRouter } from 'next/navigation'
 
-const CreateAccount = () => {
-  //TODO вынести useSelector
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
+const CreateAccountPage = () => {
+  const isAuthenticated = useAppSelector(selectorIsAuthenticated)
 
   const router = useRouter()
 
@@ -14,7 +16,7 @@ const CreateAccount = () => {
     return router.push('/signIn')
   }
 
-  return <div>CreateAccount</div>
+  return <CreateAccount />
 }
 
-export default CreateAccount
+export default CreateAccountPage

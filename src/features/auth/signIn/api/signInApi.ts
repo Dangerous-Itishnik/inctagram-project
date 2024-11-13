@@ -1,12 +1,14 @@
+import { createSelectorHook } from 'react-redux'
+
 import { RootState } from '@/app/store/store'
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, reactHooksModule } from '@reduxjs/toolkit/query/react'
+import { createSelector } from 'reselect'
 
 export const signInApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
-      const state = getState() as RootState
-      const token = state.auth.token
+      const token = localStorage.getItem('authToken')
 
       if (token) {
         headers.set('Authorization', `Bearer ${token}`)

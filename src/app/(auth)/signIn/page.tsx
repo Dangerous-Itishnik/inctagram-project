@@ -1,20 +1,28 @@
 'use client'
 
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
-import { RootState } from '@/app/store/store'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { setCredentials } from '@/features/auth/signIn/model/authSlice'
+import { selectorToken } from '@/features/auth/signIn/model/signInSelectors'
 import SignIn from '@/features/auth/signIn/ui/SingIn'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
   //TODO вынести useSelector
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
-
+  const isAuthenticated = useAppSelector(selectorToken)
+  const dispatch = useAppDispatch()
   const router = useRouter()
 
-  if (isAuthenticated) {
-    return router.push('/createAccount')
-  }
+  useEffect(() => {
+    const token = localStorage.getItem('authToken')
+
+    if (token) {
+      dispatch(setCredentials({ token }))
+      router.push('/createAccount') // Перенаправление, если токен найден
+    }
+  }, [dispatch, router])
 
   return <SignIn />
 }
