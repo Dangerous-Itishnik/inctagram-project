@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
+import { Typography } from '@/common/components/typography'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
@@ -18,13 +19,17 @@ export type SignUpProps = {
   confirmPassword: string
 }
 
-export type OnSubmitProps = {
-  clearErrorOnChange: () => void
+type OnSubmitProps = {
+  clearEmailAndUserNameError: () => void
   onSubmit: (data: SignUpProps) => void
   onSubmitError: Message
 }
 
-export default function SignUp({ clearErrorOnChange, onSubmit, onSubmitError }: OnSubmitProps) {
+export default function SignUp({
+  clearEmailAndUserNameError,
+  onSubmit,
+  onSubmitError,
+}: OnSubmitProps) {
   const {
     clearErrors,
     formState: { errors, isValid },
@@ -40,7 +45,7 @@ export default function SignUp({ clearErrorOnChange, onSubmit, onSubmitError }: 
 
   return (
     <AuthorizationContainer>
-      <h2 className={styles.title}>Sign Up</h2>
+      <Typography variant={'h1'}>Sign Up</Typography>
       <form
         className={styles.form}
         onSubmit={handleSubmit(async data => {
@@ -60,7 +65,7 @@ export default function SignUp({ clearErrorOnChange, onSubmit, onSubmitError }: 
             minLength: { message: 'Minimum number of characters 6', value: 6 },
             onChange: () => {
               clearErrors('UserName')
-              clearErrorOnChange()
+              clearEmailAndUserNameError()
             },
             pattern: {
               message: 'Only Latin letters',
@@ -78,7 +83,7 @@ export default function SignUp({ clearErrorOnChange, onSubmit, onSubmitError }: 
           {...register('Email', {
             onChange: () => {
               clearErrors('Email')
-              clearErrorOnChange()
+              clearEmailAndUserNameError()
             },
             pattern: {
               message: 'The email must match the format example@example.com',

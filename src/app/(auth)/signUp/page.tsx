@@ -44,14 +44,14 @@ export default function SignUpPage() {
     setIsPopUpOpen(false)
   }
 
-  const clearErrorOnChange = () => {
+  const clearEmailAndUserNameError = () => {
     setOnSubmitError({})
   }
 
   return (
     <>
       <SignUp
-        clearErrorOnChange={clearErrorOnChange}
+        clearEmailAndUserNameError={clearEmailAndUserNameError}
         onSubmit={signUpHandler}
         onSubmitError={onSubmitError}
       />
