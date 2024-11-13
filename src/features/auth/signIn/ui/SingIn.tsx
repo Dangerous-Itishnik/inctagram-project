@@ -2,26 +2,25 @@
 
 import { useForm } from 'react-hook-form'
 
+import { useAppDispatch } from '@/app/store/store'
 import { GitHubSvg } from '@/assets/icons/github'
 import { GoogleSvg } from '@/assets/icons/google'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button'
 import { Typography } from '@/common/components/typography'
+import { useLogInMutation } from '@/features/auth/signIn/api/signInApi'
+import { setCredentials } from '@/features/auth/signIn/model/authSlice'
 import Link from 'next/link'
 
 import styles from './singIn.module.scss'
 
 export type PropsSingIn = {
-  Password: string
-  UserName: string
+  email: string
+  password: string
 }
 
-export type SignInProps = {
-  onSubmit: (data: PropsSingIn) => void
-}
-
-export default function SignIn({ onSubmit }: SignInProps) {
+export default function SignIn() {
   const {
     clearErrors,
     formState: { errors },
@@ -31,6 +30,19 @@ export default function SignIn({ onSubmit }: SignInProps) {
   } = useForm<PropsSingIn>({
     mode: 'onBlur',
   })
+  const dispatch = useAppDispatch()
+  const [login] = useLogInMutation()
+
+  const loginHandle = async (data: PropsSingIn) => {
+    try {
+      const userData: { accessToken: string } = await login(data).unwrap()
+
+      dispatch(setCredentials({ token: userData.accessToken }))
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <AuthorizationContainer>
@@ -46,32 +58,33 @@ export default function SignIn({ onSubmit }: SignInProps) {
       <form
         className={styles.form}
         onSubmit={handleSubmit(data => {
-          console.log('handleSubmit')
-          onSubmit?.(data)
-          reset()
+          loginHandle(data)
         })}
       >
         <Input
-          errorMessage={errors.UserName?.message}
-          label={'UserName'}
+          errorMessage={errors.email?.message}
+          label={'Email'}
           propsClassName={styles.input}
-          {...register('UserName', {
-            maxLength: { message: 'Max number of characters 30', value: 30 },
-            minLength: { message: 'Minimum number of characters 6', value: 6 },
-            onChange: () => clearErrors('UserName'),
-            pattern: { message: 'Only Latin letters', value: /^[A-Za-z0-9_-]+$/ },
+          {...register('email', {
+            onChange: () => {
+              clearErrors('email')
+            },
+            pattern: {
+              message: 'The email must match the format example@example.com',
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            },
             required: 'This field is required',
           })}
         />
         <Input
-          errorMessage={errors.Password?.message}
+          errorMessage={errors.password?.message}
           label={'Password'}
           propsClassName={styles.input}
           type={'password'}
-          {...register('Password', {
+          {...register('password', {
             maxLength: { message: 'Max number of characters 20', value: 20 },
             minLength: { message: 'Minimum number of characters 6', value: 6 },
-            onChange: () => clearErrors('Password'),
+            onChange: () => clearErrors('password'),
             pattern: {
               message: 'Only Latin letters, numbers and special characters',
               value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
