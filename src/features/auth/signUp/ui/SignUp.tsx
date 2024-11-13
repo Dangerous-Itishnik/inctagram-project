@@ -25,6 +25,41 @@ type OnSubmitProps = {
   onSubmitError: Message
 }
 
+const USERNAME_MIN_LENGTH = 6
+const USERNAME_MAX_LENGTH = 30
+const PASSWORD_MIN_LENGTH = 6
+const PASSWORD_MAX_LENGTH = 20
+
+const USERNAME_PATTERN = /^[A-Za-z0-9_-]+$/
+const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const PASSWORD_PATTERN =
+  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~]).{8,}$/
+
+const USERNAME_ERROR_MESSAGES = {
+  maxLength: `Max number of characters ${USERNAME_MAX_LENGTH}`,
+  minLength: `Minimum number of characters ${USERNAME_MIN_LENGTH}`,
+  pattern: 'Only Latin letters',
+  required: 'This field is required',
+}
+
+const EMAIL_ERROR_MESSAGES = {
+  pattern: 'The email must match the format example@example.com',
+  required: 'This field is required',
+}
+
+const PASSWORD_ERROR_MESSAGES = {
+  maxLength: `Max number of characters ${PASSWORD_MAX_LENGTH}`,
+  minLength: `Minimum number of characters ${PASSWORD_MIN_LENGTH}`,
+  pattern:
+    'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~',
+  required: 'This field is required',
+}
+
+const CONFIRM_PASSWORD_ERROR_MESSAGES = {
+  required: 'Password confirmation is required',
+  validate: 'The passwords must match',
+}
+
 export default function SignUp({
   clearEmailAndUserNameError,
   onSubmit,
@@ -42,6 +77,13 @@ export default function SignUp({
   })
 
   const password = watch('Password')
+
+  const handleClearErrors = (fieldName: keyof SignUpProps) => {
+    clearErrors(fieldName)
+    if (fieldName === 'Email' || fieldName === 'UserName') {
+      clearEmailAndUserNameError()
+    }
+  }
 
   return (
     <AuthorizationContainer>
@@ -61,17 +103,11 @@ export default function SignUp({
           label={'UserName'}
           propsClassName={styles.input}
           {...register('UserName', {
-            maxLength: { message: 'Max number of characters 30', value: 30 },
-            minLength: { message: 'Minimum number of characters 6', value: 6 },
-            onChange: () => {
-              clearErrors('UserName')
-              clearEmailAndUserNameError()
-            },
-            pattern: {
-              message: 'Only Latin letters',
-              value: /^[A-Za-z0-9_-]+$/,
-            },
-            required: 'This field is required',
+            maxLength: { message: USERNAME_ERROR_MESSAGES.maxLength, value: USERNAME_MAX_LENGTH },
+            minLength: { message: USERNAME_ERROR_MESSAGES.minLength, value: USERNAME_MIN_LENGTH },
+            onChange: () => handleClearErrors('UserName'),
+            pattern: { message: USERNAME_ERROR_MESSAGES.pattern, value: USERNAME_PATTERN },
+            required: USERNAME_ERROR_MESSAGES.required,
           })}
         />
         <Input
@@ -81,15 +117,9 @@ export default function SignUp({
           label={'Email'}
           propsClassName={styles.input}
           {...register('Email', {
-            onChange: () => {
-              clearErrors('Email')
-              clearEmailAndUserNameError()
-            },
-            pattern: {
-              message: 'The email must match the format example@example.com',
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            },
-            required: 'This field is required',
+            onChange: () => handleClearErrors('Email'),
+            pattern: { message: EMAIL_ERROR_MESSAGES.pattern, value: EMAIL_PATTERN },
+            required: EMAIL_ERROR_MESSAGES.required,
           })}
         />
         <Input
@@ -98,18 +128,11 @@ export default function SignUp({
           propsClassName={styles.input}
           type={'password'}
           {...register('Password', {
-            maxLength: { message: 'Max number of characters 20', value: 20 },
-            minLength: { message: 'Minimum number of characters 6', value: 6 },
-            onChange: () => {
-              clearErrors('Password')
-            },
-            pattern: {
-              message:
-                'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~',
-              value:
-                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~]).{8,}$/,
-            },
-            required: 'This field is required',
+            maxLength: { message: PASSWORD_ERROR_MESSAGES.maxLength, value: PASSWORD_MAX_LENGTH },
+            minLength: { message: PASSWORD_ERROR_MESSAGES.minLength, value: PASSWORD_MIN_LENGTH },
+            onChange: () => handleClearErrors('Password'),
+            pattern: { message: PASSWORD_ERROR_MESSAGES.pattern, value: PASSWORD_PATTERN },
+            required: PASSWORD_ERROR_MESSAGES.required,
           })}
         />
         <Input
@@ -118,16 +141,13 @@ export default function SignUp({
           propsClassName={styles.input}
           type={'password'}
           {...register('confirmPassword', {
-            onChange: () => {
-              clearErrors('confirmPassword')
-            },
-            required: 'Password confirmation is required',
-            validate: value => value === password || 'The passwords must match',
+            onChange: () => handleClearErrors('confirmPassword'),
+            required: CONFIRM_PASSWORD_ERROR_MESSAGES.required,
+            validate: value => value === password || CONFIRM_PASSWORD_ERROR_MESSAGES.validate,
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
           <Checkbox color={'indigo'} defaultChecked required size={'2'} variant={'surface'} />
-
           <p className={styles.checkboxText}>
             I agree to the <Link href={''}>Terms of Service</Link> and{' '}
             <Link href={''}>Privacy Policy</Link>
@@ -138,7 +158,6 @@ export default function SignUp({
         </Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
-
       <Button as={'a'} href={'/signIn'} variant={'link'}>
         Sign In
       </Button>
