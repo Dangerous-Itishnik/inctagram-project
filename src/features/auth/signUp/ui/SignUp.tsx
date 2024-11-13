@@ -4,10 +4,13 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
+import { Typography } from '@/common/components/typography'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './SignUp.module.scss'
+
+import { Message } from '../api/signUp.types'
 
 export type SignUpProps = {
   Email: string
@@ -16,11 +19,17 @@ export type SignUpProps = {
   confirmPassword: string
 }
 
-export type OnSubmitProps = {
+type OnSubmitProps = {
+  clearEmailAndUserNameError: () => void
   onSubmit: (data: SignUpProps) => void
+  onSubmitError: Message
 }
 
-export default function SignUp({ onSubmit }: OnSubmitProps) {
+export default function SignUp({
+  clearEmailAndUserNameError,
+  onSubmit,
+  onSubmitError,
+}: OnSubmitProps) {
   const {
     clearErrors,
     formState: { errors, isValid },
@@ -36,16 +45,19 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
 
   return (
     <AuthorizationContainer>
-      <h2 className={styles.title}>Sign Up</h2>
+      <Typography variant={'h1'}>Sign Up</Typography>
       <form
         className={styles.form}
-        onSubmit={handleSubmit(data => {
-          onSubmit(data)
+        onSubmit={handleSubmit(async data => {
+          await onSubmit(data)
           reset()
         })}
       >
         <Input
-          errorMessage={errors.UserName?.message}
+          errorMessage={
+            errors.UserName?.message ||
+            (onSubmitError.field === 'userName' ? onSubmitError.message : '')
+          }
           label={'UserName'}
           propsClassName={styles.input}
           {...register('UserName', {
@@ -53,6 +65,7 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
             minLength: { message: 'Minimum number of characters 6', value: 6 },
             onChange: () => {
               clearErrors('UserName')
+              clearEmailAndUserNameError()
             },
             pattern: {
               message: 'Only Latin letters',
@@ -62,12 +75,15 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
           })}
         />
         <Input
-          errorMessage={errors.Email?.message}
+          errorMessage={
+            errors.Email?.message || (onSubmitError.field === 'email' ? onSubmitError.message : '')
+          }
           label={'Email'}
           propsClassName={styles.input}
           {...register('Email', {
             onChange: () => {
               clearErrors('Email')
+              clearEmailAndUserNameError()
             },
             pattern: {
               message: 'The email must match the format example@example.com',
