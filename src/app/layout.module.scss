@@ -18,11 +18,16 @@
   min-height: 60px;
   margin-bottom: 24px;
   padding: 12px 60px;
+
+  color: var(--color-light-100);
 }
 
 .main {
   display: flex;
   flex: 1 1 auto;
   justify-content: center;
+
   width: 100%;
+
+  color: var(--color-light-100);
 }

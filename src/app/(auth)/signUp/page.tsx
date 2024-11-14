@@ -1,22 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
 import { AuthBaseResponse } from '@/features/auth/signUp/api/signUp.types'
 import { useSignUpMutation } from '@/features/auth/signUp/api/signUpApi'
+import { useRegistrationMutation } from '@/features/auth/api/authApi'
 import SignUp, { SignUpProps } from '@/features/auth/signUp/ui/SignUp'
+import { useRouter } from 'next/navigation'
 
 import styles from '@/common/components/popUp/popUp.module.scss'
 
 export default function SignUpPage() {
-  const [signUp] = useSignUpMutation()
+  const [registration] = useRegistrationMutation()
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
   const [onSubmitError, setOnSubmitError] = useState({})
+  const [loading, setLoading] = useState(true)
+  const { push } = useRouter()
 
   const signUpHandler = async (data: SignUpProps) => {
+  useEffect(() => {
+    if (localStorage.getItem('authToken')) {
+      return push('/createAccount')
+    }
+    setLoading(false)
+  }, [push])
+  if (loading) {
+    return <div>Loading...</div>
+  }
+  const signUpHandler = (data: SignUpProps) => {
     const signUpData = {
       email: data.Email,
       password: data.Password,
@@ -25,7 +39,7 @@ export default function SignUpPage() {
 
     try {
       const result = await signUp(signUpData).unwrap()
-
+      registration(signUpData)
       setIsPopUpOpen(true)
       setSignUpEmail(data.Email)
 
@@ -39,7 +53,6 @@ export default function SignUpPage() {
       throw error
     }
   }
-
   const closePopUp = () => {
     setIsPopUpOpen(false)
   }

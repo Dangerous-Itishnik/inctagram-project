@@ -1,11 +1,26 @@
 'use client'
 
-import SignIn, { PropsSingIn } from '@/features/auth/signIn/ui/SingIn'
+import { useEffect, useState } from 'react'
 
-function handleSubmit(data: PropsSingIn) {
-  console.log('Form submitted:', data)
-}
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { useAuth } from '@/common/hooks/useAuth'
+import { setCredentials } from '@/features/auth/model/authSlice'
+import SignIn from '@/features/auth/signIn/ui/SingIn'
+import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
-  return <SignIn onSubmit={handleSubmit} />
+  const { push } = useRouter()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem('authToken')) {
+      return push('/createAccount')
+    }
+    setLoading(false)
+  }, [push])
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  return <SignIn />
 }
