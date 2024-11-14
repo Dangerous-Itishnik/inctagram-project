@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 
 import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
-import { AuthBaseResponse } from '@/features/auth/signUp/api/signUp.types'
-import { useSignUpMutation } from '@/features/auth/signUp/api/signUpApi'
 import { useRegistrationMutation } from '@/features/auth/api/authApi'
+import { AuthBaseResponse } from '@/features/auth/api/authApi.type'
 import SignUp, { SignUpProps } from '@/features/auth/signUp/ui/SignUp'
 import { useRouter } from 'next/navigation'
 
@@ -20,7 +19,6 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(true)
   const { push } = useRouter()
 
-  const signUpHandler = async (data: SignUpProps) => {
   useEffect(() => {
     if (localStorage.getItem('authToken')) {
       return push('/createAccount')
@@ -30,7 +28,8 @@ export default function SignUpPage() {
   if (loading) {
     return <div>Loading...</div>
   }
-  const signUpHandler = (data: SignUpProps) => {
+
+  const signUpHandler = async (data: SignUpProps) => {
     const signUpData = {
       email: data.Email,
       password: data.Password,
@@ -38,7 +37,8 @@ export default function SignUpPage() {
     }
 
     try {
-      const result = await signUp(signUpData).unwrap()
+      const result = await registration(signUpData).unwrap()
+
       registration(signUpData)
       setIsPopUpOpen(true)
       setSignUpEmail(data.Email)

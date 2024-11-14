@@ -74,8 +74,8 @@ export default function SignIn() {
       </div>
       <form
         className={styles.form}
-        onSubmit={handleSubmit(data => {
-          loginHandle(data)
+        onSubmit={handleSubmit(async data => {
+          await loginHandle(data)
         })}
       >
         <Input
