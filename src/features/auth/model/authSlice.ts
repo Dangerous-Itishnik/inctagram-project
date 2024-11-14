@@ -27,4 +27,4 @@ export const authSlice = createSlice({
   },
 })
 
-export const { deleteCredentials, setCredentials } = authSlice.actions
+export const { deleteCredentials, logout, setCredentials } = authSlice.actions
