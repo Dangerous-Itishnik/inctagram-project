@@ -1,8 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux'
-
-import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { signInApi } from '@/features/auth/signIn/api/signInApi'
-import { authSlice, setCredentials } from '@/features/auth/signIn/model/authSlice'
+import { authSlice } from '@/features/auth/signIn/model/authSlice'
 import { signUpApi } from '@/features/auth/signUp/api/signUpApi'
 import { setupListeners } from '@reduxjs/toolkit/query/react'
 import { configureStore } from '@reduxjs/toolkit/react'

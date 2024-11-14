@@ -9,6 +9,11 @@ export const authSlice = createSlice({
   initialState,
   name: 'auth',
   reducers: {
+    deleteCredentials: state => {
+      state.token = null
+      state.isAuthenticated = false
+      localStorage.delItem('authToken')
+    },
     logout: state => {
       state.token = null
       state.isAuthenticated = false
@@ -22,4 +27,4 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setCredentials } = authSlice.actions
+export const { deleteCredentials, setCredentials } = authSlice.actions

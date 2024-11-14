@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { GitHubSvg } from '@/assets/icons/github'
@@ -7,11 +8,13 @@ import { GoogleSvg } from '@/assets/icons/google'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button'
+import PopUp from '@/common/components/popUp/PopUp'
 import { Typography } from '@/common/components/typography'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useLogInMutation } from '@/features/auth/signIn/api/signInApi'
-import { setCredentials } from '@/features/auth/signIn/model/authSlice'
+import { deleteCredentials, setCredentials } from '@/features/auth/signIn/model/authSlice'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import styles from './singIn.module.scss'
 
@@ -32,6 +35,8 @@ export default function SignIn() {
   })
   const dispatch = useAppDispatch()
   const [login] = useLogInMutation()
+  const [authError, setAuthError] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const loginHandle = async (data: PropsSingIn) => {
     try {
@@ -40,8 +45,18 @@ export default function SignIn() {
       dispatch(setCredentials({ token: userData.accessToken }))
       reset()
     } catch (error) {
-      console.error(error)
+      setAuthError(true)
+      setErrorMessage('The email or password are incorrect. Try again please')
+      dispatch(deleteCredentials())
     }
+  }
+
+  if (authError) {
+    return (
+      <PopUp onClose={() => setAuthError(false)} title={'Error'}>
+        {errorMessage}
+      </PopUp>
+    )
   }
 
   return (
