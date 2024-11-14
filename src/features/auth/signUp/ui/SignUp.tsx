@@ -39,7 +39,7 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
   const isAuthenticated = useAppSelector(selectorIsAuthenticated)
 
   if (isAuthenticated) {
-    return push('/createAccount')
+    push('/createAccount')
   } else {
     return (
       <AuthorizationContainer>
@@ -129,7 +129,6 @@ export default function SignUp({ onSubmit }: OnSubmitProps) {
           </Button>
         </form>
         <p className={styles.text}>Do you have an account?</p>
-
         <Button as={'a'} href={'/signIn'} variant={'link'}>
           Sign In
         </Button>

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
-import { Auth } from '@/app/Auth'
+import { Auth } from '@/common/components/AuthConteiner/Auth'
 import { Theme } from '@radix-ui/themes'
 import Link from 'next/link'
 
