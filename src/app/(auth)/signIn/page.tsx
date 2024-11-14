@@ -1,25 +1,26 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { useAuth } from '@/common/hooks/useAuth'
 import { setCredentials } from '@/features/auth/model/authSlice'
 import SignIn from '@/features/auth/signIn/ui/SingIn'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
-  //TODO вынести useSelector
-  const dispatch = useAppDispatch()
-  const router = useRouter()
+  const { push } = useRouter()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken')
-
-    if (token) {
-      dispatch(setCredentials({ token }))
-      router.push('/createAccount')
+    if (localStorage.getItem('authToken')) {
+      return push('/createAccount')
     }
-  }, [dispatch, router])
+    setLoading(false)
+  }, [push])
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return <SignIn />
 }

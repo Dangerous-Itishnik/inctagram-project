@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
+import { Auth } from '@/app/Auth'
 import { Theme } from '@radix-ui/themes'
 import Link from 'next/link'
 
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Link href={'/profile'}>profile</Link>
           </header>
           <main className={styles.main}>
-            <Providers>{children}</Providers>
+            <Providers>
+              <Auth>{children}</Auth>
+            </Providers>
           </main>
         </Theme>
       </body>

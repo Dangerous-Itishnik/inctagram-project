@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
 import { useRegistrationMutation } from '@/features/auth/api/authApi'
 import SignUp, { SignUpProps } from '@/features/auth/signUp/ui/SignUp'
+import { useRouter } from 'next/navigation'
 
 import styles from '@/common/components/popUp/popUp.module.scss'
 
@@ -13,6 +14,18 @@ export default function SignUpPage() {
   const [registration] = useRegistrationMutation()
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
+  const [loading, setLoading] = useState(true)
+  const { push } = useRouter()
+
+  useEffect(() => {
+    if (localStorage.getItem('authToken')) {
+      return push('/createAccount')
+    }
+    setLoading(false)
+  }, [push])
+  if (loading) {
+    return <div>Loading...</div>
+  }
   const signUpHandler = (data: SignUpProps) => {
     const signUpData = {
       email: data.Email,

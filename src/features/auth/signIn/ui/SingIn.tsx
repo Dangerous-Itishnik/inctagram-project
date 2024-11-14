@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { GitHubSvg } from '@/assets/icons/github'
@@ -11,6 +11,7 @@ import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
 import { Typography } from '@/common/components/typography'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { useAuth } from '@/common/hooks/useAuth'
 import { useLogInMutation } from '@/features/auth/api/authApi'
 import { deleteCredentials, setCredentials } from '@/features/auth/model/authSlice'
 import Link from 'next/link'
@@ -34,6 +35,7 @@ export default function SignIn() {
     mode: 'onBlur',
   })
   const dispatch = useAppDispatch()
+  const { push } = useRouter()
   const [login] = useLogInMutation()
   const [authError, setAuthError] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -43,6 +45,7 @@ export default function SignIn() {
       const userData = await login(data).unwrap()
 
       dispatch(setCredentials({ token: userData.accessToken }))
+      push('/createAccount')
       reset()
     } catch (error) {
       setAuthError(true)
