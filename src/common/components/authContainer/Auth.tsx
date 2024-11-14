@@ -1,9 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-export const Auth = ({ children }: { children: React.ReactNode }) => {
+export const Auth = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
