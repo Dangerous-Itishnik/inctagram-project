@@ -11,8 +11,8 @@ import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
 import { Typography } from '@/common/components/typography'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { useLogInMutation } from '@/features/auth/signIn/api/signInApi'
-import { deleteCredentials, setCredentials } from '@/features/auth/signIn/model/authSlice'
+import { useLogInMutation } from '@/features/auth/api/authApi'
+import { deleteCredentials, setCredentials } from '@/features/auth/model/authSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -40,7 +40,7 @@ export default function SignIn() {
 
   const loginHandle = async (data: PropsSingIn) => {
     try {
-      const userData: { accessToken: string } = await login(data).unwrap()
+      const userData = await login(data).unwrap()
 
       dispatch(setCredentials({ token: userData.accessToken }))
       reset()

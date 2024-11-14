@@ -1,16 +1,13 @@
-import { signInApi } from '@/features/auth/signIn/api/signInApi'
-import { authSlice } from '@/features/auth/signIn/model/authSlice'
-import { signUpApi } from '@/features/auth/signUp/api/signUpApi'
+import { authApi } from '@/features/auth/api/authApi'
+import { authSlice } from '@/features/auth/model/authSlice'
 import { setupListeners } from '@reduxjs/toolkit/query/react'
 import { configureStore } from '@reduxjs/toolkit/react'
 
 export const store = configureStore({
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(signUpApi.middleware).concat(signInApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
   reducer: {
     auth: authSlice.reducer,
-    [signInApi.reducerPath]: signInApi.reducer,
-    [signUpApi.reducerPath]: signUpApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
 })
 

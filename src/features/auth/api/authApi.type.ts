@@ -14,6 +14,14 @@ export type ArgSignUp = {
   password: string
   userName: string
 }
+export type ArgLogin = {
+  email: string
+  password: string
+}
+
+export type LoginResponse = {
+  accessToken: string
+}
 
 export type ArgConfirmationCode = {
   confirmationCode: string

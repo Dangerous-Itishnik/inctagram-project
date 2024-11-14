@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { setCredentials } from '@/features/auth/signIn/model/authSlice'
+import { setCredentials } from '@/features/auth/model/authSlice'
 import SignIn from '@/features/auth/signIn/ui/SingIn'
 import { useRouter } from 'next/navigation'
 
