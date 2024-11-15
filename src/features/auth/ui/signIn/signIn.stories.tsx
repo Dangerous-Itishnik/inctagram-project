@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import SingIn, { SignInProps } from '@/features/auth/signIn/ui/SingIn'
+import SingIn, { SignInProps } from '@/features/auth/ui/signIn/SingIn'
 
 export default {
   argTypes: {

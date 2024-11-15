@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import SignIn from '@/features/auth/signIn/ui/SingIn'
+import SignIn from '@/features/auth/ui/signIn/SingIn'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {

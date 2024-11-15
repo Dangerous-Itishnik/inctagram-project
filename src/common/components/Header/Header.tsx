@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import { tokenSelector } from '@/common/components/Header/tokenSelector'
 import { Button } from '@/common/components/button'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
@@ -13,8 +15,10 @@ export const Header = () => {
   const dispatch = useAppDispatch()
   const { push } = useRouter()
   const token = useAppSelector(tokenSelector)
+  const [info, setInfo] = useState(false)
   const logoutHandle = () => {
     dispatch(logout())
+    setInfo(true)
     push('/signIn')
   }
 
