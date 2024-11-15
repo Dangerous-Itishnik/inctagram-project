@@ -13,8 +13,12 @@ export const Auth = ({ children }: { children: ReactNode }) => {
     if (!token) {
       router.push('/signIn')
     }
-    setLoading(false)
+    //TODO для того что бы не показывалась страница если ты не авторизован
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
   }, [router])
+
   if (loading) {
     return <div>Loading...</div>
   }

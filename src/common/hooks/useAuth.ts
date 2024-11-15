@@ -1,8 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-import { useAppSelector } from '@/common/hooks/useAppSelector'
-import { selectorIsAuthenticated } from '@/features/createAccount/model/useSelectorsCreateAccount'
 import { useRouter } from 'next/navigation'
 
 export const useAuth = () => {
