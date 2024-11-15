@@ -7,6 +7,7 @@ import { Button } from '@/common/components/button'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { logout } from '@/features/auth/model/authSlice'
+import PopUpAuth from '@/features/auth/ui/popUpAuth/PopUpAuth'
 import { useRouter } from 'next/navigation'
 
 import styles from '@/app/layout.module.scss'
@@ -17,9 +18,9 @@ export const Header = () => {
   const token = useAppSelector(tokenSelector)
   const [info, setInfo] = useState(false)
   const logoutHandle = () => {
-    dispatch(logout())
+    // dispatch(logout())
     setInfo(true)
-    push('/signIn')
+    // push('/signIn')
   }
 
   return (
@@ -37,10 +38,15 @@ export const Header = () => {
       <Button as={'a'} href={'/profile'}>
         profile
       </Button>
-      {token && (
+      {!token && (
         <Button as={'a'} onClick={logoutHandle}>
           log out
         </Button>
+      )}
+      {info && (
+        <PopUpAuth onClose={logoutHandle} title={'info'}>
+          Are you really want to log out of your account ___email name___?
+        </PopUpAuth>
       )}
     </header>
   )
