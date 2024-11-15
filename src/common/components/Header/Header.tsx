@@ -21,13 +21,6 @@ export const Header = () => {
   const token = useAppSelector(tokenSelector)
   const [info, setInfo] = useState(false)
 
-  useLayoutEffect(() => {
-    const storedToken = localStorage.getItem('authToken')
-
-    if (storedToken && !token) {
-      dispatch(setCredentials({ token: storedToken }))
-    }
-  }, [token, dispatch])
   const logoutHandle = () => {
     dispatch(logout())
     setInfo(false)
