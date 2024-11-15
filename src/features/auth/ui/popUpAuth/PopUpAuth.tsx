@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import { Button } from '@/common/components/button'
 
 import styles from './PopUpAuth.module.scss'
 
-type PopUpProps = {
-  children: React.ReactNode
+type Props = {
+  children: ReactNode
   onClose: () => void
   title: string
+  toExecute: () => void
 }
-const PopUpAuth = ({ children, onClose, title }: PopUpProps) => {
+const PopUpAuth = ({ children, onClose, title, toExecute }: Props) => {
   return (
     <div className={styles.popupContent}>
       <div className={styles.popupHeader}>
@@ -21,7 +22,7 @@ const PopUpAuth = ({ children, onClose, title }: PopUpProps) => {
       <div className={styles.popupBody}>
         <div className={styles.popupText}>{children}</div>
         <div className={styles.popupButtons}>
-          <Button className={styles.closeButton} onClick={onClose}>
+          <Button className={styles.closeButton} onClick={toExecute}>
             Yes
           </Button>
           <Button className={styles.closeButton} onClick={onClose}>

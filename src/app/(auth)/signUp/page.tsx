@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react'
 
+import { tokenSelector } from '@/common/components/Header/tokenSelector'
 import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { useRegistrationMutation } from '@/features/auth/api/authApi'
 import { AuthBaseResponse } from '@/features/auth/api/authApi.type'
 import SignUp, { SignUpProps } from '@/features/auth/ui/signUp/SignUp'
@@ -18,9 +20,10 @@ export default function SignUpPage() {
   const [onSubmitError, setOnSubmitError] = useState({})
   const [loading, setLoading] = useState(true)
   const { push } = useRouter()
+  const token = useAppSelector(tokenSelector)
 
   useEffect(() => {
-    if (localStorage.getItem('authToken')) {
+    if (token) {
       return push('/createAccount')
     }
     setLoading(false)
