@@ -14,9 +14,8 @@ export const Auth = ({ children }: { children: ReactNode }) => {
       router.push('/signIn')
     }
     //TODO для того что бы не показывалась страница если ты не авторизован
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
+
+    setLoading(false)
   }, [router])
 
   if (loading) {
