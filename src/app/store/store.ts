@@ -7,9 +7,9 @@ import { configureStore } from '@reduxjs/toolkit/react'
 const initialState = {
   auth: {
     email: null,
-    isAuthenticated: !!localStorage.getItem('authToken'),
+    isAuthenticated: typeof window !== 'undefined' && !!localStorage.getItem('authToken'),
     name: null,
-    token: localStorage.getItem('authToken') || null,
+    token: (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null,
   },
 }
 
