@@ -1,8 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-
 import { GitHubSvg } from '@/assets/icons/github'
 import { GoogleSvg } from '@/assets/icons/google'
 import { Input } from '@/common/components/Input/Input'
@@ -10,48 +7,22 @@ import { AuthorizationContainer } from '@/common/components/authorizationContain
 import { Button } from '@/common/components/button'
 import PopUp from '@/common/components/popUp/PopUp'
 import { Typography } from '@/common/components/typography'
-import { useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { useLogInMutation } from '@/features/auth/api/authApi'
-import { deleteCredentials, setCredentials } from '@/features/auth/model/authSlice'
+import { useSignIn } from '@/features/auth/ui/signIn/useSignIn'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 import styles from './singIn.module.scss'
 
-export type PropsSingIn = {
-  email: string
-  password: string
-}
-
 export default function SignIn() {
   const {
+    authError,
     clearErrors,
-    formState: { errors },
+    errorMessage,
+    errors,
     handleSubmit,
+    loginHandle,
     register,
-    reset,
-  } = useForm<PropsSingIn>({
-    mode: 'onBlur',
-  })
-  const dispatch = useAppDispatch()
-  const { push } = useRouter()
-  const [login] = useLogInMutation()
-  const [authError, setAuthError] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
-
-  const loginHandle = async (data: PropsSingIn) => {
-    try {
-      const userData = await login(data).unwrap()
-
-      dispatch(setCredentials({ token: userData.accessToken }))
-      push('/createAccount')
-      reset()
-    } catch (error) {
-      setAuthError(true)
-      setErrorMessage('The email or password are incorrect. Try again please')
-      dispatch(deleteCredentials())
-    }
-  }
+    setAuthError,
+  } = useSignIn()
 
   if (authError) {
     return (

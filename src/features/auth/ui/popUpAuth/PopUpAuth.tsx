@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { Button } from '@/common/components/button'
 
@@ -11,6 +11,7 @@ type Props = {
   toExecute: () => void
 }
 const PopUpAuth = ({ children, onClose, title, toExecute }: Props) => {
+  //TODO где хранить этот popup
   return (
     <div className={styles.popupContent}>
       <div className={styles.popupHeader}>
@@ -26,7 +27,7 @@ const PopUpAuth = ({ children, onClose, title, toExecute }: Props) => {
             Yes
           </Button>
           <Button className={styles.closeButton} onClick={onClose}>
-            no
+            No
           </Button>
         </div>
       </div>

@@ -63,6 +63,7 @@ export default function SignUp({
   onSubmit,
   onSubmitError,
 }: OnSubmitProps) {
+  //TODO зачем передовать callback
   const {
     clearErrors,
     formState: { errors, isValid },
