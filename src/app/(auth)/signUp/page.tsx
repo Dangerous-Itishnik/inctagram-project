@@ -27,7 +27,7 @@ export default function SignUpPage() {
       return push('/createAccount')
     }
     setLoading(false)
-  }, [push])
+  }, [push, token])
   if (loading) {
     return <div>Loading...</div>
   }
