@@ -15,6 +15,7 @@ export default function SignInPage() {
     }
     setLoading(false)
   }, [push])
+
   if (loading) {
     return <div>Loading...</div>
   }
