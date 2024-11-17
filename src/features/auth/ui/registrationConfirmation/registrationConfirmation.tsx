@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 import styles from './registrationConfirmation.module.scss'
 
-export default function RegistrationConfirmation() {
+export function RegistrationConfirmation() {
   return (
     <div className={styles.container}>
       <Typography variant={'h1'}>Congratulations!</Typography>

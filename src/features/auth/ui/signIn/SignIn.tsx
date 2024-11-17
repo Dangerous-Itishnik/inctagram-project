@@ -5,14 +5,14 @@ import { GoogleSvg } from '@/assets/icons/google'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button'
-import PopUp from '@/common/components/popUp/PopUp'
+import { PopUp } from '@/common/components/popUp'
 import { Typography } from '@/common/components/typography'
 import { useSignIn } from '@/features/auth/ui/signIn/useSignIn'
 import Link from 'next/link'
 
 import styles from './singIn.module.scss'
 
-export default function SignIn() {
+export function SignIn() {
   const {
     authError,
     clearErrors,

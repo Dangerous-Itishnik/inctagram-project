@@ -7,7 +7,7 @@ import { Button } from '@/common/components/button'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { logout } from '@/features/auth/model/authSlice'
-import PopUpAuth from '@/features/auth/ui/popUpAuth/PopUpAuth'
+import { PopUpAuth } from '@/features/auth/ui/popUpAuth/PopUpAuth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 

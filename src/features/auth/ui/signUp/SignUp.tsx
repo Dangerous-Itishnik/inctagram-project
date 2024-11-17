@@ -58,11 +58,7 @@ const CONFIRM_PASSWORD_ERROR_MESSAGES = {
   validate: 'The passwords must match',
 }
 
-export default function SignUp({
-  clearEmailAndUserNameError,
-  onSubmit,
-  onSubmitError,
-}: OnSubmitProps) {
+export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: OnSubmitProps) {
   //TODO зачем передовать callback
   const {
     clearErrors,

@@ -9,7 +9,7 @@ type PopUpProps = {
   onClose: () => void
   title: string
 }
-const PopUp = ({ children, onClose, title }: PopUpProps) => {
+export const PopUp = ({ children, onClose, title }: PopUpProps) => {
   return (
     <div className={styles.popupOverlay}>
       <div className={styles.popupContent}>
@@ -24,5 +24,3 @@ const PopUp = ({ children, onClose, title }: PopUpProps) => {
     </div>
   )
 }
-
-export default PopUp

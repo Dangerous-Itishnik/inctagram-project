@@ -10,7 +10,7 @@ type Props = {
   title: string
   toExecute: () => void
 }
-const PopUpAuth = ({ children, onClose, title, toExecute }: Props) => {
+export const PopUpAuth = ({ children, onClose, title, toExecute }: Props) => {
   //TODO где хранить этот popup
   return (
     <div className={styles.popupContent}>
@@ -34,5 +34,3 @@ const PopUpAuth = ({ children, onClose, title, toExecute }: Props) => {
     </div>
   )
 }
-
-export default PopUpAuth

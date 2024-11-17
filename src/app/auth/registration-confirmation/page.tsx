@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import { useRegistrationConfirmationMutation } from '@/features/auth/api/authApi'
-import RegistrationConfirmation from '@/features/auth/ui/registrationConfirmation/registrationConfirmation'
+import { RegistrationConfirmation } from '@/features/auth/ui/registrationConfirmation/registrationConfirmation'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function RegistrationConfirmationPage() {

@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import SingIn, { SignInProps } from '@/features/auth/ui/signIn/SingIn'
+import { SignIn } from '@/features/auth/ui/signIn/SignIn'
 
 export default {
   argTypes: {
     onSubmit: { action: 'submitted' }, // отображение действия отправки в Storybook
   },
-  component: SingIn,
+  component: SignIn,
   tags: ['autodocs'],
   title: 'Components/Auth/SingIn',
-} as Meta<typeof SingIn>
+} as Meta<typeof SignIn>
 
-type Story = StoryObj<typeof SingIn>
+type Story = StoryObj<typeof SignIn>
 
 export const Default: Story = {
   args: {
-    onSubmit: data => {
+    onSubmit: (data: unknown) => {
       console.log('Form submitted:', data)
     },
-  } as SignInProps,
+  },
 }
