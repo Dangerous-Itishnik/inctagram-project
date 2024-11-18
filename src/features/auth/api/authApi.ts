@@ -11,7 +11,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseURL,
-    credentials: 'include',
     prepareHeaders: headers => {
       const token = localStorage.getItem('authToken')
 

@@ -83,7 +83,7 @@ export function SignIn() {
         />
         <div className={styles.container}>
           <div className={styles.linkContainer}>
-            <Typography as={Link} href={'/forgot-password'} variant={'body2'}>
+            <Typography as={Link} href={'auth/forgot-password'} variant={'body2'}>
               Forgot Password
             </Typography>
           </div>
