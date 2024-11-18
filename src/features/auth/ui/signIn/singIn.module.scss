@@ -1,0 +1,74 @@
+.auth_icons {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+
+  margin: 27px 0 24px;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input {
+  &:last-of-type {
+    margin-bottom: 12px;
+  }
+}
+
+.checkboxText {
+  font-size: 12px;
+  color: var(--color-light-100);
+
+  & > a {
+    color: var(--color-accent-300);
+    text-decoration: underline;
+  }
+}
+
+.text {
+  margin-bottom: 6px;
+  color: var(--color-light-100);
+}
+
+.button {
+  margin-bottom: 18px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.centerTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+
+  & > a {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-thin);
+    line-height: var(--line-height-m);
+    color: var(--color-dark-100);
+  }
+}
