@@ -20,7 +20,7 @@ export const authSlice = createSlice({
     deleteCredentials: state => {
       state.token = null
       state.isAuthenticated = false
-      localStorage.delItem('authToken')
+      localStorage.removeItem('authToken')
     },
     logout: state => {
       state.token = null

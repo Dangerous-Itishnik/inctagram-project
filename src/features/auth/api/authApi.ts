@@ -1,3 +1,4 @@
+import { baseURL } from '@/common/api/common.api'
 import {
   ArgConfirmationCode,
   ArgLogin,
@@ -9,7 +10,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    baseUrl: baseURL,
+    credentials: 'include',
     prepareHeaders: headers => {
       const token = localStorage.getItem('authToken')
 
