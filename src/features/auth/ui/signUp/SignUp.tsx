@@ -5,10 +5,11 @@ import { AuthorizationContainer } from '@/common/components/authorizationContain
 import { Button } from '@/common/components/button/Button'
 import { Typography } from '@/common/components/typography'
 import { Message } from '@/features/auth/api/authApi.type'
-import { Checkbox, Flex } from '@radix-ui/themes'
+import { Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './SignUp.module.scss'
+import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
 
 export type SignUpProps = {
   Email: string
@@ -67,6 +68,7 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
     register,
     reset,
     watch,
+    control,
   } = useForm<SignUpProps>({
     mode: 'onBlur',
   })
@@ -141,7 +143,7 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
-          <Checkbox color={'indigo'} defaultChecked required size={'2'} variant={'surface'} />
+          <FormCheckbox control={control} name={'Password'} />
           <p className={styles.checkboxText}>
             I agree to the <Link href={''}>Terms of Service</Link> and{' '}
             <Link href={''}>Privacy Policy</Link>
