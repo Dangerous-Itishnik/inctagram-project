@@ -20,6 +20,8 @@ export default function SignUpPage() {
   const { push } = useRouter()
   const token = storage.getToken()
 
+  console.log(token)
+
   useEffect(() => {
     if (token) {
       return push('/createAccount')
