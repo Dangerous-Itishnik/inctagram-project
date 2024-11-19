@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/common/components/Input/Input'
 import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
+import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
 import { Typography } from '@/common/components/typography'
 import { Message } from '@/features/auth/api/authApi.type'
 import { Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './SignUp.module.scss'
-import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
 
 export type SignUpProps = {
   Email: string
@@ -63,12 +63,12 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
   //TODO зачем передовать callback
   const {
     clearErrors,
+    control,
     formState: { errors, isValid },
     handleSubmit,
     register,
     reset,
     watch,
-    control,
   } = useForm<SignUpProps>({
     mode: 'onBlur',
   })
@@ -143,7 +143,8 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
-          <FormCheckbox control={control} name={'Password'} />
+          <FormCheckbox control={control} name={'defaultValue'} />
+          {/* <Checkbox color={'indigo'} defaultChecked required size={'2'} variant={'surface'} /> */}
           <p className={styles.checkboxText}>
             I agree to the <Link href={''}>Terms of Service</Link> and{' '}
             <Link href={''}>Privacy Policy</Link>
