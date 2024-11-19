@@ -1,6 +1,5 @@
 'use client'
 
-import image from '@/assets/images/confirmation.png'
 import { Button } from '@/common/components/button'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -21,9 +20,11 @@ export function RegistrationConfirmation() {
       </Button>
       <Image
         alt={'Picture of girl'}
+        height={300}
         priority
-        src={image}
+        src={'/images/confirmation.png'}
         style={{ display: 'block', marginTop: '72px' }}
+        width={432}
       />
     </div>
   )
