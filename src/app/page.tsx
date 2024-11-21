@@ -19,7 +19,7 @@ export default function Home() {
         router.push('/signIn')
       }
     }
-  }, [isLoading, data, router])
+  }, [data, isLoading, router])
 
   if (isLoading) {
     return <h1>Loading...</h1>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { STORAGE } from '@/common/utils/storage'
+import { storage } from '@/common/utils/storage'
 import { SignIn as SignInCard } from '@/features/auth/ui/signIn'
 import { useLazyMeQuery, useLogInMutation } from '@/service/auth'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ export default function SignInPage() {
 
   // Проверяем наличие authToken в localStorage
   useEffect(() => {
-    if (STORAGE.getToken()) {
+    if (storage.getToken()) {
       return replace('/createAccount') // Перенаправление на страницу создания аккаунта
     }
     setLoading(false) // Если токена нет, продолжаем загрузку страницы
@@ -25,7 +25,7 @@ export default function SignInPage() {
     try {
       const userData = await login(data).unwrap() // Вызов мутации для входа
 
-      STORAGE.setToken(userData.accessToken)
+      storage.setToken(userData.accessToken)
       const meRes = await getMe()
       const userId = meRes?.data?.userId
 

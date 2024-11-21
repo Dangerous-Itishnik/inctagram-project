@@ -1,9 +1,9 @@
-const STORAGE_KEY = {
+const storageKey = {
   token: 'accessToken',
 }
 
-export const STORAGE = {
-  deleteToken: () => localStorage.removeItem(STORAGE_KEY.token),
-  getToken: () => localStorage.getItem(STORAGE_KEY.token),
-  setToken: (token: string) => localStorage.setItem(STORAGE_KEY.token, token),
+export const storage = {
+  deleteToken: () => localStorage.removeItem(storageKey.token),
+  getToken: () => localStorage.getItem(storageKey.token),
+  setToken: (token: string) => localStorage.setItem(storageKey.token, token),
 }
