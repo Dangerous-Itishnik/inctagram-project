@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { STORAGE } from '../utils/storage'
+
 export const useAuth = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken')
+    const token = STORAGE.getToken()
 
     if (!token) {
       router.push('/signIn')

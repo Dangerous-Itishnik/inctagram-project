@@ -14,12 +14,12 @@ export type AuthBaseResponse = {
   status: number
 }
 
-export type ArgSignUp = {
+export type SignUpArgs = {
   email: string
   password: string
   userName: string
 }
-export type ArgLogin = {
+export type LoginArgs = {
   email: string
   password: string
 }
@@ -30,4 +30,11 @@ export type LoginResponse = {
 
 export type ArgConfirmationCode = {
   confirmationCode: string
+}
+
+export type MeResponse = {
+  email: string
+  isBlocked: boolean
+  userId: number
+  userName: string
 }

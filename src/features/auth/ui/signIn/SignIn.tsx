@@ -19,7 +19,15 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<{ email: string; password: string }>()
+  } = useForm<{ email: string; password: string }>(
+    //Чтобы не вводить пароль и почту при тестировании
+    {
+      defaultValues: {
+        email: 'igorgrime@gmail.com',
+        password: 'Ex4mple!',
+      },
+    }
+  )
 
   return (
     <AuthorizationContainer>

@@ -1,40 +1,58 @@
+import { baseApi } from '@/service/baseApi'
+
 import {
   ArgConfirmationCode,
-  ArgLogin,
-  ArgSignUp,
   AuthResponse,
+  LoginArgs,
   LoginResponse,
-} from '@/features/auth/api/authApi.type'
-import { baseApi } from '@/service/baseApi'
+  MeResponse,
+  SignUpArgs,
+} from './auth.types'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    createAccessToken: build.mutation<void, void>({
-      query: () => ({ method: 'POST', url: 'update-token' }),
-    }),
-    logIn: build.mutation<LoginResponse, ArgLogin>({
+    logIn: build.mutation<LoginResponse, LoginArgs>({
+      invalidatesTags: ['Me'], // позволяет выполнить "Me" запрос сразу после логина
       query: credentials => ({
         body: credentials,
+        credentials: 'include', //добавляем куку там где это требуется
         method: 'POST',
-        url: 'auth/login',
+        url: '/api/v1/auth/login',
       }),
     }),
-    registration: build.mutation<AuthResponse, ArgSignUp>({
+    logout: build.mutation<void, void>({
+      query: () => ({ credentials: 'include', method: 'POST', url: '/api/v1/auth/logout' }),
+    }),
+    me: build.query<MeResponse, void>({
+      providesTags: ['Me'],
+      query: () => '/api/v1/auth/me',
+    }),
+    registration: build.mutation<AuthResponse, SignUpArgs>({
       query: data => ({
         body: data,
         method: 'POST',
-        url: 'auth/registration',
+        url: '/api/v1/auth/registration',
       }),
     }),
     registrationConfirmation: build.mutation<AuthResponse, ArgConfirmationCode>({
       query: confirmationCode => ({
         body: confirmationCode,
         method: 'POST',
-        url: 'auth/registration-confirmation',
+        url: '/api/v1/auth/registration-confirmation',
       }),
+    }),
+    updateTokens: build.mutation<void, void>({
+      query: () => ({ credentials: 'include', method: 'POST', url: '/api/v1/auth/update-tokens' }),
     }),
   }),
 })
 
-export const { useLogInMutation, useRegistrationConfirmationMutation, useRegistrationMutation } =
-  authApi
+export const {
+  useLazyMeQuery,
+  useLogInMutation,
+  useLogoutMutation,
+  useMeQuery,
+  useRegistrationConfirmationMutation,
+  useRegistrationMutation,
+  useUpdateTokensMutation,
+} = authApi

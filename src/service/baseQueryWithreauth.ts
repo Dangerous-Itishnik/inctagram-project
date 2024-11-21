@@ -2,6 +2,7 @@
 
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
+import { STORAGE } from '@/common/utils/storage'
 import { Mutex } from 'async-mutex'
 
 import { baseQuery } from './baseQuery'
@@ -26,7 +27,7 @@ export const baseQueryWithReauth: BaseQueryFn<
       try {
         // try to get a new token
         const refreshResult = await baseQuery(
-          { method: 'POST', url: 'update-tokens' },
+          { method: 'POST', url: '/api/v1/auth/update-tokens' },
           api,
           extraOptions
         )
@@ -36,7 +37,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           const { accessToken } = refreshResult.data as { accessToken: string }
 
           // Сохраняем новый токен в localStorage
-          localStorage.setItem('accessToken', accessToken)
+          STORAGE.setToken(accessToken)
 
           // Перезапускаем исходный запрос
           result = await baseQuery(args, api, extraOptions)

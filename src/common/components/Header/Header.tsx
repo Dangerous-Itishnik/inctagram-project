@@ -3,25 +3,30 @@
 import { useState } from 'react'
 
 import { Button } from '@/common/components/button'
+import { STORAGE } from '@/common/utils/storage'
 import { PopUpAuth } from '@/features/auth/ui/popUpAuth/PopUpAuth'
+import { useLogoutMutation } from '@/service/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import styles from '@/app/layout.module.scss'
 
 export const Header = () => {
-  const { push } = useRouter()
-  const [info, setInfo] = useState(false)
+  const { replace } = useRouter()
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+  const [logout] = useLogoutMutation()
 
-  const logoutHandle = () => {
-    setInfo(false)
-    push('/signIn')
+  const logoutHandle = async () => {
+    await logout()
+    STORAGE.deleteToken()
+    setIsPopUpOpen(false)
+    replace('/signIn')
   }
   const popUpClose = () => {
-    setInfo(false)
+    setIsPopUpOpen(false)
   }
   const logOut = () => {
-    setInfo(true)
+    setIsPopUpOpen(true)
   }
 
   return (
@@ -39,7 +44,7 @@ export const Header = () => {
         profile
       </Button>
       <Button onClick={logOut}>log out</Button>
-      {info && (
+      {isPopUpOpen && (
         <PopUpAuth onClose={popUpClose} title={'info'} toExecute={logoutHandle}>
           Are you really want to log out of your account ___email name___?
         </PopUpAuth>

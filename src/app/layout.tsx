@@ -4,7 +4,6 @@ import { ReactNode } from 'react'
 
 import { Providers } from '@/app/providers'
 import { Header } from '@/common/components/Header/Header'
-import { Auth } from '@/common/components/authContainer/Auth'
 import { Theme } from '@radix-ui/themes'
 
 import '@/styles/index.scss'
@@ -23,9 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           <Theme className={styles.bodyContainer} style={{ backgroundColor: 'transparent' }}>
             <Header />
-            <main className={styles.main}>
-              <Auth>{children}</Auth>
-            </main>
+            <main className={styles.main}>{children}</main>
           </Theme>
         </Providers>
       </body>

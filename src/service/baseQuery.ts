@@ -1,15 +1,12 @@
+import { BASE_URL } from '@/common/api/common.api'
+import { STORAGE } from '@/common/utils/storage'
 import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://inctagram.work/api/v1/',
-  credentials: 'include',
+  baseUrl: BASE_URL,
   prepareHeaders: headers => {
-    const token = (typeof window !== 'undefined' && localStorage.getItem('accessToken')) || null
+    const token = STORAGE.getToken()
 
-    //console.log({token});
-    if (headers.get('Authorization')) {
-      return headers
-    }
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
     }
