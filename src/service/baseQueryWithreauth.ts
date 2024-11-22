@@ -19,6 +19,8 @@ export const baseQueryWithReauth: BaseQueryFn<
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
+  console.log(result)
+
   if (result.error && result.error.status === 401) {
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
@@ -26,11 +28,14 @@ export const baseQueryWithReauth: BaseQueryFn<
 
       try {
         // try to get a new token
+
         const refreshResult = await baseQuery(
-          { credentials: 'include', method: 'POST', url: '/api/v1/auth/update-tokens' },
+          { method: 'POST', url: '/api/v1/auth/update-tokens' },
           api,
           extraOptions
         )
+
+        console.log(refreshResult)
 
         if (refreshResult.meta?.response?.status === 200) {
           // retry the initial query
@@ -42,7 +47,8 @@ export const baseQueryWithReauth: BaseQueryFn<
           // Перезапускаем исходный запрос
           result = await baseQuery(args, api, extraOptions)
         } else {
-          // await router.navigate(ROUTES.signIn)
+          // TODO: сделать редирект на логин
+          // await Router.push('/signIn')
           // toast.error('You are not authorized')
         }
       } finally {

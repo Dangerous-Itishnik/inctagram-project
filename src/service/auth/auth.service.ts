@@ -15,7 +15,6 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ['Me'], // позволяет выполнить "Me" запрос сразу после логина
       query: credentials => ({
         body: credentials,
-        credentials: 'include', //добавляем куку там где это требуется
         method: 'POST',
         url: '/api/v1/auth/login',
       }),
@@ -41,9 +40,6 @@ export const authApi = baseApi.injectEndpoints({
         url: '/api/v1/auth/registration-confirmation',
       }),
     }),
-    updateTokens: build.mutation<void, void>({
-      query: () => ({ credentials: 'include', method: 'POST', url: '/api/v1/auth/update-tokens' }),
-    }),
   }),
 })
 
@@ -54,5 +50,4 @@ export const {
   useMeQuery,
   useRegistrationConfirmationMutation,
   useRegistrationMutation,
-  useUpdateTokensMutation,
 } = authApi

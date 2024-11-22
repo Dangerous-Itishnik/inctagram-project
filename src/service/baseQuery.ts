@@ -4,6 +4,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
+  credentials: 'include',
   prepareHeaders: headers => {
     const token = storage.getToken()
 
