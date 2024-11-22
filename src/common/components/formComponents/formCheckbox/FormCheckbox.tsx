@@ -4,22 +4,27 @@ import { Checkbox, CheckboxProps } from '@/common/components/checkBox'
 
 type Props<T extends FieldValues> = Omit<
   UseControllerProps<T>,
-  'defaultValue' | 'disabled' | 'rules'
+  'disabled' | 'rules' | 'shouldUnregister'
 > &
   Omit<CheckboxProps, 'checked' | 'onValueChange'>
-export const FormCheckbox = <T extends FieldValues>({
-  control,
-  shouldUnregister,
-  ...rest
-}: Props<T>) => {
+
+export const FormCheckbox = <T extends FieldValues>({ control, ...rest }: Props<T>) => {
+  // Убедимся, что useController получает правильный тип данных для поля, например, boolean
   const {
     field: { onBlur, onChange, ref, value },
-  } = useController({
+  } = useController<T>({
     control,
     disabled: rest.disabled,
-    name: rest.name,
-    shouldUnregister,
+    name: rest.name, // имя поля передаем как есть
   })
 
-  return <Checkbox {...rest} checked={value} onBlur={onBlur} onCheckedChange={onChange} ref={ref} />
+  return (
+    <Checkbox
+      {...rest}
+      checked={value} // передаем значение для отображения
+      onBlur={onBlur} // обрабатываем потерю фокуса
+      onCheckedChange={onChange} // обрабатываем изменения состояния чекбокса
+      ref={ref} // ссылка на элемент
+    />
+  )
 }

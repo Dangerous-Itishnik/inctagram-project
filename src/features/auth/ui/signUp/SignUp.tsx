@@ -16,6 +16,7 @@ export type SignUpProps = {
   Password: string
   UserName: string
   confirmPassword: string
+  termsAccepted: boolean
 }
 
 type OnSubmitProps = {
@@ -73,6 +74,7 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
     mode: 'onBlur',
   })
   const password = watch('Password')
+  const termsAccepted = watch('termsAccepted', false)
 
   const handleClearErrors = (fieldName: keyof SignUpProps) => {
     clearErrors(fieldName)
@@ -143,14 +145,17 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
-          <FormCheckbox control={control} name={'defaultValue'} />
-          {/* <Checkbox color={'indigo'} defaultChecked required size={'2'} variant={'surface'} /> */}
+          <FormCheckbox control={control} name={'termsAccepted'} />
           <p className={styles.checkboxText}>
             I agree to the <Link href={''}>Terms of Service</Link> and{' '}
             <Link href={''}>Privacy Policy</Link>
           </p>
         </Flex>
-        <Button className={styles.button} disabled={!isValid} type={'submit'}>
+        <Button
+          className={styles.button}
+          disabled={!isValid || !termsAccepted} // Проверяем состояние чекбокса
+          type={'submit'}
+        >
           Sign Up
         </Button>
       </form>

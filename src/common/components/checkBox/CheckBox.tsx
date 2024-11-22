@@ -17,7 +17,7 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Checkb
 
     return (
       <div className={classNames}>
-        <CheckboxRadix.Root {...rest} className={s.checkbox} defaultChecked ref={ref}>
+        <CheckboxRadix.Root {...rest} className={s.checkbox} ref={ref}>
           <CheckboxRadix.Indicator>
             <CheckBox />
           </CheckboxRadix.Indicator>
