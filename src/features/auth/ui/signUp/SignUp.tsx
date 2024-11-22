@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
 
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { Input } from '@/common/components/Input/Input'
-import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
+import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button/Button'
 import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
-import { Typography } from '@/common/components/typography'
 import { Message } from '@/features/auth/api/authApi.type'
 import { Flex } from '@radix-ui/themes'
 import Link from 'next/link'

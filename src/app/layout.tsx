@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
 
+import { Auth } from '@/common/components/AuthContainer/Auth'
 import { Header } from '@/common/components/Header/Header'
-import { Auth } from '@/common/components/authContainer/Auth'
 import { Theme } from '@radix-ui/themes'
 
 import '@/styles/index.scss'

@@ -4,10 +4,10 @@ import { useState } from 'react'
 
 import { tokenSelector } from '@/common/components/Header/tokenSelector'
 import { Button } from '@/common/components/button'
+import { PopUp } from '@/common/components/popUp'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { logout } from '@/features/auth/model/authSlice'
-import { PopUpAuth } from '@/features/auth/ui/popUpAuth/PopUpAuth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -48,9 +48,18 @@ export const Header = () => {
       </Button>
       {token && <Button onClick={logOut}>log out</Button>}
       {info && (
-        <PopUpAuth onClose={popUpClose} title={'info'} toExecute={logoutHandle}>
+        //TODO Удалить и поставить popUp
+        <PopUp onClose={popUpClose} title={'Log out'}>
           Are you really want to log out of your account ___email name___?
-        </PopUpAuth>
+          <div className={styles.popUpButtons}>
+            <Button className={styles.closeButton} onClick={logoutHandle}>
+              Yes
+            </Button>
+            <Button className={styles.closeButton} onClick={popUpClose}>
+              No
+            </Button>
+          </div>
+        </PopUp>
       )}
     </header>
   )
