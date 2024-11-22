@@ -2,15 +2,16 @@
 
 import { GitHubSvg } from '@/assets/icons/github'
 import { GoogleSvg } from '@/assets/icons/google'
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { Input } from '@/common/components/Input/Input'
-import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button'
 import { PopUp } from '@/common/components/popUp'
-import { Typography } from '@/common/components/typography'
 import { useSignIn } from '@/features/auth/ui/signIn/useSignIn'
 import Link from 'next/link'
 
 import styles from './singIn.module.scss'
+
+import { Typography } from '../../../../common/components/Typography'
 
 export function SignIn() {
   const {

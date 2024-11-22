@@ -2,11 +2,12 @@
 
 import image from '@/assets/images/confirmation.png'
 import { Button } from '@/common/components/button'
-import { Typography } from '@/common/components/typography'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from './registrationConfirmation.module.scss'
+
+import { Typography } from '../../../../common/components/Typography'
 
 export function RegistrationConfirmation() {
   return (

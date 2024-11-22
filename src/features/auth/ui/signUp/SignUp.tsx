@@ -1,14 +1,15 @@
 import { useForm } from 'react-hook-form'
 
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { Input } from '@/common/components/Input/Input'
-import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
 import { Button } from '@/common/components/button/Button'
-import { Typography } from '@/common/components/typography'
 import { Message } from '@/features/auth/api/authApi.type'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
 import styles from './SignUp.module.scss'
+
+import { Typography } from '../../../../common/components/Typography'
 
 export type SignUpProps = {
   Email: string
