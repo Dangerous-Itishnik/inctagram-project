@@ -5,6 +5,7 @@ import {
   ArgSignUp,
   AuthResponse,
   LoginResponse,
+  MeResponse,
 } from '@/features/auth/api/authApi.type'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -31,6 +32,12 @@ export const authApi = createApi({
           url: 'auth/login',
         }),
       }),
+      me: build.query<MeResponse, void>({
+        query: () => ({
+          method: 'GET',
+          url: 'auth/me',
+        }),
+      }),
       registration: build.mutation<AuthResponse, ArgSignUp>({
         query: data => {
           return {
@@ -55,5 +62,9 @@ export const authApi = createApi({
   reducerPath: 'authApi',
 })
 
-export const { useLogInMutation, useRegistrationConfirmationMutation, useRegistrationMutation } =
-  authApi
+export const {
+  useLogInMutation,
+  useMeQuery,
+  useRegistrationConfirmationMutation,
+  useRegistrationMutation,
+} = authApi

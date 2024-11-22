@@ -31,3 +31,9 @@ export type LoginResponse = {
 export type ArgConfirmationCode = {
   confirmationCode: string
 }
+export type MeResponse = {
+  email: string
+  isBlocked: boolean
+  userId: number
+  userName: string
+}
