@@ -1,3 +1,4 @@
+'use client'
 import { RequireAuth } from '@/common/components/requireAuth/RequireAuth'
 
 function EditProfile() {
