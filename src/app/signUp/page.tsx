@@ -2,13 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-import { tokenSelector } from '@/common/components/Header/tokenSelector'
 import { Button } from '@/common/components/button'
 import { PopUp } from '@/common/components/popUp/PopUp'
-import { useAppSelector } from '@/common/hooks/useAppSelector'
-import { useRegistrationMutation } from '@/features/auth/api/authApi'
-import { AuthBaseResponse } from '@/features/auth/api/authApi.type'
+import { storage } from '@/common/utils/storage'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
+import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 import { useRouter } from 'next/navigation'
 
 import styles from '@/common/components/popUp/popUp.module.scss'
@@ -20,7 +18,7 @@ export default function SignUpPage() {
   const [onSubmitError, setOnSubmitError] = useState({})
   const [loading, setLoading] = useState(true)
   const { push } = useRouter()
-  const token = useAppSelector(tokenSelector)
+  const token = storage.getToken()
 
   useEffect(() => {
     if (token) {

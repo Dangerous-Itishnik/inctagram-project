@@ -1,63 +1,48 @@
 'use client'
 
+import { useForm } from 'react-hook-form'
 import { GitHubSvg } from '@/assets/icons/github'
 import { GoogleSvg } from '@/assets/icons/google'
-import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { Input } from '@/common/components/Input/Input'
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
-import { useSignIn } from '@/features/auth/ui/signIn/useSignIn'
-import Link from 'next/link'
-
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import styles from './singIn.module.scss'
 
 import { Typography } from '../../../../common/components/Typography'
 
-export function SignIn() {
-  const {
-    authError,
-    clearErrors,
-    errorMessage,
-    errors,
-    handleSubmit,
-    loginHandle,
-    register,
-    setAuthError,
-  } = useSignIn()
+interface SignInProps {
+  onSubmit: (data: { email: string; password: string }) => void // Принимаем onSubmit как пропс
+}
 
-  if (authError) {
-    return (
-      <PopUp onClose={() => setAuthError(false)} title={'Error'}>
-        {errorMessage}
-      </PopUp>
-    )
-  }
+export const SignIn = ({ onSubmit }: SignInProps) => {
+  const {
+    clearErrors,
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<{ email: string; password: string }>(
+    //Чтобы не вводить пароль и почту при тестировании
+    {
+      defaultValues: {
+        email: 'igorgrime@gmail.com',
+        password: 'Ex4mple!',
+      },
+    }
+  )
 
   return (
     <AuthorizationContainer>
       <Typography variant={'h1'}>Sign In</Typography>
-      <div className={styles.auth_icons}>
-        <Button variant={'link'}>
-          <GoogleSvg />
-        </Button>
-        <Button variant={'link'}>
-          <GitHubSvg />
-        </Button>
-      </div>
       <form
         className={styles.form}
-        onSubmit={handleSubmit(async data => {
-          await loginHandle(data)
-        })}
+        onSubmit={handleSubmit(onSubmit)} // Вызываем переданную функцию при сабмите
       >
         <Input
-          errorMessage={errors.email?.message}
+          errorMessage={typeof errors.email?.message === 'string' ? errors.email.message : ''}
           label={'Email'}
           propsClassName={styles.input}
           {...register('email', {
-            onChange: () => {
-              clearErrors('email')
-            },
+            onChange: () => clearErrors('email'),
             pattern: {
               message: 'The email must match the format example@example.com',
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -66,7 +51,7 @@ export function SignIn() {
           })}
         />
         <Input
-          errorMessage={errors.password?.message}
+          errorMessage={typeof errors.password?.message === 'string' ? errors.password.message : ''}
           label={'Password'}
           propsClassName={styles.input}
           type={'password'}
@@ -82,20 +67,7 @@ export function SignIn() {
           })}
           autoComplete={'off'}
         />
-        <div className={styles.container}>
-          <div className={styles.linkContainer}>
-            <Typography as={Link} href={'auth/forgot-password'} variant={'body2'}>
-              Forgot Password
-            </Typography>
-          </div>
-          <Button type={'submit'}>Sign In</Button>
-          <div className={styles.centerTextContainer}>
-            <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-            <Button as={Link} href={'/signUp'} variant={'link'}>
-              Sign Up
-            </Button>
-          </div>
-        </div>
+        <Button type={'submit'}>Sign In</Button>
       </form>
     </AuthorizationContainer>
   )

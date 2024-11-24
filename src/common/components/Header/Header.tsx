@@ -2,60 +2,56 @@
 
 import { useState } from 'react'
 
-import { tokenSelector } from '@/common/components/Header/tokenSelector'
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
-import { useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { useAppSelector } from '@/common/hooks/useAppSelector'
-import { logout } from '@/features/auth/model/authSlice'
+import { storage } from '@/common/utils/storage'
+import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import styles from '@/app/layout.module.scss'
 
-export const Header = () => {
-  const dispatch = useAppDispatch()
-  const { push } = useRouter()
-  const token = useAppSelector(tokenSelector)
-  const [info, setInfo] = useState(false)
+import { PopUp } from '../popUp'
 
-  const logoutHandle = () => {
-    dispatch(logout())
-    setInfo(false)
-    push('/signIn')
+export const Header = () => {
+  const { replace } = useRouter()
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+  const [logout] = useLogoutMutation()
+  const { data } = useMeQuery()
+
+  const closePopUp = () => {
+    setIsPopUpOpen(false)
   }
-  const popUpClose = () => {
-    setInfo(false)
+  const openPopUp = () => {
+    setIsPopUpOpen(true)
   }
-  const logOut = () => {
-    setInfo(true)
+
+  const logoutHandle = async () => {
+    await logout()
+    storage.deleteToken()
+    closePopUp()
+    replace('/signIn')
   }
 
   return (
     <header className={styles.header}>
-      {!token && (
-        <>
-          <Button as={Link} href={'/signUp'}>
-            signUp
-          </Button>
-          <Button as={Link} href={'/signIn'}>
-            signIn
-          </Button>
-        </>
-      )}
-      <Button as={Link} href={'/profile'}>
-        profile
-      </Button>
-      {token && <Button onClick={logOut}>log out</Button>}
-      {info && (
-        //TODO Удалить и поставить popUp
-        <PopUp onClose={popUpClose} title={'Log out'}>
-          Are you really want to log out of your account ___email name___?
+      <>
+        <Button as={Link} href={'/signUp'}>
+          signUp
+        </Button>
+        <Button as={Link} href={'/signIn'}>
+          signIn
+        </Button>
+      </>
+
+      <Button onClick={openPopUp}>log out</Button>
+      {isPopUpOpen && (
+        <PopUp onClose={closePopUp} title={'Logout'}>
+          <p>Are you really want to log out of your account {data?.email}?</p>
           <div className={styles.popUpButtons}>
             <Button className={styles.closeButton} onClick={logoutHandle}>
               Yes
             </Button>
-            <Button className={styles.closeButton} onClick={popUpClose}>
+            <Button className={styles.closeButton} onClick={closePopUp}>
               No
             </Button>
           </div>

@@ -1,5 +1,9 @@
 'use client'
 
 export const CreateAccount = () => {
-  return <div>CreateAccount</div>
+  return (
+    <div>
+      <h1>CreateAccount</h1>
+    </div>
+  )
 }
