@@ -16,7 +16,7 @@ export default function Home() {
       if (data) {
         router.push(`/profile/${data.userId}`)
       } else {
-        router.push('/signIn')
+        router.push('/auth/signIn')
       }
     }
   }, [data, isLoading, router])

@@ -1,11 +1,11 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { GitHubSvg } from '@/assets/icons/github'
-import { GoogleSvg } from '@/assets/icons/google'
+
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { Input } from '@/common/components/Input/Input'
 import { Button } from '@/common/components/button'
-import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
+
 import styles from './singIn.module.scss'
 
 import { Typography } from '../../../../common/components/Typography'

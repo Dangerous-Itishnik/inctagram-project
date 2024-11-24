@@ -29,16 +29,16 @@ export const Header = () => {
     await logout()
     storage.deleteToken()
     closePopUp()
-    replace('/signIn')
+    replace('/auth/signIn')
   }
 
   return (
     <header className={styles.header}>
       <>
-        <Button as={Link} href={'/signUp'}>
+        <Button as={Link} href={'/auth/signUp'}>
           signUp
         </Button>
-        <Button as={Link} href={'/signIn'}>
+        <Button as={Link} href={'/auth/signIn'}>
           signIn
         </Button>
       </>

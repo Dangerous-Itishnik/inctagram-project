@@ -16,7 +16,7 @@ export function RegistrationConfirmation() {
       <Typography className={styles.text} variant={'body1'}>
         Your email has been confirmed
       </Typography>
-      <Button as={Link} href={'/signIn'} variant={'primary'}>
+      <Button as={Link} href={'/auth/signIn'} variant={'primary'}>
         Sign In
       </Button>
       <Image

@@ -5,7 +5,7 @@ import { Input } from '@/common/components/Input/Input'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button/Button'
 import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
-import { Message } from '@/features/auth/api/authApi.type'
+import { Message } from '@/service/auth/auth.types'
 import { Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
@@ -61,7 +61,6 @@ const CONFIRM_PASSWORD_ERROR_MESSAGES = {
 }
 
 export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: OnSubmitProps) {
-  //TODO зачем передовать callback
   const {
     clearErrors,
     control,
