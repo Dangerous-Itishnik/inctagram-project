@@ -146,8 +146,8 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
           <FormCheckbox control={control} name={'termsAccepted'} />
           <p className={styles.checkboxText}>
-            I agree to the <Link href={''}>Terms of Service</Link> and{' '}
-            <Link href={''}>Privacy Policy</Link>
+            I agree to the <Link href={'/termsService'}>Terms of Service</Link> and{' '}
+            <Link href={'/privacyPolicy'}>Privacy Policy</Link>
           </p>
         </Flex>
         <Button
