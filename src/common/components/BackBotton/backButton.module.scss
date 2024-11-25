@@ -1,0 +1,11 @@
+.backButtonBox {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.backButton {
+  &:hover {
+    text-decoration: underline;
+  }
+}
