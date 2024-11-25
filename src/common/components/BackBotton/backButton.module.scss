@@ -1,19 +1,10 @@
-.backButton {
+.backButtonBox {
   display: flex;
   gap: 12px;
   align-items: center;
+}
 
-  &::before {
-    content: '';
-
-    display: block;
-
-    width: 24px;
-    height: 24px;
-
-    background-color: blue;
-  }
-
+.backButton {
   &:hover {
     text-decoration: underline;
   }
