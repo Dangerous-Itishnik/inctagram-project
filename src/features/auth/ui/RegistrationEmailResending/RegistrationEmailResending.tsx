@@ -1,8 +1,8 @@
 'use client'
 
 import { Input } from '@/common/components/Input'
+import { Typography } from '@/common/components/Typography/'
 import { Button } from '@/common/components/button'
-import { Typography } from '@/common/components/typography'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -12,11 +12,11 @@ export function RegistrationEmailResending() {
   return (
     <div className={styles.container}>
       <Typography variant={'h1'}>Email verification link expired</Typography>
-      <Typography className={styles.text} variant={'body1'}>
+      <Typography className={styles.text}>
         Looks like the verification link has expired. Not to worry, we can send the link again
       </Typography>
       <Input label={'Email'}></Input>
-      <Button as={Link} href={'/signUp'} variant={'primary'}>
+      <Button as={Link} href={'/auth/signUp'} variant={'primary'}>
         Resend verification link
       </Button>
       <Image
