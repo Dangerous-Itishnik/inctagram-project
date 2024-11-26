@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { useRegistrationConfirmationMutation } from '@/features/auth/api/authApi'
 import { RegistrationConfirmation } from '@/features/auth/ui/registrationConfirmation'
+import { useRegistrationConfirmationMutation } from '@/service/auth'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function RegistrationConfirmationPage() {
@@ -12,22 +12,22 @@ export default function RegistrationConfirmationPage() {
   const router = useRouter()
 
   const [registrationConfirmation] = useRegistrationConfirmationMutation()
+  const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    const isConfirmed = localStorage.getItem('registrationConfirmed') === confirmationCode
-
-    if (confirmationCode && !isConfirmed) {
-      registrationConfirmation({ confirmationCode }).then(() => {
-        localStorage.setItem('registrationConfirmed', confirmationCode)
-      })
+    if (confirmationCode) {
+      registrationConfirmation({ confirmationCode })
+        .unwrap()
+        .then(() => {
+          setIsConfirmed(true)
+        })
+        .catch(() => {
+          router.replace('/auth/registration-email-resending')
+        })
+    } else {
+      router.replace('/auth/signUp')
     }
-  }, [confirmationCode, registrationConfirmation])
+  }, [confirmationCode, registrationConfirmation, router])
 
-  if (!confirmationCode) {
-    router.push('/signUp')
-
-    return null
-  }
-
-  return <RegistrationConfirmation />
+  return isConfirmed ? <RegistrationConfirmation /> : null
 }

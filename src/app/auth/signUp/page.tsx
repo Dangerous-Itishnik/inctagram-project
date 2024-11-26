@@ -20,14 +20,13 @@ export default function SignUpPage() {
   const { push } = useRouter()
   const token = storage.getToken()
 
-  console.log(token)
-
   useEffect(() => {
     if (token) {
       return push('/createAccount')
     }
     setLoading(false)
   }, [push, token])
+
   if (loading) {
     return <div>Loading...</div>
   }

@@ -24,6 +24,8 @@ export type LoginArgs = {
   password: string
 }
 
+export type RegEmailResendArg = Pick<SignUpArgs, 'email'>
+
 export type LoginResponse = {
   accessToken: string
 }

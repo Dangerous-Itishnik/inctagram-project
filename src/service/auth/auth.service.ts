@@ -6,6 +6,7 @@ import {
   LoginArgs,
   LoginResponse,
   MeResponse,
+  RegEmailResendArg,
   SignUpArgs,
 } from './auth.types'
 
@@ -25,6 +26,13 @@ export const authApi = baseApi.injectEndpoints({
     me: build.query<MeResponse, void>({
       providesTags: ['Me'],
       query: () => '/api/v1/auth/me',
+    }),
+    regEmailResend: build.mutation<AuthResponse, RegEmailResendArg>({
+      query: email => ({
+        body: email,
+        method: 'POST',
+        url: '/api/v1/auth/registration-email-resending',
+      }),
     }),
     registration: build.mutation<AuthResponse, SignUpArgs>({
       query: data => ({
@@ -48,6 +56,7 @@ export const {
   useLogInMutation,
   useLogoutMutation,
   useMeQuery,
+  useRegEmailResendMutation,
   useRegistrationConfirmationMutation,
   useRegistrationMutation,
 } = authApi
