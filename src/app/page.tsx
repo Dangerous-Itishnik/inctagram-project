@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import '@/styles/index.scss'
 
 export default function Home() {
-  const { data, isLoading } = useMeQuery()
+  const { data, isLoading, refetch } = useMeQuery()
   const router = useRouter()
   const params = useSearchParams()
   const [googleLogin] = useGoogleLoginMutation()
@@ -17,20 +17,17 @@ export default function Home() {
   useEffect(() => {
     const code = params.get('code')
 
-    if (!isLoading) {
-      if (data) {
-        router.push(`/profile/${data.userId}`)
-      } else {
-        router.push('/auth/signIn')
-      }
-    }
     if (code) {
       googleLogin({ code }).then(res => {
+        console.log('storage:', res.data?.accessToken!)
         storage.setToken(res.data?.accessToken!)
-        router.push(`/`)
+        refetch().then(res => {
+          console.log('userId', res.data?.userId)
+          router.push(`/profile/${res.data?.userId}`)
+        })
       })
     }
-  }, [data, params, isLoading, router])
+  }, [])
 
   if (isLoading) {
     return <h1>Loading...</h1>

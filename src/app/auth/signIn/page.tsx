@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 
 import { storage } from '@/common/utils/storage'
 import { SignIn as SignInCard } from '@/features/auth/ui/signIn'
-import { useLazyMeQuery, useLogInMutation } from '@/service/auth'
+import { useLazyMeQuery, useLogInMutation, useMeQuery } from '@/service/auth'
+import { router } from 'next/client'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
@@ -12,11 +13,14 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false)
   const [login] = useLogInMutation()
   const [getMe] = useLazyMeQuery()
+  const { data } = useMeQuery()
 
   // Проверяем наличие authToken в localStorage
   useEffect(() => {
     if (storage.getToken()) {
-      return replace('/createAccount') // Перенаправление на страницу создания аккаунта
+      getMe().then(res => {
+        router.push(`/profile/${res.data?.userId}`)
+      })
     }
     setLoading(false) // Если токена нет, продолжаем загрузку страницы
   }, [replace])
