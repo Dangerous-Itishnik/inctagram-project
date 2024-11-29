@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form'
 
 import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
+import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAuthButton'
 import { Input } from '@/common/components/Input/Input'
 import { Button } from '@/common/components/button'
 
@@ -33,6 +34,9 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
   return (
     <AuthorizationContainer>
       <Typography variant={'h1'}>Sign In</Typography>
+      <div>
+        <GoogleAuthButton />
+      </div>
       <form
         className={styles.form}
         onSubmit={handleSubmit(onSubmit)} // Вызываем переданную функцию при сабмите
