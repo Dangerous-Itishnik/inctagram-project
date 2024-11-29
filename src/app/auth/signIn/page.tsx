@@ -5,25 +5,23 @@ import { useEffect, useState } from 'react'
 import { storage } from '@/common/utils/storage'
 import { SignIn as SignInCard } from '@/features/auth/ui/signIn'
 import { useLazyMeQuery, useLogInMutation, useMeQuery } from '@/service/auth'
-import { router } from 'next/client'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
-  const { replace } = useRouter()
+  const { push, replace } = useRouter()
   const [loading, setLoading] = useState(false)
   const [login] = useLogInMutation()
   const [getMe] = useLazyMeQuery()
   const { data } = useMeQuery()
 
-  // Проверяем наличие authToken в localStorage
   useEffect(() => {
     if (storage.getToken()) {
-      getMe().then(res => {
-        router.push(`/profile/${res.data?.userId}`)
-      })
+      if (data) {
+        push(`/profile/${data.userId}`)
+      }
     }
-    setLoading(false) // Если токена нет, продолжаем загрузку страницы
-  }, [replace])
+    setLoading(false)
+  }, [data, push, replace])
 
   const handleSignIn = async (data: { email: string; password: string }) => {
     try {
