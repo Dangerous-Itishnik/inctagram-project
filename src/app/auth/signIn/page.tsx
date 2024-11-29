@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
   const { replace } = useRouter()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [login] = useLogInMutation()
   const [getMe] = useLazyMeQuery()
 
