@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import '@/styles/index.scss'
 
 export default function Home() {
-  const { isLoading, refetch } = useMeQuery()
+  const { data, isLoading, refetch } = useMeQuery()
   const router = useRouter()
   const params = useSearchParams()
   const [googleLogin] = useGoogleLoginMutation()
@@ -28,16 +28,19 @@ export default function Home() {
         })
         .then(refetchRes => {
           if (refetchRes?.data?.userId) {
-            router.push(`/profile/${refetchRes.data.userId}`)
-          } else {
-            router.push('/auth/signIn')
+            return router.push(`/profile/${refetchRes.data.userId}`)
           }
         })
         .catch(error => {
           console.error('Google Login Error:', error)
         })
     }
-  }, [params, googleLogin, refetch, router])
+    if (data && !code) {
+      return router.push(`/profile/${data.userId}`)
+    } else if (!data && !code) {
+      return router.push(`/auth/signIn`)
+    }
+  }, [params, googleLogin, refetch, router, data])
 
   if (isLoading) {
     return <h1>Loading...</h1>

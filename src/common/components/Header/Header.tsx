@@ -34,6 +34,9 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
+      <Link href={'/'}>
+        <h1 className={styles.logo}>Inctagram</h1>
+      </Link>
       <>
         <Button as={Link} href={'/auth/signUp'}>
           signUp
