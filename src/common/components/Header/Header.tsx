@@ -6,7 +6,7 @@ import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import styles from '@/app/layout.module.scss'
 
@@ -17,6 +17,7 @@ export const Header = () => {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [logout] = useLogoutMutation()
   const { data } = useMeQuery()
+  const pathProfile = usePathname()
 
   const closePopUp = () => {
     setIsPopUpOpen(false)
@@ -37,14 +38,17 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <>
-        <Button as={Link} href={'/auth/signUp'}>
-          signUp
-        </Button>
-        <Button as={Link} href={'/auth/signIn'}>
-          signIn
-        </Button>
-      </>
+      {pathProfile.includes('profile') && (
+        <>
+          <Button as={Link} href={'/auth/signUp'}>
+            signUp
+          </Button>
+          <Button as={Link} href={'/auth/signIn'}>
+            signIn
+          </Button>
+          ;
+        </>
+      )}
 
       <Button onClick={openPopUp}>log out</Button>
       {isPopUpOpen && (

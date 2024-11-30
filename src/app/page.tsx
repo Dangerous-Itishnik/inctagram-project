@@ -35,6 +35,7 @@ export default function Home() {
           console.error('Google Login Error:', error)
         })
     }
+    //TODO пофиксить редирект переходя на / редиректит на profile/userId
     if (data && !code) {
       return router.push(`/profile/${data.userId}`)
     } else if (!data && !code) {
