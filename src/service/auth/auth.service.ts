@@ -12,6 +12,14 @@ import {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
+    googleLogin: build.mutation<{ accessToken: string; email: string }, { code: string }>({
+      invalidatesTags: ['Me'],
+      query: code => ({
+        body: code,
+        method: 'POST',
+        url: '/api/v1/auth/google/login',
+      }),
+    }),
     logIn: build.mutation<LoginResponse, LoginArgs>({
       invalidatesTags: ['Me'], // позволяет выполнить "Me" запрос сразу после логина
       query: credentials => ({
@@ -52,6 +60,7 @@ export const authApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useGoogleLoginMutation,
   useLazyMeQuery,
   useLogInMutation,
   useLogoutMutation,

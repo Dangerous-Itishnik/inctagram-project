@@ -2,24 +2,42 @@
 
 import { useEffect } from 'react'
 
-import { useMeQuery } from '@/service/auth'
-import { useRouter } from 'next/navigation'
+import { storage } from '@/common/utils/storage'
+import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import '@/styles/index.scss'
 
 export default function Home() {
-  const { data, isLoading } = useMeQuery()
+  const { isLoading, refetch } = useMeQuery()
   const router = useRouter()
+  const params = useSearchParams()
+  const [googleLogin] = useGoogleLoginMutation()
 
   useEffect(() => {
-    if (!isLoading) {
-      if (data) {
-        router.push(`/profile/${data.userId}`)
-      } else {
-        router.push('/auth/signIn')
-      }
+    const code = params.get('code')
+
+    if (code) {
+      googleLogin({ code })
+        .then(res => {
+          if (res.data?.accessToken) {
+            storage.setToken(res.data.accessToken)
+
+            return refetch()
+          }
+        })
+        .then(refetchRes => {
+          if (refetchRes?.data?.userId) {
+            router.push(`/profile/${refetchRes.data.userId}`)
+          } else {
+            router.push('/auth/signIn')
+          }
+        })
+        .catch(error => {
+          console.error('Google Login Error:', error)
+        })
     }
-  }, [data, isLoading, router])
+  }, [params, googleLogin, refetch, router])
 
   if (isLoading) {
     return <h1>Loading...</h1>
