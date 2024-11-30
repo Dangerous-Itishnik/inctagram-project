@@ -72,3 +72,36 @@
     color: var(--color-dark-100);
   }
 }
+
+.buttonAuthorization {
+  display: flex;
+  gap: 60px;
+  margin-top: 14px;
+  margin-bottom: 24px;
+}
+
+.buttonSignUp {
+  align-self: center;
+}
+
+.haveAccount {
+  margin-bottom: 6px;
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+  text-align: center;
+}
+
+.buttonSignIn {
+  margin-bottom: 18px;
+}
+
+.forgotPassword {
+  margin-bottom: 24px;
+  font-size: var(--font-size-s);
+  color: var(--color-light-900);
+  text-align: right;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

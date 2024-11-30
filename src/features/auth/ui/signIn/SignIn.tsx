@@ -2,10 +2,12 @@
 
 import { useForm } from 'react-hook-form'
 
+import ForgotPasswordPage from '@/app/auth/forgot-password/page'
 import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAuthButton'
 import { Input } from '@/common/components/Input/Input'
 import { Button } from '@/common/components/button'
+import Link from 'next/link'
 
 import styles from './singIn.module.scss'
 
@@ -34,7 +36,7 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
   return (
     <AuthorizationContainer>
       <Typography variant={'h1'}>Sign In</Typography>
-      <div>
+      <div className={styles.buttonAuthorization}>
         <GoogleAuthButton />
       </div>
       <form
@@ -71,7 +73,16 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
           })}
           autoComplete={'off'}
         />
-        <Button type={'submit'}>Sign In</Button>
+        <Link className={styles.forgotPassword} href={'/auth/forgot-password'}>
+          Forgot Password
+        </Link>
+        <Button className={styles.buttonSignIn} type={'submit'}>
+          Sign In
+        </Button>
+        <p className={styles.haveAccount}>Don’t have an account?</p>
+        <Button as={Link} className={styles.buttonSignUp} href={'/auth/signUp'} variant={'link'}>
+          Sign Up
+        </Button>
       </form>
     </AuthorizationContainer>
   )
