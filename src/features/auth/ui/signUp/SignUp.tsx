@@ -159,7 +159,7 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
         </Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
-      <Button as={'a'} href={'/signIn'} variant={'link'}>
+      <Button as={'a'} href={'/auth/signIn'} variant={'link'}>
         Sign In
       </Button>
     </AuthorizationContainer>
