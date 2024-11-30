@@ -17,7 +17,7 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      {pathProfile.includes('profile') && token && (
+      {pathProfile.includes('profile') && !token && (
         <div className={styles.buttons}>
           <Button as={Link} href={'/auth/signIn'} variant={'link'}>
             Log in
