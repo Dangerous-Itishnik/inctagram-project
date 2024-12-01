@@ -3,49 +3,40 @@
 import { useEffect } from 'react'
 
 import { storage } from '@/common/utils/storage'
-import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
+import { useGoogleLoginMutation } from '@/service/auth'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import '@/styles/index.scss'
 
 export default function Home() {
-  const { data, isLoading, refetch } = useMeQuery()
   const router = useRouter()
   const params = useSearchParams()
+  const code = params.get('code')
   const [googleLogin] = useGoogleLoginMutation()
 
   useEffect(() => {
-    const code = params.get('code')
+    const token = storage.getToken()
 
     if (code) {
       googleLogin({ code })
+        .unwrap()
         .then(res => {
-          if (res.data?.accessToken) {
-            storage.setToken(res.data.accessToken)
-
-            return refetch()
-          }
+          storage.setToken(res.accessToken)
+          router.replace('/createAccount')
         })
-        .then(refetchRes => {
-          if (refetchRes?.data?.userId) {
-            return router.push(`/profile/${refetchRes.data.userId}`)
-          }
-        })
-        .catch(error => {
-          console.error('Google Login Error:', error)
-        })
+        .catch(error => console.error('Google Login Error:', error))
     }
-    //TODO пофиксить редирект переходя на / редиректит на profile/userId
-    if (data && !code) {
-      return router.push(`/profile/${data.userId}`)
-    } else if (!data && !code) {
-      return router.push(`/auth/signIn`)
-    }
-  }, [params, googleLogin, refetch, router, data])
 
-  if (isLoading) {
+    if (token && !code) {
+      return router.replace('/createAccount')
+    } else if (!token && !code) {
+      return router.replace(`/auth/signIn`)
+    }
+  }, [code, googleLogin, router])
+
+  /*   if (isLoading) {
     return <h1>Loading...</h1>
-  }
+  } */
 
   return null
 }

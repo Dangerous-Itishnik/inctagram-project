@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { GoogleSvg } from '@/assets/icons/google'
 
 export const GoogleAuthButton = () => {

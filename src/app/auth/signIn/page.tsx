@@ -30,6 +30,9 @@ export default function SignInPage() {
       // const userId = meRes?.data?.userId
 
       // replace(`/profile/${userId}`)
+
+      //TODO: Типизация ошибки
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       error(error?.data?.message ?? 'Could not sign in')
     }

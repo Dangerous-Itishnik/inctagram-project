@@ -6,7 +6,7 @@ import { Button } from '@/common/components/button'
 import { PopUp } from '@/common/components/popUp/PopUp'
 import { storage } from '@/common/utils/storage'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
-import { AuthBaseResponse, useMeQuery, useRegistrationMutation } from '@/service/auth'
+import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 import { useRouter } from 'next/navigation'
 
 import styles from '@/common/components/popUp/popUp.module.scss'
@@ -17,18 +17,15 @@ export default function SignUpPage() {
   const [signUpEmail, setSignUpEmail] = useState('')
   const [onSubmitError, setOnSubmitError] = useState({})
   const [loading, setLoading] = useState(true)
-  const { push } = useRouter()
-
-  const { data } = useMeQuery()
+  const { replace } = useRouter()
 
   useEffect(() => {
     if (storage.getToken()) {
-      if (data) {
-        push(`/profile/${data.userId}`)
-      }
+      return replace('/createAccount')
     }
     setLoading(false)
-  }, [data, push])
+  }, [replace])
+
   if (loading) {
     return <div>Loading...</div>
   }

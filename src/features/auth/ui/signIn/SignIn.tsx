@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form'
 
-import ForgotPasswordPage from '@/app/auth/forgot-password/page'
 import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAuthButton'
 import { Input } from '@/common/components/Input/Input'
