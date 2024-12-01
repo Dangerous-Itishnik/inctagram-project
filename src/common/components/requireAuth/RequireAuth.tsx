@@ -17,7 +17,7 @@ export function RequireAuth({ children }: PropsWithChildren) {
     if (!isError) {
       return
     }
-    void push('/signIn')
+    void push('/auth/signIn')
   }, [isError, push])
 
   if (isLoading) {
