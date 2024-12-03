@@ -34,9 +34,5 @@ export default function Home() {
     }
   }, [code, googleLogin, router])
 
-  /*   if (isLoading) {
-    return <h1>Loading...</h1>
-  } */
-
   return null
 }

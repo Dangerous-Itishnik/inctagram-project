@@ -16,19 +16,13 @@ export default function SignUpPage() {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
   const [onSubmitError, setOnSubmitError] = useState({})
-  const [loading, setLoading] = useState(true)
   const { replace } = useRouter()
 
   useEffect(() => {
     if (storage.getToken()) {
       return replace('/createAccount')
     }
-    setLoading(false)
   }, [replace])
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
 
   const signUpHandler = async (data: SignUpProps) => {
     const signUpData = {

@@ -31,10 +31,6 @@ export function RegistrationEmailResending() {
     }
   }
 
-  if (isLoading) {
-    return <h1>Loading...</h1>
-  }
-
   return (
     <div className={styles.container}>
       <Typography variant={'h1'}>Email verification link expired</Typography>

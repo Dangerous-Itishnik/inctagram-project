@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
  * Оборачиваем роут который хотим защитить <RequireAuth>
  */
 export function RequireAuth({ children }: PropsWithChildren) {
-  const { isError, isLoading } = useMeQuery()
+  const { isError } = useMeQuery()
   const { push } = useRouter()
 
   useEffect(() => {
@@ -19,10 +19,6 @@ export function RequireAuth({ children }: PropsWithChildren) {
     }
     void push('/auth/signIn')
   }, [isError, push])
-
-  if (isLoading) {
-    return <h1>isLoading</h1>
-  }
 
   if (isError) {
     return
