@@ -14,7 +14,13 @@
   flex: 1 1 auto;
   justify-content: center;
 
-  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 
   color: var(--color-light-100);
+
+  @media (width <= 400px) {
+    width: 100%;
+    margin: 0;
+  }
 }

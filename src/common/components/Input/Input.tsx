@@ -2,6 +2,7 @@
 
 import React, { forwardRef, useState } from 'react'
 
+import { EyeOffOutline, EyeOutline } from '@/assets/icons/components'
 import { combineClasses } from '@/common/utils/combineClasses'
 
 import styles from './input.module.scss'
@@ -32,11 +33,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     if (type === 'password') {
       buttonType = (
-        <button
-          className={styles.button}
-          onClick={togglePasswordVisibility}
-          type={'button'}
-        ></button>
+        <button className={styles.button} onClick={togglePasswordVisibility} type={'button'}>
+          {showText ? <EyeOffOutline /> : <EyeOutline />}
+        </button>
       )
     } else if (type === 'search') {
       buttonType = (
