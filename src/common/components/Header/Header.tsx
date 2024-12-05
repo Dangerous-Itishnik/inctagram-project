@@ -1,56 +1,40 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { tokenSelector } from '@/common/components/Header/tokenSelector'
 import { Button } from '@/common/components/button'
-import { useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { useAppSelector } from '@/common/hooks/useAppSelector'
-import { logout } from '@/features/auth/model/authSlice'
-import { PopUpAuth } from '@/features/auth/ui/popUpAuth/PopUpAuth'
+import { storage } from '@/common/utils/storage'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
-import styles from '@/app/layout.module.scss'
+import styles from './header.module.scss'
 
 export const Header = () => {
-  const dispatch = useAppDispatch()
-  const { push } = useRouter()
-  const token = useAppSelector(tokenSelector)
-  const [info, setInfo] = useState(false)
+  const pathProfile = usePathname()
 
-  const logoutHandle = () => {
-    dispatch(logout())
-    setInfo(false)
-    push('/signIn')
-  }
-  const popUpClose = () => {
-    setInfo(false)
-  }
-  const logOut = () => {
-    setInfo(true)
-  }
+  const [isNotAuth, setIsAuth] = useState(false)
+
+  useEffect(() => {
+    if (storage.getToken()) {
+      return
+    }
+    setIsAuth(true)
+  }, [isNotAuth])
 
   return (
     <header className={styles.header}>
-      {!token && (
-        <>
-          <Button as={Link} href={'/signUp'}>
-            signUp
+      <Link href={'/'}>
+        <h1 className={styles.logo}>Inctagram</h1>
+      </Link>
+      {pathProfile.includes('profile') && isNotAuth && (
+        <div className={styles.buttons}>
+          <Button as={Link} href={'/auth/signIn'} variant={'link'}>
+            Log in
           </Button>
-          <Button as={Link} href={'/signIn'}>
-            signIn
+          <Button as={Link} href={'/auth/signUp'}>
+            Sign Up
           </Button>
-        </>
-      )}
-      <Button as={Link} href={'/profile'}>
-        profile
-      </Button>
-      {token && <Button onClick={logOut}>log out</Button>}
-      {info && (
-        <PopUpAuth onClose={popUpClose} title={'info'} toExecute={logoutHandle}>
-          Are you really want to log out of your account ___email name___?
-        </PopUpAuth>
+        </div>
       )}
     </header>
   )

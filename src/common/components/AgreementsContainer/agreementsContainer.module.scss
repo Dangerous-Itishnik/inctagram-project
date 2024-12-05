@@ -1,0 +1,22 @@
+.container {
+  padding: 24px 64px;
+
+  & p {
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-m);
+    text-align: center;
+  }
+}
+
+.title {
+  margin-top: 23px;
+  margin-bottom: 20px;
+
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.text {
+  padding: 0 97px;
+}
