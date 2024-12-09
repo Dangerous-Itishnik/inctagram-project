@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -26,6 +27,9 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
+      <div>
+        <Image height={35} src={'/images/bell.png'} width={35} />
+      </div>
       {pathProfile.includes('profile') && isNotAuth && (
         <div className={styles.buttons}>
           <Button as={Link} href={'/auth/signIn'} variant={'link'}>
