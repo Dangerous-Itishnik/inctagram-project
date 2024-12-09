@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { storage } from '@/common/utils/storage'
 import { SignIn as SignInCard } from '@/features/auth/ui/signIn'
@@ -11,6 +11,7 @@ export default function SignInPage() {
   const { replace } = useRouter()
   const [login] = useLogInMutation()
   // const [getMe] = useLazyMeQuery()
+  const [isError, setIsError] = useState()
 
   useEffect(() => {
     if (storage.getToken()) {
@@ -32,9 +33,9 @@ export default function SignInPage() {
       //TODO: Типизация ошибки
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      error(error?.data?.message ?? 'Could not sign in')
+      setIsError(error.data.messages)
     }
   }
 
-  return <SignInCard onSubmit={handleSignIn} />
+  return <SignInCard isError={isError} onSubmit={handleSignIn} />
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
@@ -13,10 +14,11 @@ import styles from './singIn.module.scss'
 import { Typography } from '../../../../common/components/Typography'
 
 interface SignInProps {
-  onSubmit: (data: { email: string; password: string }) => void // Принимаем onSubmit как пропс
+  isError?: string
+  onSubmit: (data: { email: string; password: string }) => void
 }
 
-export const SignIn = ({ onSubmit }: SignInProps) => {
+export const SignIn = ({ isError, onSubmit }: SignInProps) => {
   const {
     clearErrors,
     formState: { errors },
@@ -31,6 +33,9 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
       },
     }
   )
+
+  const customError: string =
+    typeof errors.password?.message === 'string' ? errors.password.message : isError || ''
 
   return (
     <AuthorizationContainer>
@@ -56,7 +61,7 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
           })}
         />
         <Input
-          errorMessage={typeof errors.password?.message === 'string' ? errors.password.message : ''}
+          errorMessage={customError}
           label={'Password'}
           propsClassName={styles.input}
           type={'password'}
