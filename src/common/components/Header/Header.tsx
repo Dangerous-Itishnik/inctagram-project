@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { BallButton } from '@/assets/icons/bell'
+import { BellButton } from '@/assets/icons/bell'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
 import Link from 'next/link'
@@ -28,7 +28,7 @@ export const Header = () => {
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
       <div>
-        <BallButton />
+        <BellButton />
       </div>
       {pathProfile.includes('profile') && isNotAuth && (
         <div className={styles.buttons}>

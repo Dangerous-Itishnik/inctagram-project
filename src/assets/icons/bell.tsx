@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { SvgOutlineBell } from '@/assets/icons/components/OutlineBell'
 
-export const BallButton = () => {
+export const BellButton = () => {
   const [openNotification, setOpenNotification] = useState<boolean>(false)
 
   const handelNotificationWindowToggle = () => {
