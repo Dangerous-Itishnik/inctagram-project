@@ -13,14 +13,16 @@ import styles from './header.module.scss'
 export const Header = () => {
   const pathProfile = usePathname()
 
-  const [isNotAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
 
   useEffect(() => {
     if (storage.getToken()) {
+      setIsAuth(true)
+
       return
     }
-    setIsAuth(true)
-  }, [isNotAuth])
+    setIsAuth(false)
+  }, [isAuth])
 
   return (
     <header className={styles.header}>
@@ -30,7 +32,7 @@ export const Header = () => {
       <div>
         <BellButton />
       </div>
-      {pathProfile.includes('profile') && isNotAuth && (
+      {pathProfile.includes('profile') && !isAuth && (
         <div className={styles.buttons}>
           <Button as={Link} href={'/auth/signIn'} variant={'link'}>
             Log in

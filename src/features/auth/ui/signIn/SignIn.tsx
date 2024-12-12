@@ -28,8 +28,8 @@ export const SignIn = ({ isError, onSubmit }: SignInProps) => {
     //Чтобы не вводить пароль и почту при тестировании
     {
       defaultValues: {
-        email: 'igorgrime@gmail.com',
-        password: 'Ex4mple!',
+        email: '',
+        password: '',
       },
     }
   )
