@@ -13,7 +13,6 @@ export default function SignInPage() {
   const [login] = useLogInMutation()
   const auth = useAppSelector(state => state.auth)
 
-  console.log('authSignIn', auth)
   const [isError, setIsError] = useState()
 
   useEffect(() => {

@@ -17,7 +17,6 @@ const authSlice = createSlice({
   name: 'auth',
   reducers: {
     setAuthState: (state, action: PayloadAction<InitialState>) => {
-      console.log(action, 'action')
       state.email = action.payload.email
       state.isBlocked = action.payload.isBlocked
       state.userId = action.payload.userId

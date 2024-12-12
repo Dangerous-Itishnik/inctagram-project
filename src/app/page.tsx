@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
@@ -19,9 +18,7 @@ export default function Home() {
   const [googleLogin] = useGoogleLoginMutation()
   const { data, refetch } = useMeQuery()
   const dispatch = useAppDispatch()
-  const auth = useAppSelector(state => state.auth)
 
-  console.log('render')
   useEffect(() => {
     if (code) {
       googleLogin({ code })
@@ -38,7 +35,7 @@ export default function Home() {
       replace(`/profile/${data.userId}`)
     }
     replace('/auth/signIn')
-  }, [code, googleLogin, replace, refetch, data])
+  }, [code, googleLogin, replace, refetch, data, dispatch])
 
   return null
 }
