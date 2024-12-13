@@ -30,7 +30,9 @@ const options = [
 export const SelectBox = () => {
   const [selectOption, setSelectOption] = useState('english')
 
-  const handleSelectChange = (newOption: unknown) => {
+  //TODO: Типизировать newOption
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSelectChange = (newOption: any) => {
     setSelectOption(newOption.value)
   }
 
