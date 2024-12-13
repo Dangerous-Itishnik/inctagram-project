@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
@@ -28,8 +27,8 @@ export const SignIn = ({ isError, onSubmit }: SignInProps) => {
     //Чтобы не вводить пароль и почту при тестировании
     {
       defaultValues: {
-        email: 'igorgrime@gmail.com',
-        password: 'Ex4mple!',
+        email: '',
+        password: '',
       },
     }
   )

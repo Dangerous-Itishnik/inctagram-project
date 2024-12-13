@@ -2,37 +2,39 @@
 
 import { useEffect } from 'react'
 
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { storage } from '@/common/utils/storage'
-import { useGoogleLoginMutation } from '@/service/auth'
+import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
+import { setAuthState } from '@/service/auth/authSlice'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import '@/styles/index.scss'
 
 export default function Home() {
-  const router = useRouter()
+  const { replace } = useRouter()
   const params = useSearchParams()
   const code = params.get('code')
   const [googleLogin] = useGoogleLoginMutation()
+  const { data, refetch } = useMeQuery()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const token = storage.getToken()
-
     if (code) {
       googleLogin({ code })
         .unwrap()
-        .then(res => {
-          storage.setToken(res.accessToken)
-          router.replace('/createAccount')
+        .then(result => {
+          storage.setToken(result.accessToken)
+          refetch().then(res => {
+            replace(`/profile/${res.data?.userId}`)
+          })
         })
-        .catch(error => console.error('Google Login Error:', error))
     }
-
-    if (token && !code) {
-      return router.replace('/createAccount')
-    } else if (!token && !code) {
-      return router.replace(`/auth/signIn`)
+    if (data) {
+      dispatch(setAuthState(data))
+      replace(`/profile/${data.userId}`)
     }
-  }, [code, googleLogin, router])
+    replace('/auth/signIn')
+  }, [code, googleLogin, replace, refetch, data, dispatch])
 
   return null
 }
