@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { storage } from '@/common/utils/storage'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { setAuthState } from '@/service/auth/authSlice'
