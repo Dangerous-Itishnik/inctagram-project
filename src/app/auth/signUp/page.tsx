@@ -1,13 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Button } from '@/common/components/button'
 import { PopUp } from '@/common/components/popUp/PopUp'
-import { storage } from '@/common/utils/storage'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
 import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
-import { useRouter } from 'next/navigation'
 
 import styles from '@/common/components/popUp/popUp.module.scss'
 
@@ -16,13 +14,6 @@ export default function SignUpPage() {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
   const [signUpEmail, setSignUpEmail] = useState('')
   const [onSubmitError, setOnSubmitError] = useState({})
-  const { replace } = useRouter()
-
-  useEffect(() => {
-    if (storage.getToken()) {
-      return replace('/createAccount')
-    }
-  }, [replace])
 
   const signUpHandler = async (data: SignUpProps) => {
     const signUpData = {
@@ -67,7 +58,6 @@ export default function SignUpPage() {
         <PopUp onClose={closePopUp} title={'Email sent'}>
           <p>
             We have sent a link to confirm your email to
-            <br />
             {signUpEmail}
           </p>
           <Button className={styles.okButton} onClick={closePopUp}>

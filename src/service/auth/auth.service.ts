@@ -61,7 +61,7 @@ export const authApi = baseApi.injectEndpoints({
 
 export const {
   useGoogleLoginMutation,
-
+  useLazyMeQuery,
   useLogInMutation,
   useLogoutMutation,
   useMeQuery,
