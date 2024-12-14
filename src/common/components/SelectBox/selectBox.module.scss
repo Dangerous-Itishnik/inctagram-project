@@ -1,0 +1,24 @@
+.select {
+  width: 163px;
+  height: 36px;
+}
+
+.custom-styles .selectBox_select__Bdx4V{
+  &__control{
+    background-color: #0f9954 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  //color: #ffffff;
+  color: black;
+}
+
+.flag {
+  margin-right: 15px;
+}
