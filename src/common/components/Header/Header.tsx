@@ -1,11 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
-import { BellButton } from '@/assets/icons/bell'
+// import { BellButton } from '@/assets/icons/bell'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
 import { Button } from '@/common/components/button'
-import { storage } from '@/common/utils/storage'
+import { useMeQuery } from '@/service/auth'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -14,14 +12,16 @@ import styles from './header.module.scss'
 export const Header = () => {
   const pathProfile = usePathname()
 
-  const [isNotAuth, setIsAuth] = useState(false)
+  /*   const [isNotAuth, setIsAuth] = useState(false)
 
   useEffect(() => {
     if (storage.getToken()) {
       return
     }
     setIsAuth(true)
-  }, [isNotAuth])
+  }, [isNotAuth]) */
+
+  const { isError: isNotAuth } = useMeQuery()
 
   return (
     <header className={styles.header}>
@@ -30,10 +30,10 @@ export const Header = () => {
       </Link>
       <div>
         {/* TODO: Фиксануть ошибку в консоли для SelectBox */}
+        {/* <BellButton /> */}
         {/* <SelectBox /> */}
-        <BellButton />
       </div>
-      {pathProfile.includes('profile') && isNotAuth && (
+      {!pathProfile.includes('auth') && isNotAuth && (
         <div className={styles.buttons}>
           <Button as={Link} href={'/auth/signIn'} variant={'link'}>
             Log in

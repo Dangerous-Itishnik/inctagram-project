@@ -3,7 +3,9 @@
 import { useEffect } from 'react'
 
 import { storage } from '@/common/utils/storage'
-import { useGoogleLoginMutation } from '@/service/auth'
+import { AuthUserPage } from '@/features/authUserPage'
+import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
+import { Spinner } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import '@/styles/index.scss'
@@ -13,26 +15,32 @@ export default function Home() {
   const params = useSearchParams()
   const code = params.get('code')
   const [googleLogin] = useGoogleLoginMutation()
+  const { data, isFetching, isLoading, isSuccess } = useMeQuery()
 
   useEffect(() => {
-    const token = storage.getToken()
+    const handleGoogleLogin = async (code: string) => {
+      try {
+        const res = await googleLogin({ code }).unwrap()
 
-    if (code) {
-      googleLogin({ code })
-        .unwrap()
-        .then(res => {
-          storage.setToken(res.accessToken)
-          router.replace('/createAccount')
-        })
-        .catch(error => console.error('Google Login Error:', error))
+        storage.setToken(res.accessToken)
+        router.replace('/createAccount')
+      } catch (error) {
+        console.error('Google Login Error:', error)
+        router.replace('/auth/signIn')
+      }
     }
 
-    if (token && !code) {
-      return router.replace('/createAccount')
-    } else if (!token && !code) {
-      return router.replace(`/auth/signIn`)
+    if (code) {
+      handleGoogleLogin(code)
     }
   }, [code, googleLogin, router])
 
-  return null
+  if (isLoading || isFetching) {
+    return <Spinner />
+  }
+  if (isSuccess) {
+    return <AuthUserPage meData={data} />
+  }
+
+  return <p>aaa</p>
 }

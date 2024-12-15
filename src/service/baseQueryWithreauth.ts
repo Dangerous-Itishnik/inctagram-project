@@ -43,7 +43,18 @@ export const baseQueryWithReauth: BaseQueryFn<
           // Перезапускаем исходный запрос
           result = await baseQuery(args, api, extraOptions)
         } else {
-          storage.deleteToken()
+          const accessToken = storage.getToken()
+
+          accessToken &&
+            (await baseQuery(
+              {
+                method: 'POST',
+                url: '/api/v1/auth/logout',
+              },
+              api,
+              extraOptions
+            ))
+          // storage.deleteToken()
           // TODO: сделать редирект на логин
           // await Router.push('/signIn')
           // toast.error('You are not authorized')
