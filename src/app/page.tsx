@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import { storage } from '@/common/utils/storage'
-import { AuthUserPage } from '@/features/authUserPage'
+import { AuthUserHomePage } from '@/features/authUserHomePage'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -39,7 +39,7 @@ export default function Home() {
     <>
       {isLoading && !data && <Spinner />}
       {isError && <p>Ты не залогинен! Здесь будут отбражаться общие посты</p>}
-      {data && !isError && <AuthUserPage meData={data} />}
+      {data && !isError && <AuthUserHomePage meData={data} />}
     </>
   )
 }

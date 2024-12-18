@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 import { Providers } from '@/app/providers'
+import { AppSideBar } from '@/common/components/AppSidebar'
 import { Header } from '@/common/components/Header/Header'
 import { Theme } from '@radix-ui/themes'
 import NextTopLoader from 'nextjs-toploader'
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           <Theme className={styles.bodyContainer} style={{ backgroundColor: 'transparent' }}>
             <Header />
+            <AppSideBar />
             <main className={styles.main}>{children}</main>
           </Theme>
         </Providers>
