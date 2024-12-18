@@ -12,15 +12,6 @@ import styles from './header.module.scss'
 export const Header = () => {
   const pathProfile = usePathname()
 
-  /*   const [isNotAuth, setIsAuth] = useState(false)
-
-  useEffect(() => {
-    if (storage.getToken()) {
-      return
-    }
-    setIsAuth(true)
-  }, [isNotAuth]) */
-
   const { isError: isNotAuth } = useMeQuery()
 
   return (
@@ -28,11 +19,7 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <div>
-        {/* TODO: Фиксануть ошибку в консоли для SelectBox */}
-        {/* <BellButton /> */}
-        {/* <SelectBox /> */}
-      </div>
+      <div>{/* TODO:Добавить логику для отображения колокольчика и выбора языков */}</div>
       {!pathProfile.includes('auth') && isNotAuth && (
         <div className={styles.buttons}>
           <Button as={Link} href={'/auth/signIn'} variant={'link'}>

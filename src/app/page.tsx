@@ -15,7 +15,7 @@ export default function Home() {
   const params = useSearchParams()
   const code = params.get('code')
   const [googleLogin] = useGoogleLoginMutation()
-  const { data, isFetching, isLoading, isSuccess } = useMeQuery()
+  const { data, isError, isLoading } = useMeQuery()
 
   useEffect(() => {
     const handleGoogleLogin = async (code: string) => {
@@ -35,12 +35,11 @@ export default function Home() {
     }
   }, [code, googleLogin, router])
 
-  if (isLoading || isFetching) {
-    return <Spinner />
-  }
-  if (isSuccess) {
-    return <AuthUserPage meData={data} />
-  }
-
-  return <p>aaa</p>
+  return (
+    <>
+      {isLoading && !data && <Spinner />}
+      {isError && <p>1488</p>}
+      {data && !isError && <AuthUserPage meData={data} />}
+    </>
+  )
 }
