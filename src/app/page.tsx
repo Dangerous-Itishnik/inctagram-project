@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <>
       {isLoading && !data && <Spinner />}
-      {isError && <p>1488</p>}
+      {isError && <p>Ты не залогинен! Здесь будут отбражаться общие посты</p>}
       {data && !isError && <AuthUserPage meData={data} />}
     </>
   )
