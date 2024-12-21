@@ -9,6 +9,7 @@ export const SvgOutlineBell = forwardRef(
       width={24}
       xmlns={'http://www.w3.org/2000/svg'}
       {...props}
+      // style={{ height: '24px', width: '24px', ...props.style }}
     >
       <path
         clipRule={'evenodd'}
