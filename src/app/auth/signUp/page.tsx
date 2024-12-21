@@ -2,16 +2,15 @@
 
 import { useState } from 'react'
 
-import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/Modals/Modal'
+import { SignUpModal } from '@/common/components/Modals/SignUpModal'
+import { useModal } from '@/common/hooks/useModal'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
 import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 
-import styles from '@/common/components/popUp/popUp.module.scss'
-
 export default function SignUpPage() {
   const [registration] = useRegistrationMutation()
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+  const { close: closeSignUpModal, isOpen: isSignUpModalOpen, open: openSignUpModal } = useModal()
+
   const [signUpEmail, setSignUpEmail] = useState('')
   const [onSubmitError, setOnSubmitError] = useState({})
 
@@ -26,7 +25,7 @@ export default function SignUpPage() {
       const result = await registration(signUpData).unwrap()
 
       registration(signUpData)
-      setIsPopUpOpen(true)
+      openSignUpModal()
       setSignUpEmail(data.Email)
 
       return result
@@ -38,9 +37,6 @@ export default function SignUpPage() {
       }
       throw error
     }
-  }
-  const closePopUp = () => {
-    setIsPopUpOpen(false)
   }
 
   const clearEmailAndUserNameError = () => {
@@ -54,17 +50,7 @@ export default function SignUpPage() {
         onSubmit={signUpHandler}
         onSubmitError={onSubmitError}
       />
-      {isPopUpOpen && (
-        <PopUp onClose={closePopUp} title={'Email sent'}>
-          <p>
-            We have sent a link to confirm your email to
-            {signUpEmail}
-          </p>
-          <Button className={styles.okButton} onClick={closePopUp}>
-            OK
-          </Button>
-        </PopUp>
-      )}
+      {isSignUpModalOpen && <SignUpModal email={signUpEmail} onClose={closeSignUpModal} />}
     </>
   )
 }
