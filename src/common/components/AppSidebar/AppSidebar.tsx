@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 
 import {
   BookmarkOutline,
@@ -11,33 +10,20 @@ import {
   SearchOutline,
   TrendingUpOutline,
 } from '@/assets/icons/components'
-import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
-import { storage } from '@/common/utils/storage'
-import { useLogoutMutation, useMeQuery } from '@/service/auth'
+import { useModal } from '@/common/hooks/useModal'
+import { useMeQuery } from '@/service/auth'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
-import styles from './appSideBarStyles.module.scss'
+import styles from './AppSideBar.module.scss'
+
+import { LogoutModal } from '../Modals/LogoutModal'
 
 export const AppSideBar = () => {
-  const { replace } = useRouter()
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
-  const [logout] = useLogoutMutation()
+  const { close: closeLogoutModal, isOpen: isLogoutModalOpen, open: openLogoutModal } = useModal()
+
   const { data, isError } = useMeQuery()
   const pathname = usePathname()
-  const logoutHandle = async () => {
-    storage.deleteToken()
-    await logout()
-    closePopUp()
-    replace('/')
-  }
-  const closePopUp = () => {
-    setIsPopUpOpen(false)
-  }
-  const openPopUp = () => {
-    setIsPopUpOpen(true)
-  }
 
   return (
     <>
@@ -94,25 +80,13 @@ export const AppSideBar = () => {
               </li>
             </div>
             <li className={styles.item || styles.itemLogout}>
-              <button className={styles.link} onClick={openPopUp} type={'button'}>
+              <button className={styles.link} onClick={openLogoutModal} type={'button'}>
                 <LogOutOutline />
                 <span>Log Out</span>
               </button>
             </li>
           </ul>
-          {isPopUpOpen && (
-            <PopUp onClose={closePopUp} title={'Logout'}>
-              <p>Are you really want to log out of your account {data?.email}?</p>
-              <div className={styles.popUpButtons}>
-                <Button className={styles.closeButton} onClick={logoutHandle}>
-                  Yes
-                </Button>
-                <Button className={styles.closeButton} onClick={closePopUp}>
-                  No
-                </Button>
-              </div>
-            </PopUp>
-          )}
+          {isLogoutModalOpen && <LogoutModal email={data?.email} onClose={closeLogoutModal} />}
         </nav>
       ) : null}
     </>

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp/PopUp'
+import { PopUp } from '@/common/components/Modals/Modal'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
 import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
+import { PopUp } from '@/common/components/Modals'
 import { storage } from '@/common/utils/storage'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import { useRouter } from 'next/navigation'

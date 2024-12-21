@@ -1,0 +1,10 @@
+.modalLogoutButtons {
+  display: flex;
+  gap: 25px;
+  justify-content: end;
+  margin-top: 30px;
+
+  & button {
+    width: 93px;
+  }
+}
