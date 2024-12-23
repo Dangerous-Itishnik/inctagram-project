@@ -6,12 +6,11 @@ import { BellButton } from '@/assets/icons/bell'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
-import { CreatePost } from '@/features/posts/ui/createPost'
+import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import styles from './header.module.scss'
-
 
 export const Header = () => {
   const pathProfile = usePathname()
