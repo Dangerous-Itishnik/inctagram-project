@@ -7,7 +7,8 @@ import { UploadFile } from '@/features/posts/ui/createPost/UploadFile'
 import styles from '@/features/posts/ui/createPost/commonStyles.module.scss'
 
 export const CreatePost = ({ onClose }) => {
-  const [image, setImage] = useState(null)
+  const [uploadImage, setUploadImage] = useState(null)
+  const [images, setImages] = useState([])
 
   const inputRef = React.useRef()
 
@@ -17,11 +18,19 @@ export const CreatePost = ({ onClose }) => {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader()
 
+      reader.onload = () => {
+        const newImage = reader.result
+
+        setUploadImage(newImage)
+        handelImagesUpdate(newImage)
+      }
+
       reader.readAsDataURL(e.target.files[0])
-      reader.addEventListener('load', () => {
-        setImage(reader.result)
-      })
     }
+  }
+
+  const handelImagesUpdate = newImage => {
+    setImages(prevImages => [...prevImages, newImage])
   }
 
   return (
@@ -37,9 +46,14 @@ export const CreatePost = ({ onClose }) => {
           <div className={styles.plug}>
             <Plug />
           </div>
-          {image ? (
+          {uploadImage ? (
             <>
-              <UploadFile image={image} />
+              <UploadFile
+                images={images}
+                onClose={onClose}
+                onImageUpload={handelImagesUpdate}
+                triggerFileSelectPopup={triggerFileSelectPopup}
+              />
             </>
           ) : null}
           <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />

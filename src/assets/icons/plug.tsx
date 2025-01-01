@@ -1,9 +1,15 @@
 import { SvgImageOutline } from '@/assets/icons/components/ImageOutline'
 
-export const Plug = () => {
+import styles from '@/features/posts/ui/createPost/slider.module.scss'
+
+export const Plug = ({ onclick }) => {
+  const handelImageOutline = () => {
+    onclick()
+  }
+
   return (
-    <div>
-      <SvgImageOutline />
+    <div className={styles.plug}>
+      <SvgImageOutline handelImageOutline={handelImageOutline} />
     </div>
   )
 }

@@ -4,7 +4,9 @@ import styles from '@/common/components/CrossButton/crossButton.module.scss'
 
 export const CrossButton = ({ onClose }) => {
   const handelCloseAddPhoto = () => {
-    onClose()
+    if (typeof onClose === 'function') {
+      onClose()
+    }
   }
 
   return (

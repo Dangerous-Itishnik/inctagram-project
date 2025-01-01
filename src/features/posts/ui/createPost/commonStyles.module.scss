@@ -38,12 +38,14 @@
   @extend .baseHeader;
 }
 
-.baseHeader h3 {
+.headerCropping h3 {
+  display: flex;
   color: #ffffff;
   font-weight: 700;
   font-size: 20px;
   line-height: 36px;
   text-align: center;
+  margin-left: -50px;
 }
 
 .next {
@@ -113,11 +115,13 @@
   border: none;
 }
 
-.back {
+.back  button{
+  display: flex;
   color: #ffffff !important;
   background-color: transparent !important;
-  //padding-right: 100px;
+  font-size: 25px;
 }
+
 
 .image {
   position: absolute;
@@ -125,8 +129,4 @@
   left: 0;
   right: 0;
   bottom: 0;
-}
-
-.slider {
-
 }

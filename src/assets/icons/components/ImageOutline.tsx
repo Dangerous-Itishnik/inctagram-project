@@ -1,9 +1,13 @@
 import { Ref, SVGProps, forwardRef, memo } from 'react'
 export const SvgImageOutline = forwardRef(
-  (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
+  (
+    props: { handelImageOutline: () => void } & SVGProps<SVGSVGElement>,
+    ref: Ref<SVGSVGElement>
+  ) => (
     <svg
       fill={'none'}
       height={24}
+      onClick={props.handelImageOutline}
       ref={ref}
       width={24}
       xmlns={'http://www.w3.org/2000/svg'}
