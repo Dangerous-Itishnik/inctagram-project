@@ -10,12 +10,30 @@ export const CreatePost = ({ onClose }) => {
   const [uploadImage, setUploadImage] = useState(null)
   const [images, setImages] = useState([])
 
+  const MAX_FILE_SIZE = 20 * 1024 * 1024
+  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
+  const MAX_IMAGE_COUNT = 10
+
   const inputRef = React.useRef()
 
   const triggerFileSelectPopup = () => inputRef.current.click()
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0]
+
+      if (selectedFile.size > MAX_FILE_SIZE) {
+        alert('The size of picture is too large. Allowed size is equal 20mb')
+
+        return
+      }
+
+      if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
+        alert('Invalid file format. Please select an image in JPEG or PNG format.')
+
+        return
+      }
+
       const reader = new FileReader()
 
       reader.onload = () => {
@@ -30,7 +48,9 @@ export const CreatePost = ({ onClose }) => {
   }
 
   const handelImagesUpdate = newImage => {
-    setImages(prevImages => [...prevImages, newImage])
+    images.length < MAX_IMAGE_COUNT
+      ? setImages(prevImages => [...prevImages, newImage])
+      : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
   }
 
   return (

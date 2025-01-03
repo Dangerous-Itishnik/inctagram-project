@@ -7,6 +7,7 @@ import { BellButton } from '@/assets/icons/bell'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
 import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
+import { Publication } from '@/features/posts/ui/createPost/Publication'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -41,7 +42,8 @@ export const Header = () => {
       <button onClick={handelOpenCreatePost} type={'button'}>
         Create
       </button>
-      {openPostWindow && <CreatePost onClose={handelCloseCreatePost} />}
+      {/*{openPostWindow && <CreatePost onClose={handelCloseCreatePost} />}*/}
+      {openPostWindow && <Publication onClose={handelCloseCreatePost} />}
       <div>
         {/* TODO: Фиксануть ошибку в консоли для SelectBox */}
         {/* <SelectBox /> */}

@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react'
 
 import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
+import { Publication } from '@/features/posts/ui/createPost/Publication'
 import { Slider } from '@/features/posts/ui/createPost/Slider'
 
 import styles from '@/features/posts/ui/createPost/commonStyles.module.scss'
 
 export const UploadFile = ({ image: initialImage, images, onClose, triggerFileSelectPopup }) => {
   const [image, setImage] = useState(initialImage)
-  const [showAddPhoto, setAddPhoto] = useState(false)
+  const [showAddPhoto, setShowAddPhoto] = useState<boolean>(false)
+  const [openPublication, setOpenPublication] = useState<boolean>(false)
 
   const handelOpenAddPhoto = () => {
-    setAddPhoto(true)
+    setShowAddPhoto(true)
+  }
+
+  const handelOpenPublication = () => {
+    setOpenPublication(true)
   }
 
   useEffect(() => {
@@ -18,7 +24,8 @@ export const UploadFile = ({ image: initialImage, images, onClose, triggerFileSe
   }, [initialImage])
 
   return (
-    <div className={styles.window}>
+    // <div className={styles.window}>
+    <div className={styles.test}>
       {showAddPhoto ? (
         <CreatePost onClose={onClose} />
       ) : (
@@ -30,12 +37,16 @@ export const UploadFile = ({ image: initialImage, images, onClose, triggerFileSe
               </button>
             </div>
             <h3>Cropping</h3>
-            <button className={styles.next} onClick={onClose} type={'button'}>
+            <button className={styles.next} onClick={handelOpenPublication} type={'button'}>
               Next
             </button>
           </div>
           <div className={styles.image}>
-            <Slider images={images} onOpenModal={triggerFileSelectPopup} />
+            {openPublication ? (
+              <Publication images={images} />
+            ) : (
+              <Slider images={images} onOpenModal={triggerFileSelectPopup} />
+            )}
           </div>
         </>
       )}
