@@ -1,0 +1,14 @@
+.modal {
+  position: fixed;
+  top:50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1004;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}

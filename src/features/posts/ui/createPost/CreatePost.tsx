@@ -1,22 +1,26 @@
+'use client'
+
 import React, { useState } from 'react'
 
 import { Plug } from '@/assets/icons/plug'
 import { CrossButton } from '@/common/components/CrossButton/CrossButton'
-import { UploadFile } from '@/features/posts/ui/createPost/UploadFile'
 
-import styles from '@/features/posts/ui/createPost/commonStyles.module.scss'
+import styles from '@/features/posts/ui/createPost/cretePost.module.scss'
 
-export const CreatePost = ({ onClose }) => {
+export const CreatePost = ({ onClose, onImageUpload }) => {
   const [uploadImage, setUploadImage] = useState(null)
   const [images, setImages] = useState([])
+  const inputRef = React.useRef(null)
 
   const MAX_FILE_SIZE = 20 * 1024 * 1024
   const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
   const MAX_IMAGE_COUNT = 10
 
-  const inputRef = React.useRef()
-
-  const triggerFileSelectPopup = () => inputRef.current.click()
+  const triggerFileSelectPopup = () => {
+    if (inputRef.current) {
+      inputRef.current.click()
+    }
+  }
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -41,6 +45,7 @@ export const CreatePost = ({ onClose }) => {
 
         setUploadImage(newImage)
         handelImagesUpdate(newImage)
+        onImageUpload(newImage)
       }
 
       reader.readAsDataURL(e.target.files[0])
@@ -66,16 +71,6 @@ export const CreatePost = ({ onClose }) => {
           <div className={styles.plug}>
             <Plug />
           </div>
-          {uploadImage ? (
-            <>
-              <UploadFile
-                images={images}
-                onClose={onClose}
-                onImageUpload={handelImagesUpdate}
-                triggerFileSelectPopup={triggerFileSelectPopup}
-              />
-            </>
-          ) : null}
           <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
         </div>
         <button onClick={triggerFileSelectPopup} type={'button'}>

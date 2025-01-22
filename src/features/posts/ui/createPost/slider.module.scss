@@ -1,3 +1,67 @@
+//duplicate: start
+.window {
+  width: 492px;
+  height: 564px;
+  transform: translate(-50%, -50%);
+  background: #4c4c4c;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+.headerCropping h3 {
+  display: flex;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 36px;
+  text-align: center;
+}
+//duplicate: end
+
+.next {
+  color: #397DF6;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  padding-right: 25px;
+  background-color: transparent;
+}
+
+.image {
+  position: absolute;
+  top: 13%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.back button {
+  display: flex;
+  color: #ffffff;
+  background-color: transparent;
+  font-size: 25px;
+  padding-left: 25px;
+}
+
+.headerCropping {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px;
+}
+
+.headerCropping::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 72px;
+  border-bottom: 2px solid white;
+}
+
 .sliderControls {
   position: absolute;
   top: 50%;
@@ -7,20 +71,22 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  z-index: 1002;
 }
 
 .sliderControls button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: auto !important;
-  font-size: 35px !important;
-  border: none !important;
-  padding: 10px 10px 15px 10px !important;
-  background: deepskyblue !important;
-  color: red !important;
-  position: relative !important;
-  border-radius: 5px !important;
+  width: auto;
+  font-size: 30px;
+  font-weight: bold;
+  border: none;
+  padding: 0.5px 5px 0.5px 5px;
+  background: deepskyblue;
+  color: red;
+  position: relative;
+  border-radius: 5px;
 }
 
 .sliderPagination {
@@ -46,7 +112,27 @@
   cursor: pointer;
 }
 
-.plug{
+.outline input{
+  display: none;
+}
+
+.deleteImage {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  height: 45px;
+  width: 45px;
+  position: absolute;
+  top: 5%;
+  left: 80%;
+  border-radius: 5px;
+  background-color: deepskyblue;
+  cursor: pointer;
+}
+
+.plug {
   display: flex;
   justify-content: center;
   align-items: center;

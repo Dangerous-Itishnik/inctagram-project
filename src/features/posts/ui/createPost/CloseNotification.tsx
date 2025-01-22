@@ -18,7 +18,9 @@ export const CloseNotification = ({ onClose }) => {
         deleted
       </div>
       <div className={styles.buttons}>
-        <button type={'button'}>Discard</button>
+        <button onClick={handelCloseNotification} type={'button'}>
+          Discard
+        </button>
         <button type={'button'}>Save draft</button>
       </div>
     </div>

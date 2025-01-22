@@ -6,9 +6,7 @@ import { BellButton } from '@/assets/icons/bell'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
-import { CloseNotification } from '@/features/posts/ui/createPost/CloseNotification'
-import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
-import { Publication } from '@/features/posts/ui/createPost/Publication'
+import { ModalPostWindow } from '@/features/posts/ui/createPost/ModalPostWindow'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -18,14 +16,10 @@ export const Header = () => {
   const pathProfile = usePathname()
 
   const [isNotAuth, setIsAuth] = useState(false)
-  const [openPostWindow, setOpenPostWindow] = useState<boolean>(false)
+  const [openPostModalWindow, setOpenPostModalWindow] = useState<boolean>(false)
 
   const handelOpenCreatePost = () => {
-    setOpenPostWindow(true)
-  }
-
-  const handelCloseCreatePost = () => {
-    setOpenPostWindow(false)
+    setOpenPostModalWindow(true)
   }
 
   useEffect(() => {
@@ -43,9 +37,7 @@ export const Header = () => {
       <button onClick={handelOpenCreatePost} type={'button'}>
         Create
       </button>
-      {/*{openPostWindow && <CreatePost onClose={handelCloseCreatePost} />}*/}
-      {/*{openPostWindow && <Publication onClose={handelCloseCreatePost} />}*/}
-      {openPostWindow && <CloseNotification onClose={handelCloseCreatePost} />}
+      {<ModalPostWindow active={openPostModalWindow} setActive={setOpenPostModalWindow} />}
       <div>
         {/* TODO: Фиксануть ошибку в консоли для SelectBox */}
         {/* <SelectBox /> */}
