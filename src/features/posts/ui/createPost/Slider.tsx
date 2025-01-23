@@ -1,35 +1,45 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-import Cropper from 'react-easy-crop'
+import React, { useRef, useState } from 'react'
+import Cropper, { Area } from 'react-easy-crop'
 
 import { Plug } from '@/assets/icons/plug'
 
 import styles from '@/features/posts/ui/createPost/slider.module.scss'
 
+type Props = {
+  image: string
+  images: string[]
+  onDeleteImage: (value: number) => void
+  onImageUpload: (value: string) => void
+  triggerGoToCreatePost: () => void
+  triggerGoToPublication: () => void
+}
 export const Slider = ({
-  onDeleteImage,
   image: initialImage,
   images,
+  onDeleteImage,
   onImageUpload,
   triggerGoToCreatePost,
   triggerGoToPublication,
-}) => {
+}: Props) => {
+  //TODO убрать лишнее
+  // const [images2, setImages] = useState<[]>([])
+  // const [uploadImage, setUploadImage] = useState<null | string>(null)
   const [image, setImage] = useState(initialImage)
-  const [croppedAria, setCroppedAria] = useState(null)
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState(1)
-  //
-  const [images2, setImages] = useState([])
-  const [uploadImage, setUploadImage] = useState(null)
+  const [croppedAria, setCroppedAria] = useState<Area | null>(null)
+
+  const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState<number>(1)
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const MAX_FILE_SIZE = 20 * 1024 * 1024
   const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
-  const MAX_IMAGE_COUNT = 10
+  //TODO
+  // const MAX_IMAGE_COUNT = 10
 
   const triggerFileSelectPopup = () => {
     if (inputRef.current) {
@@ -37,11 +47,11 @@ export const Slider = ({
     }
   }
 
-  useEffect(() => {
-    setImage(initialImage)
-  }, [initialImage])
+  // useEffect(() => {
+  //   setImage(initialImage)
+  // }, [initialImage])
 
-  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAria(croppedAreaPixels)
   }
 
@@ -86,20 +96,22 @@ export const Slider = ({
       reader.onload = () => {
         const newImage = reader.result
 
-        setUploadImage(newImage)
-        handelImagesUpdate(newImage)
-        onImageUpload(newImage)
+        if (typeof newImage === 'string') {
+          // setUploadImage(newImage)
+          // handelImagesUpdate(newImage)
+          onImageUpload(newImage)
+        }
       }
 
       reader.readAsDataURL(e.target.files[0])
     }
   }
 
-  const handelImagesUpdate = newImage => {
-    images.length < MAX_IMAGE_COUNT
-      ? setImages(prevImages => [...prevImages, newImage])
-      : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
-  }
+  // const handelImagesUpdate = (newImage: string) => {
+  //   images.length < MAX_IMAGE_COUNT
+  //     ? setImages(prevImages => [...prevImages, newImage])
+  //     : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
+  // }
 
   return (
     <div className={styles.window}>

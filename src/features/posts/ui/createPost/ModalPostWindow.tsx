@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { CloseNotification } from '@/features/posts/ui/createPost/CloseNotification'
 import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
@@ -16,9 +16,15 @@ const ModalComponents = {
   SLIDER: 'SLIDER',
 }
 
-export const ModalPostWindow = ({ active, setActive, triggerFileSelectPopup }) => {
+type Props = {
+  active: boolean
+  setActive: Dispatch<SetStateAction<boolean>>
+}
+
+export const ModalPostWindow = ({ active, setActive }: Props) => {
   const [currentComponent, setCurrentComponent] = useState(ModalComponents.CREATE_POST)
-  const [images, setImages] = useState<File[]>([])
+  const [images, setImages] = useState<string[]>([])
+  //TODO Нужен ли он!
   const [showCloseNotification, setShowCloseNotification] = useState(false)
   const { isActive, ref, setIsActive } = useOutsideClick(false)
 
@@ -26,7 +32,7 @@ export const ModalPostWindow = ({ active, setActive, triggerFileSelectPopup }) =
     setIsActive(!isActive)
   }
 
-  const deleteImage = indexToDelete => {
+  const deleteImage = (indexToDelete: number) => {
     const updatedImages = images.filter((_, index) => index !== indexToDelete)
 
     setImages(updatedImages)
@@ -70,7 +76,6 @@ export const ModalPostWindow = ({ active, setActive, triggerFileSelectPopup }) =
             images={images}
             onDeleteImage={deleteImage}
             onImageUpload={handleImageUpload}
-            triggerFileSelectPopup={triggerFileSelectPopup}
             triggerGoToCreatePost={followToCreatePost}
             triggerGoToPublication={followToPublication}
           />

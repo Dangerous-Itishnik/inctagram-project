@@ -7,10 +7,16 @@ import { CrossButton } from '@/common/components/CrossButton/CrossButton'
 
 import styles from '@/features/posts/ui/createPost/cretePost.module.scss'
 
-export const CreatePost = ({ onClose, onImageUpload }) => {
-  const [uploadImage, setUploadImage] = useState(null)
-  const [images, setImages] = useState([])
-  const inputRef = React.useRef(null)
+type Props = {
+  onClose: () => void
+  onImageUpload: (value: string) => void
+}
+
+export const CreatePost = ({ onClose, onImageUpload }: Props) => {
+  //TODO надо ли это
+  const [uploadImage, setUploadImage] = useState<null | string>(null)
+  const [images, setImages] = useState<string[]>([])
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   const MAX_FILE_SIZE = 20 * 1024 * 1024
   const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
@@ -43,16 +49,18 @@ export const CreatePost = ({ onClose, onImageUpload }) => {
       reader.onload = () => {
         const newImage = reader.result
 
-        setUploadImage(newImage)
-        handelImagesUpdate(newImage)
-        onImageUpload(newImage)
+        if (typeof newImage === 'string') {
+          setUploadImage(newImage)
+          handelImagesUpdate(newImage)
+          onImageUpload(newImage)
+        }
       }
 
       reader.readAsDataURL(e.target.files[0])
     }
   }
 
-  const handelImagesUpdate = newImage => {
+  const handelImagesUpdate = (newImage: string) => {
     images.length < MAX_IMAGE_COUNT
       ? setImages(prevImages => [...prevImages, newImage])
       : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)

@@ -1,16 +1,21 @@
 import { useState } from 'react'
 
-import { log } from 'node:util'
-
 import { usePostImageMutation, usePostPostMutation } from '@/service/posts/posts.service'
 
 import styles from '@/features/posts/ui/createPost/publication.module.scss'
 
-export const Publication = ({ images, triggerGoToPublication }) => {
+type Props = {
+  images: string[]
+  triggerGoToPublication: () => void
+}
+
+export const Publication = ({ images, triggerGoToPublication }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const [publishedImage] = usePostImageMutation()
   const [publishedPost] = usePostPostMutation()
+
+  const [description, setDescription] = useState('')
 
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
@@ -20,13 +25,11 @@ export const Publication = ({ images, triggerGoToPublication }) => {
     setCurrentImageIndex(prevIndex => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
   }
 
-  function base64ToFile(base64, filename) {
+  function base64ToFile(base64: string, filename: string) {
     // Убираем префикс "data:image/png;base64,"
     const base64Data = base64.split(',')[1]
 
     if (!base64Data) {
-      console.error('Invalid base64 string:', base64)
-
       return null
     }
     // Преобразуем base64 в бинарные данные
@@ -55,28 +58,18 @@ export const Publication = ({ images, triggerGoToPublication }) => {
       }
     })
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value)
-    }
-
-    console.log(formData.entries())
     // Передаем массив файлов
     publishedImage(formData)
       .unwrap() // Используйте unwrap для обработки успешных и ошибочных ответов
       .then(res => {
-        console.log('Success:', res)
-
         const data = {
           childrenMetadata: res.images.map(el => ({ uploadId: el.uploadId })),
-          description: 'string',
+          description,
         }
 
-        console.log(data)
         publishedPost(data)
           .unwrap()
-          .then(res => {
-            console.log('Success Post:', res)
-          })
+          .then(res => {})
       })
       .catch(err => {
         console.error('Error:', err)
@@ -121,7 +114,11 @@ export const Publication = ({ images, triggerGoToPublication }) => {
           </div>
           <div className={styles.userDescription}>
             <p>Add publication descriptions</p>
-            <textarea placeholder={'Text-area'} />
+            <textarea
+              onChange={e => setDescription(e.target.value)}
+              placeholder={'Text-area'}
+              value={description}
+            />
             <span>0/500</span>
           </div>
           <div className={styles.userLocation}>

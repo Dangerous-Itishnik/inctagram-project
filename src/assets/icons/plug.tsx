@@ -6,6 +6,7 @@ import styles from '@/features/posts/ui/createPost/slider.module.scss'
 
 export const Plug = ({ onClick }) => {
   const handelImageOutline = () => {
+    // TODO Что это?
     if (typeof onClick === 'function') {
       onClick()
     } else {

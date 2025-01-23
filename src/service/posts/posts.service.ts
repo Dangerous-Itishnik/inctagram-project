@@ -2,7 +2,7 @@ import { baseApi } from '@/service/baseApi'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    postImage: build.mutation({
+    postImage: build.mutation<Response, FormData>({
       query: images => ({
         body: images,
         method: 'POST',
