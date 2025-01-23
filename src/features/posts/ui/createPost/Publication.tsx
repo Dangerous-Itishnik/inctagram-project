@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { RadixModal } from '@/common/components/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
 import { usePostImageMutation, usePostPostMutation } from '@/service/posts/posts.service'
+import Image from 'next/image'
 
 import styles from '@/features/posts/ui/createPost/publication.module.scss'
 
@@ -66,7 +67,10 @@ export const Publication = ({ images, onClose, open, triggerGoToPublication }: P
           description,
         }
 
-        publishedPost(data).unwrap().then(console.log).catch(console.error)
+        publishedPost(data)
+          .unwrap()
+          .then(() => onClose())
+          .catch(console.error)
       })
       .catch(console.error)
   }
@@ -88,7 +92,7 @@ export const Publication = ({ images, onClose, open, triggerGoToPublication }: P
       <div className={styles.content}>
         <div className={styles.slider}>
           {images.length > 0 ? (
-            <img alt={`Slide ${currentImageIndex + 1}`} src={images[currentImageIndex]} />
+            <Image alt={`Slide ${currentImageIndex + 1}`} src={images[currentImageIndex]} />
           ) : (
             <p>No images to display</p>
           )}
@@ -107,7 +111,7 @@ export const Publication = ({ images, onClose, open, triggerGoToPublication }: P
 
         <div className={styles.userData}>
           <div className={styles.userAvatar}>
-            <img alt={'User Avatar'} src={''} />
+            <Image alt={'User Avatar'} src={''} />
             <p>URLProfile</p>
           </div>
           <div className={styles.userDescription}>

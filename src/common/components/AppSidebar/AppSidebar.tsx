@@ -14,6 +14,7 @@ import {
 import { Button } from '@/common/components/button'
 import { PopUp } from '@/common/components/popUp'
 import { storage } from '@/common/utils/storage'
+import { ModalPostWindow } from '@/features/posts/ui/createPost/ModalPostWindow'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -26,6 +27,7 @@ export const AppSideBar = () => {
   const [logout] = useLogoutMutation()
   const { data, isError } = useMeQuery()
   const pathname = usePathname()
+  const [isCreatePostsModal, setIsCreatePostsModal] = useState<boolean>(false)
   const logoutHandle = async () => {
     storage.deleteToken()
     await logout()
@@ -54,7 +56,7 @@ export const AppSideBar = () => {
             <li className={`${styles.item} `}>
               <button className={styles.link} type={'button'}>
                 <PlusSquareOutline />
-                <span>Create</span>
+                <span onClick={() => setIsCreatePostsModal(true)}>Create</span>
               </button>
             </li>
             <li className={`${styles.item} ${pathname === '/profile' ? styles.itemActive : ''}`}>
@@ -115,6 +117,7 @@ export const AppSideBar = () => {
           )}
         </nav>
       ) : null}
+      <ModalPostWindow active={isCreatePostsModal} setActive={setIsCreatePostsModal} />
     </>
   )
 }
