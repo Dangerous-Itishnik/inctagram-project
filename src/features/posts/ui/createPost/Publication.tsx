@@ -1,21 +1,23 @@
 import { useState } from 'react'
 
+import { RadixModal } from '@/common/components/RadixModal/RadixModal'
+import { Button } from '@/common/components/button'
 import { usePostImageMutation, usePostPostMutation } from '@/service/posts/posts.service'
 
 import styles from '@/features/posts/ui/createPost/publication.module.scss'
 
 type Props = {
   images: string[]
+  onClose: () => void
+  open: boolean
   triggerGoToPublication: () => void
 }
 
-export const Publication = ({ images, triggerGoToPublication }: Props) => {
+export const Publication = ({ images, onClose, open, triggerGoToPublication }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
+  const [description, setDescription] = useState('')
   const [publishedImage] = usePostImageMutation()
   const [publishedPost] = usePostPostMutation()
-
-  const [description, setDescription] = useState('')
 
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
@@ -25,14 +27,13 @@ export const Publication = ({ images, triggerGoToPublication }: Props) => {
     setCurrentImageIndex(prevIndex => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
   }
 
-  function base64ToFile(base64: string, filename: string) {
-    // Убираем префикс "data:image/png;base64,"
+  const base64ToFile = (base64: string, filename: string) => {
     const base64Data = base64.split(',')[1]
 
     if (!base64Data) {
       return null
     }
-    // Преобразуем base64 в бинарные данные
+
     const byteCharacters = atob(base64Data)
     const byteArrays = []
 
@@ -41,9 +42,8 @@ export const Publication = ({ images, triggerGoToPublication }: Props) => {
     }
 
     const byteArray = new Uint8Array(byteArrays)
-    const blob = new Blob([byteArray], { type: 'image/png' }) // Укажите правильный MIME-тип
+    const blob = new Blob([byteArray], { type: 'image/png' })
 
-    // Создаем объект File
     return new File([blob], filename, { type: 'image/png' })
   }
 
@@ -54,55 +54,51 @@ export const Publication = ({ images, triggerGoToPublication }: Props) => {
       const file = base64ToFile(base64, `image${index}.png`)
 
       if (file) {
-        formData.append('file', file) // 'file[]' — это ключ для массива файлов
+        formData.append('file', file)
       }
     })
 
-    // Передаем массив файлов
     publishedImage(formData)
-      .unwrap() // Используйте unwrap для обработки успешных и ошибочных ответов
+      .unwrap()
       .then(res => {
         const data = {
           childrenMetadata: res.images.map(el => ({ uploadId: el.uploadId })),
           description,
         }
 
-        publishedPost(data)
-          .unwrap()
-          .then(res => {
-            console.log(res)
-          })
+        publishedPost(data).unwrap().then(console.log).catch(console.error)
       })
-      .catch(err => {
-        console.error('Error:', err)
-      })
+      .catch(console.error)
   }
 
+  const modalTitle = (
+    <>
+      <button onClick={triggerGoToPublication} type={'button'}>
+        {'<'}
+      </button>
+      <h3>Publication</h3>
+      <Button onClick={publishedPostHandler} variant={'link'}>
+        Publish
+      </Button>
+    </>
+  )
+
   return (
-    <div className={styles.publication}>
-      <div className={styles.header}>
-        <button onClick={triggerGoToPublication} type={'button'}>
-          {'<'}
-        </button>
-        <h3>Publication</h3>
-        <button className={styles.publish} onClick={publishedPostHandler} type={'button'}>
-          Publish
-        </button>
-      </div>
+    <RadixModal modalTitle={modalTitle} onClose={onClose} open={open}>
       <div className={styles.content}>
         <div className={styles.slider}>
           {images.length > 0 ? (
             <img alt={`Slide ${currentImageIndex + 1}`} src={images[currentImageIndex]} />
           ) : (
-            <>No images to display</>
+            <p>No images to display</p>
           )}
           <div className={styles.sliderButtons}>
-            <button onClick={goToPreviousSlide} type={'button'}>
+            <Button onClick={goToPreviousSlide} variant={'link'}>
               &lt;
-            </button>
-            <button onClick={goToNextSlide} type={'button'}>
+            </Button>
+            <Button onClick={goToNextSlide} variant={'link'}>
               &gt;
-            </button>
+            </Button>
           </div>
           <div className={styles.imagePagination}>
             {images.length > 0 && `${currentImageIndex + 1}/${images.length}`}
@@ -111,28 +107,26 @@ export const Publication = ({ images, triggerGoToPublication }: Props) => {
 
         <div className={styles.userData}>
           <div className={styles.userAvatar}>
-            <img />
+            <img alt={'User Avatar'} src={''} />
             <p>URLProfile</p>
           </div>
           <div className={styles.userDescription}>
             <p>Add publication descriptions</p>
             <textarea
+              maxLength={500}
               onChange={e => setDescription(e.target.value)}
               placeholder={'Text-area'}
               value={description}
             />
-            <span>0/500</span>
+            <span>{description.length}/500</span>
           </div>
           <div className={styles.userLocation}>
             <h3>Add location</h3>
-            <span>New York </span>
-            <p>New York </p>
-            <span>Washington Square Park </span>
-            <p>New York </p>
-            <span>Washington Square Park </span>
+            <span>New York</span>
+            <p>Washington Square Park</p>
           </div>
         </div>
       </div>
-    </div>
+    </RadixModal>
   )
 }

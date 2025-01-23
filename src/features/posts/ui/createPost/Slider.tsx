@@ -116,7 +116,7 @@ export const Slider = ({
   //     ? setImages(prevImages => [...prevImages, newImage])
   //     : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
   // }
-  const reb = (
+  const modalTitle = (
     <>
       <div className={styles.back}>
         <button onClick={triggerGoToCreatePost} type={'button'}>
@@ -131,7 +131,7 @@ export const Slider = ({
   )
 
   return (
-    <RadixModal modalTitle={reb} onClose={onClose} open={open}>
+    <RadixModal modalTitle={modalTitle} onClose={onClose} open={open}>
       <div className={styles.image}>
         <div>
           <Cropper

@@ -7,7 +7,7 @@ import styles from '@/common/components/RadixModal/RadixModal.module.scss'
 
 type RadixModalProps = {
   modalButtonClose?: ReactNode
-  modalTitle?: ReactNode | string
+  modalTitle: ReactNode | string
   onClose: () => void
   open: boolean
 } & ComponentPropsWithoutRef<'div'>
