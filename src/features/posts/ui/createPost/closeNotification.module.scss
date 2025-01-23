@@ -1,0 +1,61 @@
+.notificationWindow {
+  height: 252px;
+  width: 378px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4c4c4c;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  z-index: 1005;
+}
+
+.header {
+  height: 25%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 0 15px;
+  font-weight: bold;
+}
+
+.message{
+  margin: 15px;
+}
+
+.buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.buttons button{
+  width: 108px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #397DF6;
+  border-radius: 2px;
+  color: #397DF6;
+  font-weight: bold;
+
+  &:active {
+    background-color: #397DF6;
+    color: #ffffff;
+  }
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 55px;
+  border-bottom: 0.5px solid white;
+}
