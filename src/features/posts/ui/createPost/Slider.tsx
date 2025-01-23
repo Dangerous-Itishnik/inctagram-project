@@ -3,21 +3,27 @@
 import React, { useRef, useState } from 'react'
 import Cropper, { Area } from 'react-easy-crop'
 
-import { Plug } from '@/assets/icons/plug'
+import { ImageOutline } from '@/assets/icons/components'
+import { RadixModal } from '@/common/components/RadixModal/RadixModal'
+import { Button } from '@/common/components/button'
 
 import styles from '@/features/posts/ui/createPost/slider.module.scss'
 
 type Props = {
   images: string[]
+  onClose: () => void
   onDeleteImage: (value: number) => void
   onImageUpload: (value: string) => void
+  open: boolean
   triggerGoToCreatePost: () => void
   triggerGoToPublication: () => void
 }
 export const Slider = ({
   images,
+  onClose,
   onDeleteImage,
   onImageUpload,
+  open,
   triggerGoToCreatePost,
   triggerGoToPublication,
 }: Props) => {
@@ -110,20 +116,22 @@ export const Slider = ({
   //     ? setImages(prevImages => [...prevImages, newImage])
   //     : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
   // }
-
-  return (
-    <div className={styles.window}>
-      <div className={styles.headerCropping}>
-        <div className={styles.back}>
-          <button onClick={triggerGoToCreatePost} type={'button'}>
-            {'<'}
-          </button>
-        </div>
-        <h3>Cropping</h3>
-        <button className={styles.next} onClick={triggerGoToPublication} type={'button'}>
-          Next
+  const reb = (
+    <>
+      <div className={styles.back}>
+        <button onClick={triggerGoToCreatePost} type={'button'}>
+          {'<'}
         </button>
       </div>
+      <h3>Cropping</h3>
+      <Button onClick={triggerGoToPublication} variant={'link'}>
+        Next
+      </Button>
+    </>
+  )
+
+  return (
+    <RadixModal modalTitle={reb} onClose={onClose} open={open}>
       <div className={styles.image}>
         <div>
           <Cropper
@@ -136,25 +144,23 @@ export const Slider = ({
             zoom={zoom}
           />
         </div>
-        <div className={styles.deleteImage}>
-          <button onClick={handleDeleteImage} type={'button'}>
-            X
-          </button>
-        </div>
+        <Button className={styles.deleteImage} onClick={handleDeleteImage}>
+          X
+        </Button>
         <div className={styles.sliderControls}>
-          <button onClick={goToPreviousSlide} type={'button'}>
+          <Button onClick={goToPreviousSlide} type={'button'} variant={'icon'}>
             &lt;
-          </button>
-          <button onClick={goToNextSlide} type={'button'}>
+          </Button>
+          <Button onClick={goToNextSlide} type={'button'} variant={'icon'}>
             &gt;
-          </button>
+          </Button>
         </div>
-        <div className={styles.outline}>
-          <Plug onClick={triggerFileSelectPopup} />
+        <Button className={styles.outline}>
+          <ImageOutline onClick={triggerFileSelectPopup} />
           <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
-        </div>
+        </Button>
         <div className={styles.sliderPagination}>{`${currentImageIndex + 1}/${images.length}`}</div>
       </div>
-    </div>
+    </RadixModal>
   )
 }

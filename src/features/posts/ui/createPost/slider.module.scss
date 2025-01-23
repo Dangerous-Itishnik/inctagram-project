@@ -1,141 +1,130 @@
 //duplicate: start
 .window {
+  z-index: 1001;
+  transform: translate(-50%, -50%);
+
   width: 492px;
   height: 564px;
-  transform: translate(-50%, -50%);
+
   background: #4c4c4c;
   border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
 }
 
 .headerCropping h3 {
   display: flex;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 36px;
-  text-align: center;
-}
-//duplicate: end
 
-.next {
-  color: #397DF6;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 36px;
+  color: #fff;
   text-align: center;
-  padding-right: 25px;
-  background-color: transparent;
 }
 
 .image {
-  position: absolute;
-  top: 13%;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  width: 564px;
+  height: 500px;
 }
 
 .back button {
   display: flex;
-  color: #ffffff;
-  background-color: transparent;
-  font-size: 25px;
+
   padding-left: 25px;
+
+  font-size: 25px;
+  color: #fff;
+
+  background-color: transparent;
 }
 
 .headerCropping {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px;
+
+  width: 100%;
+  padding: 20px;
 }
 
 .headerCropping::after {
   content: '';
+
   position: absolute;
-  left: 0;
-  right: 0;
   top: 72px;
+  right: 0;
+  left: 0;
+
   border-bottom: 2px solid white;
 }
 
 .sliderControls {
   position: absolute;
+  z-index: 1002;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
   width: 100%;
-  z-index: 1002;
 }
 
 .sliderControls button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  font-size: 30px;
-  font-weight: bold;
-  border: none;
-  padding: 0.5px 5px 0.5px 5px;
-  background: deepskyblue;
-  color: red;
-  position: relative;
-  border-radius: 5px;
+  padding: 16px;
+  font-size: 36px;
 }
 
 .sliderPagination {
   position: absolute;
-  bottom: 20px;
-  padding: 5px;
   z-index: 1;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  color: deepskyblue;
+
+  padding: 5px;
+
   font-size: 20px;
   font-weight: bold;
 }
 
 .outline {
-  height: 45px;
-  width: 45px;
   position: absolute;
   top: 70%;
   left: 80%;
-  border-radius: 5px;
-  background-color: deepskyblue;
-  cursor: pointer;
+
+  width: 45px;
+  height: 45px;
+  padding: 0;
 }
 
-.outline input{
+.outline input {
   display: none;
 }
 
 .deleteImage {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 20px;
-  height: 45px;
-  width: 45px;
   position: absolute;
   top: 5%;
-  left: 80%;
-  border-radius: 5px;
-  background-color: deepskyblue;
-  cursor: pointer;
+  right: 5%;
+
+  width: 45px;
+  height: 45px;
+  padding: 0;
 }
 
-.plug {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+.buttonClose {
+  cursor: pointer;
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  padding: 5px 10px;
+
+  font-size: 24px;
+
+  background: none;
+  border: none;
 }

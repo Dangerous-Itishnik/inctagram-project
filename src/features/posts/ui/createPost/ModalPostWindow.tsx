@@ -80,8 +80,10 @@ export const ModalPostWindow = ({ active, setActive }: Props) => {
         return (
           <Slider
             images={images}
+            onClose={() => setActive(false)}
             onDeleteImage={deleteImage}
             onImageUpload={handleImageUpload}
+            open={currentComponent === ModalComponents.SLIDER}
             triggerGoToCreatePost={followToCreatePost}
             triggerGoToPublication={followToPublication}
           />
