@@ -1,13 +1,17 @@
 import { useState } from 'react'
 
-import { usePostImageMutation } from '@/service/posts/posts.service'
+import { log } from 'node:util'
+
+import { usePostImageMutation, usePostPostMutation } from '@/service/posts/posts.service'
 
 import styles from '@/features/posts/ui/createPost/publication.module.scss'
 
 export const Publication = ({ images, triggerGoToPublication }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const [publishedPost] = usePostImageMutation()
+  const [publishedImage] = usePostImageMutation()
+  const [publishedPost] = usePostPostMutation()
+
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
   }
@@ -57,10 +61,22 @@ export const Publication = ({ images, triggerGoToPublication }) => {
 
     console.log(formData.entries())
     // Передаем массив файлов
-    publishedPost(formData)
+    publishedImage(formData)
       .unwrap() // Используйте unwrap для обработки успешных и ошибочных ответов
       .then(res => {
         console.log('Success:', res)
+
+        const data = {
+          childrenMetadata: res.images.map(el => ({ uploadId: el.uploadId })),
+          description: 'string',
+        }
+
+        console.log(data)
+        publishedPost(data)
+          .unwrap()
+          .then(res => {
+            console.log('Success Post:', res)
+          })
       })
       .catch(err => {
         console.error('Error:', err)

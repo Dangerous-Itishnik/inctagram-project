@@ -1,6 +1,6 @@
 import { baseApi } from '@/service/baseApi'
 
-export const postApi = baseApi.injectEndpoints({
+export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     postImage: build.mutation({
       query: images => ({
@@ -9,10 +9,17 @@ export const postApi = baseApi.injectEndpoints({
         url: '/api/v1/posts/image',
       }),
     }),
+    postPost: build.mutation({
+      query: data => ({
+        body: data,
+        method: 'POST',
+        url: '/api/v1/posts',
+      }),
+    }),
   }),
 })
 
-export const { usePostImageMutation } = postApi
+export const { usePostImageMutation, usePostPostMutation } = postsApi
 
 export type Response = {
   images: ResponseImages[]
