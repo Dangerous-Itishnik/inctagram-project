@@ -2,7 +2,14 @@ import { Ref, SVGProps, forwardRef, memo } from 'react'
 
 export const SvgImageOutline = forwardRef(
   (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-    <svg fill={'none'} height={24} width={24} xmlns={'http://www.w3.org/2000/svg'}>
+    <svg
+      fill={'none'}
+      height={24}
+      width={24}
+      xmlns={'http://www.w3.org/2000/svg'}
+      {...props}
+      ref={ref}
+    >
       <g clipPath={'url(#image-outline_svg__a)'} fill={'currentColor'}>
         <path
           d={
