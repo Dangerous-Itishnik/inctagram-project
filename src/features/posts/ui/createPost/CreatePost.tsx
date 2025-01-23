@@ -75,7 +75,7 @@ export const CreatePost = ({ onClose, onImageUpload, open }: Props) => {
       <div className={styles.window}>
         <div className={styles.cropper}>
           <div className={styles.logo}>
-            <ImageOutline height={'36px'} viewBox={' 24px 24px'} width={'36px'} />
+            <ImageOutline height={36} viewBox={'0 0 24 24'} width={36} />
             <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
           </div>
           <div className={styles.buttons}>
