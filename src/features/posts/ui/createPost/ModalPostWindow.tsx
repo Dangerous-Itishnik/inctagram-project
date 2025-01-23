@@ -41,7 +41,7 @@ export const ModalPostWindow = ({ active, setActive }: Props) => {
     }
   }
 
-  const handleImageUpload = newImage => {
+  const handleImageUpload = (newImage: string) => {
     setImages(prevImages => [...prevImages, newImage])
     setCurrentComponent(ModalComponents.SLIDER)
   }

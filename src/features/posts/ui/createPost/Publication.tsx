@@ -69,7 +69,9 @@ export const Publication = ({ images, triggerGoToPublication }: Props) => {
 
         publishedPost(data)
           .unwrap()
-          .then(res => {})
+          .then(res => {
+            console.log(res)
+          })
       })
       .catch(err => {
         console.error('Error:', err)
