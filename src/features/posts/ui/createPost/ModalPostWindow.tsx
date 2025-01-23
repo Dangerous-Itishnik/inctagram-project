@@ -18,7 +18,7 @@ const ModalComponents = {
 
 export const ModalPostWindow = ({ active, setActive, triggerFileSelectPopup }) => {
   const [currentComponent, setCurrentComponent] = useState(ModalComponents.CREATE_POST)
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState<File[]>([])
   const [showCloseNotification, setShowCloseNotification] = useState(false)
   const { isActive, ref, setIsActive } = useOutsideClick(false)
 

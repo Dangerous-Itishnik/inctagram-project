@@ -1,16 +1,70 @@
 import { useState } from 'react'
 
+import { usePostImageMutation } from '@/service/posts/posts.service'
+
 import styles from '@/features/posts/ui/createPost/publication.module.scss'
 
 export const Publication = ({ images, triggerGoToPublication }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
+  const [publishedPost] = usePostImageMutation()
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
   }
 
   const goToNextSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
+  }
+
+  function base64ToFile(base64, filename) {
+    // Убираем префикс "data:image/png;base64,"
+    const base64Data = base64.split(',')[1]
+
+    if (!base64Data) {
+      console.error('Invalid base64 string:', base64)
+
+      return null
+    }
+    // Преобразуем base64 в бинарные данные
+    const byteCharacters = atob(base64Data)
+    const byteArrays = []
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArrays.push(byteCharacters.charCodeAt(i))
+    }
+
+    const byteArray = new Uint8Array(byteArrays)
+    const blob = new Blob([byteArray], { type: 'image/png' }) // Укажите правильный MIME-тип
+
+    // Создаем объект File
+    return new File([blob], filename, { type: 'image/png' })
+  }
+
+  const publishedPostHandler = () => {
+    const formData = new FormData()
+
+    images.forEach((base64, index) => {
+      const file = base64ToFile(base64, `image${index}.png`)
+
+      if (file) {
+        formData.append('file', file) // 'file[]' — это ключ для массива файлов
+      }
+    })
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value)
+    }
+
+    console.log(formData.entries())
+    // Передаем массив файлов
+    publishedPost(formData)
+      .unwrap() // Используйте unwrap для обработки успешных и ошибочных ответов
+      .then(res => {
+        console.log('Success:', res)
+      })
+      .catch(err => {
+        console.error('Error:', err)
+      })
   }
 
   return (
@@ -20,7 +74,7 @@ export const Publication = ({ images, triggerGoToPublication }) => {
           {'<'}
         </button>
         <h3>Publication</h3>
-        <button className={styles.publish} type={'button'}>
+        <button className={styles.publish} onClick={publishedPostHandler} type={'button'}>
           Publish
         </button>
       </div>
