@@ -2,17 +2,21 @@
 
 import React, { useState } from 'react'
 
+import { ImageOutline } from '@/assets/icons/components'
 import { Plug } from '@/assets/icons/plug'
 import { CrossButton } from '@/common/components/CrossButton/CrossButton'
+import { RadixModal } from '@/common/components/RadixModal/RadixModal'
+import { Button } from '@/common/components/button'
 
 import styles from '@/features/posts/ui/createPost/cretePost.module.scss'
 
 type Props = {
   onClose: () => void
   onImageUpload: (value: string) => void
+  open: boolean
 }
 
-export const CreatePost = ({ onClose, onImageUpload }: Props) => {
+export const CreatePost = ({ onClose, onImageUpload, open }: Props) => {
   //TODO надо ли это
   const [uploadImage, setUploadImage] = useState<null | string>(null)
   const [images, setImages] = useState<string[]>([])
@@ -67,25 +71,19 @@ export const CreatePost = ({ onClose, onImageUpload }: Props) => {
   }
 
   return (
-    <div className={styles.window}>
-      <div className={styles.headerPhoto}>
-        <h3>Add Photo</h3>
-        <div>
-          <CrossButton onClose={onClose} />
-        </div>
-      </div>
-      <div className={styles.cropper}>
-        <div className={styles.logo}>
-          <div className={styles.plug}>
-            <Plug />
+    <RadixModal modalTitle={'Add Photo'} onClose={onClose} open={open}>
+      <div className={styles.window}>
+        <div className={styles.cropper}>
+          <div className={styles.logo}>
+            <ImageOutline className={styles.plug} />
+            <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
           </div>
-          <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
+          <div className={styles.buttons}>
+            <Button onClick={triggerFileSelectPopup}>Select from Computer</Button>
+            <Button variant={'outline'}>Open Draft</Button>
+          </div>
         </div>
-        <button onClick={triggerFileSelectPopup} type={'button'}>
-          Select from Computer
-        </button>
-        <button type={'button'}>Open Draft</button>
       </div>
-    </div>
+    </RadixModal>
   )
 }

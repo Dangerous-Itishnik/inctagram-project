@@ -69,7 +69,13 @@ export const ModalPostWindow = ({ active, setActive }: Props) => {
   const renderComponent = () => {
     switch (currentComponent) {
       case ModalComponents.CREATE_POST:
-        return <CreatePost onClose={() => setActive(false)} onImageUpload={handleImageUpload} />
+        return (
+          <CreatePost
+            onClose={() => setActive(false)}
+            onImageUpload={handleImageUpload}
+            open={currentComponent === ModalComponents.CREATE_POST}
+          />
+        )
       case ModalComponents.SLIDER:
         return (
           <Slider
