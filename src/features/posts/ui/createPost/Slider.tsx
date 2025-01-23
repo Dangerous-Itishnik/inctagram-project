@@ -8,7 +8,6 @@ import { Plug } from '@/assets/icons/plug'
 import styles from '@/features/posts/ui/createPost/slider.module.scss'
 
 type Props = {
-  image: string
   images: string[]
   onDeleteImage: (value: number) => void
   onImageUpload: (value: string) => void
@@ -16,7 +15,6 @@ type Props = {
   triggerGoToPublication: () => void
 }
 export const Slider = ({
-  image: initialImage,
   images,
   onDeleteImage,
   onImageUpload,
@@ -26,7 +24,7 @@ export const Slider = ({
   //TODO убрать лишнее
   // const [images2, setImages] = useState<[]>([])
   // const [uploadImage, setUploadImage] = useState<null | string>(null)
-  const [image, setImage] = useState(initialImage)
+  const [image, setImage] = useState<string>('')
   const [croppedAria, setCroppedAria] = useState<Area | null>(null)
 
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })

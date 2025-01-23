@@ -2,6 +2,18 @@ import { baseApi } from '@/service/baseApi'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
+    deletePost: build.mutation<
+      any,
+      {
+        accessToken: string | undefined
+        postId: number
+      }
+    >({
+      query: ({ accessToken, postId }) => ({
+        method: 'DELETE',
+        url: `/posts/${postId}`,
+      }),
+    }),
     postImage: build.mutation<Response, FormData>({
       query: images => ({
         body: images,
@@ -14,6 +26,22 @@ export const postsApi = baseApi.injectEndpoints({
         body: data,
         method: 'POST',
         url: '/api/v1/posts',
+      }),
+    }),
+    updatePost: build.mutation<
+      { description: 'string' },
+      {
+        accessToken: string | undefined
+        description: string
+        postId: number
+      }
+    >({
+      //TODO для того что бы обновить посты и отрисовать
+      // invalidatesTags: ['Posts'],
+      query: ({ accessToken, description, postId }) => ({
+        body: { description },
+        method: 'PUT',
+        url: `/posts/${postId}`,
       }),
     }),
   }),

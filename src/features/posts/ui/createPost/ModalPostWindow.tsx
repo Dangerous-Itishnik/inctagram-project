@@ -81,9 +81,7 @@ export const ModalPostWindow = ({ active, setActive }: Props) => {
           />
         )
       case ModalComponents.PUBLICATION:
-        return (
-          <Publication images={images} slider={Slider} triggerGoToPublication={followToSlider} />
-        )
+        return <Publication images={images} triggerGoToPublication={followToSlider} />
       default:
         return null
     }
