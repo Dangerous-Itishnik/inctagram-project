@@ -10,10 +10,17 @@ type Props = {
   images: string[]
   onClose: () => void
   open: boolean
+  setImages: (images: string[]) => void
   triggerGoToPublication: () => void
 }
 
-export const PublicationModal = ({ images, onClose, open, triggerGoToPublication }: Props) => {
+export const PublicationModal = ({
+  images,
+  onClose,
+  open,
+  setImages,
+  triggerGoToPublication,
+}: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [description, setDescription] = useState('')
   const [publishedImage] = usePostImageMutation()
@@ -68,7 +75,10 @@ export const PublicationModal = ({ images, onClose, open, triggerGoToPublication
 
         publishedPost(data)
           .unwrap()
-          .then(() => onClose())
+          .then(() => {
+            setImages([])
+            onClose()
+          })
           .catch(console.error)
       })
       .catch(console.error)

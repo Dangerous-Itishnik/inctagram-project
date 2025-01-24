@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 
 import { AddPhotoModal } from '@/common/components/Modals/CreatePostModal/AddPhotoModal/AddPhotoModal'
 import { CroppingModal } from '@/common/components/Modals/CreatePostModal/CroppingModal/CroppingModal'
@@ -27,7 +27,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
   //TODO Нужен ли он!
   const [showCloseNotification, setShowCloseNotification] = useState(false)
   const { isActive, ref, setIsActive } = useOutsideClick(false)
-  const MAX_IMAGE_COUNT = 3
+  const MAX_IMAGE_COUNT = 10
 
   const handleButtonClick = () => {
     setIsActive(!isActive)
@@ -43,15 +43,8 @@ export const CreatePost = ({ active, setActive }: Props) => {
   }
 
   const handleImageUpload = (newImage: string) => {
-    if (images.length < MAX_IMAGE_COUNT) {
-      setImages(prevImages => [...prevImages, newImage])
-      console.log(images)
-    }
-    // setImages(prevImages => [...prevImages, newImage])
-    else {
-      alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
-      console.log('Pokazal')
-    }
+    setImages(prevImages => [...prevImages, newImage])
+
     setCurrentComponent(ModalComponents.SLIDER)
   }
 
@@ -74,6 +67,67 @@ export const CreatePost = ({ active, setActive }: Props) => {
   if (!active) {
     return null
   }
+  const MAX_FILE_SIZE = 20 * 1024 * 1024
+  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
+
+  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0]
+
+      // Проверка размера файла
+      if (selectedFile.size > MAX_FILE_SIZE) {
+        alert('The size of the picture is too large. Allowed size is 20MB.')
+
+        return
+      }
+
+      // Проверка формата файла
+      if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
+        alert('Invalid file format. Please select an image in JPEG or PNG format.')
+
+        return
+      }
+
+      // Проверка на максимальное количество файлов
+      if (images.length >= MAX_IMAGE_COUNT) {
+        alert(`You can only upload up to ${MAX_IMAGE_COUNT} images.`)
+
+        return
+      }
+
+      // Чтение файла с использованием промисов
+      const newImage = await readFileAsDataURL(selectedFile)
+
+      // Обновление состояния
+      if (newImage) {
+        handleImageUpload(newImage)
+      }
+
+      // Очистка input
+      e.target.value = ''
+    }
+  }
+
+  // Функция для чтения файла как Data URL
+  const readFileAsDataURL = (file: File): Promise<null | string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result)
+        } else {
+          reject(new Error('Failed to read file as Data URL.'))
+        }
+      }
+
+      reader.onerror = () => {
+        reject(new Error('Failed to read file.'))
+      }
+
+      reader.readAsDataURL(file)
+    })
+  }
 
   const renderComponent = () => {
     switch (currentComponent) {
@@ -92,6 +146,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
             onClose={() => setActive(false)}
             onDeleteImage={deleteImage}
             onImageUpload={handleImageUpload}
+            onSelectFile={onSelectFile}
             open={currentComponent === ModalComponents.SLIDER}
             triggerGoToCreatePost={followToCreatePost}
             triggerGoToPublication={followToPublication}
@@ -103,6 +158,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
             images={images}
             onClose={() => setActive(false)}
             open={currentComponent === ModalComponents.PUBLICATION}
+            setImages={setImages}
             triggerGoToPublication={followToSlider}
           />
         )

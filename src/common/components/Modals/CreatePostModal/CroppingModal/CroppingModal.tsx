@@ -14,6 +14,7 @@ type Props = {
   onClose: () => void
   onDeleteImage: (value: number) => void
   onImageUpload: (value: string) => void
+  onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void
   open: boolean
   triggerGoToCreatePost: () => void
   triggerGoToPublication: () => void
@@ -23,6 +24,7 @@ export const CroppingModal = ({
   onClose,
   onDeleteImage,
   onImageUpload,
+  onSelectFile,
   open,
   triggerGoToCreatePost,
   triggerGoToPublication,
@@ -31,20 +33,14 @@ export const CroppingModal = ({
   const [zoom, setZoom] = useState<number>(1)
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const MAX_FILE_SIZE = 20 * 1024 * 1024
-  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
-  //TODO
   const triggerFileSelectPopup = () => {
     if (inputRef.current) {
       inputRef.current.click()
     }
   }
-
-  // useEffect(() => {
-  //   setImage(initialImage)
-  // }, [initialImage])
 
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
@@ -64,37 +60,6 @@ export const CroppingModal = ({
 
   const handleDeleteImage = () => {
     onDeleteImage(currentImageIndex)
-  }
-
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0]
-
-      if (selectedFile.size > MAX_FILE_SIZE) {
-        alert('The size of picture is too large. Allowed size is equal 20mb')
-
-        return
-      }
-
-      if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
-        alert('Invalid file format. Please select an image in JPEG or PNG format.')
-
-        return
-      }
-
-      const reader = new FileReader()
-
-      reader.onload = () => {
-        const newImage = reader.result
-
-        if (typeof newImage === 'string') {
-          // setUploadImage(newImage)
-          onImageUpload(newImage)
-        }
-      }
-
-      reader.readAsDataURL(e.target.files[0])
-    }
   }
 
   const modalTitle = (
@@ -137,7 +102,7 @@ export const CroppingModal = ({
         </div>
         <Button className={styles.outline}>
           <ImageOutline onClick={triggerFileSelectPopup} />
-          <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
+          <input accept={'image/*'} onChange={e => onSelectFile(e)} ref={inputRef} type={'file'} />
         </Button>
         <div className={styles.sliderPagination}>{`${currentImageIndex + 1}/${images.length}`}</div>
       </div>
