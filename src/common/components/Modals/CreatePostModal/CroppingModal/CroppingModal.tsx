@@ -17,6 +17,7 @@ type Props = {
   onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void
   open: boolean
   prevModalWindow: () => void
+  setIsModalInfo: () => void
 }
 export const CroppingModal = ({
   images,
@@ -26,6 +27,7 @@ export const CroppingModal = ({
   onSelectFile,
   open,
   prevModalWindow,
+  setIsModalInfo,
 }: Props) => {
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState<number>(1)
@@ -75,7 +77,12 @@ export const CroppingModal = ({
   )
 
   return (
-    <RadixModal modalTitle={modalTitle} onClose={onClose} open={open}>
+    <RadixModal
+      modalTitle={modalTitle}
+      onClose={onClose}
+      open={open}
+      setIsModalInfo={setIsModalInfo}
+    >
       <div className={styles.image}>
         <div>
           <Cropper
@@ -98,8 +105,8 @@ export const CroppingModal = ({
             &gt;
           </Button>
         </div>
-        <Button className={styles.outline}>
-          <ImageOutline onClick={triggerFileSelectPopup} />
+        <Button className={styles.outline} onClick={triggerFileSelectPopup}>
+          <ImageOutline />
           <input accept={'image/*'} onChange={e => onSelectFile(e)} ref={inputRef} type={'file'} />
         </Button>
         <div className={styles.sliderPagination}>{`${currentImageIndex + 1}/${images.length}`}</div>

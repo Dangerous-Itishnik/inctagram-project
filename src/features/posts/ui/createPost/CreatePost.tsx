@@ -1,12 +1,12 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
 import { AddPhotoModal } from '@/common/components/Modals/CreatePostModal/AddPhotoModal/AddPhotoModal'
 import { CroppingModal } from '@/common/components/Modals/CreatePostModal/CroppingModal/CroppingModal'
 import { PublicationModal } from '@/common/components/Modals/CreatePostModal/PublicationModal/PublicationModal'
-import { CloseNotification } from '@/features/posts/ui/createPost/CloseNotification'
-import useOutsideClick from '@/features/posts/ui/createPost/utils'
+import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
+import { Button } from '@/common/components/button'
 
 import styles from '@/features/posts/ui/createPost/CreatePost.module.scss'
 
@@ -18,13 +18,19 @@ type Props = {
 export const CreatePost = ({ active, setActive }: Props) => {
   const [images, setImages] = useState<string[]>([])
   const [step, setStep] = useState<number>(1)
+  const [isModalInfo, setIsModalInfo] = useState<boolean>(false)
 
-  //TODO Нужен ли он!
-  const [showCloseNotification, setShowCloseNotification] = useState(false)
-
-  //TODO Если нужен то переименовать
-  const { isActive, ref, setIsActive } = useOutsideClick(false)
-
+  const discard = () => {
+    setActive(false)
+    setIsModalInfo(false)
+    setImages([])
+    setStep(1)
+  }
+  const saveDraft = () => {
+    setActive(false)
+    setIsModalInfo(false)
+    setStep(2)
+  }
   const deleteImage = (indexToDelete: number) => {
     const updatedImages = images.filter((_, index) => index !== indexToDelete)
 
@@ -43,7 +49,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
     setStep(1)
   }
 
-  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const MAX_FILE_SIZE = 20 * 1024 * 1024
     const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
     const MAX_IMAGE_COUNT = 10
@@ -117,6 +123,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
           onClose={() => setActive(false)}
           onSelectFile={onSelectFile}
           open={active}
+          setIsModalInfo={() => setIsModalInfo(true)}
         />
       )
     }
@@ -130,6 +137,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
           onSelectFile={onSelectFile}
           open={active}
           prevModalWindow={() => setStep(step - 1)}
+          setIsModalInfo={() => setIsModalInfo(true)}
         />
       )
     }
@@ -141,17 +149,29 @@ export const CreatePost = ({ active, setActive }: Props) => {
           open={active}
           prevModalWindow={() => setStep(step - 1)}
           publishedHandler={publishedHandler}
-          setImages={setImages}
+          setIsModalInfo={() => setIsModalInfo(true)}
         />
       )
     }
   }
 
-  //TODO Разобраться с выходом из модалки
   return (
-    <div className={styles.modal} onClick={() => setIsActive(!isActive)} ref={ref}>
+    <>
       <div onClick={e => e.stopPropagation()}>{renderComponent()}</div>
-      {isActive && <CloseNotification onClose={() => setShowCloseNotification(false)} />}
-    </div>
+      {isModalInfo && (
+        <InfoModal modalTitle={'Сlose'} onClose={() => setIsModalInfo(false)} open={isModalInfo}>
+          <div className={styles.modalInfoText}>
+            <p>Do you really want to close the creation of a publication? </p>
+            <p>If you close everything will be deleted</p>
+          </div>
+          <div className={styles.modalInfoButtons}>
+            <Button onClick={discard} variant={'outline'}>
+              Discard
+            </Button>
+            <Button onClick={saveDraft}>Save draft</Button>
+          </div>
+        </InfoModal>
+      )}
+    </>
   )
 }

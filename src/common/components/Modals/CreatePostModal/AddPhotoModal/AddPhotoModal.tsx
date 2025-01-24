@@ -13,9 +13,16 @@ type Props = {
   onClose: () => void
   onSelectFile: (e: ChangeEvent<HTMLInputElement>) => void
   open: boolean
+  setIsModalInfo: () => void
 }
 
-export const AddPhotoModal = ({ nextModalWindow, onClose, onSelectFile, open }: Props) => {
+export const AddPhotoModal = ({
+  nextModalWindow,
+  onClose,
+  onSelectFile,
+  open,
+  setIsModalInfo,
+}: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const triggerAddPhoto = () => {
@@ -29,7 +36,12 @@ export const AddPhotoModal = ({ nextModalWindow, onClose, onSelectFile, open }: 
   }
 
   return (
-    <RadixModal modalTitle={'Add Photo'} onClose={onClose} open={open}>
+    <RadixModal
+      modalTitle={'Add Photo'}
+      onClose={onClose}
+      open={open}
+      setIsModalInfo={setIsModalInfo}
+    >
       <div className={styles.window}>
         <div className={styles.cropper}>
           <div className={styles.logo}>

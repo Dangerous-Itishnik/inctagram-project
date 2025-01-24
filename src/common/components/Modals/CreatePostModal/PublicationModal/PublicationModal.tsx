@@ -12,7 +12,7 @@ type Props = {
   open: boolean
   prevModalWindow: () => void
   publishedHandler: () => void
-  setImages: (images: string[]) => void
+  setIsModalInfo: () => void
 }
 
 export const PublicationModal = ({
@@ -21,7 +21,8 @@ export const PublicationModal = ({
   open,
   prevModalWindow,
   publishedHandler,
-  setImages,
+
+  setIsModalInfo,
 }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [description, setDescription] = useState('')
@@ -98,7 +99,12 @@ export const PublicationModal = ({
   )
 
   return (
-    <RadixModal modalTitle={modalTitle} onClose={onClose} open={open}>
+    <RadixModal
+      modalTitle={modalTitle}
+      onClose={onClose}
+      open={open}
+      setIsModalInfo={setIsModalInfo}
+    >
       <div className={styles.content}>
         <div className={styles.slider}>
           {images.length > 0 ? (

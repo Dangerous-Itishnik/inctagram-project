@@ -6,25 +6,35 @@ import * as Dialog from '@radix-ui/react-dialog'
 import styles from '@/common/components/Modals/RadixModal/RadixModal.module.scss'
 
 type RadixModalProps = {
-  modalButtonClose?: ReactNode
   modalTitle: ReactNode | string
   onClose: () => void
   open: boolean
+  setIsModalInfo: () => void
 } & ComponentPropsWithoutRef<'div'>
 
 export const RadixModal = ({
   children,
-  modalButtonClose,
   modalTitle,
   onClose,
   open,
+  setIsModalInfo,
   ...rest
 }: RadixModalProps) => (
   <Dialog.Root onOpenChange={onClose} open={open} {...rest}>
     <Dialog.Trigger asChild />
     <Dialog.Portal>
       <Dialog.Overlay className={styles.Overlay} />
-      <Dialog.Content className={styles.Content}>
+      <Dialog.Content
+        className={styles.Content}
+        onEscapeKeyDown={e => {
+          e.preventDefault() // Отменяем закрытие по ESC
+          setIsModalInfo() // Показываем модальное окно подтверждения
+        }}
+        onPointerDownOutside={e => {
+          e.preventDefault() // Отменяем закрытие по клику вне модального окна
+          setIsModalInfo() // Показываем модальное окно подтверждения
+        }}
+      >
         <Dialog.Title asChild className={styles.title}>
           <div>{modalTitle}</div>
         </Dialog.Title>
@@ -32,12 +42,10 @@ export const RadixModal = ({
           <div>{children}</div>
         </Dialog.Description>
         <Dialog.Close asChild>
-          {typeof modalTitle === 'string' ? (
+          {typeof modalTitle === 'string' && (
             <Button className={styles.buttonClose} variant={'link'}>
               X
             </Button>
-          ) : (
-            modalButtonClose
           )}
         </Dialog.Close>
       </Dialog.Content>
