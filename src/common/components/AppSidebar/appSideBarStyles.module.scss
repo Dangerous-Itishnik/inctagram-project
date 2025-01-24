@@ -1,16 +1,15 @@
 .sidebar {
-  position: fixed; 
-  z-index: 2; 
-  top: 60px; 
-  left: 0; 
+  position: fixed;
+  z-index: 2;
+  top: 60px;
+  left: 0;
 
-  overflow-y: auto; 
+  overflow-y: auto;
 
-  min-width: 220px; 
-  height: calc(100vh - 60px); 
+  min-width: 220px;
+  height: calc(100vh - 60px);
 
   color: var(--color-light-100);
-
 }
 
 .list {
@@ -58,8 +57,11 @@
   margin-top: auto;
 }
 
-.popUpButtons {
+.infoModalText {
+  margin-bottom: 24px;
+}
+
+.modalInfoButtons {
   display: flex;
-  justify-content: space-around;
-  margin-top: 18px;
+  justify-content: space-between;
 }

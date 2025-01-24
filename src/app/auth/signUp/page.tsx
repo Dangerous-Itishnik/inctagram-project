@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 
+import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp/PopUp'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
 import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 
@@ -55,15 +55,18 @@ export default function SignUpPage() {
         onSubmitError={onSubmitError}
       />
       {isPopUpOpen && (
-        <PopUp onClose={closePopUp} title={'Email sent'}>
-          <p>
+        <InfoModal modalTitle={'Logout'} onClose={() => setIsPopUpOpen(false)} open={isPopUpOpen}>
+          <p className={styles.infoModalText}>
             We have sent a link to confirm your email to
             {signUpEmail}
           </p>
-          <Button className={styles.okButton} onClick={closePopUp}>
-            OK
-          </Button>
-        </PopUp>
+
+          <div className={styles.modalInfoButtons}>
+            <Button className={styles.okButton} onClick={closePopUp}>
+              OK
+            </Button>
+          </div>
+        </InfoModal>
       )}
     </>
   )

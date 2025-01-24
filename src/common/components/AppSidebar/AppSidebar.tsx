@@ -11,8 +11,8 @@ import {
   SearchOutline,
   TrendingUpOutline,
 } from '@/assets/icons/components'
+import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
 import { storage } from '@/common/utils/storage'
 import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
@@ -23,7 +23,7 @@ import styles from './appSideBarStyles.module.scss'
 
 export const AppSideBar = () => {
   const { replace } = useRouter()
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+  const [isInfoModal, setIsInfoModal] = useState<boolean>(false)
   const [logout] = useLogoutMutation()
   const { data, isError } = useMeQuery()
   const pathname = usePathname()
@@ -35,10 +35,10 @@ export const AppSideBar = () => {
     replace('/')
   }
   const closePopUp = () => {
-    setIsPopUpOpen(false)
+    setIsInfoModal(false)
   }
   const openPopUp = () => {
-    setIsPopUpOpen(true)
+    setIsInfoModal(true)
   }
 
   return (
@@ -102,18 +102,23 @@ export const AppSideBar = () => {
               </button>
             </li>
           </ul>
-          {isPopUpOpen && (
-            <PopUp onClose={closePopUp} title={'Logout'}>
-              <p>Are you really want to log out of your account {data?.email}?</p>
-              <div className={styles.popUpButtons}>
-                <Button className={styles.closeButton} onClick={logoutHandle}>
+          {isInfoModal && (
+            <InfoModal
+              modalTitle={'Logout'}
+              onClose={() => setIsInfoModal(false)}
+              open={isInfoModal}
+            >
+              <p className={styles.infoModalText}>
+                Are you really want to log out of your account {data?.email}?
+              </p>
+
+              <div className={styles.modalInfoButtons}>
+                <Button onClick={logoutHandle} variant={'outline'}>
                   Yes
                 </Button>
-                <Button className={styles.closeButton} onClick={closePopUp}>
-                  No
-                </Button>
+                <Button onClick={closePopUp}>No</Button>
               </div>
-            </PopUp>
+            </InfoModal>
           )}
         </nav>
       ) : null}
