@@ -27,24 +27,15 @@ export const CroppingModal = ({
   triggerGoToCreatePost,
   triggerGoToPublication,
 }: Props) => {
-  //TODO убрать лишнее
-  // const [images2, setImages] = useState<[]>([])
-  // const [uploadImage, setUploadImage] = useState<null | string>(null)
-  const [image, setImage] = useState<string>('')
-  const [croppedAria, setCroppedAria] = useState<Area | null>(null)
-
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState<number>(1)
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
   const inputRef = useRef<HTMLInputElement>(null)
 
   const MAX_FILE_SIZE = 20 * 1024 * 1024
   const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
   //TODO
-  // const MAX_IMAGE_COUNT = 10
-
   const triggerFileSelectPopup = () => {
     if (inputRef.current) {
       inputRef.current.click()
@@ -54,10 +45,6 @@ export const CroppingModal = ({
   // useEffect(() => {
   //   setImage(initialImage)
   // }, [initialImage])
-
-  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
-    setCroppedAria(croppedAreaPixels)
-  }
 
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
@@ -102,7 +89,6 @@ export const CroppingModal = ({
 
         if (typeof newImage === 'string') {
           // setUploadImage(newImage)
-          // handelImagesUpdate(newImage)
           onImageUpload(newImage)
         }
       }
@@ -111,11 +97,6 @@ export const CroppingModal = ({
     }
   }
 
-  // const handelImagesUpdate = (newImage: string) => {
-  //   images.length < MAX_IMAGE_COUNT
-  //     ? setImages(prevImages => [...prevImages, newImage])
-  //     : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
-  // }
   const modalTitle = (
     <>
       <div className={styles.back}>
@@ -139,7 +120,6 @@ export const CroppingModal = ({
             crop={crop}
             image={images[currentImageIndex]}
             onCropChange={setCrop}
-            onCropComplete={onCropComplete}
             onZoomChange={setZoom}
             zoom={zoom}
           />

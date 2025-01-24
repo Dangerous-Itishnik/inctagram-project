@@ -27,6 +27,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
   //TODO Нужен ли он!
   const [showCloseNotification, setShowCloseNotification] = useState(false)
   const { isActive, ref, setIsActive } = useOutsideClick(false)
+  const MAX_IMAGE_COUNT = 3
 
   const handleButtonClick = () => {
     setIsActive(!isActive)
@@ -42,7 +43,15 @@ export const CreatePost = ({ active, setActive }: Props) => {
   }
 
   const handleImageUpload = (newImage: string) => {
-    setImages(prevImages => [...prevImages, newImage])
+    if (images.length < MAX_IMAGE_COUNT) {
+      setImages(prevImages => [...prevImages, newImage])
+      console.log(images)
+    }
+    // setImages(prevImages => [...prevImages, newImage])
+    else {
+      alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
+      console.log('Pokazal')
+    }
     setCurrentComponent(ModalComponents.SLIDER)
   }
 

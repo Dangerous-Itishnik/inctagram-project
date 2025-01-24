@@ -17,12 +17,10 @@ type Props = {
 export const AddPhotoModal = ({ onClose, onImageUpload, open }: Props) => {
   //TODO надо ли это
   // const [uploadImage, setUploadImage] = useState<null | string>(null)
-  const [images, setImages] = useState<string[]>([])
   const inputRef = React.useRef<HTMLInputElement>(null)
 
   const MAX_FILE_SIZE = 20 * 1024 * 1024
   const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
-  const MAX_IMAGE_COUNT = 10
 
   const triggerFileSelectPopup = () => {
     if (inputRef.current) {
@@ -45,6 +43,11 @@ export const AddPhotoModal = ({ onClose, onImageUpload, open }: Props) => {
 
         return
       }
+      if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
+        alert('Invalid file format. Please select an image in JPEG or PNG format.')
+
+        return
+      }
 
       const reader = new FileReader()
 
@@ -52,20 +55,15 @@ export const AddPhotoModal = ({ onClose, onImageUpload, open }: Props) => {
         const newImage = reader.result
 
         if (typeof newImage === 'string') {
+          console.log('add Image')
           // setUploadImage(newImage)
-          handelImagesUpdate(newImage)
+          // handelImagesUpdate(newImage)
           onImageUpload(newImage)
         }
       }
 
       reader.readAsDataURL(e.target.files[0])
     }
-  }
-
-  const handelImagesUpdate = (newImage: string) => {
-    images.length < MAX_IMAGE_COUNT
-      ? setImages(prevImages => [...prevImages, newImage])
-      : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
   }
 
   return (
