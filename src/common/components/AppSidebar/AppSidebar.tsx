@@ -14,7 +14,7 @@ import {
 import { Button } from '@/common/components/button'
 import { PopUp } from '@/common/components/popUp'
 import { storage } from '@/common/utils/storage'
-import { ModalPostWindow } from '@/features/posts/ui/createPost/ModalPostWindow'
+import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -117,7 +117,7 @@ export const AppSideBar = () => {
           )}
         </nav>
       ) : null}
-      <ModalPostWindow active={isCreatePostsModal} setActive={setIsCreatePostsModal} />
+      <CreatePost active={isCreatePostsModal} setActive={setIsCreatePostsModal} />
     </>
   )
 }

@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-import { RadixModal } from '@/common/components/RadixModal/RadixModal'
+import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
 import { usePostImageMutation, usePostPostMutation } from '@/service/posts/posts.service'
 
-import styles from '@/features/posts/ui/createPost/publication.module.scss'
+import styles from '@/common/components/Modals/CreatePostModal/PublicationModal/publication.module.scss'
 
 type Props = {
   images: string[]
@@ -13,7 +13,7 @@ type Props = {
   triggerGoToPublication: () => void
 }
 
-export const Publication = ({ images, onClose, open, triggerGoToPublication }: Props) => {
+export const PublicationModal = ({ images, onClose, open, triggerGoToPublication }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [description, setDescription] = useState('')
   const [publishedImage] = usePostImageMutation()

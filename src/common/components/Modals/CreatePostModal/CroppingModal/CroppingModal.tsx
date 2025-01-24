@@ -4,10 +4,10 @@ import React, { useRef, useState } from 'react'
 import Cropper, { Area } from 'react-easy-crop'
 
 import { ImageOutline } from '@/assets/icons/components'
-import { RadixModal } from '@/common/components/RadixModal/RadixModal'
+import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
 
-import styles from '@/features/posts/ui/createPost/slider.module.scss'
+import styles from '@/common/components/Modals/CreatePostModal/CroppingModal/CroppingModal.module.scss'
 
 type Props = {
   images: string[]
@@ -18,7 +18,7 @@ type Props = {
   triggerGoToCreatePost: () => void
   triggerGoToPublication: () => void
 }
-export const Slider = ({
+export const CroppingModal = ({
   images,
   onClose,
   onDeleteImage,

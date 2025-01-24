@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Button } from '@/common/components/button'
 import * as Dialog from '@radix-ui/react-dialog'
 
-import styles from '@/common/components/RadixModal/RadixModal.module.scss'
+import styles from '@/common/components/Modals/RadixModal/RadixModal.module.scss'
 
 type RadixModalProps = {
   modalButtonClose?: ReactNode

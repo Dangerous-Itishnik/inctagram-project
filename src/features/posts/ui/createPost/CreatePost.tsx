@@ -1,89 +1,111 @@
 'use client'
 
-import React, { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
-import { ImageOutline } from '@/assets/icons/components'
-import { Plug } from '@/assets/icons/plug'
-import { CrossButton } from '@/common/components/CrossButton/CrossButton'
-import { RadixModal } from '@/common/components/RadixModal/RadixModal'
-import { Button } from '@/common/components/button'
+import { AddPhotoModal } from '@/common/components/Modals/CreatePostModal/AddPhotoModal/AddPhotoModal'
+import { CroppingModal } from '@/common/components/Modals/CreatePostModal/CroppingModal/CroppingModal'
+import { PublicationModal } from '@/common/components/Modals/CreatePostModal/PublicationModal/PublicationModal'
+import { CloseNotification } from '@/features/posts/ui/createPost/CloseNotification'
+import useOutsideClick from '@/features/posts/ui/createPost/utils'
 
-import styles from '@/features/posts/ui/createPost/cretePost.module.scss'
+import styles from '@/features/posts/ui/createPost/CreatePost.module.scss'
 
-type Props = {
-  onClose: () => void
-  onImageUpload: (value: string) => void
-  open: boolean
+const ModalComponents = {
+  CREATE_POST: 'CREATE_POST',
+  PUBLICATION: 'PUBLICATION',
+  SLIDER: 'SLIDER',
 }
 
-export const CreatePost = ({ onClose, onImageUpload, open }: Props) => {
-  //TODO надо ли это
-  const [uploadImage, setUploadImage] = useState<null | string>(null)
+type Props = {
+  active: boolean
+  setActive: Dispatch<SetStateAction<boolean>>
+}
+
+export const CreatePost = ({ active, setActive }: Props) => {
+  const [currentComponent, setCurrentComponent] = useState(ModalComponents.CREATE_POST)
   const [images, setImages] = useState<string[]>([])
-  const inputRef = React.useRef<HTMLInputElement>(null)
+  //TODO Нужен ли он!
+  const [showCloseNotification, setShowCloseNotification] = useState(false)
+  const { isActive, ref, setIsActive } = useOutsideClick(false)
 
-  const MAX_FILE_SIZE = 20 * 1024 * 1024
-  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
-  const MAX_IMAGE_COUNT = 10
+  const handleButtonClick = () => {
+    setIsActive(!isActive)
+  }
 
-  const triggerFileSelectPopup = () => {
-    if (inputRef.current) {
-      inputRef.current.click()
+  const deleteImage = (indexToDelete: number) => {
+    const updatedImages = images.filter((_, index) => index !== indexToDelete)
+
+    setImages(updatedImages)
+    if (updatedImages.length === 0) {
+      setCurrentComponent(ModalComponents.CREATE_POST)
     }
   }
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0]
-
-      if (selectedFile.size > MAX_FILE_SIZE) {
-        alert('The size of picture is too large. Allowed size is equal 20mb')
-
-        return
-      }
-
-      if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
-        alert('Invalid file format. Please select an image in JPEG or PNG format.')
-
-        return
-      }
-
-      const reader = new FileReader()
-
-      reader.onload = () => {
-        const newImage = reader.result
-
-        if (typeof newImage === 'string') {
-          setUploadImage(newImage)
-          handelImagesUpdate(newImage)
-          onImageUpload(newImage)
-        }
-      }
-
-      reader.readAsDataURL(e.target.files[0])
-    }
+  const handleImageUpload = (newImage: string) => {
+    setImages(prevImages => [...prevImages, newImage])
+    setCurrentComponent(ModalComponents.SLIDER)
   }
 
-  const handelImagesUpdate = (newImage: string) => {
-    images.length < MAX_IMAGE_COUNT
-      ? setImages(prevImages => [...prevImages, newImage])
-      : alert(`The maximum number of images has been reached (${MAX_IMAGE_COUNT}).`)
+  const followToCreatePost = () => {
+    setCurrentComponent(ModalComponents.CREATE_POST)
+  }
+
+  const followToPublication = () => {
+    setCurrentComponent(ModalComponents.PUBLICATION)
+  }
+
+  const followToSlider = () => {
+    setCurrentComponent(ModalComponents.SLIDER)
+  }
+
+  const handleCloseNotification = () => {
+    setShowCloseNotification(false)
+  }
+
+  if (!active) {
+    return null
+  }
+
+  const renderComponent = () => {
+    switch (currentComponent) {
+      case ModalComponents.CREATE_POST:
+        return (
+          <AddPhotoModal
+            onClose={() => setActive(false)}
+            onImageUpload={handleImageUpload}
+            open={currentComponent === ModalComponents.CREATE_POST}
+          />
+        )
+      case ModalComponents.SLIDER:
+        return (
+          <CroppingModal
+            images={images}
+            onClose={() => setActive(false)}
+            onDeleteImage={deleteImage}
+            onImageUpload={handleImageUpload}
+            open={currentComponent === ModalComponents.SLIDER}
+            triggerGoToCreatePost={followToCreatePost}
+            triggerGoToPublication={followToPublication}
+          />
+        )
+      case ModalComponents.PUBLICATION:
+        return (
+          <PublicationModal
+            images={images}
+            onClose={() => setActive(false)}
+            open={currentComponent === ModalComponents.PUBLICATION}
+            triggerGoToPublication={followToSlider}
+          />
+        )
+      default:
+        return null
+    }
   }
 
   return (
-    <RadixModal modalTitle={'Add Photo'} onClose={onClose} open={open}>
-      <div className={styles.window}>
-        <div className={styles.cropper}>
-          <div className={styles.logo}>
-            <ImageOutline height={36} viewBox={'0 0 24 24'} width={36} />
-            <input accept={'image/*'} onChange={onSelectFile} ref={inputRef} type={'file'} />
-          </div>
-          <div className={styles.buttons}>
-            <Button onClick={triggerFileSelectPopup}>Select from Computer</Button>
-            <Button variant={'outline'}>Open Draft</Button>
-          </div>
-        </div>
-      </div>
-    </RadixModal>
+    <div className={styles.modal} onClick={handleButtonClick} ref={ref}>
+      <div onClick={e => e.stopPropagation()}>{renderComponent()}</div>
+      {isActive && <CloseNotification onClose={handleCloseNotification} />}
+    </div>
   )
 }
