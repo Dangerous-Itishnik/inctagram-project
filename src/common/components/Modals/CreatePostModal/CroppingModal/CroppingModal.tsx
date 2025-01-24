@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import Cropper, { Area } from 'react-easy-crop'
+import Cropper from 'react-easy-crop'
 
 import { ImageOutline } from '@/assets/icons/components'
 import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
@@ -11,23 +11,21 @@ import styles from '@/common/components/Modals/CreatePostModal/CroppingModal/Cro
 
 type Props = {
   images: string[]
+  nextModalWindow: () => void
   onClose: () => void
   onDeleteImage: (value: number) => void
-  onImageUpload: (value: string) => void
   onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void
   open: boolean
-  triggerGoToCreatePost: () => void
-  triggerGoToPublication: () => void
+  prevModalWindow: () => void
 }
 export const CroppingModal = ({
   images,
+  nextModalWindow,
   onClose,
   onDeleteImage,
-  onImageUpload,
   onSelectFile,
   open,
-  triggerGoToCreatePost,
-  triggerGoToPublication,
+  prevModalWindow,
 }: Props) => {
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState<number>(1)
@@ -65,12 +63,12 @@ export const CroppingModal = ({
   const modalTitle = (
     <>
       <div className={styles.back}>
-        <button onClick={triggerGoToCreatePost} type={'button'}>
+        <button onClick={prevModalWindow} type={'button'}>
           {'<'}
         </button>
       </div>
       <h3>Cropping</h3>
-      <Button onClick={triggerGoToPublication} variant={'link'}>
+      <Button onClick={nextModalWindow} variant={'link'}>
         Next
       </Button>
     </>

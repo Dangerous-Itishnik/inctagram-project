@@ -10,26 +10,28 @@ type Props = {
   images: string[]
   onClose: () => void
   open: boolean
+  prevModalWindow: () => void
+  publishedHandler: () => void
   setImages: (images: string[]) => void
-  triggerGoToPublication: () => void
 }
 
 export const PublicationModal = ({
   images,
   onClose,
   open,
+  prevModalWindow,
+  publishedHandler,
   setImages,
-  triggerGoToPublication,
 }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [description, setDescription] = useState('')
+
   const [publishedImage] = usePostImageMutation()
   const [publishedPost] = usePostPostMutation()
 
   const goToPreviousSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
   }
-
   const goToNextSlide = () => {
     setCurrentImageIndex(prevIndex => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
   }
@@ -76,8 +78,7 @@ export const PublicationModal = ({
         publishedPost(data)
           .unwrap()
           .then(() => {
-            setImages([])
-            onClose()
+            publishedHandler()
           })
           .catch(console.error)
       })
@@ -86,7 +87,7 @@ export const PublicationModal = ({
 
   const modalTitle = (
     <>
-      <button onClick={triggerGoToPublication} type={'button'}>
+      <button onClick={prevModalWindow} type={'button'}>
         {'<'}
       </button>
       <h3>Publication</h3>
@@ -117,7 +118,6 @@ export const PublicationModal = ({
             {images.length > 0 && `${currentImageIndex + 1}/${images.length}`}
           </div>
         </div>
-
         <div className={styles.userData}>
           <div className={styles.userAvatar}>
             <img alt={'User Avatar'} src={''} />

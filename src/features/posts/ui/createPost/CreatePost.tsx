@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { AddPhotoModal } from '@/common/components/Modals/CreatePostModal/AddPhotoModal/AddPhotoModal'
 import { CroppingModal } from '@/common/components/Modals/CreatePostModal/CroppingModal/CroppingModal'
@@ -10,67 +10,44 @@ import useOutsideClick from '@/features/posts/ui/createPost/utils'
 
 import styles from '@/features/posts/ui/createPost/CreatePost.module.scss'
 
-const ModalComponents = {
-  CREATE_POST: 'CREATE_POST',
-  PUBLICATION: 'PUBLICATION',
-  SLIDER: 'SLIDER',
-}
-
 type Props = {
   active: boolean
   setActive: Dispatch<SetStateAction<boolean>>
 }
 
 export const CreatePost = ({ active, setActive }: Props) => {
-  const [currentComponent, setCurrentComponent] = useState(ModalComponents.CREATE_POST)
   const [images, setImages] = useState<string[]>([])
+  const [step, setStep] = useState<number>(1)
+
   //TODO Нужен ли он!
   const [showCloseNotification, setShowCloseNotification] = useState(false)
-  const { isActive, ref, setIsActive } = useOutsideClick(false)
-  const MAX_IMAGE_COUNT = 10
 
-  const handleButtonClick = () => {
-    setIsActive(!isActive)
-  }
+  //TODO Если нужен то переименовать
+  const { isActive, ref, setIsActive } = useOutsideClick(false)
 
   const deleteImage = (indexToDelete: number) => {
     const updatedImages = images.filter((_, index) => index !== indexToDelete)
 
     setImages(updatedImages)
     if (updatedImages.length === 0) {
-      setCurrentComponent(ModalComponents.CREATE_POST)
+      setStep(1)
     }
-  }
-
-  const handleImageUpload = (newImage: string) => {
-    setImages(prevImages => [...prevImages, newImage])
-
-    setCurrentComponent(ModalComponents.SLIDER)
-  }
-
-  const followToCreatePost = () => {
-    setCurrentComponent(ModalComponents.CREATE_POST)
-  }
-
-  const followToPublication = () => {
-    setCurrentComponent(ModalComponents.PUBLICATION)
-  }
-
-  const followToSlider = () => {
-    setCurrentComponent(ModalComponents.SLIDER)
-  }
-
-  const handleCloseNotification = () => {
-    setShowCloseNotification(false)
   }
 
   if (!active) {
     return null
   }
-  const MAX_FILE_SIZE = 20 * 1024 * 1024
-  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
+  const publishedHandler = () => {
+    setImages([])
+    setActive(false)
+    setStep(1)
+  }
 
   const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const MAX_FILE_SIZE = 20 * 1024 * 1024
+    const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png']
+    const MAX_IMAGE_COUNT = 10
+
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0]
 
@@ -100,7 +77,9 @@ export const CreatePost = ({ active, setActive }: Props) => {
 
       // Обновление состояния
       if (newImage) {
-        handleImageUpload(newImage)
+        setImages(prevImages => [...prevImages, newImage])
+
+        setStep(2)
       }
 
       // Очистка input
@@ -129,48 +108,50 @@ export const CreatePost = ({ active, setActive }: Props) => {
     })
   }
 
+  //TODO Нужна ли отдельная компонента
   const renderComponent = () => {
-    switch (currentComponent) {
-      case ModalComponents.CREATE_POST:
-        return (
-          <AddPhotoModal
-            onClose={() => setActive(false)}
-            onImageUpload={handleImageUpload}
-            open={currentComponent === ModalComponents.CREATE_POST}
-          />
-        )
-      case ModalComponents.SLIDER:
-        return (
-          <CroppingModal
-            images={images}
-            onClose={() => setActive(false)}
-            onDeleteImage={deleteImage}
-            onImageUpload={handleImageUpload}
-            onSelectFile={onSelectFile}
-            open={currentComponent === ModalComponents.SLIDER}
-            triggerGoToCreatePost={followToCreatePost}
-            triggerGoToPublication={followToPublication}
-          />
-        )
-      case ModalComponents.PUBLICATION:
-        return (
-          <PublicationModal
-            images={images}
-            onClose={() => setActive(false)}
-            open={currentComponent === ModalComponents.PUBLICATION}
-            setImages={setImages}
-            triggerGoToPublication={followToSlider}
-          />
-        )
-      default:
-        return null
+    if (step === 1) {
+      return (
+        <AddPhotoModal
+          nextModalWindow={() => setStep(step + 1)}
+          onClose={() => setActive(false)}
+          onSelectFile={onSelectFile}
+          open={active}
+        />
+      )
+    }
+    if (step === 2) {
+      return (
+        <CroppingModal
+          images={images}
+          nextModalWindow={() => setStep(step + 1)}
+          onClose={() => setActive(false)}
+          onDeleteImage={deleteImage}
+          onSelectFile={onSelectFile}
+          open={active}
+          prevModalWindow={() => setStep(step - 1)}
+        />
+      )
+    }
+    if (step === 3) {
+      return (
+        <PublicationModal
+          images={images}
+          onClose={() => setActive(false)}
+          open={active}
+          prevModalWindow={() => setStep(step - 1)}
+          publishedHandler={publishedHandler}
+          setImages={setImages}
+        />
+      )
     }
   }
 
+  //TODO Разобраться с выходом из модалки
   return (
-    <div className={styles.modal} onClick={handleButtonClick} ref={ref}>
+    <div className={styles.modal} onClick={() => setIsActive(!isActive)} ref={ref}>
       <div onClick={e => e.stopPropagation()}>{renderComponent()}</div>
-      {isActive && <CloseNotification onClose={handleCloseNotification} />}
+      {isActive && <CloseNotification onClose={() => setShowCloseNotification(false)} />}
     </div>
   )
 }

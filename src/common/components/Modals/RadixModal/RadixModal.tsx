@@ -25,8 +25,12 @@ export const RadixModal = ({
     <Dialog.Portal>
       <Dialog.Overlay className={styles.Overlay} />
       <Dialog.Content className={styles.Content}>
-        <Dialog.Title className={styles.title}>{modalTitle}</Dialog.Title>
-        <Dialog.Description className={styles.Description}>{children}</Dialog.Description>
+        <Dialog.Title asChild className={styles.title}>
+          <div>{modalTitle}</div>
+        </Dialog.Title>
+        <Dialog.Description asChild className={styles.Description}>
+          <div>{children}</div>
+        </Dialog.Description>
         <Dialog.Close asChild>
           {typeof modalTitle === 'string' ? (
             <Button className={styles.buttonClose} variant={'link'}>
