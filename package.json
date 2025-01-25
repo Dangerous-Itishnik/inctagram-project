@@ -16,6 +16,7 @@
     "genarate-icons": "npm run rename-icons && npx @svgr/cli --out-dir src/assets/icons/components --jsx-runtime automatic --typescript --ref --memo -- src/assets/icons/svg && npm run change-colorsIcons && npm run format"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.5",
     "@radix-ui/themes": "^3.1.4",
     "@reduxjs/toolkit": "^2.3.0",
     "@typescript-eslint/types": "^8.11.0",
@@ -27,8 +28,10 @@
     "nextjs-toploader": "^3.7.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-easy-crop": "^5.2.0",
     "react-hook-form": "^7.53.1",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "swiper": "^11.2.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
