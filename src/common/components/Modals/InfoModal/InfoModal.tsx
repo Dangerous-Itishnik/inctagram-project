@@ -5,13 +5,13 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import styles from '@/common/components/Modals/InfoModal/InfoModal.module.scss'
 
-type RadixModalProps = {
+export type InfoModalProps = {
   modalTitle: string
   onClose: () => void
   open: boolean
 } & ComponentPropsWithoutRef<'div'>
 
-export const InfoModal = ({ children, modalTitle, onClose, open, ...rest }: RadixModalProps) => (
+export const InfoModal = ({ children, modalTitle, onClose, open, ...rest }: InfoModalProps) => (
   <Dialog.Root onOpenChange={onClose} open={open} {...rest}>
     <Dialog.Trigger asChild />
     <Dialog.Portal>
@@ -22,7 +22,7 @@ export const InfoModal = ({ children, modalTitle, onClose, open, ...rest }: Radi
           <div className={styles.Description}>{children}</div>
         </Dialog.Description>
         <Dialog.Close asChild>
-          <Button className={styles.buttonClose} variant={'link'}>
+          <Button className={styles.buttonClose} variant={'icon'}>
             X
           </Button>
         </Dialog.Close>
