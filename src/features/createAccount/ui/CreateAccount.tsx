@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 
+import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
 import { storage } from '@/common/utils/storage'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import { useRouter } from 'next/navigation'
@@ -12,7 +12,7 @@ import styles from './CreateAccount.module.scss'
 
 export const CreateAccount = () => {
   const { replace } = useRouter()
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+  const [isInfoModal, setIsInfoModal] = useState(false)
   const [logout] = useLogoutMutation()
   const { data } = useMeQuery()
 
@@ -23,29 +23,29 @@ export const CreateAccount = () => {
     replace('/auth/signIn')
   }
   const closePopUp = () => {
-    setIsPopUpOpen(false)
+    setIsInfoModal(false)
   }
   const openPopUp = () => {
-    setIsPopUpOpen(true)
+    setIsInfoModal(true)
   }
 
   return (
     <div>
       <h1>CreateAccount</h1>
       <Button onClick={openPopUp}>log out</Button>
+      {isInfoModal && (
+        <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>
+          <p className={styles.infoModalText}>
+            Are you really want to log out of your account {data?.email}?
+          </p>
 
-      {isPopUpOpen && (
-        <PopUp onClose={closePopUp} title={'Logout'}>
-          <p>Are you really want to log out of your account {data?.email}?</p>
-          <div className={styles.popUpButtons}>
-            <Button className={styles.closeButton} onClick={logoutHandle}>
+          <div className={styles.modalInfoButtons}>
+            <Button onClick={logoutHandle} variant={'outline'}>
               Yes
             </Button>
-            <Button className={styles.closeButton} onClick={closePopUp}>
-              No
-            </Button>
+            <Button onClick={closePopUp}>No</Button>
           </div>
-        </PopUp>
+        </InfoModal>
       )}
     </div>
   )
