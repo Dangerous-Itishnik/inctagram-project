@@ -43,7 +43,7 @@ export const RadixModal = ({
         </Dialog.Description>
         <Dialog.Close asChild>
           {typeof modalTitle === 'string' && (
-            <Button className={styles.buttonClose} variant={'link'}>
+            <Button className={styles.buttonClose} variant={'icon'}>
               X
             </Button>
           )}

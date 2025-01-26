@@ -113,7 +113,10 @@ export const CreatePost = ({ active, setActive }: Props) => {
       reader.readAsDataURL(file)
     })
   }
-
+  const backPageFromCroppingModal = () => {
+    setImages([])
+    setStep(step - 1)
+  }
   //TODO Нужна ли отдельная компонента
   const renderComponent = () => {
     if (step === 1) {
@@ -136,7 +139,7 @@ export const CreatePost = ({ active, setActive }: Props) => {
           onDeleteImage={deleteImage}
           onSelectFile={onSelectFile}
           open={active}
-          prevModalWindow={() => setStep(step - 1)}
+          prevModalWindow={backPageFromCroppingModal}
           setIsModalInfo={() => setIsModalInfo(true)}
         />
       )
