@@ -10,6 +10,7 @@ export const postsApi = baseApi.injectEndpoints({
         }
       },
       providesTags: ['Posts']
+
     }),
     // deletePost: build.mutation<
     //   any,
