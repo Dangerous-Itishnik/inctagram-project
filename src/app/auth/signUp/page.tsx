@@ -7,7 +7,7 @@ import { Button } from '@/common/components/button'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
 import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 
-import styles from '@/common/components/popUp/popUp.module.scss'
+import styles from '@/common/components/PopUp/PopUp.module.scss'
 
 export default function SignUpPage() {
   const [registration] = useRegistrationMutation()
