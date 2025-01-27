@@ -2,6 +2,15 @@ import { baseApi } from '@/service/baseApi'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
+    getPosts: build.query<GetImages[], PostsId>({
+      query: ({userId, postId}) => {
+        return {
+          method: 'GET',
+          url: `/api/v1/public-posts/user/${userId}/${postId}?pageSize=8`
+        }
+      },
+      providesTags: ['Posts']
+    }),
     // deletePost: build.mutation<
     //   any,
     //   {
@@ -47,7 +56,7 @@ export const postsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { usePostImageMutation, usePostPostMutation } = postsApi
+export const { usePostImageMutation, usePostPostMutation, useGetPostQuery } = postsApi
 
 export type Response = {
   images: ResponseImages[]
@@ -59,4 +68,17 @@ export type ResponseImages = {
   uploadId: string
   url: string
   width: number
+}
+
+type GetImages = {
+  id: number,
+  url: string,
+  description: string,
+  width: number,
+  height: number
+}
+
+export type PostsId = {
+  postId: number
+  userId: number
 }
