@@ -28,7 +28,7 @@ type ButtonWithRef = <T extends ElementType = 'button'>(
 export const Button: ButtonWithRef = forwardRef(
   <T extends ElementType>(props: ButtonProps<T>, ref: Ref<ElementRef<T>>) => {
     const { as, className, variant = 'primary', ...rest } = props
-    const Tag: ElementType = as || 'button'
+    const Tag: T | string = as || 'button'
     const classNames = clsx(s.button, s[variant], className)
 
     return <Tag className={classNames} ref={ref} {...rest} />

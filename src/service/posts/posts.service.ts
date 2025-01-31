@@ -14,6 +14,11 @@ export const postsApi = baseApi.injectEndpoints({
     //     url: `/posts/${postId}`,
     //   }),
     // }),
+    getUserPosts: build.query<ResponseUserPostData, string>({
+      query: userName => ({
+        url: `/api/v1/posts/${userName}`,
+      }),
+    }),
     postImage: build.mutation<Response, FormData>({
       query: images => ({
         body: images,
@@ -47,7 +52,44 @@ export const postsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { usePostImageMutation, usePostPostMutation } = postsApi
+export const { useGetUserPostsQuery, usePostImageMutation, usePostPostMutation } = postsApi
+
+type Image = {
+  createdAt: string
+  fileSize: number
+  height: number
+  uploadId: string
+  url: string
+  width: number
+}
+
+type Owner = {
+  firstName: string
+  lastName: string
+}
+
+type Item = {
+  avatarOwner: string
+  avatarWhoLikes: boolean
+  createdAt: string
+  description: string
+  id: number
+  images: Image[]
+  isLiked: boolean
+  likesCount: number
+  location: string
+  owner: Owner
+  ownerId: number
+  updatedAt: string
+  userName: string
+}
+
+type ResponseUserPostData = {
+  items: Item[]
+  notReadCount: number
+  pageSize: number
+  totalCount: number
+}
 
 export type Response = {
   images: ResponseImages[]
