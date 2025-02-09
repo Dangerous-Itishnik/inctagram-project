@@ -1,6 +1,7 @@
 .bodyContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   height: 100dvh;
 
@@ -11,9 +12,9 @@
 
 .main {
   display: flex;
-  flex: 1 1 auto;
   justify-content: center;
 
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
 

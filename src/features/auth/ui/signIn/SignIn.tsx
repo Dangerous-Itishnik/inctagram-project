@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form'
 import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAuthButton'
 import { Input } from '@/common/components/Input/Input'
+import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
 import Link from 'next/link'
 
 import styles from './singIn.module.scss'
-
-import { Typography } from '../../../../common/components/Typography'
 
 interface SignInProps {
   isError?: string
