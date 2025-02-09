@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 
+import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
 import { storage } from '@/common/utils/storage'
 import { AuthUserHomePage } from '@/features/authUserHomePage'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
@@ -38,7 +39,7 @@ export default function Home() {
   return (
     <>
       {isLoading && !data && <Spinner />}
-      {isError && <p>Ты не залогинен! Здесь будут отбражаться общие посты</p>}
+      {isError && <TotalUsers />}
       {data && !isError && <AuthUserHomePage meData={data} />}
     </>
   )
