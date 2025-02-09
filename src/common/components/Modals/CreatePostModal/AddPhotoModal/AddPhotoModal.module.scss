@@ -31,20 +31,21 @@
 .logo {
   position: relative;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 222px;
   height: 228px;
   margin-bottom: 45px;
 
   background: #171717;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   .input {
     position: relative;
     z-index: 1;
   }
 }
-
 
 .logo input {
   display: none;
