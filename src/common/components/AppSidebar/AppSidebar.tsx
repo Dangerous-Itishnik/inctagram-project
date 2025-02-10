@@ -49,37 +49,41 @@ export const AppSideBar = () => {
             <li className={`${styles.item} ${pathname === '/' ? styles.itemActive : ''}`}>
               <Link className={styles.link} href={'/'}>
                 <HomeOutline />
-                <span>Home</span>
+                <span className={styles.notMobile}>Home</span>
               </Link>
             </li>
             {/* TODO: Тут должна вызываться модалка для создания поста, добавить стили на состояние актив */}
             <li className={`${styles.item} `}>
-              <button className={styles.link} type={'button'}>
+              <button
+                className={styles.link}
+                onClick={() => setIsCreatePostsModal(true)}
+                type={'button'}
+              >
                 <PlusSquareOutline />
-                <span onClick={() => setIsCreatePostsModal(true)}>Create</span>
+                <span className={styles.notMobile}>Create</span>
               </button>
             </li>
             <li className={`${styles.item} ${pathname === '/profile' ? styles.itemActive : ''}`}>
               <Link className={styles.link} href={`/profile/${data?.userId}`}>
                 <PersonOutline />
-                <span>My Profile</span>
+                <span className={styles.notMobile}>My Profile</span>
               </Link>
             </li>
             <li className={`${styles.item} ${pathname === '/messenger' ? styles.itemActive : ''}`}>
               <Link className={styles.link} href={''}>
                 <MessageCircleOutline />
-                <span>Messenger</span>
+                <span className={styles.notMobile}>Messenger</span>
               </Link>
             </li>
             <li className={`${styles.item} ${pathname === '/search' ? styles.itemActive : ''}`}>
               <Link className={styles.link} href={''}>
                 <SearchOutline />
-                <span>Search</span>
+                <span className={styles.notMobile}>Search</span>
               </Link>
             </li>
-            <div className={styles.itemGroup}>
+            <div className={`${styles.itemGroup} ${styles.notMobile}`}>
               <li
-                className={`${styles.item} ${pathname === '/statistics' ? styles.itemActive : ''}`}
+                className={`${styles.item}  ${pathname === '/statistics' ? styles.itemActive : ''}`}
               >
                 <Link className={styles.link} href={''}>
                   <TrendingUpOutline />
@@ -95,7 +99,11 @@ export const AppSideBar = () => {
                 </Link>
               </li>
             </div>
-            <li className={styles.item || styles.itemLogout}>
+            <li
+              className={
+                (styles.item && styles.notMobile) || (styles.itemLogout && styles.notMobile)
+              }
+            >
               <button className={styles.link} onClick={openPopUp} type={'button'}>
                 <LogOutOutline />
                 <span>Log Out</span>
