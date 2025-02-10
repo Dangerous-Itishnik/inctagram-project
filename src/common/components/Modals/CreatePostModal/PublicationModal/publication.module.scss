@@ -16,9 +16,10 @@
 
   background-color: #8d9094;
 
-  img {
+  .imageWrapper {
     width: 100%;
     min-width: 250px;
+    min-height: 250px;
     object-fit: cover;
   }
 
