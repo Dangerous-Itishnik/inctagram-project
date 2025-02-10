@@ -84,16 +84,15 @@ export const CroppingModal = ({
       setIsModalInfo={setIsModalInfo}
     >
       <div className={styles.image}>
-        <div>
-          <Cropper
-            aspect={1}
-            crop={crop}
-            image={images[currentImageIndex]}
-            onCropChange={setCrop}
-            onZoomChange={setZoom}
-            zoom={zoom}
-          />
-        </div>
+        <Cropper
+          aspect={1}
+          crop={crop}
+          image={images[currentImageIndex]}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          zoom={zoom}
+        />
+
         <Button className={styles.deleteImage} onClick={handleDeleteImage}>
           X
         </Button>

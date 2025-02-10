@@ -21,7 +21,7 @@ export const DropDownMenuHeader = ({ openPopUp }: Props) => {
 
   return (
     <div className={styles.dropdown}>
-      <button className={styles.trigger} onClick={toggleMenu}>
+      <button className={styles.trigger} onClick={toggleMenu} type={'button'}>
         <span className={isOpen ? styles.isActive : ''}></span>
       </button>
 
