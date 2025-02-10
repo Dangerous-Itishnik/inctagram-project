@@ -1,7 +1,9 @@
 .content {
   display: flex;
-  width: 100%;
-  height: 100%;
+
+  @media (width <= 550px) {
+    flex-direction: column;
+  }
 }
 
 .slider {
@@ -12,14 +14,12 @@
   align-items: center;
   justify-content: center;
 
-  width: 972px;
-  height: 507px;
-
   background-color: #8d9094;
 
-  img {
-    width: 486px;
-    height: 507px;
+  .imageWrapper {
+    width: 100%;
+    min-width: 250px;
+    min-height: 250px;
     object-fit: cover;
   }
 
@@ -58,9 +58,9 @@
 
 .userData {
   display: flex;
+  flex: 0 0 50%;
   flex-direction: column;
 
-  width: 50%;
   padding: 20px;
 
   background-color: #4c4c4c;
@@ -91,6 +91,7 @@
       resize: none;
 
       width: 100%;
+      min-width: 200px;
       height: 120px;
       padding: 10px;
 

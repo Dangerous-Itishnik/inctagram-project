@@ -108,12 +108,9 @@ export const PublicationModal = ({
       <div className={styles.content}>
         <div className={styles.slider}>
           {images.length > 0 ? (
-            <Image
-              alt={`Slide ${currentImageIndex + 1}`}
-              height={500}
-              src={images[currentImageIndex]}
-              width={490}
-            />
+            <div className={styles.imageWrapper}>
+              <Image alt={`Slide ${currentImageIndex + 1}`} fill src={images[currentImageIndex]} />
+            </div>
           ) : (
             <p>No images to display</p>
           )}
