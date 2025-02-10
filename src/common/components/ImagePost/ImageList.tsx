@@ -1,29 +1,26 @@
 import React from 'react';
 import ImagePost from "./imagePost";
-import {useModal} from "../../hooks/useModal";
+
 import {  ResponseImages } from "@/service/posts/posts.service";
-import styles from "./ImagePost.module.css"
+import styles from "./ImagePost.module.scss"
+
+
 type Props = {
   posts: ResponseImages[]
+  openModal: (postId: number) => void;
 }
-const ImagePostList = ({posts}:Props) => {
-  const{openModal} = useModal()
-
-
-  if(!posts || posts.length === 0){
-    return <div>No images</div>
-  }
-
+const ImagePostList = ({posts,openModal}:Props) => {
   return (
-    <div className={styles.box}>
-      {posts.map((image) => (
+    <div className={styles.box} key={"image"}>
+      {posts?.map((image) => (
           <ImagePost
-            key={image.id}
+            key={image.uploadId}
             postId={image.id}
             src={image.url}
             alt={`Image ${image.uploadId}`}
-            width={image.width}
-            height={image.height}
+            width={image.width as number}
+            height={image.height as number}
+            priority
             openModal={openModal}
           />
         ))}

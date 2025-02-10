@@ -1,0 +1,33 @@
+.ellipse {
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 30.5rem;
+  padding: 12px 24px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sliderContainer {
+  width: 500px;
+  height: 621px;
+}
+
+.commentsContainer {
+  flex-basis: 450px;
+  flex-grow: 1;
+  max-width: 500px;
+  min-height: 350px;
+  padding-top: 20px;
+}
+
+/*# sourceMappingURL=PostModal.module.css.map */

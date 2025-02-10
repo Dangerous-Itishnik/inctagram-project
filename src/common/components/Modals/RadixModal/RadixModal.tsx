@@ -6,10 +6,10 @@ import * as Dialog from '@radix-ui/react-dialog'
 import styles from '@/common/components/Modals/RadixModal/RadixModal.module.scss'
 
 type RadixModalProps = {
-  modalTitle: ReactNode | string
-  onClose: () => void
+  modalTitle?: ReactNode | string
+  onClose?: () => void
   open: boolean
-  setIsModalInfo: () => void
+  setIsModalInfo?: () => void
 } & ComponentPropsWithoutRef<'div'>
 
 export const RadixModal = ({
@@ -28,11 +28,11 @@ export const RadixModal = ({
         className={styles.Content}
         onEscapeKeyDown={e => {
           e.preventDefault() // Отменяем закрытие по ESC
-          setIsModalInfo() // Показываем модальное окно подтверждения
+          if (setIsModalInfo) setIsModalInfo() // Показываем модальное окно подтверждения
         }}
         onPointerDownOutside={e => {
           e.preventDefault() // Отменяем закрытие по клику вне модального окна
-          setIsModalInfo() // Показываем модальное окно подтверждения
+          if (setIsModalInfo) setIsModalInfo() // Показываем модальное окно подтверждения
         }}
       >
         <Dialog.Title asChild className={styles.title}>

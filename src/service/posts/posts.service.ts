@@ -1,16 +1,36 @@
 import { baseApi } from "@/service/baseApi";
+import { PostItem } from "@/types/post.types";
+import { number } from "prop-types";
 
 
 export const postsApi = baseApi.injectEndpoints({
-  tagTypes: ['Posts'],
+  reducerPath: "postApi",
+  tagTypes: ["Posts", "Post"],
   endpoints: build => {
     return ({
-      getPosts: build.query<PostsAllData, { userId, endCursorPostId}>({
-        providesTags: ['Posts'],
+      getPosts: build.query<PostsAllData, { userId, endCursorPostId }>({
+        providesTags: ["Posts"],
         query: ({ userId, endCursorPostId }) => ({
           method: "GET",
-          url: `api/v1/public-posts/user/${userId}/${endCursorPostId || ''}?pageSize=8`,
+          url: `api/v1/public-posts/user/${userId}/${endCursorPostId || ""}?pageSize=8`
+        })
+      }),
+
+      postUpdate: build.mutation<PostItem, { description }>({
+        query: ({ postId, description }) => ({
+          method: "PUT",
+          body: { description },
+          url: `api/v1/posts/${postId}`
         }),
+        invalidatesTags: ["Posts"]
+      }),
+
+      postDelete: build.mutation<never, number>({
+        query: postId => ({
+          method: "DELETE",
+          url: `api/v1/posts/${postId}`,
+        }),
+        invalidatesTags: []
       }),
 
       postImage: build.mutation<Response, FormData>({
@@ -18,52 +38,38 @@ export const postsApi = baseApi.injectEndpoints({
           body: images,
           method: "POST",
           url: "/api/v1/posts/image"
-        })
+        }),
+        invalidatesTags: ["Posts"]
       }),
       postPost: build.mutation({
         query: data => ({
           body: data,
           method: "POST",
           url: "/api/v1/posts"
-        })
-      })
+        }),
+        invalidatesTags: ["Posts"]
+      }),
+
+      getPostById: build.query<PostData, void>({
+        query: (postId) =>({
+         url: `/api/v1/posts/${postId}`,
+          method: "GET",
+        }),
+        providesTags: ["Post"]
+      }),
     });
   }
 });
 
 
-// deletePost: build.mutation<
-//   any,
-//   {
-//     accessToken: string | undefined
-//     postId: number
-//   }
-// >({
-//   query: ({ accessToken, postId }) => ({
-//     method: 'DELETE',
-//     url: `/posts/${postId}`,
-//   }),
-// }),
-
-// updatePost: build.mutation<
-//   { description: 'string' },
-//   {
-//     accessToken: string | undefined
-//     description: string
-//     postId: number
-//   }
-// >({
-//   //TODO для того что бы обновить посты и отрисовать
-//   // invalidatesTags: ['Posts'],
-//   query: ({ accessToken, description, postId }) => ({
-//     body: { description },
-//     method: 'PUT',
-//     url: `/posts/${postId}`,
-//   }),
-// }),
-
-
-export const { usePostImageMutation, usePostPostMutation, useGetPostsQuery } = postsApi;
+export const {
+  usePostImageMutation,
+  usePostPostMutation,
+  useGetPostsQuery,
+  usePostUpdateMutation,
+  usePostDeleteMutation,
+  useGetPostByIdQuery
+} = postsApi;
 
 export type Response = {
   images: ResponseImages[]
@@ -94,6 +100,9 @@ export type PostItem = {
     firstName: string,
     lastName: string,
   }
+  likesCount: number
+  isLiked: boolean
+  avatarWhoLikes: boolean
 }
 export type PostsAllData = {
   totalCount: number,
@@ -102,4 +111,33 @@ export type PostsAllData = {
   totalUsers: number
 }
 
+type Owner = {
+  firstName: string
+  lastName: string
+}
 
+type PostData = {
+  id: number
+  ownerId: number
+  userName: string
+  description: string
+  images: ResponseImages[]
+  owner: Owner
+  avatarOwner: string
+  updatedAt: string
+  createdAt: string
+}
+
+export const transformPostData = (el: PostData): PostData => {
+  return {
+    id: el.id,
+    ownerId: el.ownerId,
+    description: el.description,
+    images: el.images,
+    owner: el.owner,
+    avatarOwner: el.avatarOwner,
+    updatedAt: el.updatedAt,
+    userName: el.userName,
+    createdAt: el.createdAt
+  };
+};

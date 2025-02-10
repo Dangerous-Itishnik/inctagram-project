@@ -1,0 +1,59 @@
+.ellipse {
+  font-size: 28px;
+  color: white;
+  cursor: pointer
+}
+
+.postContainer{
+  min-width: 972px;
+  height: 564px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 24px;
+}
+.modalHead{
+
+}
+.contentTwo{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-around;
+}
+
+.imageContainer {
+  width: 500px;
+  height: 621px;
+ border: 1px solid white;
+}
+.singleImage {
+  min-width: 500px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sliderContainer {
+  width: 500px;
+  height: 621px;
+}
+
+.commentsContainer {
+  flex-basis: 450px;
+  flex-grow: 1;
+
+  max-width: 500px;
+  min-height: 350px;
+  padding-top: 20px;
+
+}
+.menu{
+
+}

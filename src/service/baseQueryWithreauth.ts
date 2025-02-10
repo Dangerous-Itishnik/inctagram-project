@@ -46,14 +46,14 @@ export const baseQueryWithReauth: BaseQueryFn<
           const accessToken = storage.getToken()
 
           accessToken &&
-            (await baseQuery(
-              {
-                method: 'POST',
-                url: '/api/v1/auth/logout',
-              },
-              api,
-              extraOptions
-            ))
+          (await baseQuery(
+            {
+              method: 'POST',
+              url: '/api/v1/auth/logout',
+            },
+            api,
+            extraOptions
+          ))
           // storage.deleteToken()
           // TODO: сделать редирект на логин
           // await Router.push('/signIn')
