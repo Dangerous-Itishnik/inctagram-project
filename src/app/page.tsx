@@ -10,6 +10,7 @@ import { Spinner } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import '@/styles/index.scss'
+import { PublicPage } from '@/common/components/PablickPage/ui/PablickPage'
 
 export default function Home() {
   const router = useRouter()
@@ -39,7 +40,12 @@ export default function Home() {
   return (
     <>
       {isLoading && !data && <Spinner />}
-      {isError && <TotalUsers />}
+      {isError && (
+        <>
+          <TotalUsers />
+          <PublicPage />
+        </>
+      )}
       {data && !isError && <AuthUserHomePage meData={data} />}
     </>
   )

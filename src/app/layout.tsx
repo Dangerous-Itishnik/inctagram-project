@@ -25,8 +25,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           <Theme className={styles.bodyContainer} style={{ backgroundColor: 'transparent' }}>
             <Header />
-            <AppSideBar />
-            <main className={styles.main}>{children}</main>
+            <div className={styles.mainBody}>
+              <AppSideBar />
+              <main className={styles.main}>{children}</main>
+            </div>
           </Theme>
         </Providers>
       </body>
