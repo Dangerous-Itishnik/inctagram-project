@@ -17,9 +17,12 @@
   background-color: #8d9094;
 
   .imageWrapper {
+    position: relative;
+
     width: 100%;
     min-width: 250px;
     min-height: 250px;
+
     object-fit: cover;
   }
 

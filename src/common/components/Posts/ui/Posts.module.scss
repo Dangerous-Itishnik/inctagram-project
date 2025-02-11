@@ -4,26 +4,29 @@
   gap: 12px;
   justify-content: space-around;
 }
+
 .post {
-  flex: 0 1 234px;
   display: flex;
+  flex: 0 1 234px;
   flex-direction: column;
   text-align: left;
+
   &:hover {
-    background-color: rgba(76, 76, 76, 0.3);
+    background-color: rgb(76 76 76 / 30%);
   }
 }
 
 .slider {
   position: relative;
-  padding-top: 100%;
   margin-bottom: 12px;
+  padding-top: 100%;
 }
 
 .image {
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
 }

@@ -12,7 +12,7 @@ export const TotalUsers = () => {
     const interval = setInterval(refetch, 60000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [refetch])
 
   // Разделение числа на цифры, дополненное до 6 символов нулями
   const digits = String(totalUsers ? totalUsers.totalCount : 0)

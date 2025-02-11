@@ -97,7 +97,7 @@ export const PublicationModal = ({
         {'<'}
       </button>
       <h3>Publication</h3>
-      <Button onClick={publishedPostHandler} disabled={isLoading} variant={'link'}>
+      <Button disabled={isLoading} onClick={publishedPostHandler} variant={'link'}>
         Publish
       </Button>
     </>

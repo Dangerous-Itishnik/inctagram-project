@@ -1,12 +1,13 @@
-import React from 'react'
-
-import styles from './Posts.module.scss'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'
+import Image from 'next/image'
+
+import styles from './Posts.module.scss'
 
 type PostsProps = {
   posts: Post[] | undefined
 }
+
 export const Posts = ({ posts }: PostsProps) => {
   const timeAgo = (date: string): string => {
     const parsedDate = new Date(date)
@@ -19,20 +20,20 @@ export const Posts = ({ posts }: PostsProps) => {
       {posts
         ? posts.map(post => {
             const { avatarOwner, description, id, images, userName } = post
-            console.log(post)
+
             return (
-              <button type={'button'} className={styles.post} key={id}>
+              <button className={styles.post} key={id} type={'button'}>
                 <div className={styles.slider}>
-                  <img
-                    className={styles.image}
-                    alt={''}
-                    height={200}
-                    src={images[0].url}
-                    width={200}
-                  />
+                  <Image alt={''} className={styles.image} fill src={images[0].url} />
                 </div>
                 <div className={styles.userProfile}>
-                  <img alt={'Avatar'} className={styles.photoUser} src={avatarOwner} />
+                  <Image
+                    alt={'Avatar'}
+                    className={styles.photoUser}
+                    height={36}
+                    src={avatarOwner}
+                    width={36}
+                  />
                   <span className={styles.nameUser}>{userName}</span>
                 </div>
                 <div className={styles.ublicationDate}>{timeAgo(post.createdAt)}</div>
@@ -49,7 +50,7 @@ export const Posts = ({ posts }: PostsProps) => {
   )
 }
 
-export type Image = {
+export type ImagePostResponse = {
   createdAt: string
   fileSize: number
   height: number
@@ -69,7 +70,7 @@ export type Post = {
   createdAt: string
   description: string
   id: number
-  images: Image[]
+  images: ImagePostResponse[]
   isLiked: boolean
   likesCount: number
   location: string

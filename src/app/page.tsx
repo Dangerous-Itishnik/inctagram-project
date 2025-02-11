@@ -1,14 +1,15 @@
 'use client'
 
 import { useEffect } from 'react'
+
 import { storage } from '@/common/utils/storage'
 import { AuthUserHomePage } from '@/features/authUserHomePage'
+import { PublicPage } from '@/features/publicPage/PublicPage'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import '@/styles/index.scss'
-import { PublicPage } from '@/features/publicPage/PublicPage'
 
 export default function Home() {
   const router = useRouter()
