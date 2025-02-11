@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { usePostAllQuery } from '@/service/publicPosts/pablicPosts.service'
-
-import styles from './PublicPage.module.scss'
+import styles from './Posts.module.scss'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'
 
-export const PublicPage = () => {
-  //TODO вечные запросы
-  const { data } = usePostAllQuery({ pageSize: 4 })
-
+type PostsProps = {
+  posts: Post[] | undefined
+}
+export const Posts = ({ posts }: PostsProps) => {
   const timeAgo = (date: string): string => {
     const parsedDate = new Date(date)
 
@@ -18,12 +16,12 @@ export const PublicPage = () => {
 
   return (
     <div className={styles.posts}>
-      {data
-        ? data.items.map(post => {
+      {posts
+        ? posts.map(post => {
             const { avatarOwner, description, id, images, userName } = post
             console.log(post)
             return (
-              <div className={styles.post} key={id}>
+              <button type={'button'} className={styles.post} key={id}>
                 <div className={styles.slider}>
                   <img
                     className={styles.image}
@@ -43,10 +41,40 @@ export const PublicPage = () => {
                     ? 'Нету описания. Поэтому стоит мое описанние, для того что бы проверить верстку'
                     : description}
                 </p>
-              </div>
+              </button>
             )
           })
         : 'Нет постов, что технически не возможно'}
     </div>
   )
+}
+
+export type Image = {
+  createdAt: string
+  fileSize: number
+  height: number
+  uploadId: string
+  url: string
+  width: number
+}
+
+export type Owner = {
+  firstName: string
+  lastName: string
+}
+
+export type Post = {
+  avatarOwner: string
+  avatarWhoLikes: boolean
+  createdAt: string
+  description: string
+  id: number
+  images: Image[]
+  isLiked: boolean
+  likesCount: number
+  location: string
+  owner: Owner
+  ownerId: number
+  updatedAt: string
+  userName: string
 }

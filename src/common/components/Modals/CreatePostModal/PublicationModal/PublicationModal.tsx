@@ -26,6 +26,7 @@ export const PublicationModal = ({
 }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [description, setDescription] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const [publishedImage] = usePostImageMutation()
   const [publishedPost] = usePostPostMutation()
@@ -58,6 +59,7 @@ export const PublicationModal = ({
   }
 
   const publishedPostHandler = () => {
+    setIsLoading(true)
     const formData = new FormData()
 
     images.forEach((base64, index) => {
@@ -84,6 +86,9 @@ export const PublicationModal = ({
           .catch(console.error)
       })
       .catch(console.error)
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const modalTitle = (
@@ -92,7 +97,7 @@ export const PublicationModal = ({
         {'<'}
       </button>
       <h3>Publication</h3>
-      <Button onClick={publishedPostHandler} variant={'link'}>
+      <Button onClick={publishedPostHandler} disabled={isLoading} variant={'link'}>
         Publish
       </Button>
     </>

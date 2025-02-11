@@ -8,6 +8,10 @@
   flex: 0 1 234px;
   display: flex;
   flex-direction: column;
+  text-align: left;
+  &:hover {
+    background-color: rgba(76, 76, 76, 0.3);
+  }
 }
 
 .slider {

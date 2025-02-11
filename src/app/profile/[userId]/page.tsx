@@ -1,8 +1,8 @@
 'use client'
 
 import { Post } from '@/app/posts/[id]/page'
-import { PublicPage } from '@/common/components/PablickPage/ui/PablickPage'
 import Link from 'next/link'
+import { Posts } from '@/common/components/Posts/ui/Posts'
 
 export default function Profile() {
   const data: Post[] = [
@@ -39,9 +39,6 @@ export default function Profile() {
   return (
     <div>
       <h1>Profile Page</h1>
-      <PostList posts={data} />
-      <PublicPage />
-      <Link href={`/posts/2`}>ываы</Link>
     </div>
   )
 }
