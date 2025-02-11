@@ -49,16 +49,3 @@
 .text {
   font-size: var(--font-size-s);
 }
-.text {
-  font-size: var(--font-size-s);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* Ограничение до 3 строк */
-  line-height: 1.5; /* Высота строки */
-}
-
-.text.expanded {
-  -webkit-line-clamp: unset; /* Убираем ограничение по строкам */
-  overflow: visible; /* Показываем весь текст */
-}
