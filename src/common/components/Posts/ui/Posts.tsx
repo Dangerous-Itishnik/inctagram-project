@@ -1,3 +1,4 @@
+import { Spinner } from '@radix-ui/themes'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'
 import Image from 'next/image'
@@ -17,35 +18,37 @@ export const Posts = ({ posts }: PostsProps) => {
 
   return (
     <div className={styles.posts}>
-      {posts
-        ? posts.map(post => {
-            const { avatarOwner, description, id, images, userName } = post
+      {posts ? (
+        posts.map(post => {
+          const { avatarOwner, description, id, images, userName } = post
 
-            return (
-              <button className={styles.post} key={id} type={'button'}>
-                <div className={styles.slider}>
-                  <Image alt={''} className={styles.image} fill src={images[0].url} />
-                </div>
-                <div className={styles.userProfile}>
-                  <Image
-                    alt={'Avatar'}
-                    className={styles.photoUser}
-                    height={36}
-                    src={avatarOwner}
-                    width={36}
-                  />
-                  <span className={styles.nameUser}>{userName}</span>
-                </div>
-                <div className={styles.ublicationDate}>{timeAgo(post.createdAt)}</div>
-                <p className={styles.text}>
-                  {description === ''
-                    ? 'Нету описания. Поэтому стоит мое описанние, для того что бы проверить верстку'
-                    : description}
-                </p>
-              </button>
-            )
-          })
-        : 'Нет постов, что технически не возможно'}
+          return (
+            <button className={styles.post} key={id} type={'button'}>
+              <div className={styles.slider}>
+                <Image alt={''} className={styles.image} fill src={images[0].url} />
+              </div>
+              <div className={styles.userProfile}>
+                <Image
+                  alt={'Avatar'}
+                  className={styles.photoUser}
+                  height={36}
+                  src={avatarOwner}
+                  width={36}
+                />
+                <span className={styles.nameUser}>{userName}</span>
+              </div>
+              <div className={styles.ublicationDate}>{timeAgo(post.createdAt)}</div>
+              <p className={styles.text}>
+                {description === ''
+                  ? 'Нету описания. Поэтому стоит мое описанние, для того что бы проверить верстку'
+                  : description}
+              </p>
+            </button>
+          )
+        })
+      ) : (
+        <Spinner />
+      )}
     </div>
   )
 }
