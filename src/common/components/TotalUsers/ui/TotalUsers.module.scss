@@ -1,9 +1,9 @@
 .counter {
   display: flex;
-  flex: 0 1 978px;
   align-items: center;
   justify-content: space-between;
-
+  margin-bottom: 36px;
+  width: 100%;
   padding: 12px 24px;
 
   color: var(--color-light-100);
