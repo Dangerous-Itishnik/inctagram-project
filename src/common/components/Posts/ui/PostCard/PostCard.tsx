@@ -1,5 +1,6 @@
+import React from 'react'
+
 import { Post } from '@/common/components/Posts/model/postsType'
-import { TextWithShowMore } from '@/common/components/Posts/ui/PostCard/TextWithShowMore/TextWithShowMore'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'
 import Image from 'next/image'
@@ -35,7 +36,7 @@ export const PostCard = ({ post }: Props) => {
         <span className={styles.nameUser}>{userName}</span>
       </div>
       <div className={styles.ublicationDate}>{timeAgo(post.createdAt)}</div>
-      <TextWithShowMore text={description === '' ? 'Описания нетрстку' : description} />
+      <p className={styles.text}>{description === '' ? 'Описания нету' : description}</p>
     </button>
   )
 }
