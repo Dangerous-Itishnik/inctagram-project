@@ -26,10 +26,7 @@ export const SwiperSlider = ({ imagesUrl, start}: Props) => {
       className={styles.postSlider}
       style={{ height: '100%', width: '100%' }}
     >
-      {imagesUrl?.map((image: ResponseImages, index: number) => {
-        if (!image.url && image.width > 1400) {
-          return null;
-        }
+      {imagesUrl?.map((image:any, index: number) => {
         return (
           <SwiperSlide
             className={start ? styles.img : ''}

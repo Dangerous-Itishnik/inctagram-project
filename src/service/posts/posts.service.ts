@@ -26,11 +26,12 @@ export const postsApi = baseApi.injectEndpoints({
       }),
 
       postDelete: build.mutation<never, number>({
-        query: postId => ({
+        query: postId=> ({
           method: "DELETE",
           url: `api/v1/posts/${postId}`,
+          param: {id: postId}
         }),
-        invalidatesTags: []
+        invalidatesTags: ["Posts"]
       }),
 
       postImage: build.mutation<Response, FormData>({
@@ -54,6 +55,7 @@ export const postsApi = baseApi.injectEndpoints({
         query: (postId) =>({
          url: `/api/v1/posts/${postId}`,
           method: "GET",
+          param: {id: postId}
         }),
         providesTags: ["Post"]
       }),

@@ -1,19 +1,19 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 export const useModal = () => {
-  const [modalState, setModalState] = useState<{ isOpen: boolean }>({isOpen: false})
+  const [isOpen, setOpen] = useState<boolean>(false);
 
-  function openModal(): void {
-    setModalState({ isOpen: true})
+  const openModal = ()=> {
+    setOpen(true);
   }
 
   const closeModal = () => {
-    setModalState({ isOpen: false})
-  }
+    setOpen(false);
+  };
 
   return {
     closeModal,
-    isOpen: modalState.isOpen,
-    openModal,
-  }
-}
+    isOpen,
+    openModal
+  };
+};
