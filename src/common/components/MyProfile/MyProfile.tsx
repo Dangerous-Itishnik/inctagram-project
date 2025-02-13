@@ -9,15 +9,13 @@ export const MyProfile = () => {
   const [selectedPost, setSelectedPost] = useState<ResponseUserPostData | null>(null)
   const [postManagement, setPostManagement] = useState(false)
   const userName = 'adsasdasd'
-  // const { data, refetch } = useGetUserPostsQuery(userName);
+  const { data, refetch } = useGetUserPostsQuery(userName)
 
   const getUserPostHandler = (post: ResponseUserPostData) => {
     setSelectedPost(post)
     setPostManagement(true)
     console.log(post)
   }
-
-  const data: ResponseUserPostData[] = [] // Здесь можно заменить на реальный массив
 
   console.log(data)
 
@@ -29,7 +27,7 @@ export const MyProfile = () => {
     <div className={styles.container}>
       <div className={styles.post}>
         <div className={styles.postItems}>
-          {data.map(post => (
+          {data?.items.map(post => (
             <div className={styles.postItem} key={post.id}>
               <img
                 alt={post.title}
@@ -46,7 +44,7 @@ export const MyProfile = () => {
           onClose={closePostModalHandler}
           open
           post={selectedPost}
-          // refetchPosts={refetch}
+          refetchPosts={refetch}
         />
       )}
     </div>
