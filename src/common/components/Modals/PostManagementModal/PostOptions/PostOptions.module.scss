@@ -1,0 +1,35 @@
+.container{
+  border: 1px solid #8d9094;
+  height: 85px;
+  width: 137px;
+  border-radius: 5px;
+  background-color: #4c4c4c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 35%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+}
+.update, .delete {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 5px 0 10px 10px;
+}
+
+.update Button, .delete Button {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  padding: 0 5px;
+  background-color: #4c4c4c;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+
+.delete{}

@@ -1,6 +1,6 @@
-.notificationWindow {
-  height: 140px;
-  width: 350px;
+.closeWindow{
+  height: 100px;
+  width: 380px;
 }
 
 .message{
@@ -9,10 +9,12 @@
 
 .buttons{
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
 }
 
 .buttons button{
+  margin-right: 15px;
+  padding: 6px 30px;
   &:active {
     background-color: #397DF6;
     color: #ffffff;

@@ -159,22 +159,33 @@ export const CreatePost = ({ active, setActive }: Props) => {
   }
 
   return (
-    <>
-      <div onClick={e => e.stopPropagation()}>{renderComponent()}</div>
-      {isModalInfo && (
-        <InfoModal modalTitle={'Сlose'} onClose={() => setIsModalInfo(false)} open={isModalInfo}>
-          <div className={styles.modalInfoText}>
-            <p>Do you really want to close the creation of a publication? </p>
-            <p>If you close everything will be deleted</p>
-          </div>
-          <div className={styles.modalInfoButtons}>
-            <Button onClick={discard} variant={'outline'}>
-              Discard
-            </Button>
-            <Button onClick={saveDraft}>Save draft</Button>
-          </div>
-        </InfoModal>
-      )}
-    </>
+      <>
+        <div onClick={e => e.stopPropagation()}>{renderComponent()}</div>
+        {isModalInfo && (
+            <InfoModal
+                discard={discard}
+                onClose={() => setIsModalInfo(false)}
+                open={isModalInfo}
+                saveDraft={saveDraft}
+            />
+        )}
+      </>
+      // <>
+      //   <div onClick={e => e.stopPropagation()}>{renderComponent()}</div>
+      //   {isModalInfo && (
+      //     <InfoModal modalTitle={'Сlose'} onClose={() => setIsModalInfo(false)} open={isModalInfo}>
+      //       <div className={styles.modalInfoText}>
+      //         <p>Do you really want to close the creation of a publication? </p>
+      //         <p>If you close everything will be deleted</p>
+      //       </div>
+      //       <div className={styles.modalInfoButtons}>
+      //         <Button onClick={discard} variant={'outline'}>
+      //           Discard
+      //         </Button>
+      //         <Button onClick={saveDraft}>Save draft</Button>
+      //       </div>
+      //     </InfoModal>
+      //   )}
+      // </>
   )
 }

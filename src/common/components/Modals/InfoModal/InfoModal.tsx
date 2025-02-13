@@ -1,32 +1,33 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
-import * as Dialog from '@radix-ui/react-dialog'
 
 import styles from '@/common/components/Modals/InfoModal/InfoModal.module.scss'
 
 export type InfoModalProps = {
-  modalTitle: string
+  closePostManagement: () => void
   onClose: () => void
   open: boolean
 } & ComponentPropsWithoutRef<'div'>
 
-export const InfoModal = ({ children, modalTitle, onClose, open, ...rest }: InfoModalProps) => (
-  <Dialog.Root onOpenChange={onClose} open={open} {...rest}>
-    <Dialog.Trigger asChild />
-    <Dialog.Portal>
-      <Dialog.Overlay />
-      <Dialog.Content className={styles.Content}>
-        <Dialog.Title className={styles.title}>{modalTitle}</Dialog.Title>
-        <Dialog.Description asChild>
-          <div className={styles.Description}>{children}</div>
-        </Dialog.Description>
-        <Dialog.Close asChild>
-          <Button className={styles.buttonClose} variant={'icon'}>
-            X
-          </Button>
-        </Dialog.Close>
-      </Dialog.Content>
-    </Dialog.Portal>
-  </Dialog.Root>
-)
+export const InfoModal = ({ closePostManagement, onClose, open }: InfoModalProps) => {
+  return (
+      <RadixModal modalTitle={'Close'} onClose={onClose} open={open}>
+        <div className={styles.notificationWindow}>
+          <div className={styles.message}>
+            Do you really want to close the creation of a publication? If you close everything will be
+            deleted{' '}
+          </div>
+          <div className={styles.buttons}>
+            <Button onClick={() => closePostManagement()} variant={'outline'}>
+              Discard
+            </Button>
+            <Button onClick={onClose} variant={'outline'}>
+              Save draft
+            </Button>
+          </div>
+        </div>
+      </RadixModal>
+  )
+}

@@ -1,6 +1,6 @@
-.notificationWindow {
-  height: 140px;
-  width: 350px;
+.deleteWindow {
+  height: 110px;
+  width: 315px;
 }
 
 .message{
@@ -9,10 +9,12 @@
 
 .buttons{
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
 }
 
 .buttons button{
+  margin: 10px;
+  padding: 6px 30px;
   &:active {
     background-color: #397DF6;
     color: #ffffff;

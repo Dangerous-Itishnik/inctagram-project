@@ -49,6 +49,9 @@ export const postsApi = baseApi.injectEndpoints({
 
 export const { usePostImageMutation, usePostPostMutation } = postsApi
 
+export type ResponseUserPostData = NonNullable<unknown>
+export type useGetUserPostsQuery = NonNullable<unknown>
+
 export type Response = {
   images: ResponseImages[]
 }

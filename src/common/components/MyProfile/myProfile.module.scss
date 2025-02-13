@@ -1,0 +1,30 @@
+.container{
+
+}
+
+.post{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.postItems{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  justify-content: center;
+}
+
+.postItem img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.postItem img {
+  height: 228px;
+  width: 234px;
+  border-radius: 5px;
+  cursor: pointer;
+}
