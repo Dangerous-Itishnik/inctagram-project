@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 
 import { useTotalUsersQuery } from '@/service/totalUsers/totalUsers.service'
+import { Spinner } from '@radix-ui/themes'
 
 import styles from './TotalUsers.module.scss'
 
 export const TotalUsers = () => {
-  const { data: totalUsers, refetch } = useTotalUsersQuery()
+  const { data: totalUsers, isLoading, refetch } = useTotalUsersQuery()
 
   useEffect(() => {
-    refetch() // Первая загрузка
     const interval = setInterval(refetch, 60000)
 
     return () => clearInterval(interval)
@@ -18,6 +18,10 @@ export const TotalUsers = () => {
   const digits = String(totalUsers ? totalUsers.totalCount : 0)
     .padStart(6, '0')
     .split('')
+
+  if (isLoading && totalUsers) {
+    return <Spinner />
+  }
 
   return (
     <div className={styles.counter}>
