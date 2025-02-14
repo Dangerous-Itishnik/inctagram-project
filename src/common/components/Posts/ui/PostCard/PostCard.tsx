@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Post } from '@/common/components/Posts/model/postsType'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'

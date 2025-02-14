@@ -1,6 +1,6 @@
 import { Posts } from '@/common/components/Posts/ui/Posts'
 import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
-import { usePostAllQuery } from '@/service/publicPosts/pablicPosts.service'
+import { usePostAllQuery } from '@/service/publicPosts/publicPosts.service'
 
 import styles from './PublicPage.module.scss'
 export const PublicPage = () => {

@@ -21,7 +21,6 @@ type PostsAll = {
   sortDirection?: string
 }
 
-export const {} = publicPostsApi
 export interface Response {
   items: ResponseItems[]
   pageSize: number
