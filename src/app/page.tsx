@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 
-import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
 import { storage } from '@/common/utils/storage'
 import { AuthUserHomePage } from '@/features/authUserHomePage'
+import { PublicPage } from '@/features/publicPage/PublicPage'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <>
       {isLoading && !data && <Spinner />}
-      {isError && <TotalUsers />}
+      {isError && <PublicPage />}
       {data && !isError && <AuthUserHomePage meData={data} />}
     </>
   )
