@@ -13,13 +13,11 @@ const ProfileHeader = ({ profileUser }: Props) => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.imageContainer}>
-        <Image
-          alt={`UserPhoto`}
-          height={204}
-          priority
-          src={avatars.length ? avatars[0].url : ''}
-          width={204}
-        />
+        {avatars.length ? (
+          <Image alt={`UserPhoto`} height={204} priority src={avatars[0].url} width={204} />
+        ) : (
+          'Логотипа нет'
+        )}
       </div>
       <div className={styles.userNameContainer}>
         <div>
