@@ -1,9 +1,9 @@
 import { baseApi } from '@/service/baseApi'
-import { PostImageResponse } from '@/service/posts/post.type'
+import { PostImageResponse, PostsResponse } from '@/service/posts/post.type'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getPost: build.query<PostImageResponse, { userName: string }>({
+    getPost: build.query<PostsResponse, { userName: string }>({
       query: body => ({
         method: 'GET',
         url: `/api/v1/posts/${body.userName}`,

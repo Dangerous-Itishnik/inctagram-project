@@ -11,21 +11,12 @@ export type ResponseImages = {
 }
 
 export type PostsResponse = {
-  avatarOwner: string
-  avatarWhoLikes: boolean
-  createdAt: string
-  description: string
-  id: number
-  images: PostsResponseImages[]
-  isLiked: boolean
-  likesCount: number
-  location: string
-  owner: PostsResponseOwner
-  ownerId: number
-  updatedAt: string
-  userName: string
+  items: Items[]
+  notReadCount: number
+  pageSize: number
+  totalCount: number
 }
-export type PostsResponseImages = {
+export type ItemsImages = {
   createdAt: string
   fileSize: number
   height: number
@@ -33,7 +24,22 @@ export type PostsResponseImages = {
   url: string
   width: number
 }
-export type PostsResponseOwner = {
+export type ItemsOwner = {
   firstName: string
   lastName: string
+}
+export type Items = {
+  avatarOwner: string
+  avatarWhoLikes: boolean
+  createdAt: string
+  description: string
+  id: number
+  images: ItemsImages[]
+  isLiked: boolean
+  likesCount: number
+  location: string
+  owner: ItemsOwner
+  ownerId: number
+  updatedAt: string
+  userName: string
 }
