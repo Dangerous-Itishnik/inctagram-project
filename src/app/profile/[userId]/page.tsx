@@ -64,7 +64,7 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
     <div className={styles.profilePage}>
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
-      <div>Открытие модалки с постом id:{postIdParams}</div>
+      {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
     </div>
   )
 }
