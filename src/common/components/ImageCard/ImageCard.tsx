@@ -1,22 +1,26 @@
+import { Post } from '@/service/posts/post.type'
 import Image from 'next/image'
 
 import styles from './ImageCard.module.scss'
+
 type Props = {
   openModal: () => void
+  post: Post
+  postId: number
 }
-export const ImageCard = ({ alt, height, openModal, postId, src, width }: Props) => {
+export const ImageCard = ({ openModal, post, postId }: Props) => {
   return (
     <>
       <div onClick={openModal}>
         <Image
-          alt={alt}
+          alt={`Image`}
           className={styles.image}
-          height={height}
+          height={post.images[0].height}
           key={postId}
           onLoad={() => true} // useLoader?
           priority
-          src={src}
-          width={width}
+          src={post.images[0].url}
+          width={post.images[0].width}
         />
       </div>
     </>

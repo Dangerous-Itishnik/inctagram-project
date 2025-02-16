@@ -1,5 +1,5 @@
-import { Post } from '@/common/components/Posts/model/postsType'
 import { PostCard } from '@/common/components/Posts/ui/PostCard/PostCard'
+import { Post } from '@/service/posts/post.type'
 import { Spinner } from '@radix-ui/themes'
 
 import styles from './Posts.module.scss'

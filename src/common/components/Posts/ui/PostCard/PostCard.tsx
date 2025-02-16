@@ -1,4 +1,4 @@
-import { Post } from '@/common/components/Posts/model/postsType'
+import { Post } from '@/service/posts/post.type'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'
 import Image from 'next/image'

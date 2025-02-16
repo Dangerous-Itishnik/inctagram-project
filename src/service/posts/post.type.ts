@@ -12,7 +12,7 @@ export type ResponseImages = {
 }
 
 export type PostsResponse = {
-  items: Items[]
+  items: Post[]
   notReadCount: number
   pageSize: number
   totalCount: number
@@ -29,7 +29,7 @@ export type ItemsOwner = {
   firstName: string
   lastName: string
 }
-export type Items = {
+export type Post = {
   avatarOwner: string
   avatarWhoLikes: boolean
   createdAt: string
