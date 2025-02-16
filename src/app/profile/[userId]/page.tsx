@@ -5,7 +5,8 @@ import { PostsResponse } from '@/service/posts/post.type'
 import { Metadata } from 'next'
 
 type ProfileProps = {
-  params: { userId: string }
+  params: { postId: string; userId: string }
+  searchParams: { postId?: string }
 }
 
 // Функция для получения данных пользователя
@@ -29,15 +30,16 @@ async function fetchPosts(profileId: number) {
   return response.json() as Promise<PostsResponse>
 }
 
-export async function generateMetadata({ params }: ProfileProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: ProfileProps): Promise<Metadata> {
   // Здесь можно задать метаданные на основе параметров
   return {
     title: `Profile of User ${params.userId}`,
   }
 }
 
-export default async function Profile({ params }: ProfileProps) {
+export default async function Profile({ params, searchParams }: ProfileProps) {
   const profileId = +params.userId // id из URL
+  const postIdParams = searchParams.postId ? +searchParams.postId : null
 
   let profileUserData = null
   let postsData = null
@@ -60,6 +62,7 @@ export default async function Profile({ params }: ProfileProps) {
     <div>
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
+      {postIdParams && <div>Открываем модалку с постом id:{postIdParams}</div>}
     </div>
   )
 }
