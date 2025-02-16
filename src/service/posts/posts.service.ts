@@ -3,10 +3,10 @@ import { PostImageResponse, PostsResponse } from '@/service/posts/post.type'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getPost: build.query<PostsResponse, { userName: string }>({
+    getPost: build.query<PostsResponse, { postId: number }>({
       query: body => ({
         method: 'GET',
-        url: `/api/v1/posts/${body.userName}`,
+        url: `/api/v1/posts/id/${body.postId}`,
       }),
     }),
     // deletePost: build.mutation<

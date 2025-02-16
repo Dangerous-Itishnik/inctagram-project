@@ -1,5 +1,7 @@
 import { BASE_URL } from '@/common/api/common.api'
 import { ImageList } from '@/common/components/Images/ImageList'
+import { OpenPostModal } from '@/common/components/Modals/OpenPostModal/OpenPostModal'
+import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import ProfileHeader from '@/features/profilePage/ProfileHeadeer/ProfileHeader'
 import { PostsResponse } from '@/service/posts/post.type'
 import { Metadata } from 'next'
@@ -65,6 +67,7 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
       {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
+      {postIdParams && <OpenPostModal postId={postIdParams} />}
     </div>
   )
 }
