@@ -1,0 +1,19 @@
+.image {
+  cursor: pointer;
+
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 234px;
+  height: 228px;
+
+  border-radius: 3px;
+
+  &:hover {
+    transform: scale(1.02, 1.02);
+  }
+}
