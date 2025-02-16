@@ -23,6 +23,7 @@ async function fetchProfileUser(profileId: number) {
 
   return response.json()
 }
+
 // Функция для получения данных постов
 async function fetchPosts(profileId: number) {
   const response = await fetch(`${BASE_URL}/api/v1/public-posts/user/${profileId}`)
@@ -67,7 +68,7 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
       {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
-      {postIdParams && <OpenPostModal postId={postIdParams} />}
+      {postIdParams && <OpenPostModal postId={postIdParams} profileUser={profileUserData} />}
     </div>
   )
 }
