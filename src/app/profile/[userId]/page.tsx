@@ -4,6 +4,8 @@ import ProfileHeader from '@/features/profilePage/ProfileHeadeer/ProfileHeader'
 import { PostsResponse } from '@/service/posts/post.type'
 import { Metadata } from 'next'
 
+import styles from './page.module.scss'
+
 type ProfileProps = {
   params: { postId: string; userId: string }
   searchParams: { postId?: string }
@@ -30,10 +32,10 @@ async function fetchPosts(profileId: number) {
   return response.json() as Promise<PostsResponse>
 }
 
-export async function generateMetadata({ params, searchParams }: ProfileProps): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   // Здесь можно задать метаданные на основе параметров
   return {
-    title: `Profile of User ${params.userId}`,
+    title: `Profile`,
   }
 }
 
@@ -59,10 +61,10 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
   }
 
   return (
-    <div>
+    <div className={styles.profilePage}>
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
-      {postIdParams && <div>Открываем модалку с постом id:{postIdParams}</div>}
+      <div>Открытие модалки с постом id:{postIdParams}</div>
     </div>
   )
 }

@@ -12,7 +12,6 @@ type Props = {
 export const ImageList = ({ posts }: Props) => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const userId = searchParams.get('userId') // Получаем userId из query-параметров
   const openPost = (postId: number) => {
     const newParams = new URLSearchParams(searchParams.toString()) // Клонируем текущие параметры
 

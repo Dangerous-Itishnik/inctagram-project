@@ -14,9 +14,16 @@ const ProfileHeader = ({ profileUser }: Props) => {
     <div className={styles.headerContainer}>
       <div className={styles.imageContainer}>
         {avatars.length ? (
-          <Image alt={`UserPhoto`} height={204} priority src={avatars[0].url} width={204} />
+          <Image
+            alt={`UserPhoto`}
+            className={styles.avatar}
+            height={204}
+            priority
+            src={avatars[0].url}
+            width={204}
+          />
         ) : (
-          'Логотипа нет'
+          <div>Логотипа нет</div>
         )}
       </div>
       <div className={styles.userNameContainer}>

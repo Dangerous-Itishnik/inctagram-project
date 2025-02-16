@@ -10,7 +10,7 @@ type Props = {
 export const ImageCard = ({ post, postId }: Props) => {
   return (
     <>
-      <div>
+      <div className={styles.imageBox}>
         <Image
           alt={`Image`}
           className={styles.image}
