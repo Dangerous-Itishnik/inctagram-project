@@ -1,5 +1,5 @@
 import { baseApi } from '@/service/baseApi'
-import { Post, PostImageResponse, PostsResponse } from '@/service/posts/post.type'
+import { Post, PostImageResponse } from '@/service/posts/post.type'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({

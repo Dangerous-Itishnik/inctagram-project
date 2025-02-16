@@ -30,8 +30,6 @@ export const OpenPostModal = ({ postId, profileUser }: Props) => {
     }
   }
 
-  data && console.log(profileUser)
-
   const closePost = () => {
     const newParams = new URLSearchParams(searchParams.toString()) // Клонируем текущие параметры
 
@@ -95,7 +93,9 @@ export const OpenPostModal = ({ postId, profileUser }: Props) => {
               </div>
             </Dialog.Description>
             <Dialog.Close>
-              <button onClick={closePost}>X</button>
+              <button onClick={closePost} type={'button'}>
+                X
+              </button>
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Portal>
