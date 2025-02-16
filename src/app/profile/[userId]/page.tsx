@@ -1,44 +1,60 @@
-'use client'
-
+import { BASE_URL } from '@/common/api/common.api'
 import { ImageList } from '@/common/components/Images/ImageList'
 import ProfileHeader from '@/features/profilePage/ProfileHeadeer/ProfileHeader'
-import { useGetPostQuery } from '@/service/posts/posts.service'
-import { useProfileUserQuery } from '@/service/publicUsers/publicUsers.service'
-import { Spinner } from '@radix-ui/themes'
-import { useParams } from 'next/navigation'
+import { PostsResponse } from '@/service/posts/post.type'
+import { Metadata } from 'next'
 
-export default function Profile() {
-  const params = useParams()
-  const profileId = +params.userId // id из URL
-  const { data: profileUserData, isLoading: isLoadingProfile } = useProfileUserQuery({ profileId })
-  const { data: postsData, isLoading: isLoadingPost } = useGetPostQuery({ userName: 'adsasdasd' })
-  // const [images, setImages] = useState<ImagePostResponse[]>([])
+type ProfileProps = {
+  params: { userId: string }
+}
 
-  // useEffect(() => {
-  //   const imagesData: ResponseImages[] = postsData?.items
-  //     ? postsData.items.flatMap(item =>
-  //         item.images.filter(image => image.url && typeof image.url === 'string').slice(0, 1)
-  //       )
-  //     : []
-  //   const index = images.findIndex(image => image.id === imagesData[0]?.id)
-  //
-  //   if (!postsData) {
-  //     setImages([])
-  //   } else if (images.length && images[0]?.id < imagesData[0]?.id) {
-  //     setImages(imagesData)
-  //   } else {
-  //     setImages(prev => {
-  //       return index === -1 ? [...prev, ...imagesData] : prev
-  //     })
-  //   }
-  // }, [postsData, images])
-  if (isLoadingProfile || isLoadingPost) {
-    return <Spinner />
+// Функция для получения данных пользователя
+async function fetchProfileUser(profileId: number) {
+  const response = await fetch(`${BASE_URL}/api/v1/public-user/profile/${profileId}`)
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch profile user data')
   }
+
+  return response.json()
+}
+// Функция для получения данных постов
+async function fetchPosts(profileId: number) {
+  const response = await fetch(`${BASE_URL}/api/v1/public-posts/user/${profileId}`)
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch posts data')
+  }
+
+  return response.json() as Promise<PostsResponse>
+}
+
+export async function generateMetadata({ params }: ProfileProps): Promise<Metadata> {
+  // Здесь можно задать метаданные на основе параметров
+  return {
+    title: `Profile of User ${params.userId}`,
+  }
+}
+
+export default async function Profile({ params }: ProfileProps) {
+  const profileId = +params.userId // id из URL
+
+  let profileUserData = null
+  let postsData = null
+
+  try {
+    // Получение данных пользователя
+    profileUserData = await fetchProfileUser(profileId)
+
+    // Получение данных постов
+    postsData = await fetchPosts(profileId)
+  } catch (error) {
+    console.error('Ошибка при получении данных:', error)
+  }
+
   if (!profileUserData || !postsData) {
     return <div>Данные не подгрузились</div>
   }
-  console.log(postsData)
 
   return (
     <div>
