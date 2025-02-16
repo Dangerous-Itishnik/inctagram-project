@@ -2,6 +2,7 @@ export type ImagePostResponse = {
   createdAt: string
   fileSize: number
   height: number
+  id: number
   uploadId: string
   url: string
   width: number

@@ -5,6 +5,7 @@ export type ResponseImages = {
   createdAt: string
   fileSize: number
   height: number
+  id: number
   uploadId: string
   url: string
   width: number
