@@ -3,11 +3,12 @@ import { useState } from 'react'
 import { ClosePost } from '@/common/components/Modals/PostManagementModal/ClosePost/ClosePost'
 import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
-import { ResponseUserPostData, useUpdatePostMutation } from '@/service/posts/posts.service'
+import { ResponseUserPostData, useUpdateUserPostMutation } from '@/service/posts/posts.service'
 
 import styles from '@/common/components/Modals/PostManagementModal/EditPost/EditPost.module.scss'
 
 type Props = {
+  closeEditModal: () => void
   closePostManagement: () => void
   onClose: () => void
   open: boolean
@@ -15,10 +16,17 @@ type Props = {
   refetchPosts: () => void
 }
 
-export const EditPost = ({ closePostManagement, onClose, open, post, refetchPosts }: Props) => {
+export const EditPost = ({
+  closeEditModal,
+  closePostManagement,
+  onClose,
+  open,
+  post,
+  refetchPosts,
+}: Props) => {
   const [isClosePost, setIsClosePost] = useState(false)
-  const [postDescription, setPostDescription] = useState<string>(post.description.toString())
-  const [updatePost] = useUpdatePostMutation()
+  const [postDescription, setPostDescription] = useState<string>(post.description)
+  const [updatePost] = useUpdateUserPostMutation()
 
   const updatePostHandler = (post: { description: string; id: number }) => {
     updatePost({ description: post.description, id: post.id }).then(() => {
@@ -26,6 +34,11 @@ export const EditPost = ({ closePostManagement, onClose, open, post, refetchPost
       onClose()
       refetchPosts()
     })
+  }
+
+  const closeEditPostHandler = () => {
+    setIsClosePost(false)
+    closeEditModal()
   }
 
   return (
@@ -60,6 +73,7 @@ export const EditPost = ({ closePostManagement, onClose, open, post, refetchPost
         </div>
         {isClosePost && (
           <ClosePost
+            closeEditModal={closeEditPostHandler}
             closePostManagement={closePostManagement}
             onClose={() => setIsClosePost(false)}
             open={isClosePost}

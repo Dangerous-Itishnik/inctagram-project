@@ -6,6 +6,7 @@ export default function Profile() {
   return (
     <div>
       <MyProfile />
+      {/*<PostOptions />*/}
     </div>
   )
 }

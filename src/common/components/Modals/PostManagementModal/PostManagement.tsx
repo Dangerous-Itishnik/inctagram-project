@@ -118,6 +118,7 @@ export const PostManagement = ({
         )}
         {isModalEdit && (
           <EditPost
+            closeEditModal={closeEditModalHandler}
             closePostManagement={closePostManagement}
             onClose={closeEditModalHandler}
             open={isModalEdit}

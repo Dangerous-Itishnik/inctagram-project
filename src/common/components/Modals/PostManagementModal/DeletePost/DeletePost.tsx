@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
-import { ResponseUserPostData, useDeletePostMutation } from '@/service/posts/posts.service'
+import { ResponseUserPostData, useDeleteUserPostMutation } from '@/service/posts/posts.service'
 
 import styles from '@/common/components/Modals/PostManagementModal/DeletePost/DeletePost.module.scss'
 
@@ -15,7 +15,7 @@ type Props = {
 } & ComponentPropsWithoutRef<'div'>
 
 export const DeletePost = ({ closePostManagement, onClose, open, post, refetchPosts }: Props) => {
-  const [deletePostMutation] = useDeletePostMutation()
+  const [deletePostMutation] = useDeleteUserPostMutation()
   const postId = post.id
 
   const deletePostHandler = (postId: number) => {

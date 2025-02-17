@@ -2,18 +2,12 @@ import { baseApi } from '@/service/baseApi'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    // deletePost: build.mutation<
-    //   any,
-    //   {
-    //     accessToken: string | undefined
-    //     postId: number
-    //   }
-    // >({
-    //   query: ({ accessToken, postId }) => ({
-    //     method: 'DELETE',
-    //     url: `/posts/${postId}`,
-    //   }),
-    // }),
+    deleteUserPost: build.mutation<never, number>({
+      query: postId => ({
+        method: 'DELETE',
+        url: `/api/v1/posts/${postId}`,
+      }),
+    }),
     getUserPosts: build.query<ResponseUserPostData, string>({
       query: userName => ({
         url: `/api/v1/posts/${userName}`,
@@ -33,26 +27,23 @@ export const postsApi = baseApi.injectEndpoints({
         url: '/api/v1/posts',
       }),
     }),
-    // updatePost: build.mutation<
-    //   { description: 'string' },
-    //   {
-    //     accessToken: string | undefined
-    //     description: string
-    //     postId: number
-    //   }
-    // >({
-    //   //TODO для того что бы обновить посты и отрисовать
-    //   // invalidatesTags: ['Posts'],
-    //   query: ({ accessToken, description, postId }) => ({
-    //     body: { description },
-    //     method: 'PUT',
-    //     url: `/posts/${postId}`,
-    //   }),
-    // }),
+    updateUserPost: build.mutation<never, string>({
+      query: post => ({
+        body: { description: post.description },
+        method: 'PUT',
+        url: `/api/v1/posts/${post.id}`,
+      }),
+    }),
   }),
 })
 
-export const { useGetUserPostsQuery, usePostImageMutation, usePostPostMutation } = postsApi
+export const {
+  useDeleteUserPostMutation,
+  useGetUserPostsQuery,
+  usePostImageMutation,
+  usePostPostMutation,
+  useUpdateUserPostMutation,
+} = postsApi
 
 type Image = {
   createdAt: string
@@ -102,4 +93,3 @@ export type ResponseImages = {
   url: string
   width: number
 }
-

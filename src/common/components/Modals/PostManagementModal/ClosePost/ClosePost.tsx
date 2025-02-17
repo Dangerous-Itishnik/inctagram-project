@@ -4,12 +4,12 @@ import { Button } from '@/common/components/button'
 import styles from '@/common/components/Modals/PostManagementModal/ClosePost/ClosePost.module.scss'
 
 type Props = {
-  closePostManagement: () => void
+  closeEditModal: () => void
   onClose: () => void
   open: boolean
 }
 
-export const ClosePost = ({ closePostManagement, onClose, open }: Props) => {
+export const ClosePost = ({ closeEditModal, onClose, open }: Props) => {
   return (
     <RadixModal modalTitle={'Close Post'} onClose={onClose} open={open}>
       <div className={styles.closeWindow}>
@@ -18,7 +18,7 @@ export const ClosePost = ({ closePostManagement, onClose, open }: Props) => {
           saved
         </div>
         <div className={styles.buttons}>
-          <Button onClick={() => closePostManagement()} variant={'outline'}>
+          <Button onClick={closeEditModal} variant={'outline'}>
             Yes
           </Button>
           <Button onClick={onClose} variant={'outline'}>
