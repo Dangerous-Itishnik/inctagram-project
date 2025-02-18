@@ -44,7 +44,6 @@ export const OpenPostModal = ({ postId, profileUser }: Props) => {
         <Dialog.Portal>
           <Dialog.Overlay className={styles.Overlay} />
           <Dialog.Content className={styles.Content}>
-            <Dialog.Title className={styles.title}></Dialog.Title>
             <Dialog.Description asChild>
               <div className={styles.Description}>
                 <div className={styles.slider}>
