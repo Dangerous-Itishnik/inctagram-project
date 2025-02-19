@@ -9,7 +9,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  width: 76%;
   background-color: var(--color-dark-300);
   border: 1px solid var(--color-dark-100);
 
@@ -45,13 +45,7 @@
 
 .Description {
   display: flex;
-  justify-content: center;
-  padding: 36px 24px;
-  max-width: 500px;
-  position: relative;
-  @media (width <= 425px) {
-    flex: 1 1 auto;
-  }
+  min-width: 250px;
 }
 
 .buttonClose {
@@ -61,4 +55,62 @@
 
   font-size: 18px;
   color: white;
+}
+
+.slider {
+  flex: 0 0 50%;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #8d9094;
+
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 245px;
+
+    object-fit: cover;
+  }
+  .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .sliderButtons {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    transform: translateY(-50%);
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 16px;
+
+    button {
+      cursor: pointer;
+
+      font-size: 35px;
+      color: white;
+
+      background: none;
+      border: none;
+    }
+  }
+
+  .imagePagination {
+    position: absolute;
+    bottom: 20px;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: deepskyblue;
+  }
 }

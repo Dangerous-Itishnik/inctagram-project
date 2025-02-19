@@ -1,4 +1,4 @@
-import { Post } from '@/common/components/Posts/model/postsType'
+import { Post } from '@/service/posts/post.type'
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { ru } from 'date-fns/locale/ru'
 import Image from 'next/image'
@@ -21,7 +21,7 @@ export const PostCard = ({ post }: Props) => {
   return (
     <button className={styles.post} type={'button'}>
       <div className={styles.slider}>
-        <Image alt={''} className={styles.image} fill src={images[0].url} />
+        <Image alt={''} className={styles.image} fill src={images.length ? images[0].url : ''} />
       </div>
       <div className={styles.userProfile}>
         <Image

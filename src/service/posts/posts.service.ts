@@ -1,7 +1,14 @@
 import { baseApi } from '@/service/baseApi'
+import { Post, PostImageResponse } from '@/service/posts/post.type'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
+    getPost: build.query<Post, { postId: number }>({
+      query: body => ({
+        method: 'GET',
+        url: `/api/v1/posts/id/${body.postId}`,
+      }),
+    }),
     // deletePost: build.mutation<
     //   any,
     //   {
@@ -14,7 +21,7 @@ export const postsApi = baseApi.injectEndpoints({
     //     url: `/posts/${postId}`,
     //   }),
     // }),
-    postImage: build.mutation<Response, FormData>({
+    postImage: build.mutation<PostImageResponse, FormData>({
       query: images => ({
         body: images,
         method: 'POST',
@@ -47,16 +54,4 @@ export const postsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { usePostImageMutation, usePostPostMutation } = postsApi
-
-export type Response = {
-  images: ResponseImages[]
-}
-export type ResponseImages = {
-  createdAt: string
-  fileSize: number
-  height: number
-  uploadId: string
-  url: string
-  width: number
-}
+export const { useGetPostQuery, usePostImageMutation, usePostPostMutation } = postsApi
