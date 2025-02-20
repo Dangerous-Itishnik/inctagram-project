@@ -1,84 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "@/common/components/button";
-import { Textarea } from "@/common/components/Textarea/Textarea";
-import { Typography } from "@/common/components/Typography";
-import { postsApi, usePostUpdateMutation } from "@/service/posts/posts.service";
-import { useAppDispatch } from "@/service/store";
-import styles from "./PostEdit.module.scss";
+import { useEffect, useState } from 'react'
+
+import { Textarea } from '@/common/components/Textarea/Textarea'
+import { Typography } from '@/common/components/Typography'
+import { Button } from '@/common/components/button'
+import { postsApi, usePostUpdateMutation } from '@/service/posts/posts.service'
+import { useAppDispatch } from '@/service/store'
+
+import styles from './PostEdit.module.scss'
 
 type EditProps = {
-  postId: number
-  ownerId: number
   avatarOwner: string
-  userName: string
-  description: string
-  setModalType: (modalType: "edit" | "view") => void
   closeModal: () => void
+  description: string
   isPostEdit: boolean
+  ownerId: number
+  postId: number
   setIsPostEdit: (isPostEdit: boolean) => void
+  setModalType: (modalType: 'edit' | 'view') => void
+  userName: string
 }
-const PostEdit = ({
-                    postId,
-                    description,
-                    isPostEdit,
-                    setIsPostEdit,
-                    setModalType
-                  }: EditProps) => {
+export const PostEdit = ({
+  description,
+  isPostEdit,
+  postId,
+  setIsPostEdit,
+  setModalType,
+}: EditProps) => {
+  const [postDescription, setPostDescription] = useState<string>(description || '')
 
-    const [postDescription, setPostDescription] = useState<string>(description || "");
+  const [updatePost] = usePostUpdateMutation()
 
-    const [updatePost] = usePostUpdateMutation();
+  const dispatch = useAppDispatch()
 
-    const dispatch = useAppDispatch();
+  useEffect(() => {
+    setIsPostEdit(postDescription === description)
+  }, [postDescription, description, setIsPostEdit])
 
-
-    useEffect(() => {
-      setIsPostEdit(postDescription === description);
-    }, [postDescription, description]);
-
-    const updateHandle = () => {
-      updatePost({ description: postDescription, postId })
-        .unwrap()
-        .then(() => {
-          dispatch(postsApi.util.invalidateTags(["Posts"]));
-          setModalType("view");
-        });
-    };
-
-    return (
-      <>
-        <div className={styles.container}>
-          <header className={styles.header}>
-            USERNAME
-          </header>
-          <div className={styles.main}>
-            <Textarea
-              className={styles.description}
-              label={""}
-              value={postDescription}
-              onChange={e => {
-                setPostDescription(e.target.value);
-              }}
-              isError={postDescription.length > 500}
-              errorMessage={postDescription.length > 500 ? "error" : " "}
-            />
-
-            <Typography variant={"h3"} className={styles.counter}>
-              {postDescription.length / 500}
-            </Typography>
-          </div>
-          <footer className={styles.submit}>
-            <Button
-              title={"SAVE"}
-              onClick={updateHandle}
-              disabled={isPostEdit || postDescription.length > 500}
-              className={styles.button}
-            >SAVE</Button>
-          </footer>
-        </div>
-      </>
-    );
+  const updateHandle = () => {
+    updatePost({ description: postDescription, postId })
+      .unwrap()
+      .then(() => {
+        dispatch(postsApi.util.invalidateTags(['Posts']))
+        setModalType('view')
+      })
   }
-;
 
-export default PostEdit;
+  return (
+    <>
+      <div className={styles.container}>
+        <header className={styles.header}>USERNAME</header>
+        <div className={styles.main}>
+          <Textarea
+            className={styles.description}
+            errorMessage={postDescription.length > 500 ? 'error' : ' '}
+            isError={postDescription.length > 500}
+            label={''}
+            onChange={e => {
+              setPostDescription(e.target.value)
+            }}
+            value={postDescription}
+          />
+
+          <Typography className={styles.counter} variant={'h3'}>
+            {postDescription.length / 500}
+          </Typography>
+        </div>
+        <footer className={styles.submit}>
+          <Button
+            className={styles.button}
+            disabled={isPostEdit || postDescription.length > 500}
+            onClick={updateHandle}
+            title={'SAVE'}
+          >
+            SAVE
+          </Button>
+        </footer>
+      </div>
+    </>
+  )
+}
+
+export default PostEdit

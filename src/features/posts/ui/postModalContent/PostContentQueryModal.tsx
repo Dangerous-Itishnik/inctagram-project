@@ -1,56 +1,78 @@
-import React, { useState } from "react";
-import PostContentQuery from "@/common/components/PostModal/PostContentQuery";
-import { useModal } from "@/common/hooks/useModal";
-import { Modal } from "@/common/components/PostModal/Modal";
-import { PostData } from "@/types/post.types";
+'use client'
+import { useState } from 'react'
+
+import { useModal } from '@/common/hooks/useModal'
+import { Modal } from '@/features/posts/ui/postModalContent/Modal'
+import { useRouter, useSearchParams } from 'next/navigation'
+
+import { PostContentQuery } from './PostContentQuery'
 
 type Props = {
-  isOpen: boolean
-  closeModal: () => void
-  data: PostData
+  closeModal?: () => void
+  data
+  postId: number
 }
-const PostContentQueryModal = ({closeModal, isOpen, data }:
-                                 Props) => {
+export const PostContentQueryModal = ({ closeModal, data, isAuthenticated, postId }: Props) => {
+  const [modalType, setModalType] = useState<'edit' | 'view'>('view')
 
-  const [modalType, setModalType] = useState<"view" | "edit">("view");
-
-  const [isPostEdit, setIsPostEdit] = useState(false);
+  const [isPostEdit, setIsPostEdit] = useState(false)
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   const {
-    openModal: openEditCloseModal,
     closeModal: closeEditCloseModal,
-    isOpen: isEditModalOpen
-  } = useModal();
+    isOpen: isEditModalOpen,
+    openModal: openEditCloseModal,
+  } = useModal()
 
+  const closePost = () => {
+    const newParams = new URLSearchParams(searchParams.toString()) // Клонируем текущие параметры
+
+    newParams.delete('postId')
+    router.push(`?${newParams.toString()}`, { scroll: false }) // Обновляем URL с новыми параметрами
+  }
   const handleCloseEditConfirmModal = () => {
-    setModalType("view");
-    closeEditCloseModal();
-  };
+    setModalType('view')
+    closeEditCloseModal()
+    closePost()
+  }
+  const handleOnClose = () => {
+    if (modalType === 'edit') {
+      if (!isPostEdit) {
+        openEditCloseModal()
+      } else {
+        handleCloseEditConfirmModal()
+      }
+      closeEditCloseModal()
+    }
+  }
 
   return (
-    <Modal isOpen={isOpen}
-           title={modalType === "edit" ? "Edit post" : ""}
-           onClose={modalType === "edit"
-             ? !isPostEdit
-               ? openEditCloseModal
-               : handleCloseEditConfirmModal
-             : closeModal
-           }
+    <Modal
+      isAuthenticated={isAuthenticated}
+      onClose={
+        modalType === 'edit'
+          ? !isPostEdit
+            ? openEditCloseModal
+            : handleCloseEditConfirmModal
+          : closeModal
+      }
+      open={!!postId}
+      title={modalType === 'edit' ? 'Edit post' : ''}
     >
       <PostContentQuery
-        data={data}
-        closeModal={closeModal}
-        isPostEdit={isPostEdit}
-        setIsPostEdit={setIsPostEdit}
-        modalType={modalType}
-        setModalType={setModalType}
-        handleCloseEditConfirmModal={handleCloseEditConfirmModal}
-        openEditCloseModal={openEditCloseModal}
         closeEditCloseModal={closeEditCloseModal}
+        closeModal={closeModal}
+        data={data}
+        handleCloseEditConfirmModal={handleCloseEditConfirmModal}
         isEditModalOpen={isEditModalOpen}
+        isPostEdit={isPostEdit}
+        modalType={modalType}
+        openEditCloseModal={openEditCloseModal}
+        postId={postId}
+        setIsPostEdit={setIsPostEdit}
+        setModalType={setModalType}
       />
     </Modal>
-  );
-};
-
-export default PostContentQueryModal;
+  )
+}

@@ -10,7 +10,7 @@ export const postsApi = baseApi.injectEndpoints({
       }),
     }),
     postDelete: build.mutation<Post, number>({
-      invalidatesTags: [],
+      invalidatesTags: ['Posts'],
       query: postId => ({
         method: 'DELETE',
         url: `api/v1/posts/${postId}`,

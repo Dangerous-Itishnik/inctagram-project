@@ -1,44 +1,50 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
+import Close from '@/assets/icons/components/Close'
+import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useModal } from '@/common/hooks/useModal'
-import { usePostDeleteMutation } from '@/service/posts/posts.service'
+import { storage } from '@/common/utils/storage'
+import { postsApi, useGetPostQuery, usePostDeleteMutation } from '@/service/posts/posts.service'
 import Image from 'next/image'
 
 import styles from './PostModal.module.scss'
 
-import PostEdit from '../postEdit/PostEdit'
+import { PostEdit } from '../postEdit/PostEdit'
 import PostComments from './PostComments'
-import PostModalHeader from './PostModalHeader'
+import { PostModalHeader } from './PostModalHeader'
 
 type Props = {
   closeEditCloseModal: () => void
-  closeModal: () => void
-  data
   handleCloseEditConfirmModal: () => void
   isEditModalOpen: boolean
   isPostEdit: boolean
   modalType: 'edit' | 'view'
   openEditCloseModal: () => void
+  postId: number
   setIsPostEdit: Dispatch<SetStateAction<boolean>>
   setModalType: Dispatch<SetStateAction<'edit' | 'view'>>
 }
 export const PostContentQuery = ({
   closeEditCloseModal,
-  closeModal,
-  data,
   handleCloseEditConfirmModal,
   isEditModalOpen,
   isPostEdit,
   modalType,
   openEditCloseModal,
+  postId,
   setIsPostEdit,
   setModalType,
 }: Props) => {
-  //const { data } = useGetPostByIdQuery({postId});
+  const { data } = useGetPostQuery({ postId })
+
+  const dispatch = useAppDispatch()
 
   const [postDelete] = usePostDeleteMutation()
+
+  const isAuthenticated = !!storage.getToken()
 
   const {
     closeModal: closeDeleteModal,
@@ -46,32 +52,43 @@ export const PostContentQuery = ({
     openModal: openDeleteModal,
   } = useModal()
 
-  const deletePost = (id: number) => {
-    postDelete(id)
+  const deletePost = () => {
+    postDelete(postId)
+      .unwrap()
+      .then(async () => {
+        await new Promise(res => setTimeout(res, 500))
+        dispatch(postsApi.util.invalidateTags(['Posts']))
+        closeDeleteModal()
+      })
   }
 
   return (
     <>
-      <Button onClick={() => deletePost}>x</Button>
+      <InfoModal modalTitle={'DELETE POST'} onClose={closeDeleteModal} open={isDeleteOpen}>
+        <Button onClick={deletePost}>
+          <Close />
+        </Button>
+      </InfoModal>
 
       <div className={styles.content}>
         {modalType === 'view' ? (
           <>
-            {data && (
-              <div className={styles.modalHead}>
-                <PostModalHeader
-                  avatarOwner={data.avatarOwner}
-                  openDeleteModal={openDeleteModal}
-                  ownerId={data.ownerId}
-                  setModalType={setModalType}
-                  userName={data.userName}
-                />
-              </div>
-            )}
+            <div className={styles.imageContainer}>
+              {data && <SwiperSlider imagesUrl={data.images} star={false} />}
+            </div>
             <div className={styles.contentTwo}>
-              <div className={styles.imageContainer}>
-                {data && <SwiperSlider imagesUrl={data.images} star={false} />}
-              </div>
+              {data && (
+                <div className={styles.modalHead}>
+                  <PostModalHeader
+                    avatarOwner={data.avatarOwner}
+                    isAuthenticated={isAuthenticated}
+                    openDeleteModal={openDeleteModal}
+                    ownerId={data.ownerId}
+                    setModalType={setModalType}
+                    userName={data.userName}
+                  />
+                </div>
+              )}
               <div className={styles.commentsContainer}>
                 {data && (
                   <PostComments
@@ -89,11 +106,12 @@ export const PostContentQuery = ({
             </div>
           </>
         ) : (
-          modalType === 'edit' && (
+          modalType === 'edit' &&
+          isAuthenticated && (
             <>
               <div className={styles.contentTwo}>
                 <div>
-                  {data && (
+                  {data.images && isAuthenticated && (
                     <Image
                       alt={'picture'}
                       className={styles.singleImage}
@@ -105,7 +123,7 @@ export const PostContentQuery = ({
                   )}
                 </div>
                 <div className={styles.commentsContainer}>
-                  {data && (
+                  {data && isAuthenticated && (
                     <PostEdit
                       avatarOwner={data.avatarOwner}
                       closeEditCloseModal={closeEditCloseModal}
@@ -132,5 +150,3 @@ export const PostContentQuery = ({
     </>
   )
 }
-
-export default PostContentQuery

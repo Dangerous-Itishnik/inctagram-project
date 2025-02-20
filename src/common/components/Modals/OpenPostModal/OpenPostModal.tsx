@@ -15,6 +15,7 @@ type Props = {
 }
 export const OpenPostModal = ({ postId, profileUser }: Props) => {
   const { data } = useGetPostQuery({ postId })
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)

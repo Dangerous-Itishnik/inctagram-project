@@ -1,48 +1,45 @@
+import { ResponseImages } from '@/service/posts/post.type'
 import Image from 'next/image'
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
-
-import styles from "./SwiperSlider.module.scss"
-import { ImagesAllUrl, ResponseImages } from "@/types/post.types";
+import styles from './SwiperSlider.module.scss'
 
 type Props = {
   imagesUrl: ResponseImages[]
   star: boolean
 }
 
-export const SwiperSlider = ({ imagesUrl, start}: Props) => {
+export const SwiperSlider = ({ imagesUrl, start }: Props) => {
   return (
     <Swiper
+      className={styles.postSlider}
       modules={[Navigation, Pagination, Scrollbar]}
       navigation
       pagination={{ clickable: true }}
-      spaceBetween={10}
       slidesPerView={1}
-      className={styles.postSlider}
+      spaceBetween={10}
       style={{ height: '100%', width: '100%' }}
     >
       {imagesUrl?.map((image: ResponseImages, index: number) => {
         if (!image.url && image.width > 1400) {
-          return null;
+          return null
         }
+
         return (
           <SwiperSlide
             className={start ? styles.img : ''}
-            style={{ position: 'relative' }}
             key={index}
+            style={{ position: 'relative' }}
           >
             <Image
-              style={{ objectFit: 'contain' }}
-              sizes="70vw"
-              src={image.url}
               alt={`Image ${index}`}
-              priority
-              fill
+              height={621}
+              priority={index === 0}
+              sizes={'70vw'}
+              src={image.url}
+              style={{ objectFit: 'contain' }}
+              width={500}
             />
           </SwiperSlide>
         )

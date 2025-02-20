@@ -1,6 +1,7 @@
 import { BASE_URL } from '@/common/api/common.api'
 import { ImageList } from '@/common/components/Images/ImageList'
 import { OpenPostModal } from '@/common/components/Modals/OpenPostModal/OpenPostModal'
+import { PostContentQueryModal } from '@/features/posts/ui/postModalContent/PostContentQueryModal'
 import ProfileHeader from '@/features/profilePage/ProfileHeadeer/ProfileHeader'
 import { PostsResponse } from '@/service/posts/post.type'
 import { Metadata } from 'next'
@@ -44,7 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Profile({ params, searchParams }: ProfileProps) {
   const profileId = +params.userId // id из URL
   const postIdParams = searchParams.postId ? +searchParams.postId : null
-
   let profileUserData = null
   let postsData = null
 
@@ -67,7 +67,9 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
       {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
-      {postIdParams && <OpenPostModal postId={postIdParams} profileUser={profileUserData} />}
+      {postIdParams && <PostContentQueryModal data={profileUserData} postId={postIdParams} />}
     </div>
   )
 }
+
+//{postIdParams && <OpenPostModal postId={postIdParams} profileUser={profileUserData} />}

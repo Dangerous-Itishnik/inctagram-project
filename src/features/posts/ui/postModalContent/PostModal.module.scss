@@ -1,0 +1,57 @@
+.ellipse {
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.postContainer {
+  min-width: 972px;
+  height: 564px;
+}
+.btn{
+  color: white;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 250px;
+  padding: 12px 24px;
+}
+
+.modalHead {
+}
+
+.contentTwo {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageContainer {
+  width: 500px;
+  height: 621px;
+}
+
+.singleImage {
+  min-width: 500px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: nowrap;
+  z-index: 100;
+}
+
+.commentsContainer {
+  flex-basis: 450px;
+  flex-grow: 1;
+
+  max-width: 500px;
+  min-height: 250px;
+  padding-top: 20px;
+}
+
+.menu {
+
+}
