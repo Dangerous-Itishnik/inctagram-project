@@ -13,24 +13,36 @@ const ProfileHeader = ({ profileUser }: Props) => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.imageContainer}>
-        <Image
-          alt={`UserPhoto`}
-          className={styles.avatar}
-          fill
-          priority
-          src={avatars.length ? avatars[0].url : ''}
-        />
+        {avatars.length ? (
+          <Image
+            alt={`UserPhoto`}
+            className={styles.avatar}
+            fill
+            height={204}
+            priority
+            src={avatars.length ? avatars[0].url : ''}
+            width={204}
+          />
+        ) : (
+          <div className={styles.avatar}>фото нет</div>
+        )}
       </div>
       <div className={styles.container}>
         <div className={styles.containerImageName}>
           <div className={styles.imageContainerMedia}>
-            <Image
-              alt={`UserPhoto`}
-              className={styles.avatar}
-              fill
-              priority
-              src={avatars.length ? avatars[0].url : ''}
-            />
+            {avatars.length ? (
+              <Image
+                alt={`UserPhoto`}
+                className={styles.avatar}
+                fill
+                height={204}
+                priority
+                src={avatars.length ? avatars[0].url : ''}
+                width={204}
+              />
+            ) : (
+              <div className={styles.avatar}>фото нет</div>
+            )}
           </div>
           <div className={styles.userNameContainer}>
             <Link href={'general-info//???'}>

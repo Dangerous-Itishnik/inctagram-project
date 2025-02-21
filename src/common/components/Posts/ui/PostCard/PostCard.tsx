@@ -21,16 +21,31 @@ export const PostCard = ({ post }: Props) => {
   return (
     <button className={styles.post} type={'button'}>
       <div className={styles.slider}>
-        <Image alt={''} className={styles.image} fill src={images.length ? images[0].url : ''} />
+        {images.length ? (
+          <Image
+            alt={''}
+            className={styles.image}
+            fill
+            priority
+            sizes={'(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
+            src={images[0].url}
+          />
+        ) : (
+          <div className={styles.image}>нету фото</div>
+        )}
       </div>
       <div className={styles.userProfile}>
-        <Image
-          alt={'Avatar'}
-          className={styles.photoUser}
-          height={36}
-          src={avatarOwner}
-          width={36}
-        />
+        {avatarOwner ? (
+          <Image
+            alt={'Avatar'}
+            className={styles.photoUser}
+            height={36}
+            src={avatarOwner}
+            width={36}
+          />
+        ) : (
+          <div className={styles.photoUser}>нету </div>
+        )}
         <span className={styles.nameUser}>{userName}</span>
       </div>
       <div className={styles.ublicationDate}>{timeAgo(post.createdAt)}</div>
