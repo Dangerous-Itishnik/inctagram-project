@@ -3,6 +3,15 @@ import Image from 'next/image'
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
+// eslint-disable-next-line import/extensions
+import 'swiper/css'
+// eslint-disable-next-line import/extensions
+import 'swiper/css/navigation'
+// eslint-disable-next-line import/extensions
+import 'swiper/css/pagination'
+// eslint-disable-next-line import/extensions
+import 'swiper/css/scrollbar'
+
 import styles from './SwiperSlider.module.scss'
 
 type Props = {
@@ -19,7 +28,7 @@ export const SwiperSlider = ({ imagesUrl, start }: Props) => {
       pagination={{ clickable: true }}
       slidesPerView={1}
       spaceBetween={10}
-      style={{ height: '100%', position: 'relative', width: '100%' }}
+      style={{ height: '100%', width: '100%' }}
     >
       {imagesUrl?.map((image: ResponseImages, index: number) => {
         if (!image.url && image.width > 1400) {
@@ -30,7 +39,7 @@ export const SwiperSlider = ({ imagesUrl, start }: Props) => {
           <SwiperSlide
             className={start ? styles.img : ''}
             key={index}
-            style={{ height: '100%', position: 'absolute', width: '100%' }}
+            style={{ position: 'relative' }}
           >
             <Image
               alt={`Image ${index}`}

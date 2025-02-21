@@ -13,7 +13,6 @@ type Props = {
   closeButton?: boolean
   closePostModal?: () => void
   disableButton?: boolean
-  isAuthenticated: boolean
   isHeaderDisabled?: boolean
   onClose?: () => void
   onInteractOutside?: (event: Event) => void

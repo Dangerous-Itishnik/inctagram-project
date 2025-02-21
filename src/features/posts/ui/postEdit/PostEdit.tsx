@@ -4,7 +4,6 @@ import { Textarea } from '@/common/components/Textarea/Textarea'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
 import { postsApi, usePostUpdateMutation } from '@/service/posts/posts.service'
-import { useAppDispatch } from '@/service/store'
 
 import styles from './PostEdit.module.scss'
 
@@ -29,8 +28,6 @@ export const PostEdit = ({
   const [postDescription, setPostDescription] = useState<string>(description || '')
 
   const [updatePost] = usePostUpdateMutation()
-
-  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setIsPostEdit(postDescription === description)

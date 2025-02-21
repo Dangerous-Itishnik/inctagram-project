@@ -4,6 +4,7 @@ import { Post, PostImageResponse } from '@/service/posts/post.type'
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPost: build.query<Post, { postId: number }>({
+      provideTags: ['Posts'],
       query: body => ({
         method: 'GET',
         url: `/api/v1/posts/id/${body.postId}`,
@@ -32,7 +33,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
 
     postUpdate: build.mutation<Post, { description }>({
-      invalidatesTags: (result, error, { postId }) => [{ id: postId, type: 'Posts' }],
+      invalidatesTags: ['posts'],
       query: ({ description, postId }) => ({
         body: { description },
         method: 'PUT',

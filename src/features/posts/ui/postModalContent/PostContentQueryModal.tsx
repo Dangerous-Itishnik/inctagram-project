@@ -12,7 +12,7 @@ type Props = {
   data
   postId: number
 }
-export const PostContentQueryModal = ({ closeModal, data, isAuthenticated, postId }: Props) => {
+export const PostContentQueryModal = ({ closeModal, data, postId }: Props) => {
   const [modalType, setModalType] = useState<'edit' | 'view'>('view')
 
   const [isPostEdit, setIsPostEdit] = useState(false)
@@ -47,12 +47,7 @@ export const PostContentQueryModal = ({ closeModal, data, isAuthenticated, postI
   }
 
   return (
-    <Modal
-      isAuthenticated={isAuthenticated}
-      onClose={closeHandle}
-      open={!!postId}
-      title={modalType === 'edit' ? 'Edit post' : ''}
-    >
+    <Modal onClose={closeHandle} open={!!postId} title={modalType === 'edit' ? 'Edit post' : ''}>
       <PostContentQuery
         closeEditCloseModal={closeEditCloseModal}
         closeModal={closeModal}

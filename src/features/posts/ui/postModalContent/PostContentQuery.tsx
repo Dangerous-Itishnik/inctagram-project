@@ -3,10 +3,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
-import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useModal } from '@/common/hooks/useModal'
 import { storage } from '@/common/utils/storage'
-import { postsApi, useGetPostQuery, usePostDeleteMutation } from '@/service/posts/posts.service'
+import { useGetPostQuery, usePostDeleteMutation } from '@/service/posts/posts.service'
 import Image from 'next/image'
 
 import styles from './PostModal.module.scss'
@@ -37,9 +36,7 @@ export const PostContentQuery = ({
   setIsPostEdit,
   setModalType,
 }: Props) => {
-  const { data } = useGetPostQuery({ postId })
-
-  const dispatch = useAppDispatch()
+  const { data, refetch } = useGetPostQuery({ postId })
 
   const [postDelete] = usePostDeleteMutation()
 
@@ -57,6 +54,8 @@ export const PostContentQuery = ({
       .then(async () => {
         await new Promise(res => setTimeout(res, 500))
         closeDeleteModal()
+        closeEditCloseModal()
+        refetch()
       })
   }
 
