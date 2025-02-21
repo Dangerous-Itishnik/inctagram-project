@@ -32,7 +32,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
 
     postUpdate: build.mutation<Post, { description }>({
-      invalidatesTags: ['Posts'],
+      invalidatesTags: (result, error, { postId }) => [{ id: postId, type: 'Posts' }],
       query: ({ description, postId }) => ({
         body: { description },
         method: 'PUT',
@@ -40,6 +40,7 @@ export const postsApi = baseApi.injectEndpoints({
       }),
     }),
   }),
+  tagTypes: ['Posts'],
 })
 
 export const {

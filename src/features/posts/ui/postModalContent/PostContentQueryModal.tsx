@@ -34,29 +34,22 @@ export const PostContentQueryModal = ({ closeModal, data, isAuthenticated, postI
   const handleCloseEditConfirmModal = () => {
     setModalType('view')
     closeEditCloseModal()
-    closePost()
   }
-  const handleOnClose = () => {
-    if (modalType === 'edit') {
-      if (!isPostEdit) {
-        openEditCloseModal()
-      } else {
-        handleCloseEditConfirmModal()
-      }
-      closeEditCloseModal()
+  const closeHandle = () => {
+    if (modalType === `edit` && !isPostEdit) {
+      openEditCloseModal()
+    } else {
+      handleCloseEditConfirmModal()
+    }
+    if (modalType !== 'edit' || !isPostEdit) {
+      closePost() && closeModal()
     }
   }
 
   return (
     <Modal
       isAuthenticated={isAuthenticated}
-      onClose={
-        modalType === 'edit'
-          ? !isPostEdit
-            ? openEditCloseModal
-            : handleCloseEditConfirmModal
-          : closeModal
-      }
+      onClose={closeHandle}
       open={!!postId}
       title={modalType === 'edit' ? 'Edit post' : ''}
     >

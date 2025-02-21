@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import Close from '@/assets/icons/components/Close'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
@@ -57,7 +56,6 @@ export const PostContentQuery = ({
       .unwrap()
       .then(async () => {
         await new Promise(res => setTimeout(res, 500))
-        dispatch(postsApi.util.invalidateTags(['Posts']))
         closeDeleteModal()
       })
   }
@@ -65,9 +63,8 @@ export const PostContentQuery = ({
   return (
     <>
       <InfoModal modalTitle={'DELETE POST'} onClose={closeDeleteModal} open={isDeleteOpen}>
-        <Button onClick={deletePost}>
-          <Close />
-        </Button>
+        <Button onClick={deletePost}>YES</Button>
+        <Button onClick={closeDeleteModal}>NO</Button>
       </InfoModal>
 
       <div className={styles.content}>
@@ -115,10 +112,9 @@ export const PostContentQuery = ({
                     <Image
                       alt={'picture'}
                       className={styles.singleImage}
-                      height={240}
-                      priority
+                      height={500}
                       src={data.images[0].url}
-                      width={320}
+                      width={500}
                     />
                   )}
                 </div>

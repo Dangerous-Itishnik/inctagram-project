@@ -19,7 +19,7 @@ export const SwiperSlider = ({ imagesUrl, start }: Props) => {
       pagination={{ clickable: true }}
       slidesPerView={1}
       spaceBetween={10}
-      style={{ height: '100%', width: '100%' }}
+      style={{ height: '100%', position: 'relative', width: '100%' }}
     >
       {imagesUrl?.map((image: ResponseImages, index: number) => {
         if (!image.url && image.width > 1400) {
@@ -30,16 +30,15 @@ export const SwiperSlider = ({ imagesUrl, start }: Props) => {
           <SwiperSlide
             className={start ? styles.img : ''}
             key={index}
-            style={{ position: 'relative' }}
+            style={{ height: '100%', position: 'absolute', width: '100%' }}
           >
             <Image
               alt={`Image ${index}`}
-              height={621}
-              priority={index === 0}
+              fill
+              priority
               sizes={'70vw'}
               src={image.url}
               style={{ objectFit: 'contain' }}
-              width={500}
             />
           </SwiperSlide>
         )

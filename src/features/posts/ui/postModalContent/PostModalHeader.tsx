@@ -6,11 +6,11 @@ import { Button } from '@/common/components/button'
 import styles from './PostModal.module.scss'
 
 type Props = {
-  openDelete?: () => void
+  openDeleteModal?: () => void
   setModalType?: (modalType: 'edit' | 'view') => void
   userName?: string
 }
-export const PostModalHeader = ({ openDelete, setModalType, userName }: Props) => {
+export const PostModalHeader = ({ openDeleteModal, setModalType, userName }: Props) => {
   return (
     <header className={styles.header}>
       <div>userName: {userName}</div>
@@ -27,7 +27,7 @@ export const PostModalHeader = ({ openDelete, setModalType, userName }: Props) =
             </Button>
           </DropdownItem>
           <DropdownItem>
-            <Button onClick={() => openDelete} variant={'link'}>
+            <Button onClick={openDeleteModal} variant={'link'}>
               <Trash />
               Delete
             </Button>

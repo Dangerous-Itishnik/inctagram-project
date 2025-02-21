@@ -40,7 +40,7 @@ export const PostEdit = ({
     updatePost({ description: postDescription, postId })
       .unwrap()
       .then(() => {
-        dispatch(postsApi.util.invalidateTags(['Posts']))
+        postsApi.util.invalidateTags(['Posts'])
         setModalType('view')
       })
   }

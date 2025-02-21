@@ -1,6 +1,5 @@
 import { BASE_URL } from '@/common/api/common.api'
 import { ImageList } from '@/common/components/Images/ImageList'
-import { OpenPostModal } from '@/common/components/Modals/OpenPostModal/OpenPostModal'
 import { PostContentQueryModal } from '@/features/posts/ui/postModalContent/PostContentQueryModal'
 import ProfileHeader from '@/features/profilePage/ProfileHeadeer/ProfileHeader'
 import { PostsResponse } from '@/service/posts/post.type'

@@ -1,7 +1,7 @@
-.content{
+.content {
   position: relative;
   z-index: 300;
-display: flex;
+  display: flex;
   flex-direction: column;
   min-width: 80px;
 
@@ -9,8 +9,8 @@ display: flex;
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
   box-shadow:
-          0 10px 38px -10px rgb(22 23 24 / 35%),
-          0 10px 20px -15px rgb(22 23 24 / 20%);
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
 }
 
 .items {
@@ -41,6 +41,5 @@ display: flex;
     opacity: 0.5;
   }
 }
-.item{
-
+.item {
 }

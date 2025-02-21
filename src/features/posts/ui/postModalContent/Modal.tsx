@@ -21,14 +21,7 @@ type Props = {
   title?: string
 } & ComponentProps<'div'>
 
-export const Modal = ({
-  children,
-  closeButton,
-  onClose,
-  onInteractOutside,
-  open = false,
-  title,
-}: Props) => {
+export const Modal = ({ children, onClose, onInteractOutside, open = false, title }: Props) => {
   const handleOpenChange = () => {
     onClose?.()
   }
@@ -39,16 +32,18 @@ export const Modal = ({
         {open && (
           <Dialog.Portal>
             <Dialog.Overlay className={styles.modalOverlay} />
-            <Dialog.Content className={styles.modalContent} onInteractOutside={onInteractOutside}>
+
+            <Dialog.Content
+              aria-describedby={''}
+              className={styles.modalContent}
+              inert={open ? undefined : true}
+              onInteractOutside={onInteractOutside}
+            >
               <div>
-                {closeButton && (
-                  <div>
-                    <Dialog.Close onClick={onClose}>
-                      <Close />
-                    </Dialog.Close>
-                  </div>
-                )}
                 <DialogTitle>{title}</DialogTitle>
+                <Dialog.Close className={styles.close} onClick={onClose}>
+                  <Close />
+                </Dialog.Close>
                 <Dialog.Description asChild>{children}</Dialog.Description>
               </div>
             </Dialog.Content>
