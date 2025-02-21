@@ -64,10 +64,12 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
 
   return (
     <div className={styles.profilePage}>
-      <ProfileHeader profileUser={profileUserData} />
-      <ImageList posts={postsData.items} />
-      {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
-      {postIdParams && <OpenPostModal postId={postIdParams} profileUser={profileUserData} />}
+      <div className={styles.profileContainer}>
+        <ProfileHeader profileUser={profileUserData} />
+        <ImageList posts={postsData.items} />
+        {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
+        {postIdParams && <OpenPostModal postId={postIdParams} profileUser={profileUserData} />}
+      </div>
     </div>
   )
 }
