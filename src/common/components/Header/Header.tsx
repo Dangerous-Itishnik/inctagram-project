@@ -39,7 +39,7 @@ export const Header = () => {
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
       <div>{/* TODO:Добавить логику для отображения колокольчика и выбора языков */}</div>
-      <DropDownMenuHeader openPopUp={openPopUp} />
+      {data && <DropDownMenuHeader openPopUp={openPopUp} />}
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>
         <p className={styles.infoModalText}>
           Are you really want to log out of your account {data?.email}?
