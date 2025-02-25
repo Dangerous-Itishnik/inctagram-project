@@ -1,52 +1,108 @@
 .headerContainer {
-  width: 70%;
   display: flex;
-  align-items: center;
-  gap: 39px;
-  margin: 50px auto;
+  column-gap: 20px;
+  width: 100%;
+  max-width: 996px;
+  margin-bottom: 48px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .imageContainer {
-  min-width: 204px;
-  min-height: 204px;
+  position: relative;
+  width: 204px;
+  height: 204px;
+
+  @media (min-width: 768px) {
+    flex: 0 0 204px;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.imageContainerMedia {
+  position: relative;
+  width: 72px;
+  height: 72px;
+
+  @media (min-width: 768px) {
+    display: none;
+    width: 204px;
+    height: 204px;
+  }
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+  background-color: #8e8b8b;
   border-radius: 50%;
+}
+
+.container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #cc1439;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.userNameContainer {
+  @media (min-width: 768px) {
+    margin-bottom: 20px;
+  }
+}
+
+.userName {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-l);
+
+  @media (max-width: 768px) {
+    font-size: var(--font-size-m);
+    line-height: var(--line-height-m);
+  }
 }
 
 .infoContainer {
   display: flex;
   gap: 100px;
-  margin: 30px 0;
-}
+  margin-bottom: 24px;
 
-.userNameContainer {
-  min-width: 115px;
-  height: 35px;
-  margin-bottom: 25px;
-
-  &:focus-visible {
-    border-radius: 2px;
-    outline: 2px solid #0606bd57;
+  @media (max-width: 768px) {
+    padding-top: 20px;
+    gap: 33px;
+    justify-content: space-between;
   }
 }
-.spanText {
-  text-decoration: underline;
-  text-decoration-color: #2f68cc;
-  color: #2f68cc;
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semi-bold);
+
+  @media (min-width: 768px) {
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-m);
+  }
 }
 
-@media (1024px > width > 768px) {
-  .headerContainer {
-    display: flex;
-    gap: 25px;
+.displayNoneMobile {
+  @media (max-width: 768px) {
+    display: none;
   }
-  .imageContainer {
-    min-width: 180px;
-    min-height: 180px;
-  }
-  .userNameContainer {
+}
+
+.displayNoneDesktop {
+  @media (min-width: 768px) {
+    display: none;
   }
 }

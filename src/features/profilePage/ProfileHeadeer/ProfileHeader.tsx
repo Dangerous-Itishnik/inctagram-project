@@ -17,41 +17,71 @@ const ProfileHeader = ({ profileUser }: Props) => {
           <Image
             alt={`UserPhoto`}
             className={styles.avatar}
+            fill
             height={204}
             priority
-            src={avatars[0].url}
+            src={avatars.length ? avatars[0].url : ''}
             width={204}
           />
         ) : (
-          <div>Логотипа нет</div>
+          <div className={styles.avatar}>фото нет</div>
         )}
       </div>
-      <div className={styles.userNameContainer}>
-        <div>
-          <Link href={'general-info//???'}>
-            <Typography variant={'h3'}>{userName}</Typography>
-          </Link>
+      <div className={styles.container}>
+        <div className={styles.containerImageName}>
+          <div className={styles.imageContainerMedia}>
+            {avatars.length ? (
+              <Image
+                alt={`UserPhoto`}
+                className={styles.avatar}
+                fill
+                height={204}
+                priority
+                src={avatars.length ? avatars[0].url : ''}
+                width={204}
+              />
+            ) : (
+              <div className={styles.avatar}>фото нет</div>
+            )}
+          </div>
+          <div className={styles.userNameContainer}>
+            <Link href={'general-info//???'}>
+              <Typography className={styles.userName} variant={'h3'}>
+                {userName}
+              </Typography>
+            </Link>
+          </div>
         </div>
-        <div className={styles.infoContainer}>
-          <div>
-            <Typography variant={'h3'}>{userMetadata.following}</Typography>
+        <div className={styles.cnt}>
+          <div className={styles.infoContainer}>
+            <div className={styles.infoItem}>
+              <Typography variant={'h3'}>{userMetadata.following}</Typography>
+              <span>Following</span>
+            </div>
+            <div className={styles.infoItem}>
+              <Typography variant={'h3'}>{userMetadata.followers}</Typography>
+              <span>Followers</span>
+            </div>
+            <div className={styles.infoItem}>
+              <Typography variant={'h3'}>{userMetadata.publications}</Typography>
+              <span>Publications</span>
+            </div>
           </div>
-          <div>
-            <Typography variant={'h3'}>{userMetadata.followers}</Typography>
-          </div>
-          <div>
-            <Typography variant={'h3'}>{userMetadata.publications}</Typography>
-          </div>
-        </div>
-        <div>
-          <Typography variant={'body2'}>
+
+          <Typography className={styles.displayNoneMobile} variant={'body2'}>
             {aboutMe ? aboutMe : 'Описания нет'}
-            <span className={styles.spanText}>
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </Typography>
         </div>
       </div>
+      <Typography className={styles.displayNoneDesktop} variant={'body2'}>
+        {aboutMe ? aboutMe : 'Описания нет'}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat.
+      </Typography>
     </div>
   )
 }
