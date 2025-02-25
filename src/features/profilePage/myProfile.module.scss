@@ -1,14 +1,68 @@
-.container{}
+.container{
+  display: flex;
+  align-items: center;
+}
 
-.profilePhoto{}
+.profilePhoto{
+  padding-left: 10px;
+  margin: 25px;
+}
+
+.profilePhoto img {
+  object-fit: cover;
+  border: none;
+  border-radius: 150px;
+}
 
 .profileData{}
 
-.profileSettings{}
+.profileSettings{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 25px 25px 0 0;
 
-.profileStatistics{}
+}
+
+.profileSettings h1{
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 36px;
+}
+
+.profileSettings button{
+  height: 36px;
+  width: 170px;
+  margin-right: 40px;
+  background-color: #333333;
+  &:hover {
+    background-color: #333333;
+    border: none;
+  }
+  &:active {
+    background-color: #397df6;
+  }
+}
+
+.profileStatistics{
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.profileFollowers,
+.profileFollowing,
+.profilePublications {
+  margin-right: 140px;
+}
 
 .profileDescription{}
+
+.profileDescription a{
+  color: #397df6;
+  text-decoration: underline;
+}
 
 .profileFollowers{}
 

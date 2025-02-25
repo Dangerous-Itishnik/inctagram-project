@@ -8,7 +8,7 @@ export const MyProfile = () => {
   return (
     <div className={styles.container}>
       <div className={styles.profilePhoto}>
-        <Image />
+        <Image alt={''} height={204} src={'/profileLogo.png'} width={204} />
       </div>
       <div className={styles.profileData}>
         <div className={styles.profileSettings}>
@@ -24,18 +24,18 @@ export const MyProfile = () => {
           <div className={styles.profileFollowing}>
             <span>2358</span>
             <h4>Followers</h4>
-            <div className={styles.profilePublications}>
-              <span>2358</span>
-              <h4>Followers</h4>
-            </div>
+          </div>
+          <div className={styles.profilePublications}>
+            <span>2358</span>
+            <h4>Followers</h4>
           </div>
         </div>
         <div className={styles.profileDescription}>
           <p>
             Some species live in houses where they hunt insects attracted by artificial light. Some
             species live in houses where they hunt insects
+            <Link href={''}> attracted by artificial light.</Link>
           </p>
-          <Link href={''}>attracted by artificial light.</Link>
         </div>
       </div>
     </div>
