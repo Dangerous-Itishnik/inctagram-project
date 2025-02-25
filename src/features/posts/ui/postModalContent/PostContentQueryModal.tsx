@@ -8,11 +8,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { PostContentQuery } from './PostContentQuery'
 
 type Props = {
-  closeModal?: () => void
-  data
+  closeMainModal?: () => void
   postId: number
 }
-export const PostContentQueryModal = ({ closeModal, data, postId }: Props) => {
+export const PostContentQueryModal = ({ closeMainModal, postId }: Props) => {
   const [modalType, setModalType] = useState<'edit' | 'view'>('view')
 
   const [isPostEdit, setIsPostEdit] = useState(false)
@@ -42,7 +41,10 @@ export const PostContentQueryModal = ({ closeModal, data, postId }: Props) => {
       handleCloseEditConfirmModal()
     }
     if (modalType !== 'edit' || !isPostEdit) {
-      closePost() && closeModal()
+      closePost()
+      if (closeMainModal) {
+        closeMainModal()
+      }
     }
   }
 
@@ -50,8 +52,7 @@ export const PostContentQueryModal = ({ closeModal, data, postId }: Props) => {
     <Modal onClose={closeHandle} open={!!postId} title={modalType === 'edit' ? 'Edit post' : ''}>
       <PostContentQuery
         closeEditCloseModal={closeEditCloseModal}
-        closeModal={closeModal}
-        data={data}
+        closeModal={closeMainModal}
         handleCloseEditConfirmModal={handleCloseEditConfirmModal}
         isEditModalOpen={isEditModalOpen}
         isPostEdit={isPostEdit}

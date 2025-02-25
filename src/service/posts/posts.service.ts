@@ -10,6 +10,12 @@ export const postsApi = baseApi.injectEndpoints({
         url: `/api/v1/posts/id/${body.postId}`,
       }),
     }),
+    getPublic: build.query<Post, number>({
+      query: postId => ({
+        method: 'GET',
+        url: `api/v1/public-posts/${postId}`,
+      }),
+    }),
     postDelete: build.mutation<Post, number>({
       invalidatesTags: ['Posts'],
       query: postId => ({
@@ -32,7 +38,7 @@ export const postsApi = baseApi.injectEndpoints({
       }),
     }),
 
-    postUpdate: build.mutation<Post, { description }>({
+    postUpdate: build.mutation<Post, { description: string; postId: number }>({
       invalidatesTags: ['posts'],
       query: ({ description, postId }) => ({
         body: { description },
@@ -46,6 +52,7 @@ export const postsApi = baseApi.injectEndpoints({
 
 export const {
   useGetPostQuery,
+  useGetPublicQuery,
   usePostDeleteMutation,
   usePostImageMutation,
   usePostPostMutation,

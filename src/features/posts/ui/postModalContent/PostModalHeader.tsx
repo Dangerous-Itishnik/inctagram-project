@@ -6,7 +6,7 @@ import { Button } from '@/common/components/button'
 import styles from './PostModal.module.scss'
 
 type Props = {
-  isAuthenticated: boolean
+  isAuthenticated?: boolean
   openDeleteModal?: () => void
   setModalType?: (modalType: 'edit' | 'view') => void
   userName?: string

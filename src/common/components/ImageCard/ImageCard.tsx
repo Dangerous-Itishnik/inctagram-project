@@ -11,15 +11,17 @@ export const ImageCard = ({ post, postId }: Props) => {
   return (
     <>
       <div className={styles.imageBox}>
-        <Image
-          alt={`Image`}
-          className={styles.image}
-          height={post.images[0].height}
-          key={postId}
-          priority
-          src={post.images[0].url}
-          width={post.images[0].width}
-        />
+        {post.images[0] && (
+          <Image
+            alt={`Image`}
+            className={styles.image}
+            height={post.images[0].height}
+            key={postId}
+            priority
+            src={post.images[0].url}
+            width={post.images[0].width}
+          />
+        )}
       </div>
     </>
   )
