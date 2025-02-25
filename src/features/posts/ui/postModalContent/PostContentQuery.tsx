@@ -16,6 +16,7 @@ import { PostModalHeader } from './PostModalHeader'
 
 type Props = {
   closeEditCloseModal: () => void
+  closePost: () => void
   handleCloseEditConfirmModal: () => void
   isEditModalOpen: boolean
   isPostEdit: boolean
@@ -27,6 +28,7 @@ type Props = {
 }
 export const PostContentQuery = ({
   closeEditCloseModal,
+  closePost,
   handleCloseEditConfirmModal,
   isEditModalOpen,
   isPostEdit,
@@ -48,8 +50,6 @@ export const PostContentQuery = ({
     openModal: openDeleteModal,
   } = useModal()
 
-  const { closeModal: closeMainModal } = useModal()
-
   const deletePost = () => {
     postDelete(postId)
       .unwrap()
@@ -57,7 +57,7 @@ export const PostContentQuery = ({
         await new Promise(res => setTimeout(res, 500))
         closeDeleteModal()
         closeEditCloseModal()
-        closeMainModal()
+        closePost()
       })
   }
 
