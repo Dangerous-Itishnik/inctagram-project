@@ -1,0 +1,44 @@
+.container {
+  margin: 30px 0 20px 30px;
+}
+
+.container h3 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+
+.subscription span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.subscription {
+  width: 972px;
+  height: 144px;
+  background-color: #1a1c1c;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subscription div {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.payments {
+  display: flex;
+  align-items: center;
+  margin: 25px 0 0 690px;
+}
+
+.payments p {
+ margin: 0 35px 0 35px;
+}
+
+.payments img {
+  border-radius: 10px;
+}
