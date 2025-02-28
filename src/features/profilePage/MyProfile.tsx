@@ -4,7 +4,11 @@ import Link from 'next/link'
 
 import styles from '@/features/profilePage/myProfile.module.scss'
 
-export const MyProfile = () => {
+type Props = {
+  openProfileSetting: () => void
+}
+
+export const MyProfile = ({ openProfileSetting }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.profilePhoto}>
@@ -13,7 +17,7 @@ export const MyProfile = () => {
       <div className={styles.profileData}>
         <div className={styles.profileSettings}>
           <h1>URLProfile</h1>
-          <Button>Profile Settings</Button>
+          <Button onClick={openProfileSetting}>Profile Settings</Button>
         </div>
         {/*данные приходят с сервера*/}
         <div className={styles.profileStatistics}>

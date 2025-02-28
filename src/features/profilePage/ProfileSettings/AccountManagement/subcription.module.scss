@@ -1,5 +1,5 @@
 .container {
-  margin: 30px 0 20px 30px;
+  margin: 30px 0 20px 0;
 }
 
 .container h3 {
@@ -16,7 +16,7 @@
 }
 
 .subscription {
-  width: 972px;
+  width: 1200px;
   height: 144px;
   background-color: #1a1c1c;
   flex-direction: column;
@@ -29,10 +29,18 @@
   margin: 10px;
 }
 
+.subscription input {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
 .payments {
   display: flex;
   align-items: center;
-  margin: 25px 0 0 690px;
+  margin: 25px 0 0 920px;
 }
 
 .payments p {

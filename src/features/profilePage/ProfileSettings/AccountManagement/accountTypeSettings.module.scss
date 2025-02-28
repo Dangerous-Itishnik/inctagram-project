@@ -10,7 +10,7 @@
 }
 
 .settings{
-  width: 972px;
+  width: 1200px;
   height: 96px;
   background-color: #1a1c1c;
   flex-direction: column;
@@ -24,9 +24,17 @@
 }
 
 .settings span{
-font-weight: 400;
+  font-weight: 400;
   font-size: 14px;
   line-height: 24px;
+}
+
+.settings input{
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  margin: 10px;
 }
 
 .subscription{
