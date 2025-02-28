@@ -2,14 +2,13 @@ import { baseApi } from '@/service/baseApi'
 
 export const myProfileApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    postAll: build.query<never, never>({
-      query: data => ({
+    userFollow: build.query<never, never>({
+      query: userName => ({
         method: 'GET',
-        params: data,
-        url: `/api/v1/public-posts/all/`,
+        url: `/api/v1/users/${userName}/following`,
       }),
     }),
   }),
 })
 
-export const {} = myProfileApi
+export const { useUserFollowQuery } = myProfileApi

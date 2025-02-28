@@ -1,4 +1,5 @@
 import { Button } from '@/common/components/button'
+import { myProfileApi } from '@/service/myProfile/myProfile.service'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,6 +10,10 @@ type Props = {
 }
 
 export const MyProfile = ({ openProfileSetting }: Props) => {
+  const { data } = myProfileApi('adsasdasd')
+
+  console.log(data)
+
   return (
     <div className={styles.container}>
       <div className={styles.profilePhoto}>
