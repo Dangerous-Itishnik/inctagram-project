@@ -2,6 +2,7 @@ import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef, useState }
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
+import styles from './dropdown.module.scss'
 type DropdownProps = {
   align?: 'center' | 'end' | 'start'
   children: ReactNode
@@ -37,13 +38,14 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownMenu.Trigger>, Drop
         <DropdownMenu.Portal>
           <DropdownMenu.Content
             align={align}
+            className={styles.content}
             onClick={e => {
               e.stopPropagation()
               stayOpen ? setOpen(true) : setOpen(false)
             }}
             side={side}
           >
-            <div>{children}</div>
+            <div className={styles.items}>{children}</div>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
@@ -59,7 +61,13 @@ type ItemProps = {
 
 export const DropdownItem = ({ children, disabled, onSelect, title, ...restProps }: ItemProps) => {
   return (
-    <DropdownMenu.Item disabled={disabled} onSelect={onSelect} title={title} {...restProps}>
+    <DropdownMenu.Item
+      className={styles.item}
+      disabled={disabled}
+      onSelect={onSelect}
+      title={title}
+      {...restProps}
+    >
       {children}
     </DropdownMenu.Item>
   )

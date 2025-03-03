@@ -4,23 +4,25 @@ import { Post, PostImageResponse } from '@/service/posts/post.type'
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPost: build.query<Post, { postId: number }>({
+      provideTags: ['Posts'],
       query: body => ({
         method: 'GET',
         url: `/api/v1/posts/id/${body.postId}`,
       }),
     }),
-    // deletePost: build.mutation<
-    //   any,
-    //   {
-    //     accessToken: string | undefined
-    //     postId: number
-    //   }
-    // >({
-    //   query: ({ accessToken, postId }) => ({
-    //     method: 'DELETE',
-    //     url: `/posts/${postId}`,
-    //   }),
-    // }),
+    getPublic: build.query<Post, number>({
+      query: postId => ({
+        method: 'GET',
+        url: `api/v1/public-posts/${postId}`,
+      }),
+    }),
+    postDelete: build.mutation<Post, number>({
+      invalidatesTags: ['Posts'],
+      query: postId => ({
+        method: 'DELETE',
+        url: `api/v1/posts/${postId}`,
+      }),
+    }),
     postImage: build.mutation<PostImageResponse, FormData>({
       query: images => ({
         body: images,
@@ -35,23 +37,24 @@ export const postsApi = baseApi.injectEndpoints({
         url: '/api/v1/posts',
       }),
     }),
-    // updatePost: build.mutation<
-    //   { description: 'string' },
-    //   {
-    //     accessToken: string | undefined
-    //     description: string
-    //     postId: number
-    //   }
-    // >({
-    //   //TODO для того что бы обновить посты и отрисовать
-    //   // invalidatesTags: ['Posts'],
-    //   query: ({ accessToken, description, postId }) => ({
-    //     body: { description },
-    //     method: 'PUT',
-    //     url: `/posts/${postId}`,
-    //   }),
-    // }),
+
+    postUpdate: build.mutation<Post, { description: string; postId: number }>({
+      invalidatesTags: ['posts'],
+      query: ({ description, postId }) => ({
+        body: { description },
+        method: 'PUT',
+        url: `api/v1/posts/${postId}`,
+      }),
+    }),
   }),
+  tagTypes: ['Posts'],
 })
 
-export const { useGetPostQuery, usePostImageMutation, usePostPostMutation } = postsApi
+export const {
+  useGetPostQuery,
+  useGetPublicQuery,
+  usePostDeleteMutation,
+  usePostImageMutation,
+  usePostPostMutation,
+  usePostUpdateMutation,
+} = postsApi
