@@ -2,7 +2,11 @@ import { SvgClose } from '@/assets/icons/components/Close'
 
 import styles from '@/common/components/CrossButton/crossButton.module.scss'
 
-export const CrossButton = ({ onClose }) => {
+type Props = {
+  onClose: () => void
+}
+
+export const CrossButton = ({ onClose }: Props) => {
   const handelCloseAddPhoto = () => {
     if (typeof onClose === 'function') {
       onClose()

@@ -1,11 +1,10 @@
 .container {
   display: flex;
-  flex: 1 1 auto;
+  max-width: 378px;
   flex-direction: column;
   align-items: center;
   align-self: flex-start;
-
-  width: 378px;
+  margin: 0 auto;
   height: auto;
   padding: 6px 24px;
 

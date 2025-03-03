@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { RadixModal } from '@/common/components/Modals/RadixModal/RadixModal'
 import { Button } from '@/common/components/button'
 import { usePostImageMutation, usePostPostMutation } from '@/service/posts/posts.service'
+import Image from 'next/image'
 
 import styles from '@/common/components/Modals/CreatePostModal/PublicationModal/publication.module.scss'
-
 type Props = {
   images: string[]
   onClose: () => void
@@ -26,6 +26,7 @@ export const PublicationModal = ({
 }: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [description, setDescription] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const [publishedImage] = usePostImageMutation()
   const [publishedPost] = usePostPostMutation()
@@ -58,6 +59,7 @@ export const PublicationModal = ({
   }
 
   const publishedPostHandler = () => {
+    setIsLoading(true)
     const formData = new FormData()
 
     images.forEach((base64, index) => {
@@ -84,6 +86,9 @@ export const PublicationModal = ({
           .catch(console.error)
       })
       .catch(console.error)
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const modalTitle = (
@@ -92,7 +97,7 @@ export const PublicationModal = ({
         {'<'}
       </button>
       <h3>Publication</h3>
-      <Button onClick={publishedPostHandler} variant={'link'}>
+      <Button disabled={isLoading} onClick={publishedPostHandler} variant={'link'}>
         Publish
       </Button>
     </>
@@ -108,7 +113,9 @@ export const PublicationModal = ({
       <div className={styles.content}>
         <div className={styles.slider}>
           {images.length > 0 ? (
-            <img alt={`Slide ${currentImageIndex + 1}`} src={images[currentImageIndex]} />
+            <div className={styles.imageWrapper}>
+              <Image alt={`Slide ${currentImageIndex + 1}`} fill src={images[currentImageIndex]} />
+            </div>
           ) : (
             <p>No images to display</p>
           )}
@@ -126,7 +133,7 @@ export const PublicationModal = ({
         </div>
         <div className={styles.userData}>
           <div className={styles.userAvatar}>
-            <img alt={'User Avatar'} src={''} />
+            <Image alt={'User Avatar'} height={36} src={'/images/avatar.png'} width={36} />
             <p>URLProfile</p>
           </div>
           <div className={styles.userDescription}>

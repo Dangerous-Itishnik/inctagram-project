@@ -19,6 +19,9 @@ export const BaseInfoModal: Story = {
   args: {
     children: 'Are you really want to log out of your account ?',
     modalTitle: 'Primary Button',
+    onClose: () => {},
+    open: false,
+    setIsModalInfo: () => {},
   },
   render: args => {
     const [isActiveModal, setIsActiveModal] = useState<'info' | 'radix' | null>(null)

@@ -1,19 +1,29 @@
 import { baseApi } from '@/service/baseApi'
+import { Post, PostImageResponse } from '@/service/posts/post.type'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    deleteUserPost: build.mutation<never, number>({
+    getPost: build.query<Post, { postId: number }>({
+      provideTags: ['Posts'],
+      query: body => ({
+        method: 'GET',
+        url: `/api/v1/posts/id/${body.postId}`,
+      }),
+    }),
+    getPublic: build.query<Post, number>({
+      query: postId => ({
+        method: 'GET',
+        url: `api/v1/public-posts/${postId}`,
+      }),
+    }),
+    postDelete: build.mutation<Post, number>({
+      invalidatesTags: ['Posts'],
       query: postId => ({
         method: 'DELETE',
-        url: `/api/v1/posts/${postId}`,
+        url: `api/v1/posts/${postId}`,
       }),
     }),
-    getUserPosts: build.query<ResponseUserPostData, string>({
-      query: userName => ({
-        url: `/api/v1/posts/${userName}`,
-      }),
-    }),
-    postImage: build.mutation<Response, FormData>({
+    postImage: build.mutation<PostImageResponse, FormData>({
       query: images => ({
         body: images,
         method: 'POST',
@@ -27,69 +37,25 @@ export const postsApi = baseApi.injectEndpoints({
         url: '/api/v1/posts',
       }),
     }),
-    updateUserPost: build.mutation<never, string>({
-      query: post => ({
-        body: { description: post.description },
+    postUpdate: build.mutation<Post, { description: string; postId: number }>({
+      invalidatesTags: ['posts'],
+      query: ({ description, postId }) => ({
+        body: { description },
         method: 'PUT',
-        url: `/api/v1/posts/${post.id}`,
+        url: `api/v1/posts/${postId}`,
       }),
     }),
   }),
+  tagTypes: ['Posts'],
 })
 
 export const {
-  useDeleteUserPostMutation,
-  useGetUserPostsQuery,
+
+  useGetPostQuery,
+  useGetPublicQuery,
+  usePostDeleteMutation,
   usePostImageMutation,
   usePostPostMutation,
-  useUpdateUserPostMutation,
+  usePostUpdateMutation,
 } = postsApi
 
-type Image = {
-  createdAt: string
-  fileSize: number
-  height: number
-  uploadId: string
-  url: string
-  width: number
-}
-
-type Owner = {
-  firstName: string
-  lastName: string
-}
-
-type Item = {
-  avatarOwner: string
-  avatarWhoLikes: boolean
-  createdAt: string
-  description: string
-  id: number
-  images: Image[]
-  isLiked: boolean
-  likesCount: number
-  location: string
-  owner: Owner
-  ownerId: number
-  updatedAt: string
-  userName: string
-}
-
-export type ResponseUserPostData = {
-  items: Item[]
-  notReadCount: number
-  pageSize: number
-  totalCount: number
-}
-
-export type Response = {
-  images: ResponseImages[]
-}
-export type ResponseImages = {
-  createdAt: string
-  fileSize: number
-  height: number
-  uploadId: string
-  url: string
-  width: number
-}
