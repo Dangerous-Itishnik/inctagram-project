@@ -1,6 +1,11 @@
 import { HTMLProps, useState } from 'react'
 
-import { BookmarkOutline, LogOutOutline, TrendingUpOutline } from '@/assets/icons/components'
+import {
+  BookmarkOutline,
+  LogOutOutline,
+  SettingsOutline,
+  TrendingUpOutline,
+} from '@/assets/icons/components'
 import Link from 'next/link'
 
 import styles from './DropDownMenuHeader.module.scss' // Путь к вашему SCSS файлу
@@ -28,6 +33,12 @@ export const DropDownMenuHeader = ({ openPopUp }: Props) => {
       {isOpen && (
         <div className={`${styles.content} ${isOpen ? styles.show : ''}`}>
           <ul>
+            <li onClick={closeMenu}>
+              <Link className={styles.link} href={''}>
+                <SettingsOutline />
+                <span>Profile Setting</span>
+              </Link>
+            </li>
             <li onClick={closeMenu}>
               <Link className={styles.link} href={''}>
                 <TrendingUpOutline />

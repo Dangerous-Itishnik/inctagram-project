@@ -69,3 +69,71 @@
 .profileFollowing{}
 
 .profilePublications{}
+
+//В этом случае, если ширина экрана менее 360 пикселей ...
+@media (max-width: 360px) {
+
+}
+@media (max-width: 376px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .profilePhoto {
+    align-self: flex-start;
+    margin: 0;
+  }
+
+  .profileStatistics {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+  }
+
+  .profileFollowers,
+  .profileFollowing,
+  .profilePublications {
+    margin-right: 14px;
+  }
+
+  .profileSettings {
+    justify-content: flex-start;
+    width: auto;
+    display: flex;
+    margin: 0;
+  }
+
+  .profilePhoto h1{
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 36px;
+  }
+
+  .profileSettings button{
+    display: none;
+  }
+
+  .profilePhoto img {
+    margin-top:20px;
+    width: 72px;
+    height: 72px;
+  }
+  .profileDescription {
+    position: relative; /* Устанавливаем относительное позиционирование */
+    left: -70px; /* Сдвигаем влево */
+    width: calc(100% + 10px ); /* Увеличиваем ширину, чтобы выйти за пределы родителя */
+    margin-top: 50px; /* Отступ сверху */
+    height: 72px;
+    overflow-y: auto;
+  }
+
+  .profileDescription p{
+    //margin-top: 50px;
+  }
+}
+
+@media (max-width: 414px) {
+
+}
