@@ -33,7 +33,7 @@ export const SignIn = ({ isError, onSubmit }: SignInProps) => {
     }
   )
   const t = useTranslations('auth')
-  const tValidate = useTranslations('auth')
+  const tValidate = useTranslations('validate')
   const customError: string =
     typeof errors.password?.message === 'string' ? errors.password.message : isError || ''
 

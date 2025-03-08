@@ -37,11 +37,9 @@ export default function Home() {
       handleGoogleLogin(code)
     }
   }, [code, googleLogin, router])
-  const t = useTranslations('HomePage')
 
   return (
     <>
-      <h1>{t('title')}</h1>
       {isLoading && !data && <Spinner />}
       {isError && <PublicPage />}
       {data && !isError && <AuthUserHomePage meData={data} />}
