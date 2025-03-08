@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { Providers } from '@/app/[locale]/providers'
 import { AppSideBar } from '@/common/components/AppSidebar'
 import { Header } from '@/common/components/Header/Header'
-import { routing } from '@/i18n/routing'
+import { Lang, routing } from '@/i18n/routing'
 import { Theme } from '@radix-ui/themes'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
@@ -31,7 +31,7 @@ export default async function RootLayout({
   // Ensure that the incoming `locale` is valid
   const { locale } = await params
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as Lang)) {
     notFound()
   }
 

@@ -1,15 +1,15 @@
 'use client'
 
-import { useEffect } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 
 import { storage } from '@/common/utils/storage'
 import { AuthUserHomePage } from '@/features/authUserHomePage'
 import { PublicPage } from '@/features/publicPage/PublicPage'
-import { usePathname } from '@/i18n/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
 import '@/styles/index.scss'
@@ -43,7 +43,7 @@ export default function Home() {
 
   const pathname = usePathname() // Получаем текущий путь
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newLocale = event.target.value
 
     if (newLocale === currentLocale) {

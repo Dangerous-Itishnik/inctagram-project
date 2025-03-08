@@ -7,7 +7,7 @@ import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAut
 import { Input } from '@/common/components/Input/Input'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 import styles from './singIn.module.scss'
 
@@ -82,8 +82,8 @@ export const SignIn = ({ isError, onSubmit }: SignInProps) => {
           Sign In
         </Button>
         <p className={styles.haveAccount}>Don’t have an account?</p>
-        <Button as={Link} className={styles.buttonSignUp} href={'/auth/signUp'} variant={'link'}>
-          Sign Up
+        <Button variant={'link'}>
+          <Link href={'/auth/signUp'}>Sign Up</Link>
         </Button>
       </form>
     </AuthorizationContainer>

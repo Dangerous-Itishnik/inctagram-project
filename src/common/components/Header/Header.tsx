@@ -7,9 +7,8 @@ import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
-import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
 
 import styles from './header.module.scss'
 
@@ -54,11 +53,11 @@ export const Header = () => {
       </InfoModal>
       {!pathProfile.includes('auth') && isNotAuth && (
         <div className={styles.buttons}>
-          <Button as={Link} href={'/auth/signIn'} variant={'link'}>
-            Log in
+          <Button variant={'link'}>
+            <Link href={'/auth/signIn'}>Log in</Link>
           </Button>
-          <Button as={Link} href={'/auth/signUp'}>
-            Sign Up
+          <Button>
+            <Link href={'/auth/signUp'}> Sign Up</Link>
           </Button>
         </div>
       )}

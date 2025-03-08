@@ -1,4 +1,3 @@
-import { createNavigation } from 'next-intl/navigation'
 import { defineRouting } from 'next-intl/routing'
 export type Lang = 'en' | 'ru'
 export const routing = defineRouting({
