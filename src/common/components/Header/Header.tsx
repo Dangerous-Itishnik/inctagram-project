@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { DropDownMenuHeader } from '@/common/components/DropDownMenuHeader/DropDownMenuHeader'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
-// import { SelectBox } from '@/common/components/SelectBox/SelectBox'
+import { SelectLanguage } from '@/common/components/SelectLanguage/SelectLanguage'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
@@ -13,18 +13,19 @@ import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import styles from './header.module.scss'
 
 export const Header = () => {
-  const pathProfile = usePathname()
   const [isInfoModal, setIsInfoModal] = useState<boolean>(false)
-  const { isError: isNotAuth } = useMeQuery()
-  const { data } = useMeQuery()
+  const { data, isError: isNotAuth } = useMeQuery()
+  const { replace } = useRouter()
+  const [logout] = useLogoutMutation()
+  const pathname = usePathname()
+
   const closePopUp = () => {
     setIsInfoModal(false)
   }
   const openPopUp = () => {
     setIsInfoModal(true)
   }
-  const { replace } = useRouter()
-  const [logout] = useLogoutMutation()
+
   const logoutHandle = async () => {
     storage.deleteToken()
     await logout()
@@ -37,7 +38,9 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <div>{/* TODO:Добавить логику для отображения колокольчика и выбора языков */}</div>
+      <div>
+        <SelectLanguage />
+      </div>
       {data && <DropDownMenuHeader openPopUp={openPopUp} />}
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>
         <p className={styles.infoModalText}>
@@ -51,7 +54,7 @@ export const Header = () => {
           <Button onClick={closePopUp}>No</Button>
         </div>
       </InfoModal>
-      {!pathProfile.includes('auth') && isNotAuth && (
+      {!pathname.includes('auth') && isNotAuth && (
         <div className={styles.buttons}>
           <Button variant={'link'}>
             <Link href={'/auth/signIn'}>Log in</Link>
