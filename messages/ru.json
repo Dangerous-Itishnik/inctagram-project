@@ -1,6 +1,23 @@
 {
-  "HomePage": {
-    "title": "Привет мир!",
-    "about": "Перейди about page"
+  "auth": {
+    "forgotPasswordError": "Ты реально забыл пароль? Сорян, ничем не можем помочь",
+    "congratulations": "Перейди about page",
+    "confirmedEmail": "Ваш адрес электронной почты подтвержден",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "expiredVerificationLink": "Ссылка для подтверждения по электронной почте устарела",
+    "expiredVerificationMessage": "Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку еще раз",
+    "resendVerificationLink": "Отправить ссылку для подтверждения повторно",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль",
+    "dontHaveAccount": "У вас нет учетной записи?"
+  },
+  "validate": {
+    "emailError": "Адрес электронной почты должен соответствовать формату example@example.com",
+    "passwordError": "Только латинские буквы, цифры и специальные символы",
+    "maxCharacters": "Максимальное количество символов {count}",
+    "minCharacters": "Минимальное количество символов {count}",
+    "required": "Это поле обязательно к заполнению"
   }
 }
