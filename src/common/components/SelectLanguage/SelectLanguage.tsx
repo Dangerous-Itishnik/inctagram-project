@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react'
+import { useId, useState } from 'react'
 import Select from 'react-select'
 
 import { SvgFlagRussia } from '@/assets/icons/components/FlagRussia'
