@@ -1,7 +1,7 @@
 import { HTMLProps, useState } from 'react'
 
 import { BookmarkOutline, LogOutOutline, TrendingUpOutline } from '@/assets/icons/components'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 import styles from './DropDownMenuHeader.module.scss' // Путь к вашему SCSS файлу
 

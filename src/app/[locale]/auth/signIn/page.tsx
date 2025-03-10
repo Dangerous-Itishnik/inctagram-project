@@ -4,8 +4,8 @@ import { useState } from 'react'
 
 import { storage } from '@/common/utils/storage'
 import { SignIn as SignInCard } from '@/features/auth/ui/signIn'
+import { useRouter } from '@/i18n/navigation'
 import { useLogInMutation } from '@/service/auth'
-import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
   const { replace } = useRouter()

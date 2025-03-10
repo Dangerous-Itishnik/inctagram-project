@@ -5,9 +5,11 @@ import { useEffect } from 'react'
 import { storage } from '@/common/utils/storage'
 import { AuthUserHomePage } from '@/features/authUserHomePage'
 import { PublicPage } from '@/features/publicPage/PublicPage'
+import { useRouter } from '@/i18n/navigation'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import '@/styles/index.scss'
 

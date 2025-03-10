@@ -5,9 +5,9 @@ import { Input } from '@/common/components/Input/Input'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button/Button'
 import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
+import { Link } from '@/i18n/navigation'
 import { Message } from '@/service/auth/auth.types'
 import { Flex } from '@radix-ui/themes'
-import Link from 'next/link'
 
 import styles from './SignUp.module.scss'
 
@@ -159,8 +159,8 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
         </Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
-      <Button as={'a'} href={'/auth/signIn'} variant={'link'}>
-        Sign In
+      <Button variant={'link'}>
+        <Link href={'/auth/signIn'}>Sign In</Link>
       </Button>
     </AuthorizationContainer>
   )

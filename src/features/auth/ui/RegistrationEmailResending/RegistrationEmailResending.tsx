@@ -9,6 +9,7 @@ import { useRegEmailResendMutation } from '@/service/auth/auth.service'
 import { AuthBaseResponse } from '@/service/auth/auth.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import styles from './RegistrationEmailResending.module.scss'
 
@@ -17,7 +18,7 @@ export function RegistrationEmailResending() {
   const [regEmailResend, { error, isError, isLoading }] = useRegEmailResendMutation()
   const router = useRouter()
   const err = error as AuthBaseResponse
-
+  const t = useTranslations('auth')
   const emailChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
@@ -33,10 +34,8 @@ export function RegistrationEmailResending() {
 
   return (
     <div className={styles.container}>
-      <Typography variant={'h1'}>Email verification link expired</Typography>
-      <Typography className={styles.text}>
-        Looks like the verification link has expired. Not to worry, we can send the link again
-      </Typography>
+      <Typography variant={'h1'}>{t('expiredVerificationLink')}</Typography>
+      <Typography className={styles.text}>{t('expiredVerificationMessage')}</Typography>
       <Input
         label={'Email'}
         onChange={emailChangeHandler}
@@ -45,7 +44,7 @@ export function RegistrationEmailResending() {
       />
       {isError && <Typography variant={'error'}>{err.data.messages[0].message}</Typography>}
       <Button disabled={isLoading} onClick={resendVerificationHandler} variant={'primary'}>
-        Resend verification link
+        {t('resendVerificationLink')}
       </Button>
       <Image
         alt={'Picture of girl'}
