@@ -24,11 +24,10 @@ export const MyProfile = ({ openProfileSetting }: Props) => {
     <div className={styles.container}>
       <div className={styles.profilePhoto}>
         <Image alt={''} height={204} src={'/profileLogo.png'} width={204} />
-        <h1>{me.userName}</h1>
       </div>
       <div className={styles.profileData}>
         <div className={styles.profileSettings}>
-          {/*<h1>{me.userName}</h1>*/}
+          <h1>{me.userName}</h1>
           <Button onClick={openProfileSetting}>Profile Settings</Button>
         </div>
         <div className={styles.profileStatistics}>
@@ -47,6 +46,8 @@ export const MyProfile = ({ openProfileSetting }: Props) => {
         </div>
         <div className={styles.profileDescription}>
           <p>
+            Some species live in houses where they a hunt insects attracted by artificial light.
+            Some species live in houses where they a hunt insects attracted byby artificial light.
             Some species live in houses where they a hunt insects attracted by artificial light.
             <Link href={''}> attracted by artificial light.</Link>
           </p>
