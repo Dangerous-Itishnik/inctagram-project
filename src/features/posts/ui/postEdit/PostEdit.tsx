@@ -33,13 +33,16 @@ export const PostEdit = ({
     setIsPostEdit(postDescription === description)
   }, [postDescription, description, setIsPostEdit])
 
-  const updateHandle = () => {
-    updatePost({ description: postDescription, postId })
-      .unwrap()
-      .then(() => {
-        postsApi.util.invalidateTags(['Posts'])
-        setModalType('view')
-      })
+  const updateHandle = async () => {
+    try {
+      await updatePost({ description: postDescription, postId }).unwrap()
+
+      postsApi.util.invalidateTags(['Posts', 'getPublic'])
+
+      setModalType('view')
+    } catch (error) {
+      console.error('Ошибка при обновлении поста:', error)
+    }
   }
 
   return (
