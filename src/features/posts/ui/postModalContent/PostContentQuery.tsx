@@ -18,8 +18,6 @@ import { PostModalHeader } from './PostModalHeader'
 type Props = {
   closeEditCloseModal: () => void
   closePost: () => void
-  handleCloseEditConfirmModal: () => void
-  isEditModalOpen: boolean
   isPostEdit: boolean
   modalType: 'edit' | 'view'
   openEditCloseModal: () => void
@@ -30,8 +28,6 @@ type Props = {
 export const PostContentQuery = ({
   closeEditCloseModal,
   closePost,
-  handleCloseEditConfirmModal,
-  isEditModalOpen,
   isPostEdit,
   modalType,
   openEditCloseModal,
@@ -81,29 +77,14 @@ export const PostContentQuery = ({
               {data && (
                 <div className={styles.modalHead}>
                   <PostModalHeader
-                    avatarOwner={data.avatarOwner}
                     isAuthenticated={isAuthenticated}
                     openDeleteModal={isAuthenticated ? openDeleteModal : undefined}
-                    ownerId={data.ownerId}
                     setModalType={isAuthenticated ? setModalType : undefined}
                     userName={data.userName}
                   />
                 </div>
               )}
-              <div className={styles.commentsContainer}>
-                {data && (
-                  <PostComments
-                    avatarOwner={data.avatarOwner}
-                    description={data.description}
-                    id={data.id}
-                    openDeleteModal={isAuthenticated ? openDeleteModal : undefined}
-                    ownerId={data.ownerId}
-                    setModalType={isAuthenticated ? setModalType : undefined}
-                    updatedAt={data.updatedAt}
-                    userName={data.userName}
-                  />
-                )}
-              </div>
+              <div className={styles.commentsContainer}>{data && <PostComments />}</div>
             </div>
           </>
         ) : (
@@ -112,7 +93,7 @@ export const PostContentQuery = ({
             <>
               <div className={styles.contentTwo}>
                 <div>
-                  {data.images && (
+                  {data?.images && (
                     <Image
                       alt={'picture'}
                       className={styles.singleImage}
@@ -126,14 +107,9 @@ export const PostContentQuery = ({
                   {data && (
                     <PostEdit
                       avatarOwner={data.avatarOwner}
-                      closeEditCloseModal={closeEditCloseModal}
                       closeModal={openEditCloseModal}
                       description={data.description}
-                      handleCloseEditConfirmModal={handleCloseEditConfirmModal}
-                      isEditModalOpen={isEditModalOpen}
                       isPostEdit={isPostEdit}
-                      modalType={modalType}
-                      openEditCloseModal={openEditCloseModal}
                       ownerId={data.ownerId}
                       postId={data.id}
                       setIsPostEdit={setIsPostEdit}

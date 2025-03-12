@@ -1,4 +1,4 @@
-import { ResponseImages } from '@/service/posts/post.type'
+import { ItemsImages } from '@/service/posts/post.type'
 import Image from 'next/image'
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -15,9 +15,10 @@ import 'swiper/css/scrollbar'
 import styles from './SwiperSlider.module.scss'
 
 type Props = {
-  imagesUrl: ResponseImages[]
+  imagesUrl: ItemsImages[]
   star: boolean
 }
+//TODO Это я не знаю что. НАдо исправить
 
 export const SwiperSlider = ({ imagesUrl, start }: Props) => {
   return (
@@ -30,7 +31,7 @@ export const SwiperSlider = ({ imagesUrl, start }: Props) => {
       spaceBetween={10}
       style={{ height: '100%', width: '100%' }}
     >
-      {imagesUrl?.map((image: ResponseImages, index: number) => {
+      {imagesUrl?.map((image: ItemsImages, index: number) => {
         if (!image.url && image.width > 1400) {
           return null
         }
