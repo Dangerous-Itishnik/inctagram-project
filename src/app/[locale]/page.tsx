@@ -9,7 +9,6 @@ import { useRouter } from '@/i18n/navigation'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
 import { useSearchParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
 
 import '@/styles/index.scss'
 

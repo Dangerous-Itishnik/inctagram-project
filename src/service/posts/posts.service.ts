@@ -40,6 +40,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
 
     postUpdate: build.mutation<Post, { description: string; postId: number }>({
+      invalidatesTags: ['getPublic'],
       query: ({ description, postId }) => ({
         body: { description },
         method: 'PUT',

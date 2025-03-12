@@ -1,5 +1,5 @@
-import { useId, useState } from 'react'
-import Select from 'react-select'
+import { ReactNode, useId, useState } from 'react'
+import Select, { SingleValue } from 'react-select'
 
 import { SvgFlagRussia } from '@/assets/icons/components/FlagRussia'
 import { SvgFlagUnitedKingdom } from '@/assets/icons/components/FlagUnitedKingdom'
@@ -9,7 +9,13 @@ import { useLocale } from 'next-intl'
 
 import styles from '@/common/components/SelectBox/selectBox.module.scss'
 
-const options = [
+type OptionsSelect = {
+  label: ReactNode
+  title: string
+  value: Lang
+}
+
+const options: OptionsSelect[] = [
   {
     label: (
       <div className={styles.label}>
@@ -37,15 +43,17 @@ export const SelectLanguage = () => {
   const { replace } = useRouter()
   const pathname = usePathname()
 
-  const [selectOption, setSelectOption] = useState(
-    options.find(option => option.value === currentLocale)
+  const [selectOption, setSelectOption] = useState<SingleValue<OptionsSelect>>(
+    options.find(option => option.value === currentLocale) || null
   )
 
-  const onSelectChange = (newValue: any) => {
-    const nextLocale = newValue.value as Lang
+  const onSelectChange = (newValue: SingleValue<OptionsSelect>) => {
+    if (newValue) {
+      const nextLocale = newValue.value as Lang
 
-    setSelectOption(newValue)
-    replace(`${pathname}`, { locale: nextLocale })
+      setSelectOption(newValue)
+      replace(`${pathname}`, { locale: nextLocale })
+    }
   }
 
   return (
