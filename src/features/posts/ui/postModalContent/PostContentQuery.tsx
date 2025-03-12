@@ -5,6 +5,7 @@ import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
 import { useModal } from '@/common/hooks/useModal'
 import { storage } from '@/common/utils/storage'
+import { useRouter } from '@/i18n/navigation'
 import { useGetPublicQuery, usePostDeleteMutation } from '@/service/posts/posts.service'
 import Image from 'next/image'
 
@@ -43,7 +44,7 @@ export const PostContentQuery = ({
   const [postDelete] = usePostDeleteMutation()
 
   const isAuthenticated = !!storage.getToken()
-
+  const { refresh } = useRouter()
   const {
     closeModal: closeDeleteModal,
     isOpen: isDeleteOpen,
@@ -58,6 +59,7 @@ export const PostContentQuery = ({
         closeDeleteModal()
         closeEditCloseModal()
         closePost()
+        refresh()
       })
   }
 
