@@ -32,3 +32,17 @@
   color: #397df6;
   border-bottom: 3px solid #397df6;
 }
+
+@media (max-width: 376px) {
+  .settingsHeader {
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .settingsHeader button {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+  }
+}
