@@ -65,8 +65,15 @@ export const PostContentQuery = ({
     <>
       {isAuthenticated && (
         <InfoModal modalTitle={'DELETE POST'} onClose={closeDeleteModal} open={isDeleteOpen}>
-          <Button onClick={deletePost}>YES</Button>
-          <Button onClick={closeDeleteModal}>NO</Button>
+          <div className={styles.btn}>
+            <Button onClick={deletePost} variant={'outline'}>
+              YES
+            </Button>
+
+            <Button onClick={closeDeleteModal} variant={'primary'}>
+              NO
+            </Button>
+          </div>
         </InfoModal>
       )}
       <div className={styles.content}>
@@ -114,9 +121,9 @@ export const PostContentQuery = ({
                     <Image
                       alt={'picture'}
                       className={styles.singleImage}
-                      height={500}
+                      height={320}
                       src={data.images[0].url}
-                      width={500}
+                      width={400}
                     />
                   )}
                 </div>

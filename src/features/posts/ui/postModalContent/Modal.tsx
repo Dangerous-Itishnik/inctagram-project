@@ -39,7 +39,7 @@ export const Modal = ({ children, onClose, onInteractOutside, open = false, titl
               onInteractOutside={onInteractOutside}
             >
               <div>
-                <DialogTitle>{title}</DialogTitle>
+                <DialogTitle className={styles.title}>{title}</DialogTitle>
                 <Dialog.Close className={styles.close} onClick={onClose}>
                   <Close />
                 </Dialog.Close>

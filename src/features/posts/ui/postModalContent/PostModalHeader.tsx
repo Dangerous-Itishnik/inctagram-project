@@ -2,6 +2,7 @@ import Edit2Outline from '@/assets/icons/components/Edit2Outline'
 import Trash from '@/assets/icons/components/Trash'
 import { Dropdown, DropdownItem } from '@/common/components/Dropdown'
 import { Button } from '@/common/components/button'
+import Link from 'next/link'
 
 import styles from './PostModal.module.scss'
 
@@ -19,10 +20,14 @@ export const PostModalHeader = ({
 }: Props) => {
   return (
     <header className={styles.header}>
-      <div>userName: {userName}</div>
+      <Link href={''}>{userName}</Link>
       {isAuthenticated && (
         <div className={styles.menu}>
-          <Dropdown align={'end'} trigger={<div className={styles.ellipse}>...</div>}>
+          <Dropdown
+            align={'end'}
+            style={'flex-direction: column'}
+            trigger={<div className={styles.ellipse}>...</div>}
+          >
             <DropdownItem>
               <Button
                 className={styles.btn}
@@ -30,13 +35,13 @@ export const PostModalHeader = ({
                 variant={'link'}
               >
                 <Edit2Outline />
-                Edit
+                Edit Post
               </Button>
             </DropdownItem>
             <DropdownItem>
-              <Button onClick={openDeleteModal} variant={'link'}>
+              <Button className={styles.btn} onClick={openDeleteModal} variant={'link'}>
                 <Trash />
-                Delete
+                Delete Post
               </Button>
             </DropdownItem>
           </Dropdown>

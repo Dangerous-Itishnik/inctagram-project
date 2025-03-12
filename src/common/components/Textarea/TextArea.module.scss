@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  column-gap: 5px;
 
   .label {
     color: var(--color-light-900);
@@ -9,6 +10,7 @@
   .textarea {
     flex-grow: 1;
     width: 100%;
+    height: 150px;
     padding: 6px 12px 8px;
 
     color: var(--color-light-900);
@@ -47,13 +49,11 @@
         color: var(--color-light-100);
       }
     }
+  }
 
-    &:disabled {
-      border-color: var(--color-dark-100);
-
-      &::placeholder {
-        color: var(--color-dark-100);
-      }
-    }
+  .errorMessage {
+    color: var(--color-danger-500);
+    font-size: 0.875rem;
+    margin-top: 4px;
   }
 }
