@@ -14,7 +14,9 @@ type ProfileProps = {
 
 // Функция для получения данных пользователя
 async function fetchProfileUser(profileId: number) {
-  const response = await fetch(`${BASE_URL}/api/v1/public-user/profile/${profileId}`)
+  const response = await fetch(`${BASE_URL}/api/v1/public-user/profile/${profileId}`, {
+    cache: 'no-store', // Отключаем кеширование, чтобы всегда получать актуальные данные
+  })
 
   if (!response.ok) {
     throw new Error('Failed to fetch profile user data')
@@ -25,7 +27,9 @@ async function fetchProfileUser(profileId: number) {
 
 // Функция для получения данных постов
 async function fetchPosts(profileId: number) {
-  const response = await fetch(`${BASE_URL}/api/v1/public-posts/user/${profileId}`)
+  const response = await fetch(`${BASE_URL}/api/v1/public-posts/user/${profileId}`, {
+    cache: 'no-store', // Отключаем кеширование, чтобы всегда получать актуальные данные
+  })
 
   if (!response.ok) {
     throw new Error('Failed to fetch posts data')
@@ -63,11 +67,10 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
 
   return (
     <div className={styles.profilePage}>
-
       <ProfileHeader profileUser={profileUserData} />
       <ImageList posts={postsData.items} />
       {postIdParams && <div>Открытие модалки с постом id:{postIdParams}</div>}
-      {postIdParams && <PostContentQueryModal data={profileUserData} postId={postIdParams} />}
+      {postIdParams && <PostContentQueryModal postId={postIdParams} />}
     </div>
   )
 }
