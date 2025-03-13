@@ -30,12 +30,11 @@ export const Modal = ({ children, onClose, onInteractOutside, open = false, titl
       <div>
         {open && (
           <Dialog.Portal>
-            <Dialog.Overlay className={styles.modalOverlay} />
+            <Dialog.Overlay className={styles.modalOverlay} inert={open ? undefined : true} />
 
             <Dialog.Content
               aria-describedby={''}
               className={styles.modalContent}
-              inert={open ? undefined : true}
               onInteractOutside={onInteractOutside}
             >
               <div>
