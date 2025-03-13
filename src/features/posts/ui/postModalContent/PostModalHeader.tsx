@@ -2,7 +2,6 @@ import Edit2Outline from '@/assets/icons/components/Edit2Outline'
 import Trash from '@/assets/icons/components/Trash'
 import { Dropdown, DropdownItem } from '@/common/components/Dropdown'
 import { Button } from '@/common/components/button'
-import Link from 'next/link'
 
 import styles from './PostModal.module.scss'
 
