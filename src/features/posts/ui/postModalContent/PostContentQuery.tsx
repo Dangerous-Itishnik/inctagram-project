@@ -71,7 +71,7 @@ export const PostContentQuery = ({
         {modalType === 'view' ? (
           <>
             <div className={styles.imageContainer}>
-              {data && <SwiperSlider imagesUrl={data.images} star={false} />}
+              {data && <SwiperSlider imagesUrl={data.images} start={false} />}
             </div>
             <div className={styles.contentTwo}>
               {data && (

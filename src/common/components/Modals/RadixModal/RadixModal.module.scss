@@ -44,12 +44,14 @@
 }
 
 .Description {
-  display: flex;
-
-  justify-content: center;
-  padding: 36px 24px;
-  max-width: 500px;
   position: relative;
+
+  display: flex;
+  justify-content: center;
+
+  max-width: 500px;
+  padding: 36px 24px;
+
   @media (width <= 425px) {
     flex: 1 1 auto;
   }

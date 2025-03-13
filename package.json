@@ -8,7 +8,7 @@
     "build:production": "npm run build",
     "start": "next start",
     "format": "prettier --write src",
-    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
+    "lint": "tsc --noEmit && eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint src/**/*.{scss,css} --allow-empty-input --fix && prettier --write src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "rename-icons": "node scripts/rename-icons.cjs",

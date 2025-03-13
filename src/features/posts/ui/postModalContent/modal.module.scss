@@ -6,20 +6,21 @@
 }
 
 .modalContent {
-  width: 992px;
   position: fixed;
   z-index: 11;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+  width: 992px;
+
   background: var(--color-dark-300);
   border: 1px solid var(--color-dark-100);
 }
 
 .close {
+  cursor: pointer;
   position: absolute;
   top: -30px;
   right: -30px;
-  cursor: pointer;
 }
