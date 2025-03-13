@@ -16,7 +16,7 @@ import styles from './SwiperSlider.module.scss'
 
 type Props = {
   imagesUrl: ItemsImages[]
-  star: boolean
+  start: boolean
 }
 //TODO Это я не знаю что. НАдо исправить
 
