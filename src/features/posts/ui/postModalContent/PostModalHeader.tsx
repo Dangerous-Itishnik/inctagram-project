@@ -20,14 +20,10 @@ export const PostModalHeader = ({
 }: Props) => {
   return (
     <header className={styles.header}>
-      <Link href={''}>{userName}</Link>
+      <div>{userName}</div>
       {isAuthenticated && (
         <div className={styles.menu}>
-          <Dropdown
-            align={'end'}
-            style={'flex-direction: column'}
-            trigger={<div className={styles.ellipse}>...</div>}
-          >
+          <Dropdown align={'end'} trigger={<div className={styles.ellipse}>...</div>}>
             <DropdownItem>
               <Button
                 className={styles.btn}
