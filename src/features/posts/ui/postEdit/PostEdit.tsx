@@ -61,7 +61,7 @@ export const PostEdit = ({
           />
 
           <Typography className={styles.counter} variant={'h3'}>
-            {[...postDescription].length} / 500
+            {postDescription.length} / 500
           </Typography>
         </div>
         <footer className={styles.submit}>
