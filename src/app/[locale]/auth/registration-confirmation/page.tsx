@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 
 import { RegistrationConfirmation } from '@/features/auth/ui/registrationConfirmation'
+import { useRouter } from '@/i18n/navigation'
 import { useRegistrationConfirmationMutation } from '@/service/auth'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 export default function RegistrationConfirmationPage() {
   const searchParams = useSearchParams()

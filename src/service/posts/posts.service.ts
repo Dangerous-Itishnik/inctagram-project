@@ -4,13 +4,14 @@ import { Post, PostImageResponse } from '@/service/posts/post.type'
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPost: build.query<Post, { postId: number }>({
-      provideTags: ['Posts'],
+      providesTags: ['Posts'],
       query: body => ({
         method: 'GET',
         url: `/api/v1/posts/id/${body.postId}`,
       }),
     }),
     getPublic: build.query<Post, number>({
+      providesTags: ['getPublic'], // Теперь 'getPublic' правильно указывается
       query: postId => ({
         method: 'GET',
         url: `api/v1/public-posts/${postId}`,
@@ -39,7 +40,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
 
     postUpdate: build.mutation<Post, { description: string; postId: number }>({
-      invalidatesTags: ['posts'],
+      invalidatesTags: ['getPublic'],
       query: ({ description, postId }) => ({
         body: { description },
         method: 'PUT',
@@ -47,7 +48,6 @@ export const postsApi = baseApi.injectEndpoints({
       }),
     }),
   }),
-  tagTypes: ['Posts'],
 })
 
 export const {

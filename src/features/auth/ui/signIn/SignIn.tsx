@@ -7,7 +7,8 @@ import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAut
 import { Input } from '@/common/components/Input/Input'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 import styles from './singIn.module.scss'
 
@@ -31,59 +32,57 @@ export const SignIn = ({ isError, onSubmit }: SignInProps) => {
       },
     }
   )
-
+  const t = useTranslations('auth')
+  const tValidate = useTranslations('validate')
   const customError: string =
     typeof errors.password?.message === 'string' ? errors.password.message : isError || ''
 
   return (
     <AuthorizationContainer>
-      <Typography variant={'h1'}>Sign In</Typography>
+      <Typography variant={'h1'}>{t('signIn')}</Typography>
       <div className={styles.buttonAuthorization}>
         <GoogleAuthButton />
       </div>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(onSubmit)} // Вызываем переданную функцию при сабмите
-      >
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Input
           errorMessage={typeof errors.email?.message === 'string' ? errors.email.message : ''}
-          label={'Email'}
+          label={t('email')}
           propsClassName={styles.input}
           {...register('email', {
             onChange: () => clearErrors('email'),
             pattern: {
-              message: 'The email must match the format example@example.com',
+              message: tValidate('emailError'),
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             },
-            required: 'This field is required',
+            required: tValidate('required'),
           })}
         />
         <Input
           errorMessage={customError}
-          label={'Password'}
+          label={t('password')}
           propsClassName={styles.input}
           type={'password'}
           {...register('password', {
-            maxLength: { message: 'Max number of characters 20', value: 20 },
-            minLength: { message: 'Minimum number of characters 6', value: 6 },
+            maxLength: { message: tValidate('maxCharacters', { count: 20 }), value: 20 },
+            minLength: { message: tValidate('maxCharacters', { count: 6 }), value: 6 },
             onChange: () => clearErrors('password'),
             pattern: {
-              message: 'Only Latin letters, numbers and special characters',
+              message: tValidate('passwordError'),
               value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
             },
-            required: 'This field is required',
+            required: tValidate('required'),
           })}
           autoComplete={'off'}
         />
         <Link className={styles.forgotPassword} href={'/auth/forgot-password'}>
-          Forgot Password
+          {t('forgotPassword')}
         </Link>
         <Button className={styles.buttonSignIn} type={'submit'}>
-          Sign In
+          {t('signIn')}
         </Button>
-        <p className={styles.haveAccount}>Don’t have an account?</p>
-        <Button as={Link} className={styles.buttonSignUp} href={'/auth/signUp'} variant={'link'}>
-          Sign Up
+        <p className={styles.haveAccount}>{t('dontHaveAccount')}</p>
+        <Button variant={'link'}>
+          <Link href={'/auth/signUp'}>{t('signUp')}</Link>
         </Button>
       </form>
     </AuthorizationContainer>

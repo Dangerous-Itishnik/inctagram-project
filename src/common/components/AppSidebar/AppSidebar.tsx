@@ -15,9 +15,9 @@ import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
 import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
+import { Link, useRouter } from '@/i18n/navigation'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
-import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import styles from './appSideBarStyles.module.scss'
 

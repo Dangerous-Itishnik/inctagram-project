@@ -17,11 +17,7 @@ export const PostContentQueryModal = ({ postId }: Props) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const {
-    closeModal: closeEditCloseModal,
-    isOpen: isEditModalOpen,
-    openModal: openEditCloseModal,
-  } = useModal()
+  const { closeModal: closeEditCloseModal, openModal: openEditCloseModal } = useModal()
 
   const closePost = () => {
     const newParams = new URLSearchParams(searchParams.toString()) // Клонируем текущие параметры
@@ -49,8 +45,6 @@ export const PostContentQueryModal = ({ postId }: Props) => {
       <PostContentQuery
         closeEditCloseModal={closeEditCloseModal}
         closePost={closePost}
-        handleCloseEditConfirmModal={handleCloseEditConfirmModal}
-        isEditModalOpen={isEditModalOpen}
         isPostEdit={isPostEdit}
         modalType={modalType}
         openEditCloseModal={openEditCloseModal}
