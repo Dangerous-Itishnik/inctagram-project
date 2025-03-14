@@ -50,3 +50,17 @@
 .payments img {
   border-radius: 10px;
 }
+
+@media (max-width: 376px) {
+  .subscription {
+    width: 350px;
+
+    border-radius: 5px;
+  }
+  .payments {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+}

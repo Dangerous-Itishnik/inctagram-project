@@ -11,55 +11,55 @@ export const MyPayments = () => {
       price: '$10',
       subscriptionType: 'Monthly',
     },
-    {
-      date: '2023-01-15',
-      endDate: '2023-02-15',
-      paymentType: 'PayPal',
-      price: '$50',
-      subscriptionType: 'Quarterly',
-    },
-    {
-      date: '2023-02-01',
-      endDate: '2023-03-01',
-      paymentType: 'Debit Card',
-      price: '$100',
-      subscriptionType: 'Yearly',
-    },
-    {
-      date: '2023-02-15',
-      endDate: '2023-03-15',
-      paymentType: 'Credit Card',
-      price: '$10',
-      subscriptionType: 'Monthly',
-    },
-    {
-      date: '2023-03-01',
-      endDate: '2023-04-01',
-      paymentType: 'PayPal',
-      price: '$50',
-      subscriptionType: 'Quarterly',
-    },
-    {
-      date: '2023-03-15',
-      endDate: '2023-04-15',
-      paymentType: 'Debit Card',
-      price: '$100',
-      subscriptionType: 'Yearly',
-    },
-    {
-      date: '2023-04-01',
-      endDate: '2023-05-01',
-      paymentType: 'Credit Card',
-      price: '$10',
-      subscriptionType: 'Monthly',
-    },
-    {
-      date: '2023-04-15',
-      endDate: '2023-05-15',
-      paymentType: 'PayPal',
-      price: '$50',
-      subscriptionType: 'Quarterly',
-    },
+    // {
+    //   date: '2023-01-15',
+    //   endDate: '2023-02-15',
+    //   paymentType: 'PayPal',
+    //   price: '$50',
+    //   subscriptionType: 'Quarterly',
+    // },
+    // {
+    //   date: '2023-02-01',
+    //   endDate: '2023-03-01',
+    //   paymentType: 'Debit Card',
+    //   price: '$100',
+    //   subscriptionType: 'Yearly',
+    // },
+    // {
+    //   date: '2023-02-15',
+    //   endDate: '2023-03-15',
+    //   paymentType: 'Credit Card',
+    //   price: '$10',
+    //   subscriptionType: 'Monthly',
+    // },
+    // {
+    //   date: '2023-03-01',
+    //   endDate: '2023-04-01',
+    //   paymentType: 'PayPal',
+    //   price: '$50',
+    //   subscriptionType: 'Quarterly',
+    // },
+    // {
+    //   date: '2023-03-15',
+    //   endDate: '2023-04-15',
+    //   paymentType: 'Debit Card',
+    //   price: '$100',
+    //   subscriptionType: 'Yearly',
+    // },
+    // {
+    //   date: '2023-04-01',
+    //   endDate: '2023-05-01',
+    //   paymentType: 'Credit Card',
+    //   price: '$10',
+    //   subscriptionType: 'Monthly',
+    // },
+    // {
+    //   date: '2023-04-15',
+    //   endDate: '2023-05-15',
+    //   paymentType: 'PayPal',
+    //   price: '$50',
+    //   subscriptionType: 'Quarterly',
+    // },
   ]
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -81,8 +81,13 @@ export const MyPayments = () => {
     return paymentData.slice(start, start + itemsPerPage)
   }
 
+  // const isMobile = window.innerWidth <= 376
+
+  // const isMobile = useMedia('(max-width: 767px)');
+
   return (
     <div className={styles.container}>
+      {/*{ isMobile ? <mobileComponent/> : <dec>}*/}
       <table className={styles.table}>
         <thead>
           <tr>
