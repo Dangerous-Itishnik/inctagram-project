@@ -8,6 +8,7 @@
   width: 972px;
   height: 564px;
 }
+
 .btn {
   display: flex;
   column-gap: 20px;
@@ -23,14 +24,29 @@
   align-items: center;
   gap: 300px;
   margin-left: 10px;
-  padding: 12px 24px;
-}
-
-.modalHead {
+  padding: 18px 24px;
 }
 //header and comments
-.contentTwo {
+.contentEdit {
   display: flex;
+  flex-direction: row;
+}
+.contentView {
+  display: flex;
+  flex-direction: column;
+}
+.commentsContainer {
+  border-top: 1px solid rgba(76, 76, 76, 1);
+}
+.comments {
+  display: flex;
+  column-gap: 5px;
+  flex-wrap: wrap;
+  padding: 12px;
+  border-bottom: 1px solid rgba(76, 76, 76, 1);
+}
+.text {
+  word-break: break-word;
 }
 
 .imageContainer {
@@ -39,8 +55,8 @@
 }
 
 .singleImage {
-  min-width: 320px;
-  min-height: 440px;
+  min-width: 500px;
+  min-height: 500px;
 }
 
 .content {
@@ -48,19 +64,23 @@
   display: flex;
   flex-wrap: nowrap;
   z-index: 100;
-  border-top: 1px solid rgba(76, 76, 76, 1);
 }
 
-.commentsContainer {
-  flex-basis: 450px;
-  flex-grow: 1;
-
+.editContainer {
+  display: flex;
   width: 500px;
-  min-height: 250px;
-  padding-top: 20px;
+  column-gap: 12px;
+  align-items: flex-start;
+  padding: 12px 24px;
+
+  border-bottom: 1px solid rgba(76, 76, 76, 1);
 }
 
 .menu {
   display: flex;
   flex-direction: column;
+}
+
+.modalHead {
+  height: fit-content;
 }

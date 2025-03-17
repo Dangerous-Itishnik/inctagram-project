@@ -12,7 +12,7 @@ import Image from 'next/image'
 import styles from './PostModal.module.scss'
 
 import { PostEdit } from '../postEdit/PostEdit'
-import PostComments from './PostComments'
+import { PostComments } from './PostComments'
 import { PostModalHeader } from './PostModalHeader'
 
 type Props = {
@@ -80,7 +80,7 @@ export const PostContentQuery = ({
             <div className={styles.imageContainer}>
               {data && <SwiperSlider imagesUrl={data.images} star={false} />}
             </div>
-            <div className={styles.contentTwo}>
+            <div className={styles.contentView}>
               {data && (
                 <div className={styles.modalHead}>
                   <PostModalHeader
@@ -91,14 +91,16 @@ export const PostContentQuery = ({
                   />
                 </div>
               )}
-              <div className={styles.commentsContainer}>{data && <PostComments />}</div>
+              <div className={styles.commentsContainer}>
+                {data && <PostComments description={data.description} userName={data.userName} />}
+              </div>
             </div>
           </>
         ) : (
           modalType === 'edit' &&
           isAuthenticated && (
             <>
-              <div className={styles.contentTwo}>
+              <div className={styles.contentEdit}>
                 <div>
                   {data?.images && (
                     <Image
@@ -110,7 +112,7 @@ export const PostContentQuery = ({
                     />
                   )}
                 </div>
-                <div className={styles.commentsContainer}>
+                <div className={styles.editContainer}>
                   {data && (
                     <PostEdit
                       avatarOwner={data.avatarOwner}
