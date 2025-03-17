@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+import { MyPaymentsDesktop } from '@/features/profilePage/ProfileSettings/MyPayments/DesktopView/MyPaymentsDesktop'
+import { MyPaymentsMobile } from '@/features/profilePage/ProfileSettings/MyPayments/MobileView/MyPaymentsMobile'
+import { useMediaQuery } from '@react-hook/media-query'
+
 import styles from '@/features/profilePage/ProfileSettings/MyPayments/myPayments.module.scss'
 
 export const MyPayments = () => {
@@ -81,35 +85,55 @@ export const MyPayments = () => {
     return paymentData.slice(start, start + itemsPerPage)
   }
 
-  // const isMobile = window.innerWidth <= 376
-
-  // const isMobile = useMedia('(max-width: 767px)');
+  const isMobile = useMediaQuery('(max-width: 376px)')
 
   return (
     <div className={styles.container}>
-      {/*{ isMobile ? <mobileComponent/> : <dec>}*/}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Date of Payment</th>
-            <th>End Date of Subscription</th>
-            <th>Price</th>
-            <th>Subscription Type</th>
-            <th>Payment Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {getPaginatedData().map((payment, index) => (
-            <tr key={index}>
-              <td>{payment.date}</td>
-              <td>{payment.endDate}</td>
-              <td>{payment.price}</td>
-              <td>{payment.subscriptionType}</td>
-              <td>{payment.paymentType}</td>
-            </tr>
+      {isMobile
+        ? getPaginatedData().map((payment, index) => (
+            <MyPaymentsMobile
+              date={payment.date}
+              endDate={payment.endDate}
+              key={index}
+              paymentType={payment.paymentType}
+              price={payment.price}
+              subscriptionType={payment.subscriptionType}
+            />
+          ))
+        : // <MyPaymentsMobile date={} endDate={} paymentType={} price={} subscriptionType={} />
+          getPaginatedData().map((payment, index) => (
+            <MyPaymentsDesktop
+              date={payment.date}
+              endDate={payment.endDate}
+              key={index}
+              paymentType={payment.paymentType}
+              price={payment.price}
+              subscriptionType={payment.subscriptionType}
+            />
           ))}
-        </tbody>
-      </table>
+
+      {/*<table className={styles.table}>*/}
+      {/*  <thead>*/}
+      {/*    <tr>*/}
+      {/*      <th>Date of Payment</th>*/}
+      {/*      <th>End Date of Subscription</th>*/}
+      {/*      <th>Price</th>*/}
+      {/*      <th>Subscription Type</th>*/}
+      {/*      <th>Payment Type</th>*/}
+      {/*    </tr>*/}
+      {/*  </thead>*/}
+      {/*  <tbody>*/}
+      {/*    {getPaginatedData().map((payment, index) => (*/}
+      {/*      <tr key={index}>*/}
+      {/*        <td>{payment.date}</td>*/}
+      {/*        <td>{payment.endDate}</td>*/}
+      {/*        <td>{payment.price}</td>*/}
+      {/*        <td>{payment.subscriptionType}</td>*/}
+      {/*        <td>{payment.paymentType}</td>*/}
+      {/*      </tr>*/}
+      {/*    ))}*/}
+      {/*  </tbody>*/}
+      {/*</table>*/}
 
       <div className={styles.pagination}>
         <button

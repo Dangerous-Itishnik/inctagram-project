@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
 import { MyProfile } from '@/features/profilePage/MyProfile'
-import { AccountTypeSettings } from '@/features/profilePage/ProfileSettings/AccountManagement/AccountTypeSettings'
+import { AccountTypeSettings } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/AccountTypeSettings'
 import { ContainerSettings } from '@/features/profilePage/ProfileSettings/ContainerSettings'
+import { MyPaymentsMobile } from '@/features/profilePage/ProfileSettings/MyPayments/MobileView/MyPaymentsMobile'
 import { MyPayments } from '@/features/profilePage/ProfileSettings/MyPayments/MyPayments'
 
 export const MainMyProfileComponent = () => {
@@ -44,7 +45,8 @@ export const MainMyProfileComponent = () => {
             openGeneralInformation={() => setStep(2)}
             openMyPayments={() => setStep(4)}
           />
-          <MyPayments />
+          {/*<MyPayments />*/}
+          <MyPaymentsMobile />
         </>
       )
     }

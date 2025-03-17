@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Subscription } from '@/features/profilePage/ProfileSettings/AccountManagement/Subscription'
+import { Subscription } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/Subscription'
 
-import styles from '@/features/profilePage/ProfileSettings/AccountManagement/accountTypeSettings.module.scss'
+import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/accountTypeSettings.module.scss'
 
 export const AccountTypeSettings = () => {
   const [selectedAccountType, setSelectedAccountType] = useState<'business' | 'personal'>(
