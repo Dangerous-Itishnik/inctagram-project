@@ -21,7 +21,7 @@ export const PostCard = ({ post }: Props) => {
   return (
     <button className={styles.post} type={'button'}>
       <div className={styles.slider}>
-        <Image alt={''} className={styles.image} fill src={images[0].url} />
+        <Image alt={''} className={styles.image} fill src={images[0]?.url} />
       </div>
       <div className={styles.userProfile}>
         <Image

@@ -1,4 +1,4 @@
-import styles from '@/features/profilePage/ProfileSettings/MyPayments/myPayments.module.scss'
+import styles from '@/features/profilePage/ProfileSettings/MyPayments/MobileView/myPaymentsMobile.module.scss'
 
 type Props = {
   date: string

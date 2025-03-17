@@ -15,55 +15,55 @@ export const MyPayments = () => {
       price: '$10',
       subscriptionType: 'Monthly',
     },
-    // {
-    //   date: '2023-01-15',
-    //   endDate: '2023-02-15',
-    //   paymentType: 'PayPal',
-    //   price: '$50',
-    //   subscriptionType: 'Quarterly',
-    // },
-    // {
-    //   date: '2023-02-01',
-    //   endDate: '2023-03-01',
-    //   paymentType: 'Debit Card',
-    //   price: '$100',
-    //   subscriptionType: 'Yearly',
-    // },
-    // {
-    //   date: '2023-02-15',
-    //   endDate: '2023-03-15',
-    //   paymentType: 'Credit Card',
-    //   price: '$10',
-    //   subscriptionType: 'Monthly',
-    // },
-    // {
-    //   date: '2023-03-01',
-    //   endDate: '2023-04-01',
-    //   paymentType: 'PayPal',
-    //   price: '$50',
-    //   subscriptionType: 'Quarterly',
-    // },
-    // {
-    //   date: '2023-03-15',
-    //   endDate: '2023-04-15',
-    //   paymentType: 'Debit Card',
-    //   price: '$100',
-    //   subscriptionType: 'Yearly',
-    // },
-    // {
-    //   date: '2023-04-01',
-    //   endDate: '2023-05-01',
-    //   paymentType: 'Credit Card',
-    //   price: '$10',
-    //   subscriptionType: 'Monthly',
-    // },
-    // {
-    //   date: '2023-04-15',
-    //   endDate: '2023-05-15',
-    //   paymentType: 'PayPal',
-    //   price: '$50',
-    //   subscriptionType: 'Quarterly',
-    // },
+    {
+      date: '2023-01-15',
+      endDate: '2023-02-15',
+      paymentType: 'PayPal',
+      price: '$50',
+      subscriptionType: 'Quarterly',
+    },
+    {
+      date: '2023-02-01',
+      endDate: '2023-03-01',
+      paymentType: 'Debit Card',
+      price: '$100',
+      subscriptionType: 'Yearly',
+    },
+    {
+      date: '2023-02-15',
+      endDate: '2023-03-15',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-03-01',
+      endDate: '2023-04-01',
+      paymentType: 'PayPal',
+      price: '$50',
+      subscriptionType: 'Quarterly',
+    },
+    {
+      date: '2023-03-15',
+      endDate: '2023-04-15',
+      paymentType: 'Debit Card',
+      price: '$100',
+      subscriptionType: 'Yearly',
+    },
+    {
+      date: '2023-04-01',
+      endDate: '2023-05-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-04-15',
+      endDate: '2023-05-15',
+      paymentType: 'PayPal',
+      price: '$50',
+      subscriptionType: 'Quarterly',
+    },
   ]
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -88,7 +88,7 @@ export const MyPayments = () => {
   const isMobile = useMediaQuery('(max-width: 376px)')
 
   return (
-    <div className={styles.container}>
+    <div>
       {isMobile
         ? getPaginatedData().map((payment, index) => (
             <MyPaymentsMobile
@@ -100,8 +100,7 @@ export const MyPayments = () => {
               subscriptionType={payment.subscriptionType}
             />
           ))
-        : // <MyPaymentsMobile date={} endDate={} paymentType={} price={} subscriptionType={} />
-          getPaginatedData().map((payment, index) => (
+        : getPaginatedData().map((payment, index) => (
             <MyPaymentsDesktop
               date={payment.date}
               endDate={payment.endDate}
@@ -111,29 +110,6 @@ export const MyPayments = () => {
               subscriptionType={payment.subscriptionType}
             />
           ))}
-
-      {/*<table className={styles.table}>*/}
-      {/*  <thead>*/}
-      {/*    <tr>*/}
-      {/*      <th>Date of Payment</th>*/}
-      {/*      <th>End Date of Subscription</th>*/}
-      {/*      <th>Price</th>*/}
-      {/*      <th>Subscription Type</th>*/}
-      {/*      <th>Payment Type</th>*/}
-      {/*    </tr>*/}
-      {/*  </thead>*/}
-      {/*  <tbody>*/}
-      {/*    {getPaginatedData().map((payment, index) => (*/}
-      {/*      <tr key={index}>*/}
-      {/*        <td>{payment.date}</td>*/}
-      {/*        <td>{payment.endDate}</td>*/}
-      {/*        <td>{payment.price}</td>*/}
-      {/*        <td>{payment.subscriptionType}</td>*/}
-      {/*        <td>{payment.paymentType}</td>*/}
-      {/*      </tr>*/}
-      {/*    ))}*/}
-      {/*  </tbody>*/}
-      {/*</table>*/}
 
       <div className={styles.pagination}>
         <button

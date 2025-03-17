@@ -12,7 +12,12 @@
   flex-direction: row;
   border-collapse: collapse;
   background-color: #4c4c4c;
+  margin-bottom: 10px;
+  border-radius: 3px;
 }
+//.table:last-child td{
+//  margin-bottom: 30px;
+//}
 
 .table th {
   display: flex;
@@ -22,6 +27,7 @@
   font-size: 16px !important;
   font-weight: normal !important;
   background-color: #4c4c4c !important;
+  border-radius: 3px;
 }
 
 .table td {
@@ -29,7 +35,7 @@
   flex-direction: row;
   justify-content: right;
   width: 100%;
-  padding: 10px !important;
+  padding: 8px !important;
   font-weight: bold;
-  margin-left: 20px;
+  margin-left: 15px;
 }

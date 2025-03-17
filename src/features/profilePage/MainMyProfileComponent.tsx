@@ -45,8 +45,8 @@ export const MainMyProfileComponent = () => {
             openGeneralInformation={() => setStep(2)}
             openMyPayments={() => setStep(4)}
           />
-          {/*<MyPayments />*/}
-          <MyPaymentsMobile />
+          <MyPayments />
+          {/*<MyPaymentsMobile />*/}
         </>
       )
     }
