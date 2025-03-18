@@ -71,7 +71,7 @@
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --no-error-on-unmatched-pattern",
       "prettier --write",
-      "tsc --noEmit"
+      "bash -c tsc --noEmit"
     ],
     "src/**/*.{css,scss}": [
       "stylelint --allow-empty-input --fix",
