@@ -16,53 +16,109 @@ export const MyPayments = () => {
       subscriptionType: 'Monthly',
     },
     {
-      date: '2023-01-15',
-      endDate: '2023-02-15',
-      paymentType: 'PayPal',
-      price: '$50',
-      subscriptionType: 'Quarterly',
-    },
-    {
-      date: '2023-02-01',
-      endDate: '2023-03-01',
-      paymentType: 'Debit Card',
-      price: '$100',
-      subscriptionType: 'Yearly',
-    },
-    {
-      date: '2023-02-15',
-      endDate: '2023-03-15',
+      date: '2023-01-01',
+      endDate: '2023-02-01',
       paymentType: 'Credit Card',
       price: '$10',
       subscriptionType: 'Monthly',
     },
     {
-      date: '2023-03-01',
-      endDate: '2023-04-01',
-      paymentType: 'PayPal',
-      price: '$50',
-      subscriptionType: 'Quarterly',
-    },
-    {
-      date: '2023-03-15',
-      endDate: '2023-04-15',
-      paymentType: 'Debit Card',
-      price: '$100',
-      subscriptionType: 'Yearly',
-    },
-    {
-      date: '2023-04-01',
-      endDate: '2023-05-01',
+      date: '2023-01-01',
+      endDate: '2023-02-01',
       paymentType: 'Credit Card',
       price: '$10',
       subscriptionType: 'Monthly',
     },
     {
-      date: '2023-04-15',
-      endDate: '2023-05-15',
-      paymentType: 'PayPal',
-      price: '$50',
-      subscriptionType: 'Quarterly',
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
+    },
+    {
+      date: '2023-01-01',
+      endDate: '2023-02-01',
+      paymentType: 'Credit Card',
+      price: '$10',
+      subscriptionType: 'Monthly',
     },
   ]
 
@@ -86,31 +142,24 @@ export const MyPayments = () => {
   }
 
   const isMobile = useMediaQuery('(max-width: 376px)')
+  const paginatedData = getPaginatedData()
 
   return (
     <div>
-      {isMobile
-        ? getPaginatedData().map((payment, index) => (
-            <MyPaymentsMobile
-              date={payment.date}
-              endDate={payment.endDate}
-              key={index}
-              paymentType={payment.paymentType}
-              price={payment.price}
-              subscriptionType={payment.subscriptionType}
-            />
-          ))
-        : getPaginatedData().map((payment, index) => (
-            <MyPaymentsDesktop
-              date={payment.date}
-              endDate={payment.endDate}
-              key={index}
-              paymentType={payment.paymentType}
-              price={payment.price}
-              subscriptionType={payment.subscriptionType}
-            />
-          ))}
-
+      {isMobile ? (
+        getPaginatedData().map((payment, index) => (
+          <MyPaymentsMobile
+            date={payment.date}
+            endDate={payment.endDate}
+            key={index}
+            paymentType={payment.paymentType}
+            price={payment.price}
+            subscriptionType={payment.subscriptionType}
+          />
+        ))
+      ) : (
+        <MyPaymentsDesktop payments={paginatedData} />
+      )}
       <div className={styles.pagination}>
         <button
           disabled={currentPage === 1}
@@ -120,7 +169,7 @@ export const MyPayments = () => {
           &lt;
         </button>
 
-        {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => {
+        {Array.from({ length: Math.min(totalPages, 3) }, (_, index) => {
           const pageNumber = index + 1
 
           return (
@@ -135,7 +184,7 @@ export const MyPayments = () => {
           )
         })}
 
-        {totalPages > 5 && <span>...</span>}
+        {totalPages > 3 && <span>...</span>}
 
         <button
           disabled={currentPage === totalPages}

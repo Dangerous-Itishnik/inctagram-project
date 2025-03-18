@@ -33,101 +33,99 @@
 //  border-bottom: none;
 //}
 
-//.pagination {
-//  display: flex;
-//  align-items: center;
-//  justify-content: start;
-//  position: absolute;
-//  top: 650px;
-//  left: 245px;
-//  margin-top: 20px;
-//  font-size: 15px;
-//
-//  button {
-//    border: none;
-//    padding: 5px 10px;
-//    cursor: pointer;
-//    border-radius: 5px;
-//
-//    &:disabled {
-//      cursor: not-allowed;
-//    }
-//
-//    &.active {
-//      background-color: white;
-//      color: black;
-//    }
-//  }
-//
-//  .showText,
-//  .onPageText {
-//    margin: 0 10px;
-//  }
-//
-//  select {
-//    margin-left: 5px;
-//    margin-right: 10px;
-//    padding: 0 5px 0 5px;
-//    background-color: black;
-//    border: 1.5px solid #1a1c1c;
-//  }
-//}
-//
-//.pagination select:focus {
-//  outline: none;
-//}
-//
-//.pagination select:hover {
-//  border-color: #1a1c1c;
-//}
-//
-//@media (max-width: 376px) {
-//  .pagination {
-//    display: flex;
-//    align-items: center;
-//    justify-content: start;
-//    position: absolute;
-//    top: 650px;
-//    left: 245px;
-//    margin-top: 20px;
-//    font-size: 15px;
-//
-//    button {
-//      border: none;
-//      padding: 5px 10px;
-//      cursor: pointer;
-//      border-radius: 5px;
-//
-//      &:disabled {
-//        cursor: not-allowed;
-//      }
-//
-//      &.active {
-//        background-color: white;
-//        color: black;
-//      }
-//    }
-//
-//    .showText,
-//    .onPageText {
-//      margin: 0 10px;
-//    }
-//
-//    select {
-//      margin-left: 5px;
-//      margin-right: 10px;
-//      padding: 0 5px 0 5px;
-//      background-color: black;
-//      border: 1.5px solid #1a1c1c;
-//    }
-//  }
-//
-//  .pagination select:focus {
-//    outline: none;
-//  }
-//
-//  .pagination select:hover {
-//    border-color: #1a1c1c;
-//  }
-//}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  //position: absolute;
+  //top: 650px;
+  //left: 245px;
+  margin: 20px 0 0 20px;
+  font-size: 15px;
 
+  button {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  .showText,
+  .onPageText {
+    margin: 0 10px;
+  }
+
+  select {
+    margin-left: 5px;
+    margin-right: 10px;
+    padding: 0 5px 0 5px;
+    background-color: black;
+    border: 1.5px solid #1a1c1c;
+  }
+}
+
+.pagination select:focus {
+  outline: none;
+}
+
+.pagination select:hover {
+  border-color: #1a1c1c;
+}
+
+@media (max-width: 376px) {
+  .pagination {
+    height: 120px;
+    display: flex;
+    //flex-wrap: wrap; перенос на другую строку если нет места
+    align-items: start;
+    justify-content: start;
+    margin-left: 10px;
+    font-size: 15px;
+
+    button {
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &.active {
+        background-color: white;
+        color: black;
+      }
+    }
+
+    .showText,
+    .onPageText {
+      margin: 0 10px;
+    }
+
+    select {
+      margin-left: 5px;
+      margin-right: 10px;
+      padding: 0 5px 0 5px;
+      background-color: black;
+      border: 1.5px solid #1a1c1c;
+    }
+  }
+
+  .pagination select:focus {
+    outline: none;
+  }
+
+  .pagination select:hover {
+    border-color: #1a1c1c;
+  }
+}

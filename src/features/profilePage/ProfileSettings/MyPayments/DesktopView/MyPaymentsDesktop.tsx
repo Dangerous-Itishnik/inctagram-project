@@ -1,6 +1,6 @@
 import styles from '@/features/profilePage/ProfileSettings/MyPayments/DesktopView/myPaymentsDesktop.module.scss'
 
-type Props = {
+type PaymentProps = {
   date: string
   endDate: string
   paymentType: string
@@ -8,11 +8,11 @@ type Props = {
   subscriptionType: string
 }
 
-// type Props = {
-//   payments: PaymentProps[]
-// }
+type Props = {
+  payments: PaymentProps[]
+}
 
-export const MyPaymentsDesktop = ({ date }: Props) => {
+export const MyPaymentsDesktop = ({ payments }: Props) => {
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -26,22 +26,15 @@ export const MyPaymentsDesktop = ({ date }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {/*{payments.map((payment, index) => (*/}
-          {/*  <tr key={index}>*/}
-          {/*    <td>{payment.date}</td>*/}
-          {/*    <td>{payment.endDate}</td>*/}
-          {/*    <td>{payment.price}</td>*/}
-          {/*    <td>{payment.subscriptionType}</td>*/}
-          {/*    <td>{payment.paymentType}</td>*/}
-          {/*  </tr>*/}
-          {/*))}*/}
-          <tr>
-            <td>{date}</td>
-            <td>{date}</td>
-            <td>{date}</td>
-            <td>{date}</td>
-            <td>{date}</td>
-          </tr>
+          {payments.map((payment, index) => (
+            <tr key={index}>
+              <td>{payment.date}</td>
+              <td>{payment.endDate}</td>
+              <td>{payment.price}</td>
+              <td>{payment.subscriptionType}</td>
+              <td>{payment.paymentType}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
