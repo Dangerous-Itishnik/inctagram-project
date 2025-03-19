@@ -5,6 +5,7 @@ import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
 import { useModal } from '@/common/hooks/useModal'
 import { storage } from '@/common/utils/storage'
+import PostComments from '@/features/posts/ui/postModalContent/PostComments'
 import { useRouter } from '@/i18n/navigation'
 import { useGetPublicQuery, usePostDeleteMutation } from '@/service/posts/posts.service'
 import Image from 'next/image'
@@ -12,7 +13,6 @@ import Image from 'next/image'
 import styles from './PostModal.module.scss'
 
 import { PostEdit } from '../postEdit/PostEdit'
-import { PostComments } from './PostComments'
 import { PostModalHeader } from './PostModalHeader'
 
 type Props = {

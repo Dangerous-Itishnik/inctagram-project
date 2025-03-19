@@ -1,13 +1,10 @@
 .ellipse {
   font-size: 46px;
-  color: blue;
+  color: var(--color-accent-900);
   cursor: pointer;
 }
 
-.postContainer {
-  width: 972px;
-  height: 564px;
-}
+
 
 .btn {
   display: flex;

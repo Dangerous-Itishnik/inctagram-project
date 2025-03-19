@@ -1,18 +1,15 @@
-import { Typography } from '@/common/components/Typography'
+import { PostDescription } from '@/features/posts/ui/postModalContent/PostDescription'
 
-import styles from './PostModal.module.scss'
-type PostCommentsProps = {
+type Props = {
   description: string
   userName: string
 }
-export const PostComments = ({ description, userName }: PostCommentsProps) => {
+const PostComments = ({ description, userName }: Props) => {
   return (
-    <div className={styles.comments}>
-      <Typography variant={'body1'}>{userName}</Typography>
-      <Typography className={styles.text} variant={'body2'}>
-        {description}
-      </Typography>
-    </div>
+    <>
+      <PostDescription description={description} userName={userName} />
+    </>
   )
 }
+
 export default PostComments
