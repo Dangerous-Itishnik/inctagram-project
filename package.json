@@ -8,12 +8,13 @@
     "build:production": "npm run build",
     "start": "next start",
     "format": "prettier --write src",
-    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
+    "lint": "tsc --noEmit && eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint src/**/*.{scss,css} --allow-empty-input --fix && prettier --write src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "rename-icons": "node scripts/rename-icons.cjs",
     "change-colorsIcons": "node scripts/change-colorIcons.cjs",
-    "genarate-icons": "npm run rename-icons && npx @svgr/cli --out-dir src/assets/icons/components --jsx-runtime automatic --typescript --ref --memo -- src/assets/icons/svg && npm run change-colorsIcons && npm run format"
+    "genarate-icons": "npm run rename-icons && npx @svgr/cli --out-dir src/assets/icons/components --jsx-runtime automatic --typescript --ref --memo -- src/assets/icons/svg && npm run change-colorsIcons && npm run format",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.5",
@@ -58,6 +59,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
     "eslint-plugin-storybook": "^0.11.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "^3.5.1",
     "sass": "^1.80.4",
     "storybook": "^8.4.1",

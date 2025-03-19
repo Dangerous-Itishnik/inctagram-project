@@ -9,7 +9,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   width: 76%;
+
   background-color: var(--color-dark-300);
   border: 1px solid var(--color-dark-100);
 
@@ -58,13 +60,15 @@
 }
 
 .slider {
-  flex: 0 0 50%;
   position: relative;
-  width: 100%;
+
   display: flex;
+  flex: 0 0 50%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
 
   background-color: #8d9094;
 
@@ -72,16 +76,18 @@
     position: relative;
     width: 100%;
     padding-top: 245px;
-
     object-fit: cover;
   }
+
   .image {
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
   }
+
   .sliderButtons {
     position: absolute;
     top: 50%;

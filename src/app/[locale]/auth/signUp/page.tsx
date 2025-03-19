@@ -7,8 +7,6 @@ import { Button } from '@/common/components/button'
 import { SignUp, SignUpProps } from '@/features/auth/ui/signUp/SignUp'
 import { AuthBaseResponse, useRegistrationMutation } from '@/service/auth'
 
-import styles from '@/common/components/PopUp/PopUp.module.scss'
-
 export default function SignUpPage() {
   const [registration] = useRegistrationMutation()
   const [isPopUpOpen, setIsPopUpOpen] = useState(false)
@@ -56,15 +54,13 @@ export default function SignUpPage() {
       />
       {isPopUpOpen && (
         <InfoModal modalTitle={'Logout'} onClose={() => setIsPopUpOpen(false)} open={isPopUpOpen}>
-          <p className={styles.infoModalText}>
+          {/* /TODO: Добавить стили */}
+          <p>
             We have sent a link to confirm your email to
             {signUpEmail}
           </p>
-
-          <div className={styles.modalInfoButtons}>
-            <Button className={styles.okButton} onClick={closePopUp}>
-              OK
-            </Button>
+          <div>
+            <Button onClick={closePopUp}>OK</Button>
           </div>
         </InfoModal>
       )}

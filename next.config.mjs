@@ -3,28 +3,29 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig = {
 
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   images: {
     remotePatterns:[
       {
-        protocol: 'https',
         hostname: 'staging-it-incubator.s3.eu-central-1.amazonaws.com',
-        port: '',
         pathname: '/trainee-instagram-api/**',
+        port: '',
+        protocol: 'https',
       },
       {
-        protocol: 'https',
         hostname: 'staging-it-incubator.s3.eu-central-1.amazonaws.com',
-        port: '',
         pathname: '/trainee-instagram-api/Image/**',
+        port: '',
+        protocol: 'https',
       },
     ]
-  },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
   },
   reactStrictMode: true,
 };
 const withNextIntl = createNextIntlPlugin();
+
 export default withNextIntl(nextConfig);
 
 
