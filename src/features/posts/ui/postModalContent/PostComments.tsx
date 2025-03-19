@@ -1,5 +1,9 @@
 const PostComments = () => {
-  return <div></div>
+  return (
+    <div>
+      <p>blabla</p>
+    </div>
+  )
 }
 
 export default PostComments
