@@ -6,6 +6,7 @@ import {
   SettingsOutline,
   TrendingUpOutline,
 } from '@/assets/icons/components'
+import { useMeQuery } from '@/service/auth'
 import Link from 'next/link'
 
 import styles from './DropDownMenuHeader.module.scss' // Путь к вашему SCSS файлу
@@ -15,6 +16,7 @@ type Props = {
 } & HTMLProps<HTMLDivElement>
 export const DropDownMenuHeader = ({ openPopUp }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
+  const { data: me } = useMeQuery()
 
   const toggleMenu = () => {
     setIsOpen(prevState => !prevState)
@@ -34,7 +36,7 @@ export const DropDownMenuHeader = ({ openPopUp }: Props) => {
         <div className={`${styles.content} ${isOpen ? styles.show : ''}`}>
           <ul>
             <li onClick={closeMenu}>
-              <Link className={styles.link} href={''}>
+              <Link className={styles.link} href={`/profile/${me?.userId}/settings`}>
                 <SettingsOutline />
                 <span>Profile Setting</span>
               </Link>
