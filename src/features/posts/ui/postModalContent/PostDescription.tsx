@@ -1,11 +1,11 @@
 import { Typography } from '@/common/components/Typography'
 
 import styles from './PostModal.module.scss'
-type PostCommentsProps = {
+type Props = {
   description: string
   userName: string
 }
-export const PostDescription = ({ description, userName }: PostCommentsProps) => {
+export const PostDescription = ({ description, userName }: Props) => {
   return (
     <div className={styles.comments}>
       <Typography variant={'body1'}>{userName}</Typography>

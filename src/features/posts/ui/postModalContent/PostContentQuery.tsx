@@ -5,7 +5,7 @@ import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
 import { useModal } from '@/common/hooks/useModal'
 import { storage } from '@/common/utils/storage'
-import PostComments from '@/features/posts/ui/postModalContent/PostComments'
+import PostDescription from '@/features/posts/ui/postModalContent/PostDescription'
 import { useRouter } from '@/i18n/navigation'
 import { useGetPublicQuery, usePostDeleteMutation } from '@/service/posts/posts.service'
 import Image from 'next/image'
@@ -92,7 +92,9 @@ export const PostContentQuery = ({
                 </div>
               )}
               <div className={styles.commentsContainer}>
-                {data && <PostComments description={data.description} userName={data.userName} />}
+                {data && (
+                  <PostDescription description={data.description} userName={data.userName} />
+                )}
               </div>
             </div>
           </>

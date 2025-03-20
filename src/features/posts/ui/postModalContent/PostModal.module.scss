@@ -1,17 +1,16 @@
 .ellipse {
-  font-size: 46px;
+  font-size: var(--font-size-xxl);
+  font-weight: var( --font-weight-bold);
   color: var(--color-accent-900);
   cursor: pointer;
 }
-
-
 
 .btn {
   display: flex;
   column-gap: 20px;
   justify-content: flex-end;
   margin-top: 4px;
-  color: white;
+  color: var(--color-light-100);
   border: none;
 }
 
