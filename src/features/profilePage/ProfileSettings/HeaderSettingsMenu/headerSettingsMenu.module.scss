@@ -35,7 +35,7 @@
 
 @media (max-width: 376px) {
   .settingsHeader {
-    width: 700px;
+    width: 700px !important;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

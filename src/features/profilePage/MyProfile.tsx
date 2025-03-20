@@ -7,11 +7,7 @@ import Link from 'next/link'
 
 import styles from '@/features/profilePage/myProfile.module.scss'
 
-type Props = {
-  openProfileSetting: () => void
-}
-
-export const MyProfile = ({ openProfileSetting }: Props) => {
+export const MyProfile = () => {
   const { data: me } = useMeQuery()
   const { data: dataFollow, isLoading } = useUserFollowQuery(me?.userName)
   const { data: dataFollower } = useUserFollowersQuery(me?.userName)
@@ -28,7 +24,9 @@ export const MyProfile = ({ openProfileSetting }: Props) => {
       <div className={styles.profileData}>
         <div className={styles.profileSettings}>
           <h1>{me.userName}</h1>
-          <Button onClick={openProfileSetting}>Profile Settings</Button>
+          <Link href={`/profile/${me?.userId}/settings`}>
+            <Button onClick={() => {}}>Profile Settings</Button>
+          </Link>
         </div>
         <div className={styles.profileStatistics}>
           <div className={styles.profileFollowers}>

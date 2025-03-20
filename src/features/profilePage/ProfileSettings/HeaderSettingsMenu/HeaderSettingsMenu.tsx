@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 import { Button } from '@/common/components/button'
 
-import styles from '@/features/profilePage/ProfileSettings/containerSettings.module.scss'
+import styles from '@/features/profilePage/ProfileSettings/HeaderSettingsMenu/headerSettingsMenu.module.scss'
 
 type Props = {
   openAccountManagement: () => void
@@ -11,18 +11,17 @@ type Props = {
   openMyPayments: () => void
 }
 
-export const ContainerSettings = React.forwardRef(
+export const HeaderSettingsMenu = React.forwardRef(
   ({ openAccountManagement, openDevices, openGeneralInformation, openMyPayments }: Props, ref) => {
     const buttonRefs = useRef<(HTMLButtonElement | null)[]>([])
 
     const handleButtonClick = (action: () => void, index: number) => {
-      // Перемещаем кнопку в центр
       const button = buttonRefs.current[index]
 
       if (button) {
         button.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
-      action() // Вызываем действие
+      action()
     }
 
     return (
@@ -55,19 +54,3 @@ export const ContainerSettings = React.forwardRef(
     )
   }
 )
-
-// export const ContainerSettings = ({
-//                                       openAccountManagement,
-//                                       openDevices,
-//                                       openGeneralInformation,
-//                                       openMyPayments,
-//                                   }: Props) => {
-//     return (
-//         <div className={styles.settingsHeader}>
-//             <Button onClick={openGeneralInformation}>General information</Button>
-//             <Button onClick={openDevices}>Devices</Button>
-//             <Button onClick={openAccountManagement}>Account Management</Button>
-//             <Button onClick={openMyPayments}>My payments</Button>
-//         </div>
-//     )
-// }

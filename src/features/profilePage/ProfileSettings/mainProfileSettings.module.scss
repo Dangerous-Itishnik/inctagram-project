@@ -1,0 +1,77 @@
+.settingsHeader{
+  margin: 30px;
+}
+
+.settingsHeader button {
+  width: 300px;
+  color: gray;
+  background-color: transparent;
+  border: none;
+
+  border-bottom: 3px solid grey;
+
+  &:hover {
+    background-color: transparent;
+    color: #397df6;
+    border-bottom: 3px solid #397df6;
+  }
+  &:active {
+    background-color: transparent;
+    color: #397df6;
+    border-bottom: 3px solid #397df6;
+  }
+  &:focus {
+    border: gray;
+    background-color: transparent;
+    color: #397df6;
+    border-bottom: 3px solid #397df6;
+  }
+}
+
+.active {
+  color: #397df6;
+  border-bottom: 3px solid #397df6;
+}
+
+@media (max-width: 376px) {
+  .settingsHeader {
+    width: 700px !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .settingsHeader button {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.content {}
+
+@media (max-width: 376px) {
+  .header {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .content {
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+  }
+}
