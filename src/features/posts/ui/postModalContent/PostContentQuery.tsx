@@ -12,7 +12,7 @@ import Image from 'next/image'
 import styles from './PostModal.module.scss'
 
 import { PostEdit } from '../postEdit/PostEdit'
-import PostComments from './PostComments'
+import { PostDescription } from './PostDescription'
 import { PostModalHeader } from './PostModalHeader'
 
 type Props = {
@@ -63,8 +63,15 @@ export const PostContentQuery = ({
     <>
       {isAuthenticated && (
         <InfoModal modalTitle={'DELETE POST'} onClose={closeDeleteModal} open={isDeleteOpen}>
-          <Button onClick={deletePost}>YES</Button>
-          <Button onClick={closeDeleteModal}>NO</Button>
+          <div className={styles.btn}>
+            <Button onClick={deletePost} variant={'outline'}>
+              YES
+            </Button>
+
+            <Button onClick={closeDeleteModal} variant={'primary'}>
+              NO
+            </Button>
+          </div>
         </InfoModal>
       )}
       <div className={styles.content}>
@@ -73,7 +80,7 @@ export const PostContentQuery = ({
             <div className={styles.imageContainer}>
               {data && <SwiperSlider imagesUrl={data.images} start={false} />}
             </div>
-            <div className={styles.contentTwo}>
+            <div className={styles.contentView}>
               {data && (
                 <div className={styles.modalHead}>
                   <PostModalHeader
@@ -84,26 +91,30 @@ export const PostContentQuery = ({
                   />
                 </div>
               )}
-              <div className={styles.commentsContainer}>{data && <PostComments />}</div>
+              <div className={styles.commentsContainer}>
+                {data && (
+                  <PostDescription description={data.description} userName={data.userName} />
+                )}
+              </div>
             </div>
           </>
         ) : (
           modalType === 'edit' &&
           isAuthenticated && (
             <>
-              <div className={styles.contentTwo}>
+              <div className={styles.contentEdit}>
                 <div>
                   {data?.images && (
                     <Image
                       alt={'picture'}
                       className={styles.singleImage}
-                      height={500}
+                      height={320}
                       src={data.images[0].url}
-                      width={500}
+                      width={400}
                     />
                   )}
                 </div>
-                <div className={styles.commentsContainer}>
+                <div className={styles.editContainer}>
                   {data && (
                     <PostEdit
                       avatarOwner={data.avatarOwner}
