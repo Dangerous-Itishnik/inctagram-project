@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Textarea } from '@/common/components/Textarea/Textarea'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
-import { postsApi, usePostUpdateMutation } from '@/service/posts/posts.service'
+import { postsApi, useGetPublicQuery, usePostUpdateMutation } from '@/service/posts/posts.service'
 
 import styles from './PostEdit.module.scss'
 
@@ -26,7 +26,7 @@ export const PostEdit = ({
   setModalType,
 }: EditProps) => {
   const [postDescription, setPostDescription] = useState<string>(description || '')
-
+  const { data } = useGetPublicQuery(postId)
   const [updatePost] = usePostUpdateMutation()
 
   useEffect(() => {
@@ -48,13 +48,15 @@ export const PostEdit = ({
   return (
     <>
       <div className={styles.container}>
-        <header className={styles.header}>USERNAME</header>
+        <header className={styles.header}>{data?.userName}</header>
         <div className={styles.main}>
           <Textarea
             className={styles.description}
-            errorMessage={postDescription.length > 500 ? 'error' : ' '}
+            errorMessage={
+              postDescription.length > 500 ? 'Максимально допустимое число символов - 500' : ''
+            }
             isError={postDescription.length > 500}
-            label={''}
+            label={'add publication description'}
             onChange={e => {
               setPostDescription(e.target.value)
             }}
@@ -62,7 +64,7 @@ export const PostEdit = ({
           />
 
           <Typography className={styles.counter} variant={'h3'}>
-            {`${postDescription.length} / 500`}
+            {postDescription.length} / 500
           </Typography>
         </div>
         <footer className={styles.submit}>

@@ -108,7 +108,7 @@ export const PostContentQuery = ({
                     <Image
                       alt={'picture'}
                       className={styles.singleImage}
-                      height={320}
+                      height={500}
                       src={data.images[0].url}
                       width={400}
                     />
