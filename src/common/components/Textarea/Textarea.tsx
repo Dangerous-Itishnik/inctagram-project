@@ -2,14 +2,14 @@ import { ChangeEvent, ComponentProps, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
-import s from './TextArea.module.scss'
+import styles from './TextArea.module.scss'
 type Props = {
   errorMessage?: string
   isError?: boolean
   label?: string
 } & ComponentProps<'textarea'>
 export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ className, errorMessage, isError, label, onChange, ...rest }, ref) => {
+  ({ className = '', errorMessage, isError, label, onChange, ...rest }, ref) => {
     const showError = !!errorMessage || isError
 
     function handleInputValueChanged(e: ChangeEvent<HTMLTextAreaElement>) {
@@ -17,16 +17,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
     }
 
     return (
-      <div className={s.container}>
-        {label && <label className={s.label}>{label}</label>}
+      <div className={styles.container}>
+        {label && <label className={styles.label}>{label}</label>}
         <textarea
-          className={clsx(s.textarea, showError && s.error, className)}
+          className={clsx(styles.textarea, showError && styles.error, className)}
           onChange={handleInputValueChanged}
           ref={ref}
           {...rest}
         />
 
-        {showError && <div className={s.error}>{errorMessage}</div>}
+        {showError && <div className={styles.errorMessage}>{errorMessage}</div>}
       </div>
     )
   }

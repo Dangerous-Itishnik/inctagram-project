@@ -19,7 +19,7 @@ export const PostModalHeader = ({
 }: Props) => {
   return (
     <header className={styles.header}>
-      <div>userName: {userName}</div>
+      <div>{userName}</div>
       {isAuthenticated && (
         <div className={styles.menu}>
           <Dropdown align={'end'} trigger={<div className={styles.ellipse}>...</div>}>
@@ -30,13 +30,13 @@ export const PostModalHeader = ({
                 variant={'link'}
               >
                 <Edit2Outline />
-                Edit
+                Edit Post
               </Button>
             </DropdownItem>
             <DropdownItem>
-              <Button onClick={openDeleteModal} variant={'link'}>
+              <Button className={styles.btn} onClick={openDeleteModal} variant={'link'}>
                 <Trash />
-                Delete
+                Delete Post
               </Button>
             </DropdownItem>
           </Dropdown>

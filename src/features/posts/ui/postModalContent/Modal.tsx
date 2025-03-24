@@ -33,13 +33,12 @@ export const Modal = ({ children, onClose, onInteractOutside, open = false, titl
             <Dialog.Overlay className={styles.modalOverlay} />
 
             <Dialog.Content
-              aria-describedby={''}
+              aria-describedby={undefined}
               className={styles.modalContent}
-              inert={open ? undefined : true}
               onInteractOutside={onInteractOutside}
             >
               <div>
-                <DialogTitle>{title}</DialogTitle>
+                <DialogTitle className={styles.title}>{title}</DialogTitle>
                 <Dialog.Close className={styles.close} onClick={onClose}>
                   <Close />
                 </Dialog.Close>
