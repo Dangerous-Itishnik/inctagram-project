@@ -66,17 +66,5 @@
     "storybook": "^8.4.1",
     "stylelint": "^16.10.0",
     "typescript": "^5"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --no-error-on-unmatched-pattern",
-      "prettier --write",
-      "tsc --noEmit",
-      "type-check"
-    ],
-    "src/**/*.{css,scss}": [
-      "stylelint --allow-empty-input --fix",
-      "prettier --write"
-    ]
   }
 }
