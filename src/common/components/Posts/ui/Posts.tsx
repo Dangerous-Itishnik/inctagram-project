@@ -1,3 +1,4 @@
+import { OpenPost } from '@/common/components/OpenPost/OpenPost'
 import { PostCard } from '@/common/components/Posts/ui/PostCard/PostCard'
 import { Post } from '@/service/posts/post.type'
 
@@ -11,7 +12,9 @@ export const Posts = ({ posts }: PostsProps) => {
   return (
     <div className={styles.posts}>
       {posts.map(post => (
-        <PostCard key={post.id} post={post} />
+        <OpenPost key={post.id} post={post}>
+          <PostCard post={post} />
+        </OpenPost>
       ))}
     </div>
   )
