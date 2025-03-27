@@ -1,14 +1,21 @@
+'use client'
 import { Typography } from '@/common/components/Typography'
+import { Button } from '@/common/components/button'
 import { ProfileUserResponse } from '@/service/publicUsers/publicUsers.service'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { getToken } from 'next-auth/jwt'
 
 import styles from './profileHeader.module.scss'
+
 type Props = {
   profileUser: ProfileUserResponse
 }
 const ProfileHeader = ({ profileUser }: Props) => {
-  const { aboutMe, avatars, userMetadata, userName } = profileUser
+  const { aboutMe, avatars, id, userMetadata, userName } = profileUser
+  const router = useRouter()
+  const isAuthenticated = !!getToken
 
   return (
     <div className={styles.headerContainer}>
@@ -50,6 +57,15 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 {userName}
               </Typography>
             </Link>
+            {isAuthenticated && (
+              <Button
+                className={styles.button}
+                onClick={() => router.push(`/profile/${id}/edit`)}
+                variant={'secondary'}
+              >
+                <Typography variant={'body1'}>Profile Settings</Typography>
+              </Button>
+            )}
           </div>
         </div>
         <div className={styles.cnt}>
