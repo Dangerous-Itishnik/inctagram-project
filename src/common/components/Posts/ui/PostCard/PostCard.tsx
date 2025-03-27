@@ -26,7 +26,7 @@ export const PostCard = ({ post }: Props) => {
             alt={''}
             className={styles.image}
             fill
-            priority
+            loading={'lazy'}
             sizes={'(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
             src={images[0].url}
           />

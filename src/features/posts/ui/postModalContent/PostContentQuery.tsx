@@ -109,6 +109,7 @@ export const PostContentQuery = ({
                       alt={'picture'}
                       className={styles.singleImage}
                       height={500}
+                      loading={'lazy'}
                       src={data.images[0].url}
                       width={400}
                     />
