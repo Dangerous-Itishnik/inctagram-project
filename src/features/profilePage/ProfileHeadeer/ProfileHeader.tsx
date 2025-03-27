@@ -18,10 +18,8 @@ const ProfileHeader = ({ profileUser }: Props) => {
             alt={`UserPhoto`}
             className={styles.avatar}
             fill
-            height={204}
             priority
             src={avatars.length ? avatars[0].url : ''}
-            width={204}
           />
         ) : (
           <div className={styles.avatar}>фото нет</div>
@@ -35,10 +33,8 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 alt={`UserPhoto`}
                 className={styles.avatar}
                 fill
-                height={204}
                 priority
                 src={avatars.length ? avatars[0].url : ''}
-                width={204}
               />
             ) : (
               <div className={styles.avatar}>фото нет</div>
