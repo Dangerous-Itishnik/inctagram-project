@@ -3,7 +3,7 @@ import { Posts } from '@/common/components/Posts/ui/Posts'
 import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
 import { PostsAll } from '@/service/publicPosts/publicPosts.service'
 
-import styles from './PublicPage.module.scss'
+import styles from './page.module.scss'
 
 export const dynamic = 'force-static'
 
@@ -35,7 +35,7 @@ const fetchData = {
   },
 }
 
-export const PublicPage = async () => {
+const PublicPage = async () => {
   try {
     const [users, posts] = await Promise.all([
       fetchData.totalUsers(),
@@ -57,3 +57,5 @@ export const PublicPage = async () => {
     )
   }
 }
+
+export default PublicPage
