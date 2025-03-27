@@ -11,7 +11,6 @@ const fetchData = {
   posts: async (params: PostsAll) => {
     const query = new URLSearchParams(params as Record<string, string>)
     const res = await fetch(`${BASE_URL}/api/v1/public-posts/all?${query}`, {
-      cache: 'force-cache',
       method: 'GET',
       next: { revalidate: 60, tags: ['posts'] },
     })
@@ -24,7 +23,6 @@ const fetchData = {
   },
   totalUsers: async () => {
     const res = await fetch(`${BASE_URL}/api/v1/public-user`, {
-      cache: 'force-cache',
       method: 'GET',
       next: { revalidate: 60, tags: ['total-users'] },
     })
