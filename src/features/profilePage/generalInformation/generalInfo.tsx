@@ -7,7 +7,6 @@ import { Input } from '@/common/components/Input'
 import { Textarea } from '@/common/components/Textarea/Textarea'
 import { Button } from '@/common/components/button'
 import { profileValidationRules } from '@/features/profilePage/generalInformation/profileValidation'
-import { ProfilePut } from '@/service/profile/profile'
 import { useGetProfileQuery, usePutProfileMutation } from '@/service/profile/profile.servise'
 import Image from 'next/image'
 
@@ -17,9 +16,10 @@ import styles from './generalInfo.module.scss'
 
 import DefaultImage from '../../../../public/images/DefaultImage.jpg'
 
-type ProfileType = {
+export type ProfileType = {
   aboutMe?: string
   city?: string
+  country?: string
   dateOfBirth?: string
   firstName?: string
   lastName?: string
@@ -34,7 +34,7 @@ export const GeneralInfo = ({ profileId }: ProfileType) => {
     formState: { isValid },
     handleSubmit,
     setError,
-  } = useForm<ProfilePut>({
+  } = useForm<ProfileType>({
     defaultValues: useMemo(
       () => ({
         aboutMe: profile?.aboutMe || '',
@@ -51,7 +51,7 @@ export const GeneralInfo = ({ profileId }: ProfileType) => {
     reValidateMode: 'onBlur',
   })
 
-  const onSubmit: SubmitHandler<ProfilePut> = async body => {
+  const onSubmit: SubmitHandler<ProfileType> = async body => {
     // Preserve existing aboutMe if cleared
     if (profile?.aboutMe && !body.aboutMe) {
       body.aboutMe = ' '
@@ -94,54 +94,102 @@ export const GeneralInfo = ({ profileId }: ProfileType) => {
         <div>
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             {/* Username */}
-            <Controller
+            <Controller<ProfileType>
               control={control}
               name={'userName'}
               render={({ field, fieldState }) => (
                 <Input
-                  {...field}
                   className={styles.inputField}
                   errorMessage={fieldState.error?.message}
                   label={'Username'}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
                   propsClassName={styles.asterik}
                   type={'text'}
+                  value={field.value}
                 />
               )}
-              rules={validationRules.userName}
+              rules={{
+                maxLength: {
+                  message: 'Maximum 30 characters',
+                  value: 30,
+                },
+                minLength: {
+                  message: 'Minimum 6 characters',
+                  value: 6,
+                },
+                pattern: {
+                  message: 'Only letters, numbers, _ and -',
+                  value: /^[a-zA-Z0-9_-]+$/,
+                },
+                required: 'Username is required',
+              }}
             />
 
             {/* First Name */}
-            <Controller
+            <Controller<ProfileType>
               control={control}
               name={'firstName'}
               render={({ field, fieldState }) => (
                 <Input
-                  {...field}
                   className={styles.inputField}
                   errorMessage={fieldState.error?.message}
                   label={'First Name'}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
                   propsClassName={styles.asterik}
                   type={'text'}
+                  value={field.value}
                 />
               )}
-              rules={validationRules.name}
+              rules={{
+                maxLength: {
+                  message: 'Maximum 50 characters',
+                  value: 50,
+                },
+                minLength: {
+                  message: 'Minimum 1 character',
+                  value: 1,
+                },
+                pattern: {
+                  message: 'Only letters (Latin or Cyrillic)',
+                  value: /^[a-zA-Zа-яА-Я]+$/,
+                },
+                required: 'This field is required',
+              }}
             />
 
             {/* Last Name */}
-            <Controller
+            <Controller<ProfileType>
               control={control}
               name={'lastName'}
               render={({ field, fieldState }) => (
                 <Input
-                  {...field}
                   className={styles.inputField}
                   errorMessage={fieldState.error?.message}
                   label={'Last Name'}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
                   propsClassName={styles.asterik}
                   type={'text'}
+                  value={field.value}
                 />
               )}
-              rules={validationRules.name}
+              rules={{
+                maxLength: {
+                  message: 'Maximum 50 characters',
+                  value: 50,
+                },
+                minLength: {
+                  message: 'Minimum 1 character',
+                  value: 1,
+                },
+                pattern: {
+                  message: 'Only letters (Latin or Cyrillic)',
+                  value: /^[a-zA-Zа-яА-Я]+$/,
+                },
+                required: 'This field is required',
+              }}
             />
 
             {/* Date of Birth */}
@@ -193,7 +241,13 @@ export const GeneralInfo = ({ profileId }: ProfileType) => {
               control={control}
               name={'aboutMe'}
               render={({ field, fieldState }) => (
-                <Textarea {...field} errorMessage={fieldState.error?.message} label={'About me'} />
+                <Textarea
+                  errorMessage={fieldState.error?.message}
+                  label={'About me'}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
+                  value={field.value}
+                />
               )}
               rules={validationRules.aboutMe}
             />

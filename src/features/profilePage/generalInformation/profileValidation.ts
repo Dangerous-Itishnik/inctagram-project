@@ -1,6 +1,9 @@
 export const profileValidationRules = {
   aboutMe: {
-    maxLength: { message: 'Maximum 200 characters', value: 200 },
+    maxLength: {
+      message: 'Maximum 200 characters',
+      value: 200,
+    },
     pattern: {
       message: 'Invalid characters',
       value: /^[a-zA-Zа-яА-Я0-9\s.,!?;:'"-]+$/,
@@ -25,8 +28,14 @@ export const profileValidationRules = {
     },
   },
   name: {
-    maxLength: { message: 'Maximum 50 characters', value: 50 },
-    minLength: { message: 'Minimum 1 character', value: 1 },
+    maxLength: {
+      message: 'Maximum 50 characters',
+      value: 50,
+    },
+    minLength: {
+      message: 'Minimum 1 character',
+      value: 1,
+    },
     pattern: {
       message: 'Only letters (Latin or Cyrillic)',
       value: /^[a-zA-Zа-яА-Я]+$/,
@@ -34,8 +43,14 @@ export const profileValidationRules = {
     required: 'This field is required',
   },
   userName: {
-    maxLength: { message: 'Maximum 30 characters', value: 30 },
-    minLength: { message: 'Minimum 6 characters', value: 6 },
+    maxLength: {
+      message: 'Maximum 30 characters',
+      value: 30,
+    },
+    minLength: {
+      message: 'Minimum 6 characters',
+      value: 6,
+    },
     pattern: {
       message: 'Only letters, numbers, _ and -',
       value: /^[a-zA-Z0-9_-]+$/,
