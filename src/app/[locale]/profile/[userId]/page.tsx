@@ -1,11 +1,12 @@
 import { BASE_URL } from '@/common/api/common.api'
 import { ImageList } from '@/common/components/Images/ImageList'
 import { PostContentQueryModal } from '@/features/posts/ui/postModalContent/PostContentQueryModal'
-import ProfileHeader from '@/features/profilePage/ProfileHeadeer/ProfileHeader'
 import { PostsResponse } from '@/service/posts/post.type'
 import { Metadata } from 'next'
 
 import styles from './page.module.scss'
+
+import ProfileHeader from '../../../../features/profilePage/ProfileHeader/ProfileHeader'
 
 type ProfileProps = {
   params: { postId: string; userId: string }

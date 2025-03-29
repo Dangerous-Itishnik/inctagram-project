@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import { Providers } from '@/app/[locale]/providers'
 import { AppSideBar } from '@/common/components/AppSidebar'
@@ -50,6 +51,18 @@ export default async function RootLayout({
               <div className={styles.mainBody}>
                 <AppSideBar />
                 <main className={styles.main}>{children}</main>
+                <ToastContainer
+                  autoClose={5000}
+                  closeOnClick
+                  draggable
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  pauseOnFocusLoss
+                  pauseOnHover
+                  position={'top-center'}
+                  rtl={false}
+                  theme={'colored'}
+                />
               </div>
             </NextIntlClientProvider>
           </Theme>

@@ -1,3 +1,4 @@
+'use client'
 import { ChangeEvent, useCallback, useRef, useState } from 'react'
 import Cropper, { Area } from 'react-easy-crop'
 import { toast } from 'react-toastify'
@@ -107,7 +108,6 @@ export const AvatarUpload = ({ closeModal, isOpen }: Props) => {
           closeOnClick: true,
           hideProgressBar: false,
           pauseOnHover: true,
-          position: 'top-right',
         })
 
         return

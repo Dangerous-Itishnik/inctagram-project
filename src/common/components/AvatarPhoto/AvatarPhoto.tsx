@@ -22,7 +22,14 @@ export const AvatarPhoto = ({ profileId }: AvatarPhotoProps) => {
     <div>
       <div className={styles.imageContainer}>
         {avatarUrl ? (
-          <Image alt={'User avatar'} className={styles.avatarImage} fill priority src={avatarUrl} />
+          <Image
+            alt={'User avatar'}
+            className={styles.avatarImage}
+            fill
+            priority
+            sizes={'(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
+            src={avatarUrl}
+          />
         ) : (
           <Image
             alt={'Default avatar'}
