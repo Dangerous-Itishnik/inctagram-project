@@ -4,11 +4,11 @@ import { Post } from '@/service/posts/post.type'
 
 import styles from './Posts.module.scss'
 
-type PostsProps = {
+type Props = {
   posts: Post[]
 }
 
-export const Posts = ({ posts }: PostsProps) => {
+export const Posts = ({ posts }: Props) => {
   return (
     <div className={styles.posts}>
       {posts.map(post => (
