@@ -27,15 +27,17 @@ export const AvatarPhoto = ({ profileId }: AvatarPhotoProps) => {
             className={styles.avatarImage}
             fill
             priority
-            sizes={'(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
+            sizes={'33vw'}
             src={avatarUrl}
           />
         ) : (
           <Image
             alt={'Default avatar'}
             height={192}
+            priority
+            sizes={'33vw'}
             src={DefaultImage}
-            style={{ borderRadius: '50%' }}
+            style={{ borderRadius: '50%', objectFit: 'cover' }}
             width={192}
           />
         )}
