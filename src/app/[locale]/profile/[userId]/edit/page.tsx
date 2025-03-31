@@ -1,14 +1,34 @@
-'use client'
 import { RequireAuth } from '@/common/components/requireAuth/RequireAuth'
+import { GeneralInfo } from '@/features/profilePage/generalInformation/generalInfo'
+import { useTranslations } from 'next-intl'
 
-function EditProfile() {
-  return <div>EDITING PROFILE</div>
+type Props = {
+  params: {
+    locale: string
+    userId: string
+  }
 }
 
-export default function EditProfileProtected() {
+function EditProfile({ params }: Props) {
+  const t = useTranslations('ProfileEdit')
+  const profileId = Number(params.userId)
+
+  if (isNaN(profileId)) {
+    return <div>{t('invalidId')}</div>
+  }
+
+  return (
+    <div>
+      <h1>{t('title')}</h1>
+      <GeneralInfo profileId={profileId} />
+    </div>
+  )
+}
+
+export default function EditProfileProtected(props: Props) {
   return (
     <RequireAuth>
-      <EditProfile />
+      <EditProfile {...props} />
     </RequireAuth>
   )
 }

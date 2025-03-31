@@ -1,14 +1,17 @@
+'use client'
 import { Typography } from '@/common/components/Typography'
+import { Button } from '@/common/components/button'
+import { Link } from '@/i18n/navigation'
 import { ProfileUserResponse } from '@/service/publicUsers/publicUsers.service'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import styles from './profileHeader.module.scss'
+
 type Props = {
   profileUser: ProfileUserResponse
 }
 const ProfileHeader = ({ profileUser }: Props) => {
-  const { aboutMe, avatars, userMetadata, userName } = profileUser
+  const { aboutMe, avatars, id, userMetadata, userName } = profileUser
 
   return (
     <div className={styles.headerContainer}>
@@ -48,9 +51,14 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 {userName}
               </Typography>
             </Link>
+            <Button className={styles.button} variant={'secondary'}>
+              <Link href={`/profile/${id}/edit`}>
+                <Typography variant={'body1'}>Profile Settings</Typography>
+              </Link>
+            </Button>
           </div>
         </div>
-        <div className={styles.cnt}>
+        <div>
           <div className={styles.infoContainer}>
             <div className={styles.infoItem}>
               <Typography variant={'h3'}>{userMetadata.following}</Typography>
@@ -68,17 +76,11 @@ const ProfileHeader = ({ profileUser }: Props) => {
 
           <Typography className={styles.displayNoneMobile} variant={'body2'}>
             {aboutMe ? aboutMe : 'Описания нет'}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </Typography>
         </div>
       </div>
       <Typography className={styles.displayNoneDesktop} variant={'body2'}>
         {aboutMe ? aboutMe : 'Описания нет'}
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.
       </Typography>
     </div>
   )

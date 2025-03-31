@@ -44,7 +44,7 @@ export const AppSideBar = () => {
 
   return (
     <>
-      {data && !isError ? (
+      {data && !isError && (
         <nav className={styles.sidebar}>
           <ul className={styles.list}>
             <li className={clsx(styles.item, pathname === `/${locale}` && styles.itemActive)}>
@@ -138,8 +138,6 @@ export const AppSideBar = () => {
             </div>
           </InfoModal>
         </nav>
-      ) : (
-        <div>Error</div>
       )}
       <CreatePost active={isCreatePostsModal} setActive={setIsCreatePostsModal} />
     </>

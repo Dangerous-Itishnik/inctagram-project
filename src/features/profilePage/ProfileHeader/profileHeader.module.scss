@@ -12,6 +12,13 @@
   }
 }
 
+.containerImageName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .imageContainer {
   position: relative;
   width: 204px;
@@ -41,7 +48,7 @@
 .avatar {
   width: 100%;
   height: 100%;
-  background-color: #8e8b8b;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -55,9 +62,23 @@
 }
 
 .userNameContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
   @media (width >= 768px) {
     margin-bottom: 20px;
   }
+}
+
+.button {
+  width: 167px;
+  height: 36px;
+  background: rgb(51 51 51 / 100%);
+  border-radius: 2px;
 }
 
 .userName {

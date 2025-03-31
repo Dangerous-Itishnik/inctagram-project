@@ -19,5 +19,9 @@
     "maxCharacters": "Max number of characters {count}",
     "minCharacters": "Min number of characters {count}",
     "required": "This field is required"
+  },
+  "ProfileEdit": {
+    "title": "Edit Profile",
+    "invalidId": "Invalid user ID"
   }
 }

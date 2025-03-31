@@ -42,7 +42,9 @@ export const Modal = ({ children, onClose, onInteractOutside, open = false, titl
                 <Dialog.Close className={styles.close} onClick={onClose}>
                   <Close />
                 </Dialog.Close>
-                <Dialog.Description asChild>{children}</Dialog.Description>
+                <Dialog.Description asChild className={styles.description}>
+                  {children}
+                </Dialog.Description>
               </div>
             </Dialog.Content>
           </Dialog.Portal>
