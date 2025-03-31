@@ -14,7 +14,7 @@ export const publicPostsApi = baseApi.injectEndpoints({
 
 export const { usePostAllQuery } = publicPostsApi
 
-type PostsAll = {
+export type PostsAll = {
   endCursorPostId?: number
   pageSize?: number
   sortBy?: 'asc' | 'desc'

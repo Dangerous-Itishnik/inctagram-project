@@ -23,7 +23,7 @@ export const PostContentQueryModal = ({ postId }: Props) => {
     const newParams = new URLSearchParams(searchParams.toString()) // Клонируем текущие параметры
 
     newParams.delete('postId')
-    router.push(`?${newParams.toString()}`, { scroll: false }) // Обновляем URL с новыми параметрами
+    router.replace(`?${newParams.toString()}`, { scroll: false }) // Обновляем URL с новыми параметрами
   }
   const handleCloseEditConfirmModal = () => {
     setModalType('view')

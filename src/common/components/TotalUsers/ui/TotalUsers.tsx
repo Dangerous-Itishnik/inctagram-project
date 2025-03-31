@@ -1,27 +1,12 @@
-import { useEffect } from 'react'
-
-import { useTotalUsersQuery } from '@/service/totalUsers/totalUsers.service'
-import { Spinner } from '@radix-ui/themes'
-
 import styles from './TotalUsers.module.scss'
 
-export const TotalUsers = () => {
-  const { data: totalUsers, isLoading, refetch } = useTotalUsersQuery()
+type Props = {
+  totalCount: number
+}
 
-  useEffect(() => {
-    const interval = setInterval(refetch, 60000)
-
-    return () => clearInterval(interval)
-  }, [refetch])
-
+export const TotalUsers = ({ totalCount }: Props) => {
   // Разделение числа на цифры, дополненное до 6 символов нулями
-  const digits = String(totalUsers ? totalUsers.totalCount : 0)
-    .padStart(6, '0')
-    .split('')
-
-  if (isLoading && totalUsers) {
-    return <Spinner />
-  }
+  const digits = String(totalCount).padStart(6, '0').split('')
 
   return (
     <div className={styles.counter}>

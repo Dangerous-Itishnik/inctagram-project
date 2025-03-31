@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 
 import { storage } from '@/common/utils/storage'
 import { AuthUserHomePage } from '@/features/authUserHomePage'
-import { PublicPage } from '@/features/publicPage/PublicPage'
 import { useRouter } from '@/i18n/navigation'
 import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
 import { Spinner } from '@radix-ui/themes'
@@ -32,15 +31,20 @@ export default function Home() {
       }
     }
 
+    if (isError) {
+      router.replace('/publicPage')
+
+      return
+    }
+
     if (code) {
       handleGoogleLogin(code)
     }
-  }, [code, googleLogin, router])
+  }, [code, googleLogin, isError, router, data])
 
   return (
     <>
       {isLoading && !data && <Spinner />}
-      {isError && <PublicPage />}
       {data && !isError && <AuthUserHomePage meData={data} />}
     </>
   )

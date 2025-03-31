@@ -1,17 +1,21 @@
+import { OpenPost } from '@/common/components/OpenPost/OpenPost'
 import { PostCard } from '@/common/components/Posts/ui/PostCard/PostCard'
 import { Post } from '@/service/posts/post.type'
-import { Spinner } from '@radix-ui/themes'
 
 import styles from './Posts.module.scss'
 
-type PostsProps = {
-  posts: Post[] | undefined
+type Props = {
+  posts: Post[]
 }
 
-export const Posts = ({ posts }: PostsProps) => {
+export const Posts = ({ posts }: Props) => {
   return (
     <div className={styles.posts}>
-      {posts ? posts.map(post => <PostCard key={post.id} post={post} />) : <Spinner />}
+      {posts.map(post => (
+        <OpenPost key={post.id} post={post}>
+          <PostCard post={post} />
+        </OpenPost>
+      ))}
     </div>
   )
 }
