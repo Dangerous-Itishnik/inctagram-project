@@ -13,40 +13,41 @@ import {
 } from '@/assets/icons/components'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Button } from '@/common/components/button'
+import { useModal } from '@/common/hooks/useModal'
 import { storage } from '@/common/utils/storage'
 import { CreatePost } from '@/features/posts/ui/createPost/CreatePost'
 import { Link, useRouter } from '@/i18n/navigation'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
+import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
 
 import styles from './appSideBarStyles.module.scss'
 
 export const AppSideBar = () => {
   const { replace } = useRouter()
-  const [isInfoModal, setIsInfoModal] = useState<boolean>(false)
+  const pathname = usePathname()
+
+  const [isCreatePostsModal, setIsCreatePostsModal] = useState<boolean>(false)
+  const [, locale, ...pathParts] = pathname.split('/')
+  const currentPath = `/${pathParts.join('/')}`
+
   const [logout] = useLogoutMutation()
   const { data, isError } = useMeQuery()
-  const pathname = usePathname()
-  const [isCreatePostsModal, setIsCreatePostsModal] = useState<boolean>(false)
+  const { closeModal, isOpen, openModal } = useModal()
+
   const logoutHandle = async () => {
     storage.deleteToken()
     await logout()
-    closePopUp()
+    closeModal()
     replace('/')
-  }
-  const closePopUp = () => {
-    setIsInfoModal(false)
-  }
-  const openPopUp = () => {
-    setIsInfoModal(true)
   }
 
   return (
     <>
-      {data && !isError ? (
+      {data && !isError && (
         <nav className={styles.sidebar}>
           <ul className={styles.list}>
-            <li className={`${styles.item} ${pathname === '/' ? styles.itemActive : ''}`}>
+            <li className={clsx(styles.item, pathname === `/${locale}` && styles.itemActive)}>
               <Link className={styles.link} href={'/'}>
                 <HomeOutline />
                 <span className={styles.notMobile}>Home</span>
@@ -63,19 +64,28 @@ export const AppSideBar = () => {
                 <span className={styles.notMobile}>Create</span>
               </button>
             </li>
-            <li className={`${styles.item} ${pathname === '/profile' ? styles.itemActive : ''}`}>
+            <li
+              className={clsx(styles.item, currentPath.startsWith('/profile') && styles.itemActive)}
+            >
               <Link className={styles.link} href={`/profile/${data?.userId}`}>
                 <PersonOutline />
                 <span className={styles.notMobile}>My Profile</span>
               </Link>
             </li>
-            <li className={`${styles.item} ${pathname === '/messenger' ? styles.itemActive : ''}`}>
+            <li
+              className={clsx(
+                styles.item,
+                currentPath.startsWith('/messenger') && styles.itemActive
+              )}
+            >
               <Link className={styles.link} href={''}>
                 <MessageCircleOutline />
                 <span className={styles.notMobile}>Messenger</span>
               </Link>
             </li>
-            <li className={`${styles.item} ${pathname === '/search' ? styles.itemActive : ''}`}>
+            <li
+              className={clsx(styles.item, currentPath.startsWith('/search') && styles.itemActive)}
+            >
               <Link className={styles.link} href={''}>
                 <SearchOutline />
                 <span className={styles.notMobile}>Search</span>
@@ -83,7 +93,10 @@ export const AppSideBar = () => {
             </li>
             <div className={`${styles.itemGroup} ${styles.notMobile}`}>
               <li
-                className={`${styles.item}  ${pathname === '/statistics' ? styles.itemActive : ''}`}
+                className={clsx(
+                  styles.item,
+                  currentPath.startsWith('/statistics') && styles.itemActive
+                )}
               >
                 <Link className={styles.link} href={''}>
                   <TrendingUpOutline />
@@ -91,7 +104,10 @@ export const AppSideBar = () => {
                 </Link>
               </li>
               <li
-                className={`${styles.item} ${pathname === '/favorites' ? styles.itemActive : ''}`}
+                className={clsx(
+                  styles.item,
+                  currentPath.startsWith('/favorites') && styles.itemActive
+                )}
               >
                 <Link className={styles.link} href={''}>
                   <BookmarkOutline />
@@ -104,32 +120,25 @@ export const AppSideBar = () => {
                 (styles.item && styles.notMobile) || (styles.itemLogout && styles.notMobile)
               }
             >
-              <button className={styles.link} onClick={openPopUp} type={'button'}>
+              <button className={styles.link} onClick={openModal} type={'button'}>
                 <LogOutOutline />
                 <span>Log Out</span>
               </button>
             </li>
           </ul>
-          {isInfoModal && (
-            <InfoModal
-              modalTitle={'Logout'}
-              onClose={() => setIsInfoModal(false)}
-              open={isInfoModal}
-            >
-              <p className={styles.infoModalText}>
-                Are you really want to log out of your account {data?.email}?
-              </p>
-
-              <div className={styles.modalInfoButtons}>
-                <Button onClick={logoutHandle} variant={'outline'}>
-                  Yes
-                </Button>
-                <Button onClick={closePopUp}>No</Button>
-              </div>
-            </InfoModal>
-          )}
+          <InfoModal modalTitle={'Logout'} onClose={closeModal} open={isOpen}>
+            <p className={styles.infoModalText}>
+              Are you really want to log out of your account {data?.email}?
+            </p>
+            <div className={styles.modalInfoButtons}>
+              <Button onClick={logoutHandle} variant={'outline'}>
+                Yes
+              </Button>
+              <Button onClick={closeModal}>No</Button>
+            </div>
+          </InfoModal>
         </nav>
-      ) : null}
+      )}
       <CreatePost active={isCreatePostsModal} setActive={setIsCreatePostsModal} />
     </>
   )

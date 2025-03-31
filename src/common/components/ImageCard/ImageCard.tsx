@@ -5,9 +5,8 @@ import styles from './ImageCard.module.scss'
 
 type Props = {
   post: Post
-  postId: number
 }
-export const ImageCard = ({ post, postId }: Props) => {
+export const ImageCard = ({ post }: Props) => {
   return (
     <>
       <div className={styles.imageBox}>
@@ -16,8 +15,8 @@ export const ImageCard = ({ post, postId }: Props) => {
             alt={`Image`}
             className={styles.image}
             height={post.images[0].height}
-            key={postId}
-            priority
+            key={post.id}
+            loading={'lazy'}
             src={post.images[0].url}
             width={post.images[0].width}
           />

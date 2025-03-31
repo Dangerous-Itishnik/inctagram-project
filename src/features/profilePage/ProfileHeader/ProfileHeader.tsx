@@ -22,7 +22,7 @@ const ProfileHeader = ({ profileUser }: Props) => {
             className={styles.avatar}
             fill
             priority
-            sizes={'33vw'}
+            sizes={'(max-width: 204px) 100vw, (max-width: 1200px) 50vw, 33vw'}
             src={avatars.length ? avatars[0].url : ''}
           />
         ) : (
@@ -38,7 +38,7 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 className={styles.avatar}
                 fill
                 priority
-                sizes={'33vw'}
+                sizes={'(max-width: 204px) 100vw, (max-width: 1200px) 50vw, 33vw'}
                 src={avatars.length ? avatars[0].url : ''}
               />
             ) : (
