@@ -1,10 +1,9 @@
 'use client'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
+import { Link } from '@/i18n/navigation'
 import { ProfileUserResponse } from '@/service/publicUsers/publicUsers.service'
 import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 import styles from './profileHeader.module.scss'
 
@@ -13,7 +12,6 @@ type Props = {
 }
 const ProfileHeader = ({ profileUser }: Props) => {
   const { aboutMe, avatars, id, userMetadata, userName } = profileUser
-  const router = useRouter()
 
   return (
     <div className={styles.headerContainer}>
@@ -51,12 +49,10 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 {userName}
               </Typography>
             </Link>
-            <Button
-              className={styles.button}
-              onClick={() => router.push(`/profile/${id}/edit`)}
-              variant={'secondary'}
-            >
-              <Typography variant={'body1'}>Profile Settings</Typography>
+            <Button className={styles.button} variant={'secondary'}>
+              <Link href={`/profile/${id}/edit`}>
+                <Typography variant={'body1'}>Profile Settings</Typography>
+              </Link>
             </Button>
           </div>
         </div>

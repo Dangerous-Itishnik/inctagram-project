@@ -1,17 +1,25 @@
 import { RequireAuth } from '@/common/components/requireAuth/RequireAuth'
 import { GeneralInfo } from '@/features/profilePage/generalInformation/generalInfo'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   params: {
-    userId: string // Next.js params are always strings
+    locale: string
+    userId: string
   }
 }
 
 function EditProfile({ params }: Props) {
+  const t = useTranslations('ProfileEdit')
   const profileId = Number(params.userId)
+
+  if (isNaN(profileId)) {
+    return <div>{t('invalidId')}</div>
+  }
 
   return (
     <div>
+      <h1>{t('title')}</h1>
       <GeneralInfo profileId={profileId} />
     </div>
   )
