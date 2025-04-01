@@ -9,27 +9,14 @@
 }
 
 .avatarContainer {
-  position: relative;
-
-  overflow: hidden;
-
   width: 192px;
   height: 192px;
-
-  background: var(--color-dark-900);
-  border-radius: 50%;
-}
-
-.avatarImage {
-  position: relative;
-  object-fit: cover;
-  border-radius: 50%;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 10px;
 
   width: 750px;
   padding: 5px;

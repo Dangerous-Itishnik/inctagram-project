@@ -19,7 +19,6 @@ function EditProfile({ params }: Props) {
 
   return (
     <div>
-      <h1>{t('title')}</h1>
       <GeneralInfo profileId={profileId} />
     </div>
   )

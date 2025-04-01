@@ -3,7 +3,15 @@ import { baseApi } from '@/service/baseApi'
 export const avatarApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
+      deleteAvatar: build.mutation<void, void>({
+        invalidatesTags: ['Avatar', 'Profile'],
+        query: () => ({
+          method: 'DELETE',
+          url: 'api/v1/users/profile/avatar',
+        }),
+      }),
       saveAvatar: build.mutation<AvatarResponse, { profilePhoto: File }>({
+        invalidatesTags: ['Avatar', 'Profile'],
         query: ({ profilePhoto }) => {
           const formData = new FormData()
 
@@ -31,4 +39,4 @@ type Avatar = {
 type AvatarResponse = {
   avatars: Avatar[]
 }
-export const { useSaveAvatarMutation } = avatarApi
+export const { useDeleteAvatarMutation, useSaveAvatarMutation } = avatarApi

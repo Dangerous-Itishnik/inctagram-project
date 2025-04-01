@@ -6,7 +6,9 @@ import { toast } from 'react-toastify'
 import { CustomerSlider } from '@/common/components/Slider/slider'
 import { Button } from '@/common/components/button'
 import { Modal } from '@/features/posts/ui/postModalContent/Modal'
+import { useRouter } from '@/i18n/navigation'
 import { useSaveAvatarMutation } from '@/service/avatar/avatar.servise'
+import { profileApi } from '@/service/profile/profile.servise'
 import Image from 'next/image'
 
 import styles from './avatarUpload.module.scss'
@@ -34,6 +36,7 @@ export const AvatarUpload = ({ closeModal, isOpen }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [saveAvatar] = useSaveAvatarMutation()
   const [isButtonDisable, setButtonDisable] = useState(false)
+  const { refresh } = useRouter()
 
   const onCropComplete = useCallback((_croppedArea: Area, croppedAreaPixels: CroppedAreaPixel) => {
     setCroppedAreaPixels(croppedAreaPixels)
@@ -73,19 +76,20 @@ export const AvatarUpload = ({ closeModal, isOpen }: Props) => {
         const croppedFile = new File([blob], 'cropped-image.jpg', { type: blob.type })
 
         saveAvatar({ profilePhoto: croppedFile }).unwrap()
-
+        refresh()
+        profileApi.util.invalidateTags(['Avatar', 'Profile'])
         toast.success('Avatar updated successfully!', {
           autoClose: 3000,
           closeOnClick: true,
           draggable: true,
           hideProgressBar: false,
           pauseOnHover: true,
-          position: 'top-right',
+          position: 'top-center',
         })
       } catch (error) {
         toast.error('Failed to update avatar', {
           autoClose: 3000,
-          position: 'top-right',
+          position: 'top-center',
         })
       }
     }
@@ -108,6 +112,7 @@ export const AvatarUpload = ({ closeModal, isOpen }: Props) => {
           closeOnClick: true,
           hideProgressBar: false,
           pauseOnHover: true,
+          position: 'top-center',
         })
 
         return
@@ -119,7 +124,7 @@ export const AvatarUpload = ({ closeModal, isOpen }: Props) => {
           closeOnClick: true,
           hideProgressBar: false,
           pauseOnHover: true,
-          position: 'top-right',
+          position: 'top-center',
         })
 
         return
