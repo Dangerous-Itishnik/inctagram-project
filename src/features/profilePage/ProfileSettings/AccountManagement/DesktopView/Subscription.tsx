@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { useMeQuery } from '@/service/auth'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -7,6 +8,7 @@ import styles from '@/features/profilePage/ProfileSettings/AccountManagement/Des
 
 export const Subscription = () => {
   const [subscription, setSubscription] = useState<'10' | '50' | '100'>('10')
+  const { data: me } = useMeQuery()
 
   const handleSubscription = (type: '10' | '50' | '100') => {
     setSubscription(type)
@@ -46,7 +48,7 @@ export const Subscription = () => {
           <Image alt={''} height={64} src={'/paypalLogo.png'} width={96} />
         </Link>
         <p>Or</p>
-        <Link href={''}>
+        <Link href={`/payment`}>
           <Image alt={''} height={64} src={'/stripeLogo.png'} width={96} />
         </Link>
       </div>
