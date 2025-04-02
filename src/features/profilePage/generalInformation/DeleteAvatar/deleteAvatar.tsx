@@ -23,7 +23,7 @@ export const DeleteAvatar = () => {
       setButtonDisable(true)
       closeModal()
       refresh()
-      toast.success('Photo delete is successful!', {
+      toast.success('Photo deleted successfully!', {
         autoClose: 3000,
         position: 'top-center',
       })

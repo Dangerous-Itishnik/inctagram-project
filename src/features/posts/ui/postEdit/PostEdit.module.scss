@@ -33,6 +33,13 @@
   text-align: right;
 }
 
+.avatarUser {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+
 .submit {
   display: flex;
   justify-content: flex-end;
@@ -42,11 +49,13 @@
 
 .main {
   flex-grow: 1;
+  margin-top: 30px;
   padding: 12px 24px;
 }
 
 .description {
-  height: 150px;
+  width: 433px;
+  height: 120px;
 }
 
 .container {
