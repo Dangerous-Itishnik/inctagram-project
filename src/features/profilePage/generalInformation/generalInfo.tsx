@@ -7,7 +7,12 @@ import { AvatarPhoto } from '@/common/components/AvatarPhoto/AvatarPhoto'
 import { Input } from '@/common/components/Input'
 import { Textarea } from '@/common/components/Textarea/Textarea'
 import { Button } from '@/common/components/button'
-import { useGetProfileQuery, usePutProfileMutation } from '@/service/profile/profile.servise'
+import { useRouter } from '@/i18n/navigation'
+import {
+  profileApi,
+  useGetProfileQuery,
+  usePutProfileMutation,
+} from '@/service/profile/profile.servise'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -43,7 +48,7 @@ const schema = yup.object().shape({
 export const GeneralInfo = ({ profileId }: GeneralInfoProps) => {
   const { data: profile, isLoading: getLoading } = useGetProfileQuery(profileId)
   const [putProfile, { error: editErr, isLoading: isSubmitting }] = usePutProfileMutation()
-
+  const { refresh } = useRouter()
   const {
     control,
     formState: { errors, isValid },
@@ -92,12 +97,13 @@ export const GeneralInfo = ({ profileId }: GeneralInfoProps) => {
     body.dateOfBirth = body.dateOfBirth || profile?.dateOfBirth
     try {
       await putProfile(body).unwrap()
+      profileApi.util.invalidateTags(['Profile', 'Avatar'])
+      refresh()
       toast.success('Profile updated successfully!', {
         autoClose: 5000,
         position: 'top-center',
       })
     } catch (error: unknown) {
-      // Type-safe error handling
       const apiError = error as {
         data?: {
           errors?: Array<{
@@ -131,7 +137,9 @@ export const GeneralInfo = ({ profileId }: GeneralInfoProps) => {
 
   return (
     <div className={styles.container}>
-      <AvatarPhoto profileId={profileId} />
+      <div className={styles.avatarContainer}>
+        <AvatarPhoto profileId={profileId} />
+      </div>
       <div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           {/* Username */}
@@ -161,7 +169,7 @@ export const GeneralInfo = ({ profileId }: GeneralInfoProps) => {
               <Input
                 className={styles.inputField}
                 errorMessage={fieldState.error?.message}
-                label={'Username'}
+                label={'Firstname'}
                 onBlur={field.onBlur}
                 onChange={field.onChange}
                 propsClassName={styles.asterik}
@@ -179,7 +187,7 @@ export const GeneralInfo = ({ profileId }: GeneralInfoProps) => {
               <Input
                 className={styles.inputField}
                 errorMessage={fieldState.error?.message}
-                label={'Username'}
+                label={'Lastname'}
                 onBlur={field.onBlur}
                 onChange={field.onChange}
                 propsClassName={styles.asterik}

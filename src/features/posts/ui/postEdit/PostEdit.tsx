@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { SmallAvatar } from '@/common/components/SmallAvatar/SmallAvatar'
 import { Textarea } from '@/common/components/Textarea/Textarea'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
@@ -48,7 +49,10 @@ export const PostEdit = ({
   return (
     <>
       <div className={styles.container}>
-        <header className={styles.header}>{data?.userName}</header>
+        <div className={styles.avatarUser}>
+          <SmallAvatar profileId={postId} />
+          <header className={styles.header}>{data?.userName}</header>
+        </div>
         <div className={styles.main}>
           <Textarea
             className={styles.description}

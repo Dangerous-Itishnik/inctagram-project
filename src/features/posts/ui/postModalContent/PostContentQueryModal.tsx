@@ -41,7 +41,12 @@ export const PostContentQueryModal = ({ postId }: Props) => {
   }
 
   return (
-    <Modal onClose={closeHandle} open={!!postId} title={modalType === 'edit' ? 'Edit post' : ''}>
+    <Modal
+      modalType={modalType}
+      onClose={closeHandle}
+      open={!!postId}
+      title={modalType === 'edit' ? 'Edit post' : ''}
+    >
       <PostContentQuery
         closeEditCloseModal={closeEditCloseModal}
         closePost={closePost}

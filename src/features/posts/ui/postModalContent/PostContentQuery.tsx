@@ -1,7 +1,9 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
+import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
 import { useModal } from '@/common/hooks/useModal'
 import { storage } from '@/common/utils/storage'
@@ -35,6 +37,7 @@ export const PostContentQuery = ({
   setIsPostEdit,
   setModalType,
 }: Props) => {
+  const [isButtonDisable, setButtonDisable] = useState(false)
   const { data } = useGetPublicQuery(postId)
 
   const [postDelete] = usePostDeleteMutation()
@@ -48,29 +51,45 @@ export const PostContentQuery = ({
   } = useModal()
 
   const deletePost = () => {
-    postDelete(postId)
-      .unwrap()
-      .then(async () => {
-        await new Promise(res => setTimeout(res, 500))
-        closeDeleteModal()
-        closeEditCloseModal()
-        closePost()
-        refresh()
+    setButtonDisable(true)
+    try {
+      postDelete(postId).unwrap()
+      setButtonDisable(true)
+      closeDeleteModal()
+      closeEditCloseModal()
+      closePost()
+      refresh()
+      toast.success('Post deleted successfully!', {
+        autoClose: 3000,
+        position: 'top-center',
       })
+    } catch (error) {
+      toast.error('Failed to delete post')
+      setButtonDisable(false)
+    } finally {
+      setButtonDisable(false)
+    }
   }
 
   return (
     <>
       {isAuthenticated && (
-        <InfoModal modalTitle={'DELETE POST'} onClose={closeDeleteModal} open={isDeleteOpen}>
-          <div className={styles.btn}>
-            <Button onClick={deletePost} variant={'outline'}>
-              YES
-            </Button>
-
-            <Button onClick={closeDeleteModal} variant={'primary'}>
-              NO
-            </Button>
+        <InfoModal
+          modalTitle={'Delete Post'}
+          onClose={closeDeleteModal}
+          open={isDeleteOpen}
+          style={{ height: '240px', width: '438px' }}
+        >
+          <div className={styles.deleteContainer}>
+            <Typography variant={'body1'}>Are you sure you want to delete the photo?</Typography>
+            <div className={styles.duo}>
+              <Button onClick={deletePost} variant={'outline'}>
+                YES
+              </Button>
+              <Button disabled={isButtonDisable} onClick={closeDeleteModal} variant={'primary'}>
+                NO
+              </Button>
+            </div>
           </div>
         </InfoModal>
       )}
@@ -86,6 +105,7 @@ export const PostContentQuery = ({
                   <PostModalHeader
                     isAuthenticated={isAuthenticated}
                     openDeleteModal={isAuthenticated ? openDeleteModal : undefined}
+                    profileId={postId}
                     setModalType={isAuthenticated ? setModalType : undefined}
                     userName={data.userName}
                   />
@@ -93,7 +113,11 @@ export const PostContentQuery = ({
               )}
               <div className={styles.commentsContainer}>
                 {data && (
-                  <PostDescription description={data.description} userName={data.userName} />
+                  <PostDescription
+                    description={data.description}
+                    profileId={postId}
+                    userName={data.userName}
+                  />
                 )}
               </div>
             </div>

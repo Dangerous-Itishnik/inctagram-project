@@ -8,6 +8,7 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-l);
+  letter-spacing: 1px;
 
   border-bottom: 1px solid var(--color-dark-100);
 }
@@ -40,9 +41,6 @@
 
 .buttonClose {
   position: absolute;
-  top: 18px;
+  top: 13px;
   right: 18px;
-
-  font-size: 18px;
-  color: white;
 }
