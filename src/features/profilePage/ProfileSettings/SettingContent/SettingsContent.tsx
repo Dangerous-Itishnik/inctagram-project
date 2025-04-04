@@ -1,4 +1,4 @@
-import { AccountMenagement } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/AccountMenagement'
+import { AccountMenagement } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/AccountManagement/AccountMenagement'
 import { MyPayments } from '@/features/profilePage/ProfileSettings/MyPayments/MyPayments'
 
 import styles from '@/features/profilePage/ProfileSettings/mainProfileSettings.module.scss'

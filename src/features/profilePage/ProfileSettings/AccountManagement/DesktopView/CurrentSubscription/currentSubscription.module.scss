@@ -1,0 +1,56 @@
+.container{}
+
+//.h3 {
+//  margin: 55px;
+//}
+
+.subscription{
+  height: 84px;
+  width: 1200px;
+  margin: 25px 0 25px 0;
+  display: flex;
+  align-items: center;
+  background-color: #1a1c1c;
+  border-radius: 5px;
+}
+
+.expire{
+  margin: 0 20px 0 20px;
+}
+.expire p {
+  color: #4c4c4c;
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.nextPayment p{
+  color: #4c4c4c;
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.renewal {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.renewal input{
+  width: 15px;
+  margin-right: 10px;
+}
+
+@media (max-width: 376px) {
+  .subscription{
+    width: 350px;
+    padding: 0;
+    margin: 0;
+  }
+  .renewal{
+    margin-top: 25px;
+  }
+}
+

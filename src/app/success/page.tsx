@@ -1,6 +1,8 @@
 import { stripe } from '@/app/lib/stripe'
 import { redirect } from 'next/navigation'
 
+import styles from '../../features/profilePage/ProfileSettings/AccountManagement/DesktopView/Checkout/checkout.module.scss'
+
 export default async function Success({ searchParams }) {
   const { session_id } = await searchParams
 
@@ -21,7 +23,7 @@ export default async function Success({ searchParams }) {
 
   if (status === 'complete') {
     return (
-      <section id={'success'}>
+      <section className={styles.section} id={'success'}>
         <p>
           We appreciate your business! A confirmation email will be sent to {customerEmail}. If you
           have any questions, please email{' '}

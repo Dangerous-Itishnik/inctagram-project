@@ -26,7 +26,8 @@ export const MyPaymentsDesktop = ({ payments }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {payments.map((payment, index) => (
+          {/*TypeError: Cannot read properties of undefined (reading 'map')*/}
+          {payments?.map((payment, index) => (
             <tr key={index}>
               <td>{payment.date}</td>
               <td>{payment.endDate}</td>

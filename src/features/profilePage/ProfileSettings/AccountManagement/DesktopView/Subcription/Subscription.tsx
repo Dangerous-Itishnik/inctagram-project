@@ -4,7 +4,7 @@ import { useMeQuery } from '@/service/auth'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/subcription.module.scss'
+import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/Subcription/subcription.module.scss'
 
 export const Subscription = () => {
   const [subscription, setSubscription] = useState<'10' | '50' | '100'>('10')
