@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { useMeQuery } from '@/service/auth'
 import { useGetCostOfPaymentSubscriptionQuery } from '@/service/subscription/subscription.service'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,14 +8,11 @@ import styles from '@/features/profilePage/ProfileSettings/AccountManagement/Des
 
 export const Subscription = () => {
   const [subscription, setSubscription] = useState<'10' | '50' | '100'>('10')
-  const { data: me } = useMeQuery()
   const { data } = useGetCostOfPaymentSubscriptionQuery()
 
   const handleSubscription = (type: '10' | '50' | '100') => {
     setSubscription(type)
   }
-
-  console.log(data)
 
   const handleCheckout = async e => {
     e.preventDefault() // Предотвращаем переход по ссылке
@@ -56,8 +52,7 @@ export const Subscription = () => {
             onChange={() => handleSubscription('10')}
             type={'checkbox'}
           />
-          {/*<span>$10 per 1 Day</span>*/}
-          <span>${`${data[0].amount} per 1 ${data[0].typeDescription}`}</span>
+          <span>{`$${data.data[0].amount} per ${data.data[0].typeDescription}`}</span>
         </div>
         <div>
           <input
@@ -65,7 +60,7 @@ export const Subscription = () => {
             onChange={() => handleSubscription('50')}
             type={'checkbox'}
           />
-          <span>$50 per 7 Day</span>
+          <span>{`$${data.data[1].amount} per ${data.data[1].typeDescription}`}</span>
         </div>
         <div>
           <input
@@ -73,7 +68,7 @@ export const Subscription = () => {
             onChange={() => handleSubscription('100')}
             type={'checkbox'}
           />
-          <span>$100 per month</span>
+          <span>{`$${data.data[2].amount} per ${data.data[2].typeDescription}`}</span>
         </div>
       </div>
       <div className={styles.payments}>

@@ -9,7 +9,7 @@ export const subscriptionApi = baseApi.injectEndpoints({
         url: '/api/v1/posts/image',
       }),
     }),
-    getCostOfPaymentSubscription: build.query<never, never>({
+    getCostOfPaymentSubscription: build.query<DataPaymentResponse, never>({
       query: () => ({
         method: 'GET',
         url: '/api/v1/subscriptions/cost-of-payment-subscriptions',
@@ -19,3 +19,10 @@ export const subscriptionApi = baseApi.injectEndpoints({
 })
 
 export const { useGetCostOfPaymentSubscriptionQuery } = subscriptionApi
+
+type GetCostPaymentResponse = {
+  amount: number
+  typeDescription: string
+}
+
+type DataPaymentResponse = GetCostPaymentResponse[]
