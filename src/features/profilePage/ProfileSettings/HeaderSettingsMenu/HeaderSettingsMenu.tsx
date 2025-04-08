@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react'
 
 import { Button } from '@/common/components/button'
-import { useMeQuery } from '@/service/auth'
-import Link from 'next/link'
 
 import styles from '@/features/profilePage/ProfileSettings/HeaderSettingsMenu/headerSettingsMenu.module.scss'
 
@@ -17,7 +15,6 @@ export const HeaderSettingsMenu = React.forwardRef(
   ({ openAccountManagement, openDevices, openGeneralInformation, openMyPayments }: Props, ref) => {
     const buttonRefs = useRef<(HTMLButtonElement | null)[]>([])
     const [activeButton, setActiveButton] = useState<null | number>(0)
-    // const { data } = useMeQuery()
 
     const handleButtonClick = (action: () => void, index: number) => {
       const button = buttonRefs.current[index]
