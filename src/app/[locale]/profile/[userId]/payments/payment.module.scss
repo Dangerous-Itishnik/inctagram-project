@@ -1,0 +1,54 @@
+.profile-settings {
+  h2 {
+    text-align: center;
+  }
+
+  .payments-table {
+    border-collapse: collapse;
+    width: 100%;
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    button {
+      cursor: pointer;
+
+      padding: 10px 15px;
+
+      color: white;
+
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  }
+}
