@@ -1,4 +1,5 @@
 'use client'
+import { Typography } from '@/common/components/Typography'
 import { useGetPaymentsQuery } from '@/service/accountAndPayments/account'
 
 import styles from './payment.module.scss'
@@ -9,29 +10,34 @@ const Page = () => {
   return (
     <div>
       <div className={styles.profileSettings}>
-        <h2>My Payments</h2>
         <table className={styles.paymentsTable}>
           <thead>
             <tr>
-              <th>Date of Payment</th>
-              <th>End Date of Subscription</th>
-              <th>Price</th>
-              <th>Subscription Type</th>
-              <th>Payment Type</th>
+              <th>
+                <Typography variant={'h2'}>Date of Payment</Typography>
+              </th>
+              <th>
+                <Typography variant={'h2'}>End Date of Subscription</Typography>
+              </th>
+              <th>
+                <Typography variant={'h2'}>Price</Typography>
+              </th>
+              <th>
+                <Typography variant={'h2'}>Subscription Type</Typography>
+              </th>
+              <th>
+                <Typography variant={'h2'}>Payment Type</Typography>
+              </th>
             </tr>
           </thead>
           <tbody>
             {data?.map(payment => (
               <tr key={payment.subscriptionId}>
-                <td className={'py-2 px-4'}>
-                  {new Date(payment.dateOfPayment).toLocaleDateString()}
-                </td>
-                <td className={'py-2 px-4'}>
-                  {new Date(payment.endDateOfSubscription).toLocaleDateString()}
-                </td>
-                <td className={'py-2 px-4'}>${payment.price.toFixed(2)}</td>
-                <td className={'py-2 px-4'}>{payment.subscriptionType}</td>
-                <td className={'py-2 px-4'}>{payment.paymentType}</td>
+                <td>{new Date(payment.dateOfPayment).toLocaleDateString()}</td>
+                <td>{new Date(payment.endDateOfSubscription).toLocaleDateString()}</td>
+                <td>${payment.price}</td>
+                <td>{payment.subscriptionType}</td>
+                <td>{payment.paymentType}</td>
               </tr>
             ))}
           </tbody>
