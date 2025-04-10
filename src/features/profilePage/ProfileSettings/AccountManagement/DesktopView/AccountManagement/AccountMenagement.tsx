@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { CurrentSubscription } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/CurrentSubscription/CurrentSubscription'
 import { Subscription } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/Subcription/Subscription'
+import { useGetCurrentOfPaymentSubscriptionQuery } from '@/service/subscription/subscription.service'
 
 import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/AccountManagement/accountManagement.module.scss'
 
@@ -9,6 +10,7 @@ export const AccountMenagement = () => {
   const [selectedAccountType, setSelectedAccountType] = useState<'business' | 'personal'>(
     'personal'
   )
+  const { data: getCurrentSubscription, isLoading } = useGetCurrentOfPaymentSubscriptionQuery()
 
   const handleAccountTypeChange = (type: 'business' | 'personal') => {
     setSelectedAccountType(type)
@@ -16,7 +18,8 @@ export const AccountMenagement = () => {
 
   return (
     <div className={styles.container}>
-      {/*<CurrentSubscription />*/}
+      <CurrentSubscription />
+
       <h3>Account type:</h3>
       <div className={styles.settings}>
         <div>

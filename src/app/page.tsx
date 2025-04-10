@@ -15,8 +15,16 @@ export default function Home() {
   const router = useRouter()
   const params = useSearchParams()
   const code = params.get('code')
+  const successPathOfUrl = params.get('http://localhost:3000/')
   const [googleLogin] = useGoogleLoginMutation()
   const { data, isError, isLoading } = useMeQuery()
+
+  if (successPathOfUrl) {
+    router.push(`/profile/1767/settings`)
+  }
+
+  console.log(code)
+  console.log(successPathOfUrl)
 
   useEffect(() => {
     const handleGoogleLogin = async (code: string) => {

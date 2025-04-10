@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   useCreateSubscriptionMutation,
@@ -7,35 +7,46 @@ import {
 import { Spinner } from '@radix-ui/themes'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/Subcription/subcription.module.scss'
 
 export const Subscription = () => {
-  const [subscription, setSubscription] = useState<'10' | '50' | '100'>('10')
+  const [subscription, setSubscription] = useState<'DAY' | 'MONTHLY' | 'WEEKLY'>('DAY')
   const { data: getSubscriptions, isLoading } = useGetCostOfPaymentSubscriptionQuery()
   const [createSubscription] = useCreateSubscriptionMutation()
+  const params = useSearchParams()
+  const router = useRouter()
+  const successPathOfUrl = params.get('/?success=true')
 
-  const handleSubscription = (type: '10' | '50' | '100') => {
+  const handleSubscription = (type: 'DAY' | 'MONTHLY' | 'WEEKLY') => {
     setSubscription(type)
   }
 
   const createSubscriptionHandler = async () => {
     const payload = {
-      amount: 10,
+      amount: 0,
       baseUrl: window.location.origin,
       paymentType: 'STRIPE',
       typeSubscription: subscription,
     }
 
-    try {
-      const response = await createSubscription(payload).unwrap()
-
-      // Перенаправление на URL из ответа
-      window.location.href = response.url
-    } catch (error) {
-      console.error('Error creating subscription:', error)
-    }
+    createSubscription(payload)
+      .unwrap()
+      .then(response => {
+        // Перенаправление на URL из ответа
+        window.location.href = response.url
+      })
+      .catch(error => {
+        console.error('Error creating subscription:', error)
+      })
   }
+
+  useEffect(() => {
+    if (successPathOfUrl) {
+      router.replace('/profile/1767/settings')
+    }
+  }, [successPathOfUrl, router])
 
   if (isLoading) {
     return <Spinner />
