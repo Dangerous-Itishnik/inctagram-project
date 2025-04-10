@@ -1,10 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { Checkbox } from '@/common/components/CheckBox'
+import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Radio } from '@/common/components/RadioGroup'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
+import { useModal } from '@/common/hooks/useModal'
 import {
   CostAndPaymentsType,
   CreateSubscriptionType,
@@ -16,15 +19,34 @@ import {
 import styles from './account.module.scss'
 
 const SubscriptionSelection = () => {
-  const [selectedSubscription, setSelectedSubscription] = useState<MyPaymentType>()
-  const [_, setPaymentUrl] = useState<null | string>(null) // eslint-disable-line @typescript-eslint/no-unused-vars
-
   const { data: costData } = useGetCostPaymentsQuery()
+  const [selectedSubscription, setSelectedSubscription] = useState<MyPaymentType>(
+    costData?.data[0]?.typeDescription as MyPaymentType
+  )
+  const [_, setPaymentUrl] = useState<null | string>(null) // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [agreed, setAgreed] = useState(false)
+  const [selectedPaymentType, setSelectedPaymentType] = useState<'PAYPAL' | 'STRIPE'>()
 
   const [newSubscription, { isLoading: isSubLoading }] = useNewSubscriptionMutation()
+  const { closeModal, isOpen, openModal } = useModal()
+
+  useEffect(() => {
+    if (costData?.data?.length) {
+      setSelectedSubscription(costData.data[0].typeDescription as MyPaymentType)
+    }
+  }, [costData])
 
   const handleSubscriptionSelect = (value: string) => {
     setSelectedSubscription(value as MyPaymentType)
+  }
+  const handlePaymentInitiation = (paymentType: 'PAYPAL' | 'STRIPE') => {
+    if (!selectedSubscription) {
+      toast.error('Please select a subscription first')
+
+      return
+    }
+    setSelectedPaymentType(paymentType)
+    openModal()
   }
 
   const handleSubscribe = async (paymentType: 'PAYPAL' | 'STRIPE') => {
@@ -63,6 +85,8 @@ const SubscriptionSelection = () => {
     } catch (error) {
       console.error('Subscription error:', error)
       toast.error('Transaction failed, please try again')
+    } finally {
+      closeModal()
     }
   }
 
@@ -73,7 +97,7 @@ const SubscriptionSelection = () => {
   const priceOptions =
     costData?.data.map((item: CostAndPaymentsType) => ({
       label: `$${item.amount} per ${item.typeDescription}`,
-      value: item.typeDescription, // This should match MyPaymentType
+      value: item.typeDescription,
     })) || []
 
   return (
@@ -91,9 +115,32 @@ const SubscriptionSelection = () => {
 
       <div>
         <Typography variant={'h3'}>Payment Options:</Typography>
-        <Button onClick={() => handleSubscribe('PAYPAL')}>Pay with PayPal</Button>
-        <Button onClick={() => handleSubscribe('STRIPE')}>Pay with Stripe</Button>
+        <Button onClick={() => handlePaymentInitiation('PAYPAL')}>PayPal</Button>
+        <Button onClick={() => handlePaymentInitiation('STRIPE')}>Stripe</Button>
       </div>
+      <InfoModal modalTitle={'Create Payment'} onClose={closeModal} open={isOpen}>
+        <div className={styles.checkBoxContainer}>
+          <Typography variant={'body1'}>
+            Auto-renewal will be enabled with this <br /> payment. You can disable it anytime in
+            your <br /> profile settings
+          </Typography>
+          <div className={styles.checkBoxandButton}>
+            <Checkbox
+              checked={agreed}
+              label={'I agree'}
+              onCheckedChange={checked => setAgreed(!!checked)}
+            />
+            <Button
+              disabled={!agreed}
+              onClick={() => handleSubscribe(selectedPaymentType!)}
+              type={'button'}
+              variant={'primary'}
+            >
+              OK
+            </Button>
+          </div>
+        </div>
+      </InfoModal>
     </div>
   )
 }

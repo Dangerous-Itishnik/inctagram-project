@@ -4,11 +4,22 @@ import { Radio } from '@/common/components/RadioGroup'
 import { Typography } from '@/common/components/Typography'
 import AutoRenewal from '@/features/profilePage/account/AutoRenewar'
 import SubscriptionSelection from '@/features/profilePage/account/SubscriptionSelection'
-import { AccountType } from '@/service/accountAndPayments/account'
+import { ensureSubscriptionsArray } from '@/features/profilePage/account/subscriptionsUtils'
+import { AccountType, useGetSubscriptionsQuery } from '@/service/accountAndPayments/account'
 
 const AccountTypeSelection = () => {
-  const [accountType, setAccountType] = useState<AccountType>('Personal')
+  const { data: subscriptionData } = useGetSubscriptionsQuery()
+  const subscriptions = ensureSubscriptionsArray(subscriptionData)
 
+  const initialAccountType = subscriptions.some(sub => {
+    const endDate = new Date(sub.endDateOfSubscription)
+
+    return !isNaN(endDate.getTime()) && endDate > new Date()
+  })
+    ? 'Business'
+    : 'Personal'
+
+  const [accountType, setAccountType] = useState<AccountType>(initialAccountType)
   const accountTypeHandler = (value: string) => {
     setAccountType(value as AccountType)
   }

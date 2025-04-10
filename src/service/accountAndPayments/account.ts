@@ -4,7 +4,7 @@ export const accountApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       autoRenewal: build.mutation({
-        invalidatesTags: ['Payments'],
+        invalidatesTags: ['Subscription'],
         query: () => ({
           method: 'POST',
           url: '/api/v1/subscriptions/canceled-auto-renewal',
@@ -25,13 +25,14 @@ export const accountApi = baseApi.injectEndpoints({
       }),
 
       getSubscriptions: build.query<CurrentActive, void>({
+        providesTags: ['Subscription'],
         query: () => ({
           method: 'GET',
           url: '/api/v1/subscriptions/current-payment-subscriptions',
         }),
       }),
       newSubscription: build.mutation<newSubscriptionResponse, CreateSubscriptionType>({
-        invalidatesTags: ['Payments'],
+        invalidatesTags: ['Subscription'],
         query: body => ({
           body,
           method: 'POST',
@@ -91,7 +92,7 @@ export type ActiveSubscription = {
   autoRenewal: boolean
   dateOfPayment: string
   endDateOfSubscription: string
-  subscriptionId: string
+  subscriptionId: number
   userId: number
 }
 

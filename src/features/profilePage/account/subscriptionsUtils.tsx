@@ -1,4 +1,3 @@
-/// subscriptionUtils.ts
 import { ActiveSubscription, CurrentActive } from '@/service/accountAndPayments/account'
 
 // Find the latest end date from an array of subscriptions
@@ -49,7 +48,6 @@ export const calculateNextPaymentFromActive = (subscription: ActiveSubscription)
   return endDate
 }
 
-// For handling the CurrentActive type from API
 export const calculateExpirationFromActive = (currentActive: CurrentActive | undefined) => {
   if (!currentActive) {
     return null
