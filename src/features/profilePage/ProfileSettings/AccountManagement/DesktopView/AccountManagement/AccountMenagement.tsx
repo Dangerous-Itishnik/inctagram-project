@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { CreatePayment } from '@/common/components/Modals/PaymentModals/CreatePayment'
+import { Error } from '@/common/components/Modals/PaymentModals/Error'
+import { Success } from '@/common/components/Modals/PaymentModals/Success'
 import { CurrentSubscription } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/CurrentSubscription/CurrentSubscription'
 import { Subscription } from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/Subcription/Subscription'
 import { useGetCurrentOfPaymentSubscriptionQuery } from '@/service/subscription/subscription.service'
@@ -18,6 +21,9 @@ export const AccountMenagement = () => {
 
   return (
     <div className={styles.container}>
+      {/*<CreatePayment />*/}
+      {/*<Error />*/}
+      {/*<Success />*/}
       <CurrentSubscription />
 
       <h3>Account type:</h3>
