@@ -45,7 +45,9 @@
 }
 
 .activeTab {
-  color: #0f172a;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-500);
+  text-shadow: 0 0 10px rgb(59 130 246 / 50%);
 
   &::after {
     content: '';
@@ -57,7 +59,8 @@
 
     height: 2px;
 
-    background-color: #3b82f6;
+    background-color: var(--color-accent-500);
+    box-shadow: 0 0 10px rgb(59 130 246 / 50%);
   }
 }
 

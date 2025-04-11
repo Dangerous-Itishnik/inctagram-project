@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import AccountTypeSelection from '@/features/profilePage/account/AccountTypeSelection'
 import Devices from '@/features/profilePage/devices/Devices'
@@ -17,13 +17,16 @@ export type ProfileTabsProps = {
   onTabChange: (tab: TabType) => void
 }
 
-const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, onTabChange }) => {
+const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab: propActiveTab, onTabChange }) => {
   const params = useParams()
   const pathname = usePathname()
   const router = useRouter()
   const id = Number(params.userId)
+  const [internalActiveTab, setInternalActiveTab] = useState<TabType>(
+    propActiveTab || (pathname?.split('/').pop() as TabType) || 'general'
+  )
 
-  const currentTab = activeTab || (pathname?.split('/').pop() as TabType) || 'general'
+  const activeTab = propActiveTab !== undefined ? propActiveTab : internalActiveTab
 
   const handleValueChange = (value: string) => {
     const tab = value as TabType
@@ -31,13 +34,13 @@ const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, onTabChange }) => 
     if (onTabChange) {
       onTabChange(tab)
     } else {
-      // Fallback: Client-seitige Navigation
+      setInternalActiveTab(tab)
       router.push(`/profile/${id}/edit/${tab}`)
     }
   }
 
   return (
-    <Tabs.Root className={styles.tabsRoot} onValueChange={handleValueChange} value={currentTab}>
+    <Tabs.Root className={styles.tabsRoot} onValueChange={handleValueChange} value={activeTab}>
       <Tabs.List className={styles.tabsList}>
         {(['general', 'devices', 'account', 'payment'] as TabType[]).map(tab => (
           <Tabs.Trigger

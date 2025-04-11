@@ -1,12 +1,40 @@
 'use client'
+import React, { useState } from 'react'
+
 import { Typography } from '@/common/components/Typography'
 import { useGetPaymentsQuery } from '@/service/accountAndPayments/account'
 import { Spinner } from '@radix-ui/themes'
 
 import styles from './payment.module.scss'
 
-export default function PaymentsPage() {
+const PaymentPage = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const { data, isLoading } = useGetPaymentsQuery()
+
+  const totalItems = data?.length
+  const totalPages = Math.ceil(totalItems! / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentItems = data?.slice(startIndex, endIndex)
+
+  // Handler functions
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setItemsPerPage(Number(e.target.value))
+    setCurrentPage(1)
+  }
 
   if (isLoading) {
     return (
@@ -40,7 +68,7 @@ export default function PaymentsPage() {
             </tr>
           </thead>
           <tbody>
-            {data?.map(payment => (
+            {currentItems?.map(payment => (
               <tr key={payment.subscriptionId}>
                 <td>{new Date(payment.dateOfPayment).toLocaleDateString()}</td>
                 <td>{new Date(payment.endDateOfSubscription).toLocaleDateString()}</td>
@@ -52,23 +80,40 @@ export default function PaymentsPage() {
           </tbody>
         </table>
         <div className={styles.pagination}>
-          <button className={'prev'} type={'button'}>
+          <button
+            className={styles.prev}
+            disabled={currentPage === 1}
+            onClick={handlePrevious}
+            type={'button'}
+          >
             « Previous
           </button>
+
           <span>
-            Page <strong>1</strong> of <strong>10</strong>
+            Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
           </span>
-          <button className={'next'} type={'button'}>
+          <button
+            className={styles.next}
+            disabled={currentPage === totalPages}
+            onClick={handleNext}
+            type={'button'}
+          >
             Next »
           </button>
-          <select>
-            <option value={'10'}>Show 10</option>
-            <option value={'25'}>Show 25</option>
-            <option value={'50'}>Show 50</option>
-            <option value={'100'}>Show 100</option>
+          <select
+            className={styles.itemsPerPage}
+            onChange={handleItemsPerPageChange}
+            value={itemsPerPage}
+          >
+            <option value={10}>Show 10</option>
+            <option value={25}>Show 25</option>
+            <option value={50}>Show 50</option>
+            <option value={100}>Show 100</option>
           </select>
         </div>
       </div>
     </div>
   )
 }
+
+export default PaymentPage

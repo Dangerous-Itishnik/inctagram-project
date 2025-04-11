@@ -79,9 +79,34 @@ const SubscriptionSelection = () => {
       setPaymentUrl(response.url)
       closeModal()
 
+      toast.success(
+        <div>
+          <strong>Payment initiated successfully!</strong>
+          <div>Redirecting to {selectedPaymentType}...</div>
+        </div>,
+        {
+          autoClose: 3000,
+          closeOnClick: true,
+          draggable: false,
+          hideProgressBar: false,
+          pauseOnHover: true,
+          position: 'top-right',
+          progress: undefined,
+        }
+      )
+
+      await new Promise(resolve => setTimeout(resolve, 1500))
       window.location.href = response.url
     } catch (error) {
       closeModal()
+      toast.error('Failed to initiate payment. Please try again later.', {
+        autoClose: 5000,
+        closeOnClick: true,
+        draggable: true,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        position: 'top-center',
+      })
     }
   }
 
