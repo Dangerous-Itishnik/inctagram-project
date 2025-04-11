@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import PaypalSvgrepoCom4 from '@/assets/icons/components/PaypalSvgrepoCom4'
+import StripeSvgrepoCom4 from '@/assets/icons/components/StripeSvgrepoCom4'
 import { Checkbox } from '@/common/components/CheckBox'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { Radio } from '@/common/components/RadioGroup'
@@ -15,6 +17,7 @@ import {
   useGetCostPaymentsQuery,
   useNewSubscriptionMutation,
 } from '@/service/accountAndPayments/account'
+import { Spinner } from '@radix-ui/themes'
 
 import styles from './account.module.scss'
 
@@ -91,7 +94,11 @@ const SubscriptionSelection = () => {
   }
 
   if (isSubLoading) {
-    return <div>Loading subscriptions...</div>
+    return (
+      <div>
+        <Spinner />
+      </div>
+    )
   }
 
   const priceOptions =
@@ -101,22 +108,33 @@ const SubscriptionSelection = () => {
     })) || []
 
   return (
-    <div>
-      <Typography variant={'h3'}>Your subscription costs:</Typography>
+    <div className={styles.subscriptionContainer}>
+      <Typography variant={'h2'}>Your subscription costs:</Typography>
       <div>
         <div className={styles.wrapper}>
           <Radio
+            className={styles.radio}
             onValueChange={handleSubscriptionSelect}
             options={priceOptions}
             value={selectedSubscription}
           />
         </div>
-      </div>
-
-      <div>
-        <Typography variant={'h3'}>Payment Options:</Typography>
-        <Button onClick={() => handlePaymentInitiation('PAYPAL')}>PayPal</Button>
-        <Button onClick={() => handlePaymentInitiation('STRIPE')}>Stripe</Button>
+        <div className={styles.buttons}>
+          <Button
+            className={styles.btn}
+            onClick={() => handlePaymentInitiation('PAYPAL')}
+            variant={'icon'}
+          >
+            <PaypalSvgrepoCom4 />
+          </Button>
+          <Button
+            className={styles.btn}
+            onClick={() => handlePaymentInitiation('STRIPE')}
+            variant={'icon'}
+          >
+            <StripeSvgrepoCom4 />
+          </Button>
+        </div>
       </div>
       <InfoModal modalTitle={'Create Payment'} onClose={closeModal} open={isOpen}>
         <div className={styles.checkBoxContainer}>

@@ -2,9 +2,10 @@ import { Ref, SVGProps, forwardRef, memo } from 'react'
 const SvgPaypalSvgrepoCom4 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
-    height={16}
+    height={'100%'}
     ref={ref}
-    width={24}
+    viewBox={'0 0 96 64'}
+    width={'100%'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >

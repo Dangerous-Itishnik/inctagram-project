@@ -10,6 +10,7 @@ type Option = {
   value: string
 }
 type Props = {
+  className?: string
   defaultValue?: string
   disabled?: boolean
   onValueChange: (value: string) => void

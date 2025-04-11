@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 
 import { Radio } from '@/common/components/RadioGroup'
@@ -6,9 +7,12 @@ import AutoRenewal from '@/features/profilePage/account/AutoRenewar'
 import SubscriptionSelection from '@/features/profilePage/account/SubscriptionSelection'
 import { ensureSubscriptionsArray } from '@/features/profilePage/account/subscriptionsUtils'
 import { AccountType, useGetSubscriptionsQuery } from '@/service/accountAndPayments/account'
+import { Spinner } from '@radix-ui/themes'
+
+import styles from './account.module.scss'
 
 const AccountTypeSelection = () => {
-  const { data: subscriptionData } = useGetSubscriptionsQuery()
+  const { data: subscriptionData, isLoading } = useGetSubscriptionsQuery()
   const subscriptions = ensureSubscriptionsArray(subscriptionData)
 
   const initialAccountType = subscriptions.some(sub => {
@@ -34,18 +38,26 @@ const AccountTypeSelection = () => {
     },
   ]
 
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    )
+  }
+
   return (
     <>
-      <div>
-        <Typography variant={'h3'}>Account Type</Typography>
-        <div>
+      <div className={styles.accountContainer}>
+        <Typography variant={'h2'}>Account Type</Typography>
+        <div className={styles.firstContainer}>
           <Radio onValueChange={accountTypeHandler} options={accountOptions} value={accountType} />
         </div>
         {accountType === 'Business' && (
-          <>
+          <div className={styles.accountContainer}>
             <AutoRenewal />
             <SubscriptionSelection />
-          </>
+          </div>
         )}
       </div>
     </>

@@ -14,6 +14,7 @@ import {
   usePutProfileMutation,
 } from '@/service/profile/profile.servise'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Spinner } from '@radix-ui/themes'
 import * as yup from 'yup'
 
 import styles from './generalInfo.module.scss'
@@ -132,7 +133,11 @@ export const GeneralInfo = ({ profileId }: GeneralInfoProps) => {
   }
 
   if (getLoading) {
-    return <div>Loading...</div>
+    return (
+      <div>
+        <Spinner />
+      </div>
+    )
   }
 
   return (
