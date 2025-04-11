@@ -18,6 +18,7 @@ import {
   useNewSubscriptionMutation,
 } from '@/service/accountAndPayments/account'
 import { Spinner } from '@radix-ui/themes'
+import { usePathname } from 'next/navigation'
 
 import styles from './account.module.scss'
 
@@ -32,6 +33,8 @@ const SubscriptionSelection = () => {
 
   const [newSubscription, { isLoading: isSubLoading }] = useNewSubscriptionMutation()
   const { closeModal, isOpen, openModal } = useModal()
+
+  const pathname = usePathname()
 
   useEffect(() => {
     if (costData?.data?.length) {
@@ -65,7 +68,7 @@ const SubscriptionSelection = () => {
 
     const subscriptionBody: CreateSubscriptionType = {
       amount: selectedData.amount,
-      baseUrl: window.location.origin,
+      baseUrl: `${window.location.origin}/${pathname}`,
       paymentType,
       typeSubscription: selectedSubscription!,
     }
@@ -74,21 +77,10 @@ const SubscriptionSelection = () => {
       const response = await newSubscription(subscriptionBody).unwrap()
 
       setPaymentUrl(response.url)
+      closeModal()
 
-      if (response) {
-        toast.success('Payment was successful!')
-        if (response.url) {
-          window.location.href = response.url
-        }
-      } else {
-        toast.error('Transaction failed, please try again')
-      }
-
-      return response.url
+      window.location.href = response.url
     } catch (error) {
-      console.error('Subscription error:', error)
-      toast.error('Transaction failed, please try again')
-    } finally {
       closeModal()
     }
   }

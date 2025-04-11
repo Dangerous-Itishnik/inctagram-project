@@ -25,6 +25,11 @@
       background: var(--color-dark-300);
     }
 
+    &.active {
+      color: #fff;
+      background: var(--color-light-100);
+    }
+
     td {
       font-size: var(--font-size-m);
       color: var(--color-light-300);
