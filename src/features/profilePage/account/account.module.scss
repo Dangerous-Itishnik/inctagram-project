@@ -85,3 +85,16 @@
   gap: 20px;
   margin: 5px;
 }
+
+.title {
+  padding: 34px;
+  font-size: var(--font-size-xxl);
+  letter-spacing: 1px;
+}
+
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -18,7 +18,6 @@ import {
   useNewSubscriptionMutation,
 } from '@/service/accountAndPayments/account'
 import { Spinner } from '@radix-ui/themes'
-import { usePathname } from 'next/navigation'
 
 import styles from './account.module.scss'
 
@@ -32,9 +31,8 @@ const SubscriptionSelection = () => {
   const [selectedPaymentType, setSelectedPaymentType] = useState<'PAYPAL' | 'STRIPE'>()
 
   const [newSubscription, { isLoading: isSubLoading }] = useNewSubscriptionMutation()
-  const { closeModal, isOpen, openModal } = useModal()
 
-  const pathname = usePathname()
+  const { closeModal, isOpen, openModal } = useModal()
 
   useEffect(() => {
     if (costData?.data?.length) {
@@ -68,7 +66,7 @@ const SubscriptionSelection = () => {
 
     const subscriptionBody: CreateSubscriptionType = {
       amount: selectedData.amount,
-      baseUrl: `${window.location.origin}/${pathname}`,
+      baseUrl: window.location.href.split('?')[0],
       paymentType,
       typeSubscription: selectedSubscription!,
     }
@@ -90,7 +88,7 @@ const SubscriptionSelection = () => {
           draggable: false,
           hideProgressBar: false,
           pauseOnHover: true,
-          position: 'top-right',
+          position: 'top-center',
           progress: undefined,
         }
       )
