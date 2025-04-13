@@ -93,7 +93,7 @@ const SubscriptionSelection = () => {
         }
       )
 
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       window.location.href = response.url
     } catch (error) {
       closeModal()

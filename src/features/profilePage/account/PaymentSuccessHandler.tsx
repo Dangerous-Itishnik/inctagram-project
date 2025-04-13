@@ -48,7 +48,7 @@ export const PaymentSuccessHandler: React.FC<PaymentSuccessHandlerProps> = ({
             ? 'Payment was successful!'
             : 'Transaction failed, please try again'}
         </Typography>
-        <Button style={{ padding: '3px', width: '100%' }} variant={'primary'}>
+        <Button style={{ padding: '3px', width: '100%' + '' }} variant={'primary'}>
           <Typography variant={'h1'}>
             {paymentStatus === 'success' ? 'OK' : 'Back to payment'}
           </Typography>
