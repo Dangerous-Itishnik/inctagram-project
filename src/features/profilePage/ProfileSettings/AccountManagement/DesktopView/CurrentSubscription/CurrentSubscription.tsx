@@ -19,7 +19,7 @@ export const CurrentSubscription = () => {
 
   const currentDate = new Date()
 
-  const hasActiveSubscription = getCurrentSubscription.data.some(
+  const hasActiveSubscription = getCurrentSubscription.data?.some(
     el => new Date(el.endDateOfSubscription) > currentDate
   )
 
