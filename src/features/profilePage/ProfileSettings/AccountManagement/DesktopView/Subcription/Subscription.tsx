@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import {
+  CreateSubscriptionPayload,
   useCreateSubscriptionMutation,
   useGetCostOfPaymentSubscriptionQuery,
 } from '@/service/subscription/subscription.service'
@@ -13,40 +14,60 @@ import styles from '@/features/profilePage/ProfileSettings/AccountManagement/Des
 
 export const Subscription = () => {
   const [subscription, setSubscription] = useState<'DAY' | 'MONTHLY' | 'WEEKLY'>('DAY')
+  const [paymentStatus, setPaymentStatus] = useState<'error' | 'success' | null>(null)
   const { data: getSubscriptions, isLoading } = useGetCostOfPaymentSubscriptionQuery()
   const [createSubscription] = useCreateSubscriptionMutation()
-  const params = useSearchParams()
-  const router = useRouter()
-  const successPathOfUrl = params.get('/?success=true')
+  const searchParams = useSearchParams()
+  // const router = useRouter()
+  const success = searchParams.get('success')
 
   const handleSubscription = (type: 'DAY' | 'MONTHLY' | 'WEEKLY') => {
     setSubscription(type)
   }
 
   const createSubscriptionHandler = async () => {
-    const payload = {
+    const payload: CreateSubscriptionPayload = {
       amount: 0,
-      baseUrl: window.location.origin,
+      // baseUrl: window.location.origin,
+      baseUrl: window.location.href.split('?')[0],
       paymentType: 'STRIPE',
       typeSubscription: subscription,
     }
 
-    createSubscription(payload)
-      .unwrap()
-      .then(response => {
-        // Перенаправление на URL из ответа
-        window.location.href = response.url
-      })
-      .catch(error => {
-        console.error('Error creating subscription:', error)
-      })
+    try {
+      const response = await createSubscription(payload).unwrap()
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      window.location.href = response.url
+    } catch (error) {
+      console.error('Error creating subscription:', error)
+    }
+    // createSubscription(payload)
+    //   .unwrap()
+    //   .then(response => {
+    //     // Перенаправление на URL из ответа
+    //     window.location.href = response.url
+    //   })
+    //   .catch(error => {
+    //     console.error('Error creating subscription:', error)
+    //   })
   }
 
   useEffect(() => {
-    if (successPathOfUrl) {
-      router.replace('/profile/1767/settings')
+    if (success !== null) {
+      setPaymentStatus(success === 'true' ? 'success' : 'error')
+
+      // onSetAccountType('Business')
+
+      // openModal()
+
+      // Clean URL without reloading
+      const url = new URL(window.location.href)
+
+      url.searchParams.delete('success')
+      window.history.replaceState({}, '', url.toString())
     }
-  }, [successPathOfUrl, router])
+  }, [success])
 
   if (isLoading) {
     return <Spinner />

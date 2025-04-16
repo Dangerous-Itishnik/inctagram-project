@@ -39,7 +39,7 @@ export const {
   useGetCurrentOfPaymentSubscriptionQuery,
 } = subscriptionApi
 
-type CreateSubscriptionPayload = {
+export type CreateSubscriptionPayload = {
   amount: number
   baseUrl: string
   paymentType: string

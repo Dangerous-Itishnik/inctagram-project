@@ -25,7 +25,6 @@ export const AccountMenagement = () => {
       {/*<Error />*/}
       {/*<Success />*/}
       <CurrentSubscription />
-
       <h3>Account type:</h3>
       <div className={styles.settings}>
         <div>
