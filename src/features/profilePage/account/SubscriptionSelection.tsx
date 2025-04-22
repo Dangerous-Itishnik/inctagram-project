@@ -26,7 +26,6 @@ const SubscriptionSelection = () => {
   const [selectedSubscription, setSelectedSubscription] = useState<MyPaymentType>(
     costData?.data[0]?.typeDescription as MyPaymentType
   )
-  const [_, setPaymentUrl] = useState<null | string>(null) // eslint-disable-line @typescript-eslint/no-unused-vars
   const [agreed, setAgreed] = useState(false)
   const [selectedPaymentType, setSelectedPaymentType] = useState<'PAYPAL' | 'STRIPE'>()
 
@@ -74,7 +73,6 @@ const SubscriptionSelection = () => {
     try {
       const response = await newSubscription(subscriptionBody).unwrap()
 
-      setPaymentUrl(response.url)
       closeModal()
 
       toast.success(
@@ -93,7 +91,6 @@ const SubscriptionSelection = () => {
         }
       )
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
       window.location.href = response.url
     } catch (error) {
       closeModal()

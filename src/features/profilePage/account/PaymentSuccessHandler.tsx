@@ -27,7 +27,6 @@ export const PaymentSuccessHandler: React.FC<PaymentSuccessHandlerProps> = ({
       onSetAccountType('Business')
 
       openModal()
-
       // Clean URL without reloading
       const url = new URL(window.location.href)
 
@@ -38,7 +37,7 @@ export const PaymentSuccessHandler: React.FC<PaymentSuccessHandlerProps> = ({
 
   return (
     <InfoModal
-      modalTitle={paymentStatus === 'success' ? 'SUCCESS' : 'Error'}
+      modalTitle={paymentStatus === 'success' ? 'SUCCESS' : 'ERROR'}
       onClose={closeModal}
       open={isOpen}
     >
@@ -48,7 +47,11 @@ export const PaymentSuccessHandler: React.FC<PaymentSuccessHandlerProps> = ({
             ? 'Payment was successful!'
             : 'Transaction failed, please try again'}
         </Typography>
-        <Button style={{ padding: '3px', width: '100%' + '' }} variant={'primary'}>
+        <Button
+          onClick={closeModal}
+          style={{ padding: '3px', width: '100%' + '' }}
+          variant={'primary'}
+        >
           <Typography variant={'h1'}>
             {paymentStatus === 'success' ? 'OK' : 'Back to payment'}
           </Typography>
