@@ -7,6 +7,7 @@ import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SelectLanguage } from '@/common/components/SelectLanguage/SelectLanguage'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
+import Notifications from '@/features/notifications/Notifications'
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 
@@ -38,6 +39,9 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
+      <div>
+        <Notifications />
+      </div>
       <div>
         <SelectLanguage />
       </div>
