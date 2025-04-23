@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { FillBell } from '@/assets/icons/components'
+import OutlineBell from '@/assets/icons/components/OutlineBell'
 import NotificationsItem from '@/common/components/NotificationsItem/NotificationsItem'
 import { Typography } from '@/common/components/Typography'
 import { useObserver } from '@/common/hooks/useObserver'
@@ -90,7 +90,7 @@ const Notifications = () => {
   return (
     <div className={styles.notificationsContainer}>
       <div className={styles.bellButton} onClick={() => setIsOpen(!isOpen)} ref={buttonRef}>
-        <FillBell />
+        <OutlineBell />
         {unreadCount > 0 && <span className={styles.badge}>{unreadCount}</span>}
       </div>
 
