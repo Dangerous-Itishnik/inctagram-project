@@ -3,61 +3,69 @@ import { useEffect, useRef, useState } from 'react'
 import { FillBell } from '@/assets/icons/components'
 import NotificationsItem from '@/common/components/NotificationsItem/NotificationsItem'
 import { Button } from '@/common/components/button'
+import { useObserver } from '@/common/hooks/useObserver'
 import {
+  NotificationItem,
   useGetNotificationsQuery,
   useMarkAsReadMutation,
 } from '@/service/notifications/notoficationsApi'
+import { SocketApi } from '@/socket/useSocket'
 
 import styles from './notification.module.scss'
 
 const Notifications = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [realTimeNotifications, setRealTimeNotifications] = useState<NotificationItem[]>([])
   const { data } = useGetNotificationsQuery()
   const [markAsRead] = useMarkAsReadMutation()
   const listRef = useRef<HTMLDivElement>(null)
-  const observerRef = useRef<IntersectionObserver>()
 
   useEffect(() => {
-    if (!listRef.current || !data?.items) {
+    if (!SocketApi.socket) {
       return
     }
+    const handleNotification = (notifMessage: NotificationItem) => {
+      setRealTimeNotifications(prev => {
+        const alreadyExists = prev.some(item => item.id === notifMessage.id)
 
-    observerRef.current = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const notificationId = Number(entry.target.getAttribute('data-id'))
+        if (alreadyExists) {
+          return prev
+        }
 
-            if (notificationId) {
-              markAsRead({ ids: [notificationId] }).unwrap()
-            }
-          }
-        })
-      },
-      {
-        root: listRef.current,
-        threshold: 0.1,
-      }
-    )
-
-    const items = listRef.current.querySelectorAll('.notification-item')
-
-    items.forEach(item => observerRef.current?.observe(item))
-
-    return () => {
-      observerRef.current?.disconnect()
+        return [notifMessage, ...prev]
+      })
     }
-  }, [data, markAsRead])
 
-  const toggleNotifications = () => {
-    setIsOpen(!isOpen)
-  }
+    SocketApi.socket.on('notifications', handleNotification)
+  }, [])
 
-  const unreadCount = data?.items?.filter(n => !n.isRead).length || 0
+  const allNotifications = [...realTimeNotifications, ...(data?.items || [])].filter(
+    (notification, index, self) => index === self.findIndex(n => n.id === notification.id)
+  ) // Remove duplicates by id
+
+  // Filter notifications to last month
+  const oneMonthAgo = new Date()
+
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+  const filteredNotifications = allNotifications.filter(n => new Date(n.createdAt) >= oneMonthAgo)
+
+  useObserver(listRef, filteredNotifications, {
+    onBatchIntersect: ids => {
+      markAsRead({ ids })
+        .unwrap()
+        .then(() => {
+          setRealTimeNotifications(prev =>
+            prev.map(n => (ids.includes(n.id) ? { ...n, isRead: true } : n))
+          )
+        })
+    },
+  })
+
+  const unreadCount = filteredNotifications.filter(n => !n.isRead).length
 
   return (
     <div className={styles.notificationsContainer}>
-      <Button className={styles.bellButton} onClick={toggleNotifications}>
+      <Button className={styles.bellButton} onClick={() => setIsOpen(!isOpen)}>
         <FillBell />
         {unreadCount > 0 && <span className={styles.badge}>{unreadCount}</span>}
       </Button>
@@ -68,15 +76,15 @@ const Notifications = () => {
             <h3 style={{ color: 'gray' }}>Уведомления</h3>
           </div>
           <div className={styles.notificationsList}>
-            {data?.items?.length ? (
-              data.items.map(notification => (
+            {filteredNotifications.length ? (
+              filteredNotifications.map(notification => (
                 <div
                   className={`${styles.notificationItem} notification-item`}
                   data-id={notification.id}
                   key={notification.id}
                 >
                   <NotificationsItem
-                    newNotification={notification.isRead}
+                    newNotification={!notification.isRead}
                     notification={notification}
                   />
                 </div>
