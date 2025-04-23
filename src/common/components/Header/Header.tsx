@@ -60,11 +60,11 @@ export const Header = () => {
   }
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} ref={menuRef}>
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <div ref={menuRef}>
+      <div>
         <Notifications />
       </div>
       <div>

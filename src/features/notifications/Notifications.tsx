@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 
 import { FillBell } from '@/assets/icons/components'
 import NotificationsItem from '@/common/components/NotificationsItem/NotificationsItem'
-import { Button } from '@/common/components/button'
 import { useObserver } from '@/common/hooks/useObserver'
 import {
   NotificationItem,
@@ -19,6 +18,26 @@ const Notifications = () => {
   const { data } = useGetNotificationsQuery()
   const [markAsRead] = useMarkAsReadMutation()
   const listRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        listRef.current &&
+        !listRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [])
 
   useEffect(() => {
     if (!SocketApi.socket) {
@@ -37,11 +56,15 @@ const Notifications = () => {
     }
 
     SocketApi.socket.on('notifications', handleNotification)
+
+    return () => {
+      SocketApi.socket?.off('notifications', handleNotification)
+    }
   }, [])
 
   const allNotifications = [...realTimeNotifications, ...(data?.items || [])].filter(
     (notification, index, self) => index === self.findIndex(n => n.id === notification.id)
-  ) // Remove duplicates by id
+  )
 
   // Filter notifications to last month
   const oneMonthAgo = new Date()
@@ -65,10 +88,10 @@ const Notifications = () => {
 
   return (
     <div className={styles.notificationsContainer}>
-      <Button className={styles.bellButton} onClick={() => setIsOpen(!isOpen)}>
+      <div className={styles.bellButton} onClick={() => setIsOpen(!isOpen)} ref={buttonRef}>
         <FillBell />
         {unreadCount > 0 && <span className={styles.badge}>{unreadCount}</span>}
-      </Button>
+      </div>
 
       {isOpen && (
         <div className={styles.notificationsDropdown} ref={listRef}>
