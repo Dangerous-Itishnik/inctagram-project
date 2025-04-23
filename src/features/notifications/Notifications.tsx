@@ -75,13 +75,7 @@ const Notifications = () => {
 
   useObserver(listRef, filteredNotifications, {
     onBatchIntersect: ids => {
-      markAsRead({ ids })
-        .unwrap()
-        .then(() => {
-          setRealTimeNotifications(prev =>
-            prev.map(n => (ids.includes(n.id) ? { ...n, isRead: true } : n))
-          )
-        })
+      markAsRead({ ids }).unwrap()
     },
   })
 
