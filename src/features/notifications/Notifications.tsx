@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { FillBell } from '@/assets/icons/components'
 import NotificationsItem from '@/common/components/NotificationsItem/NotificationsItem'
+import { Typography } from '@/common/components/Typography'
 import { useObserver } from '@/common/hooks/useObserver'
 import {
   NotificationItem,
@@ -96,7 +97,7 @@ const Notifications = () => {
       {isOpen && (
         <div className={styles.notificationsDropdown} ref={listRef}>
           <div className={styles.header}>
-            <h3 style={{ color: 'gray' }}>Уведомления</h3>
+            <Typography variant={'h2'}>Уведомления</Typography>
           </div>
           <div className={styles.notificationsList}>
             {filteredNotifications.length ? (

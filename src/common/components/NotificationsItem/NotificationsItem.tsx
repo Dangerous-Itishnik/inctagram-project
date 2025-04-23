@@ -2,6 +2,7 @@ import { Typography } from '@/common/components/Typography'
 import { formatNotificationDate } from '@/common/utils/formatNotificationDate'
 import { NotificationItem } from '@/service/notifications/notoficationsApi'
 
+import styles from './notificationItem.module.scss'
 type Props = {
   newNotification: boolean
   notification: NotificationItem
@@ -9,18 +10,16 @@ type Props = {
 const NotificationsItem = ({ newNotification = true, notification }: Props) => {
   return (
     <div>
-      <div style={{ display: 'flex', gap: '10px' }}>
-        <Typography style={{ color: 'gray' }} variant={'body2'}>
+      <div className={styles.div}>
+        <Typography className={styles.notif} variant={'h3'}>
           Новое уведомление!
         </Typography>
         {newNotification && <Typography style={{ color: 'red' }}>Новое</Typography>}
       </div>
 
-      <Typography style={{ color: 'gray' }} variant={'body2'}>
-        {notification.message}
-      </Typography>
+      <Typography variant={'body2'}>{notification.message}</Typography>
 
-      <Typography style={{ color: 'gray' }} variant={'h3'}>
+      <Typography className={styles.time} variant={'body2'}>
         {formatNotificationDate(notification.createdAt)}
       </Typography>
     </div>

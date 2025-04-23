@@ -64,11 +64,13 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <div>
-        <Notifications />
-      </div>
-      <div>
-        <SelectLanguage />
+      <div className={styles.bell}>
+        <div>
+          <Notifications />
+        </div>
+        <div>
+          <SelectLanguage />
+        </div>
       </div>
       {data && <DropDownMenuHeader openPopUp={openPopUp} />}
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>
