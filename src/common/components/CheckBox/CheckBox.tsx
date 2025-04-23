@@ -9,16 +9,25 @@ import s from './checkBox.module.scss'
 import { Typography } from '../Typography'
 
 export type CheckboxProps = {
+  checked?: boolean
+  disabled?: boolean
   label?: string
+  onCheckedChange?: (checked: boolean) => void
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
 export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps>(
-  ({ className, id, label, ...rest }, ref) => {
+  ({ checked, className, id, label, onCheckedChange, ...rest }, ref) => {
     const classNames = clsx(s.container, className)
 
     return (
       <div className={classNames}>
-        <CheckboxRadix.Root {...rest} className={s.checkbox} ref={ref}>
+        <CheckboxRadix.Root
+          {...rest}
+          checked={checked}
+          className={s.checkbox}
+          onCheckedChange={onCheckedChange}
+          ref={ref}
+        >
           <CheckboxRadix.Indicator>
             <CheckBox />
           </CheckboxRadix.Indicator>
