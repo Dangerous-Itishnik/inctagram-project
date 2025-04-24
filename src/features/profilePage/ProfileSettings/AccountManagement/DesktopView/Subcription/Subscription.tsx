@@ -12,7 +12,11 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/Subcription/subcription.module.scss'
 
-export const Subscription = () => {
+type SelectedAccountType = {
+  onSetAccountType: (type: 'Business' | 'Personal') => void
+}
+
+export const Subscription = ({ onSetAccountType }: SelectedAccountType) => {
   const [subscription, setSubscription] = useState<'DAY' | 'MONTHLY' | 'WEEKLY'>('DAY')
   const [paymentStatus, setPaymentStatus] = useState<'error' | 'success' | null>(null)
   const { data: getSubscriptions, isLoading } = useGetCostOfPaymentSubscriptionQuery()
@@ -42,22 +46,13 @@ export const Subscription = () => {
     } catch (error) {
       console.error('Error creating subscription:', error)
     }
-    // createSubscription(payload)
-    //   .unwrap()
-    //   .then(response => {
-    //     // Перенаправление на URL из ответа
-    //     window.location.href = response.url
-    //   })
-    //   .catch(error => {
-    //     console.error('Error creating subscription:', error)
-    //   })
   }
 
   useEffect(() => {
     if (success !== null) {
       setPaymentStatus(success === 'true' ? 'success' : 'error')
 
-      // onSetAccountType('Business')
+      onSetAccountType('Business')
 
       // openModal()
 

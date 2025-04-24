@@ -9,7 +9,7 @@ import { useGetCurrentOfPaymentSubscriptionQuery } from '@/service/subscription/
 
 import styles from '@/features/profilePage/ProfileSettings/AccountManagement/DesktopView/AccountManagement/accountManagement.module.scss'
 
-export const AccountMenagement = () => {
+export const AccountManagement = () => {
   const [selectedAccountType, setSelectedAccountType] = useState<'business' | 'personal'>(
     'personal'
   )
@@ -24,7 +24,6 @@ export const AccountMenagement = () => {
       {/*<CreatePayment />*/}
       {/*<Error />*/}
       {/*<Success />*/}
-      <CurrentSubscription />
       <h3>Account type:</h3>
       <div className={styles.settings}>
         <div>
@@ -44,7 +43,10 @@ export const AccountMenagement = () => {
           <span>Business</span>
         </div>
       </div>
-      {selectedAccountType === 'business' && <Subscription />}
+      <CurrentSubscription />
+      {selectedAccountType === 'business' && (
+        <Subscription selectAccountType={selectedAccountType} />
+      )}
     </div>
   )
 }
