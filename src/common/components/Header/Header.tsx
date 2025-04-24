@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 
+import { SvgOutlineBell } from '@/assets/icons/components/OutlineBell'
 import { DropDownMenuHeader } from '@/common/components/DropDownMenuHeader/DropDownMenuHeader'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
@@ -38,7 +39,9 @@ export const Header = () => {
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <div>{/* TODO:Добавить логику для отображения колокольчика и выбора языков */}</div>
+      <div>
+        <SvgOutlineBell />
+      </div>
       <DropDownMenuHeader openPopUp={openPopUp} />
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>
         <p className={styles.infoModalText}>
