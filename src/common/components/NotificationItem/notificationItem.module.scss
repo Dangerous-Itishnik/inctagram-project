@@ -1,0 +1,21 @@
+.container {
+  width: 371px;
+  height: 90px;
+  //border: 1px solid red;
+  position: absolute; /* Требуется для использования z-index */
+  right: 200px;
+}
+.container div {
+  margin-left: 20px;
+}
+.title{
+  margin-top: 10px;
+}
+.message{}
+
+.data{}
+
+.createLine{
+  width: 319px;
+  border-top: 2px solid #4c4c4c;
+}

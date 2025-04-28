@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { SvgOutlineBell } from '@/assets/icons/components/OutlineBell'
 import { DropDownMenuHeader } from '@/common/components/DropDownMenuHeader/DropDownMenuHeader'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
+import { NotificationItem } from '@/common/components/NotificationItem'
+import { Typography } from '@/common/components/Typography'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
@@ -41,6 +43,7 @@ export const Header = () => {
       </Link>
       <div>
         <SvgOutlineBell />
+        <NotificationItem />
       </div>
       <DropDownMenuHeader openPopUp={openPopUp} />
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>
