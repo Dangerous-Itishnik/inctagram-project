@@ -1,14 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { DropDownMenuHeader } from '@/common/components/DropDownMenuHeader/DropDownMenuHeader'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SelectLanguage } from '@/common/components/SelectLanguage/SelectLanguage'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
+import Notifications from '@/features/notifications/Notifications'
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
+import { SocketApi } from '@/socket/useSocket'
 
 import styles from './header.module.scss'
 
@@ -18,6 +20,30 @@ export const Header = () => {
   const { replace } = useRouter()
   const [logout] = useLogoutMutation()
   const pathname = usePathname()
+  const token = storage.getToken()
+
+  const menuRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsInfoModal(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    if (token && !SocketApi.socket) {
+      SocketApi.createConnection(token)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+      if (token && SocketApi.socket) {
+        SocketApi.socket.disconnect()
+      }
+    }
+  }, [token])
 
   const closePopUp = () => {
     setIsInfoModal(false)
@@ -34,12 +60,17 @@ export const Header = () => {
   }
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} ref={menuRef}>
       <Link href={'/'}>
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
-      <div>
-        <SelectLanguage />
+      <div className={styles.bell}>
+        <div>
+          <Notifications />
+        </div>
+        <div>
+          <SelectLanguage />
+        </div>
       </div>
       {data && <DropDownMenuHeader openPopUp={openPopUp} />}
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>

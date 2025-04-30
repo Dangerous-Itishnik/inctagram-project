@@ -1,6 +1,6 @@
 import { Post } from '@/service/posts/post.type'
-import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
-import { ru } from 'date-fns/locale/ru'
+import { formatDistanceToNow } from 'date-fns'
+import ru from 'date-fns/locale/ru'
 import Image from 'next/image'
 
 import styles from '@/common/components/Posts/ui/PostCard/PostCard.module.scss'
