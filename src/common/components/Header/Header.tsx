@@ -10,6 +10,7 @@ import { Typography } from '@/common/components/Typography'
 // import { SelectBox } from '@/common/components/SelectBox/SelectBox'
 import { Button } from '@/common/components/button'
 import { storage } from '@/common/utils/storage'
+import { Notifications } from '@/features/Notifications/Notifications'
 import { useLogoutMutation, useMeQuery } from '@/service/auth'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -42,8 +43,7 @@ export const Header = () => {
         <h1 className={styles.logo}>Inctagram</h1>
       </Link>
       <div>
-        <SvgOutlineBell />
-        <NotificationItem />
+        <Notifications />
       </div>
       <DropDownMenuHeader openPopUp={openPopUp} />
       <InfoModal modalTitle={'Logout'} onClose={() => setIsInfoModal(false)} open={isInfoModal}>

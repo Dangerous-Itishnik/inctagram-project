@@ -1,20 +1,24 @@
 import { Typography } from '@/common/components/Typography'
+import { NotificationItemType } from '@/service/notifications/notifications.service'
 
 import styles from './notificationItem.module.scss'
 
-export const NotificationItem = () => {
+type Props = {
+  notification: NotificationItemType
+}
+
+export const NotificationItem = ({ notification }: Props) => {
   return (
     <div className={styles.container}>
-      {/*<h1>Уведомления</h1>*/}
       <div className={styles.title}>
         <Typography variant={'h3'}>Новые уведомления!</Typography>
         {/*{newNotification && <Typography style={{ color: 'red' }}>Новое</Typography>}*/}
       </div>
       <div className={styles.message}>
-        <Typography variant={'body2'}>{'нотификашин мессадже'}</Typography>
+        <Typography variant={'body2'}>{notification.message}</Typography>
       </div>
       <div className={styles.data}>
-        <Typography variant={'body2'}>{'created at'}</Typography>
+        <Typography variant={'body2'}>{notification.createdAt}</Typography>
       </div>
       <div className={styles.createLine}></div>
     </div>

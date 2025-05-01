@@ -1,0 +1,36 @@
+.container{}
+
+.outlineBell{
+  position: absolute;
+  right: 200px;
+}
+
+.createLine{
+  width: 319px;
+  border-top: 2px solid #4c4c4c;
+
+}
+
+.notificationModal{
+  width: 370px;
+  height: 424px;
+  border: 1px solid #4c4c4c;
+  position: absolute;
+  right: 200px;
+  top: 65px;
+}
+
+.listOfMessages {
+ margin: 15px 0 10px 20px;
+}
+
+.notificationItem {
+  max-height: 370px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #4c4c4c;
+  }
+}
