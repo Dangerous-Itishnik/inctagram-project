@@ -31,14 +31,13 @@ export default function Home() {
       }
     }
 
-    if (isError) {
-      router.replace('/publicPage')
+    if (code) {
+      handleGoogleLogin(code)
 
       return
     }
-
-    if (code) {
-      handleGoogleLogin(code)
+    if (isError || !data) {
+      router.replace(isError ? '/auth/signIn' : '/publicPage')
     }
   }, [code, googleLogin, isError, router, data])
 
