@@ -1,51 +1,63 @@
-'use client'
-
-import { useEffect } from 'react'
-
-import { storage } from '@/common/utils/storage'
-import { AuthUserHomePage } from '@/features/authUserHomePage'
-import { useRouter } from '@/i18n/navigation'
-import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
-import { Spinner } from '@radix-ui/themes'
-import { useSearchParams } from 'next/navigation'
+import { BASE_URL } from '@/common/api/common.api'
+import ClientHome from '@/common/components/ClinetHome/ClientHome'
+import { Posts } from '@/common/components/Posts/ui/Posts'
+import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
+import { PostsAll } from '@/service/publicPosts/publicPosts.service'
 
 import '@/styles/index.scss'
 
-export default function Home() {
-  const router = useRouter()
-  const params = useSearchParams()
-  const code = params.get('code')
-  const [googleLogin] = useGoogleLoginMutation()
-  const { data, isError, isLoading } = useMeQuery()
+import styles from './page.module.scss'
+export const dynamic = 'force-static'
 
-  useEffect(() => {
-    const handleGoogleLogin = async (code: string) => {
-      try {
-        const res = await googleLogin({ code }).unwrap()
+const fetchData = {
+  posts: async (params: PostsAll) => {
+    const query = new URLSearchParams(params as Record<string, string>)
+    const res = await fetch(`${BASE_URL}/api/v1/public-posts/all?${query}`, {
+      method: 'GET',
+      next: { revalidate: 60, tags: ['posts'] },
+    })
 
-        storage.setToken(res.accessToken)
-        router.replace('/createAccount')
-      } catch (error) {
-        console.error('Google Login Error:', error)
-        router.replace('/auth/signIn')
-      }
+    if (!res.ok) {
+      throw new Error('Failed to fetch posts')
     }
 
-    if (isError) {
-      router.replace('/publicPage')
+    return res.json()
+  },
+  totalUsers: async () => {
+    const res = await fetch(`${BASE_URL}/api/v1/public-user`, {
+      method: 'GET',
+      next: { revalidate: 60, tags: ['total-users'] },
+    })
 
-      return
+    if (!res.ok) {
+      throw new Error('Failed to fetch total users')
     }
 
-    if (code) {
-      handleGoogleLogin(code)
-    }
-  }, [code, googleLogin, isError, router, data])
-
-  return (
-    <>
-      {isLoading && !data && <Spinner />}
-      {data && !isError && <AuthUserHomePage meData={data} />}
-    </>
-  )
+    return res.json()
+  },
 }
+const Home = async () => {
+  try {
+    const [users, posts] = await Promise.all([
+      fetchData.totalUsers(),
+      fetchData.posts({ pageSize: 4 }),
+    ])
+
+    return (
+      <section className={styles.publicPage}>
+        <ClientHome />
+        <TotalUsers totalCount={users.totalCount} />
+        <Posts posts={posts.items} />
+      </section>
+    )
+  } catch {
+    return (
+      <section className={styles.publicPage}>
+        <TotalUsers totalCount={0} />
+        <div>Данные не загрузились</div>
+      </section>
+    )
+  }
+}
+
+export default Home
