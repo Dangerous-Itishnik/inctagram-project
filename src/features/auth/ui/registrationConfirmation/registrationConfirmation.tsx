@@ -1,30 +1,28 @@
 'use client'
 
-import { Typography } from '@/common/components/Typography'
+import image from '@/assets/images/confirmation.png'
 import { Button } from '@/common/components/button'
-import { Link } from '@/i18n/navigation'
+import { Typography } from '@/common/components/typography'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
 import styles from './registrationConfirmation.module.scss'
 
 export function RegistrationConfirmation() {
-  const t = useTranslations('auth')
-
   return (
     <div className={styles.container}>
-      <Typography variant={'h1'}>{t('congratulations')}</Typography>
-      <Typography className={styles.text}>{t('confirmedEmail')}</Typography>
-      <Button variant={'primary'}>
-        <Link href={'/auth/signIn'}>{t('signIn')}</Link>
+      <Typography variant={'h1'}>Congratulations!</Typography>
+      <Typography className={styles.text} variant={'body1'}>
+        Your email has been confirmed
+      </Typography>
+      <Button as={Link} href={'/signIn'} variant={'primary'}>
+        Sign In
       </Button>
       <Image
         alt={'Picture of girl'}
-        height={300}
         priority
-        src={'/images/confirmation.png'}
+        src={image}
         style={{ display: 'block', marginTop: '72px' }}
-        width={432}
       />
     </div>
   )

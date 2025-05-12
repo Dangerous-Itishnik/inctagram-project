@@ -64,11 +64,21 @@
   padding: 0;
 
   font-size: 20px;
-  color: white;
 
   background: none;
   border: none;
   outline: none;
+
+  &::before {
+    content: '';
+
+    display: block;
+
+    width: 24px;
+    height: 24px;
+
+    background-image: url('ease.svg');
+  }
 }
 
 .inputSearch {

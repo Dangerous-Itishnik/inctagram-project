@@ -2,7 +2,6 @@
 
 import React, { forwardRef, useState } from 'react'
 
-import { EyeOffOutline, EyeOutline } from '@/assets/icons/components'
 import { combineClasses } from '@/common/utils/combineClasses'
 
 import styles from './input.module.scss'
@@ -10,16 +9,14 @@ import styles from './input.module.scss'
 export type InputProps = {
   errorMessage?: string
   label: string
-  name?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onFocus?: () => void
   propsClassName?: string
-  type?: 'password' | 'radio' | 'search' | 'text'
-  value?: string
+  type?: 'password' | 'search' | 'text'
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ errorMessage, label, onChange, onFocus, propsClassName, type, value, ...inputProps }, ref) => {
+  ({ errorMessage, label, onChange, onFocus, propsClassName, type, ...inputProps }, ref) => {
     const [showText, setShowText] = useState(true)
 
     const togglePasswordVisibility = () => {
@@ -35,9 +32,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     if (type === 'password') {
       buttonType = (
-        <button className={styles.button} onClick={togglePasswordVisibility} type={'button'}>
-          {showText ? <EyeOffOutline /> : <EyeOutline />}
-        </button>
+        <button
+          className={styles.button}
+          onClick={togglePasswordVisibility}
+          type={'button'}
+        ></button>
       )
     } else if (type === 'search') {
       buttonType = (
@@ -59,7 +58,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           onFocus={onFocus}
           ref={ref}
           type={inputType}
-          value={value}
           {...inputProps}
         ></input>
         <p className={styles.errorMessage}>{errorMessage}</p>
