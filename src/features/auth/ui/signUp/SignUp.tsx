@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form'
 
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
 import { Input } from '@/common/components/Input/Input'
-import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
+import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button/Button'
-import { Typography } from '@/common/components/typography'
-import { Message } from '@/features/auth/api/authApi.type'
-import { Checkbox, Flex } from '@radix-ui/themes'
-import Link from 'next/link'
+import { FormCheckbox } from '@/common/components/formComponents/formCheckbox'
+import { Link } from '@/i18n/navigation'
+import { Message } from '@/service/auth/auth.types'
+import { Flex } from '@radix-ui/themes'
 
 import styles from './SignUp.module.scss'
 
@@ -15,6 +16,7 @@ export type SignUpProps = {
   Password: string
   UserName: string
   confirmPassword: string
+  termsAccepted: boolean
 }
 
 type OnSubmitProps = {
@@ -59,9 +61,9 @@ const CONFIRM_PASSWORD_ERROR_MESSAGES = {
 }
 
 export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: OnSubmitProps) {
-  //TODO зачем передовать callback
   const {
     clearErrors,
+    control,
     formState: { errors, isValid },
     handleSubmit,
     register,
@@ -71,6 +73,7 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
     mode: 'onBlur',
   })
   const password = watch('Password')
+  const termsAccepted = watch('termsAccepted', false)
 
   const handleClearErrors = (fieldName: keyof SignUpProps) => {
     clearErrors(fieldName)
@@ -141,19 +144,23 @@ export function SignUp({ clearEmailAndUserNameError, onSubmit, onSubmitError }: 
           })}
         />
         <Flex align={'center'} gap={'3'} justify={'center'} mb={'5'}>
-          <Checkbox color={'indigo'} defaultChecked required size={'2'} variant={'surface'} />
+          <FormCheckbox control={control} name={'termsAccepted'} />
           <p className={styles.checkboxText}>
-            I agree to the <Link href={''}>Terms of Service</Link> and{' '}
-            <Link href={''}>Privacy Policy</Link>
+            I agree to the <Link href={'/termsService'}>Terms of Service</Link> and{' '}
+            <Link href={'/privacyPolicy'}>Privacy Policy</Link>
           </p>
         </Flex>
-        <Button className={styles.button} disabled={!isValid} type={'submit'}>
+        <Button
+          className={styles.button}
+          disabled={!isValid || !termsAccepted} // Проверяем состояние чекбокса
+          type={'submit'}
+        >
           Sign Up
         </Button>
       </form>
       <p className={styles.text}>Do you have an account?</p>
-      <Button as={'a'} href={'/signIn'} variant={'link'}>
-        Sign In
+      <Button variant={'link'}>
+        <Link href={'/auth/signIn'}>Sign In</Link>
       </Button>
     </AuthorizationContainer>
   )

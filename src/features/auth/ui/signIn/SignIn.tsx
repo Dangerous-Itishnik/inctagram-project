@@ -1,100 +1,89 @@
 'use client'
 
-import { GitHubSvg } from '@/assets/icons/github'
-import { GoogleSvg } from '@/assets/icons/google'
+import { useForm } from 'react-hook-form'
+
+import { AuthorizationContainer } from '@/common/components/AuthorizationContainer/AutoritationContainer'
+import { GoogleAuthButton } from '@/common/components/GoogleAuthButton/GoogleAuthButton'
 import { Input } from '@/common/components/Input/Input'
-import { AuthorizationContainer } from '@/common/components/authorizationContainer/AutoritationContainer'
+import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
-import { PopUp } from '@/common/components/popUp'
-import { Typography } from '@/common/components/typography'
-import { useSignIn } from '@/features/auth/ui/signIn/useSignIn'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 import styles from './singIn.module.scss'
 
-export function SignIn() {
-  const {
-    authError,
-    clearErrors,
-    errorMessage,
-    errors,
-    handleSubmit,
-    loginHandle,
-    register,
-    setAuthError,
-  } = useSignIn()
+interface SignInProps {
+  isError?: string
+  onSubmit: (data: { email: string; password: string }) => void
+}
 
-  if (authError) {
-    return (
-      <PopUp onClose={() => setAuthError(false)} title={'Error'}>
-        {errorMessage}
-      </PopUp>
-    )
-  }
+export const SignIn = ({ isError, onSubmit }: SignInProps) => {
+  const {
+    clearErrors,
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<{ email: string; password: string }>(
+    //Чтобы не вводить пароль и почту при тестировании
+    {
+      defaultValues: {
+        email: 'igorgrime@gmail.com',
+        password: 'Ex4mple!',
+      },
+    }
+  )
+  const t = useTranslations('auth')
+  const tValidate = useTranslations('validate')
+  const customError: string =
+    typeof errors.password?.message === 'string' ? errors.password.message : isError || ''
 
   return (
     <AuthorizationContainer>
-      <Typography variant={'h1'}>Sign In</Typography>
-      <div className={styles.auth_icons}>
-        <Button variant={'link'}>
-          <GoogleSvg />
-        </Button>
-        <Button variant={'link'}>
-          <GitHubSvg />
-        </Button>
+      <Typography variant={'h1'}>{t('signIn')}</Typography>
+      <div className={styles.buttonAuthorization}>
+        <GoogleAuthButton />
       </div>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(async data => {
-          await loginHandle(data)
-        })}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Input
-          errorMessage={errors.email?.message}
-          label={'Email'}
+          errorMessage={typeof errors.email?.message === 'string' ? errors.email.message : ''}
+          label={t('email')}
           propsClassName={styles.input}
           {...register('email', {
-            onChange: () => {
-              clearErrors('email')
-            },
+            onChange: () => clearErrors('email'),
             pattern: {
-              message: 'The email must match the format example@example.com',
+              message: tValidate('emailError'),
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             },
-            required: 'This field is required',
+            required: tValidate('required'),
           })}
         />
         <Input
-          errorMessage={errors.password?.message}
-          label={'Password'}
+          errorMessage={customError}
+          label={t('password')}
           propsClassName={styles.input}
           type={'password'}
           {...register('password', {
-            maxLength: { message: 'Max number of characters 20', value: 20 },
-            minLength: { message: 'Minimum number of characters 6', value: 6 },
+            maxLength: { message: tValidate('maxCharacters', { count: 20 }), value: 20 },
+            minLength: { message: tValidate('maxCharacters', { count: 6 }), value: 6 },
             onChange: () => clearErrors('password'),
             pattern: {
-              message: 'Only Latin letters, numbers and special characters',
+              message: tValidate('passwordError'),
               value: /^[A-Za-z0-9!"#$%&'()*+,\-.:;<=>?@[\\\]^_{|}~]+$/,
             },
-            required: 'This field is required',
+            required: tValidate('required'),
           })}
           autoComplete={'off'}
         />
-        <div className={styles.container}>
-          <div className={styles.linkContainer}>
-            <Typography as={Link} href={'/forgot-password'} variant={'body2'}>
-              Forgot Password
-            </Typography>
-          </div>
-          <Button type={'submit'}>Sign In</Button>
-          <div className={styles.centerTextContainer}>
-            <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-            <Button as={Link} href={'/signUp'} variant={'link'}>
-              Sign Up
-            </Button>
-          </div>
-        </div>
+        <Link className={styles.forgotPassword} href={'/auth/forgot-password'}>
+          {t('forgotPassword')}
+        </Link>
+        <Button className={styles.buttonSignIn} type={'submit'}>
+          {t('signIn')}
+        </Button>
+        <p className={styles.haveAccount}>{t('dontHaveAccount')}</p>
+        <Button variant={'link'}>
+          <Link href={'/auth/signUp'}>{t('signUp')}</Link>
+        </Button>
       </form>
     </AuthorizationContainer>
   )

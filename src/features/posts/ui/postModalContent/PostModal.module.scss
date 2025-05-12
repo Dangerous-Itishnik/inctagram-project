@@ -1,0 +1,114 @@
+.ellipse {
+  cursor: pointer;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-light-500);
+
+  &:hover {
+    color: var(--color-accent-900);
+  }
+}
+
+.avatarUser {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header {
+  display: flex;
+  gap: 230px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 12px 18px;
+}
+
+.contentEdit {
+  display: flex;
+  flex-direction: row;
+}
+
+.contentView {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentsContainer {
+  border-top: 1px solid rgb(76 76 76 / 100%);
+}
+
+.comments {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 18px;
+
+  border-bottom: 1px solid rgb(76 76 76 / 100%);
+}
+
+.text {
+  word-break: break-word;
+}
+
+.imageContainer {
+  position: relative;
+
+  width: 490px;
+  height: 562px;
+  margin: 0;
+  padding: 0;
+}
+
+.singleImage {
+  min-width: 490px;
+  min-height: 562px;
+}
+
+.content {
+  z-index: 100;
+  display: flex;
+}
+
+.editContainer {
+  display: flex;
+  column-gap: 12px;
+  align-items: flex-start;
+
+  width: 481px;
+
+  border-bottom: 1px solid rgb(76 76 76 / 100%);
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHead {
+  height: fit-content;
+}
+
+.duo {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: flex-end;
+
+  margin: 70px 20px 0 0;
+}
+
+.duo button {
+  width: 96px;
+  height: 36px;
+}
+
+.deleteContainer {
+  width: 438px;
+  height: 140px;
+}

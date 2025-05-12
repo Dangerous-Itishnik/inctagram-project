@@ -1,0 +1,82 @@
+.profileSettings {
+  padding: 20px;
+  color: var(--color-light-500);
+  background: var(--color-dark-900);
+  border-radius: 8px;
+
+  .paymentsTable {
+    border-collapse: collapse;
+    width: 100%;
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-dark-300);
+    }
+
+    th {
+      font-size: var(--font-size-l);
+      color: var(--color-light-300);
+      background: var(--color-dark-500);
+    }
+
+    tr:hover {
+      background: var(--color-dark-300);
+    }
+
+    &.active {
+      color: #fff;
+      background: var(--color-light-100);
+    }
+
+    td {
+      font-size: var(--font-size-m);
+      color: var(--color-light-300);
+    }
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    font-size: 14px;
+
+    button {
+      cursor: pointer;
+
+      padding: 8px 12px;
+
+      color: var(--color-light-300);
+
+      background: var(--color-dark-300);
+      border: none;
+      border-radius: 4px;
+
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: var(--color-dark-100);
+      }
+    }
+
+    select {
+      cursor: pointer;
+
+      padding: 8px;
+
+      color: var(--color-light-300);
+
+      background: var(--color-dark-300);
+      border: 1px solid #444;
+      border-radius: 4px;
+    }
+
+    span {
+      color: var(--color-light-300);
+    }
+  }
+}

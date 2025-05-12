@@ -1,0 +1,71 @@
+.avatarComponent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 192px;
+  height: 192px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.avatarImage {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.defaultAvatarContainer {
+  overflow: hidden;
+  width: 192px;
+  height: 192px;
+  border-radius: 50%;
+}
+
+.defaultAvatar {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.delete {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
+  top: 12px;
+  right: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  color: white;
+
+  background-color: var(--color-danger-500);
+  border: 2px solid var(--color-dark-900);
+  border-radius: 50%;
+}
+
+.delete:hover {
+  background-color: var(--color-danger-300);
+}
+
+.delete svg {
+  margin-top: 4px;
+}
+
+.button {
+  width: 196px;
+  height: 36px;
+}

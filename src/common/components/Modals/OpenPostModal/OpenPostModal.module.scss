@@ -1,0 +1,122 @@
+.Overlay {
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.Content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 76%;
+
+  background-color: var(--color-dark-300);
+  border: 1px solid var(--color-dark-100);
+
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (width <= 425px) {
+    inset: 0;
+    transform: translate(0%, 0%);
+
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 24px;
+
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-l);
+
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.Description {
+  display: flex;
+  min-width: 250px;
+}
+
+.buttonClose {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+
+  font-size: 18px;
+  color: white;
+}
+
+.slider {
+  position: relative;
+
+  display: flex;
+  flex: 0 0 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  background-color: #8d9094;
+
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 245px;
+    object-fit: cover;
+  }
+
+  .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .sliderButtons {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    transform: translateY(-50%);
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 16px;
+
+    button {
+      cursor: pointer;
+
+      font-size: 35px;
+      color: white;
+
+      background: none;
+      border: none;
+    }
+  }
+
+  .imagePagination {
+    position: absolute;
+    bottom: 20px;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: deepskyblue;
+  }
+}

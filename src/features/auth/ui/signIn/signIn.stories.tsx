@@ -16,6 +16,7 @@ type Story = StoryObj<typeof SignIn>
 export const Default: Story = {
   args: {
     onSubmit: (data: unknown) => {
+      // eslint-disable-next-line no-console
       console.log('Form submitted:', data)
     },
   },
