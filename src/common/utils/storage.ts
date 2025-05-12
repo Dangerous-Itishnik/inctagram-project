@@ -3,7 +3,21 @@ const storageKey = {
 }
 
 export const storage = {
-  deleteToken: () => localStorage.removeItem(storageKey.token),
-  getToken: () => localStorage.getItem(storageKey.token),
-  setToken: (token: string) => localStorage.setItem(storageKey.token, token),
+  deleteToken: () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(storageKey.token)
+    }
+  },
+  getToken: () => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(storageKey.token)
+    }
+
+    return null
+  },
+  setToken: (token: string) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(storageKey.token, token)
+    }
+  },
 }
