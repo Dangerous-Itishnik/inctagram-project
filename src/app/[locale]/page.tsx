@@ -1,63 +1,28 @@
-import { BASE_URL } from '@/common/api/common.api'
-import ClientHome from '@/common/components/ClinetHome/ClientHome'
-import { Posts } from '@/common/components/Posts/ui/Posts'
-import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
-import { PostsAll } from '@/service/publicPosts/publicPosts.service'
+'use client'
+import { useEffect, useState } from 'react'
 
-import '@/styles/index.scss'
+import UnClientPage from '@/common/components/UnClientPage/UnClientPage'
+import { storage } from '@/common/utils/storage'
+import { Spinner } from '@radix-ui/themes'
+import dynamic from 'next/dynamic'
 
-import styles from './page.module.scss'
-export const dynamic = 'force-static'
+const ClientHome = dynamic(() => import('../../common/components/ClinetHome/ClientHome'), {
+  loading: () => <Spinner />,
+  ssr: false,
+})
 
-const fetchData = {
-  posts: async (params: PostsAll) => {
-    const query = new URLSearchParams(params as Record<string, string>)
-    const res = await fetch(`${BASE_URL}/api/v1/public-posts/all?${query}`, {
-      method: 'GET',
-      next: { revalidate: 60, tags: ['posts'] },
-    })
+const Home = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
 
-    if (!res.ok) {
-      throw new Error('Failed to fetch posts')
-    }
+  useEffect(() => {
+    setIsAuthenticated(!!storage.getToken())
+  }, [])
 
-    return res.json()
-  },
-  totalUsers: async () => {
-    const res = await fetch(`${BASE_URL}/api/v1/public-user`, {
-      method: 'GET',
-      next: { revalidate: 60, tags: ['total-users'] },
-    })
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch total users')
-    }
-
-    return res.json()
-  },
-}
-const Home = async () => {
-  try {
-    const [users, posts] = await Promise.all([
-      fetchData.totalUsers(),
-      fetchData.posts({ pageSize: 4 }),
-    ])
-
-    return (
-      <section className={styles.publicPage}>
-        <ClientHome />
-        <TotalUsers totalCount={users.totalCount} />
-        <Posts posts={posts.items} />
-      </section>
-    )
-  } catch {
-    return (
-      <section className={styles.publicPage}>
-        <TotalUsers totalCount={0} />
-        <div>Данные не загрузились</div>
-      </section>
-    )
+  if (isAuthenticated === null) {
+    return <Spinner />
   }
+
+  return <div>{isAuthenticated ? <ClientHome /> : <UnClientPage />}</div>
 }
 
 export default Home

@@ -1,0 +1,124 @@
+.answersContainer {
+  display: flex;
+  flex-direction: column;
+
+  height: 150px; /* Fixed height */
+  margin-top: 8px;
+  margin-left: 40px;
+  padding-left: 16px;
+
+  border-left: 2px solid var(--color-dark-100);
+}
+
+.answersScroll {
+  overflow: hidden auto;
+  flex: 1;
+
+  min-height: 0;
+  margin-bottom: 12px;
+  padding-right: 8px;
+}
+
+.answersScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.answersScroll::-webkit-scrollbar-track {
+  background: var(--color-dark-100);
+  border-radius: 2px;
+}
+
+.answersScroll::-webkit-scrollbar-thumb {
+  background: var(--color-light-900);
+  border-radius: 2px;
+}
+
+.answersScroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-light-700);
+}
+
+.answerItem {
+  display: flex;
+  gap: 12px;
+
+  margin-bottom: 12px;
+  padding: 8px;
+
+  font-size: 14px;
+
+  background: var(--color-dark-50);
+  border-radius: 8px;
+}
+
+.answerItem:last-child {
+  margin-bottom: 0;
+}
+
+.answerItem .userData {
+  flex-shrink: 0;
+}
+
+.answerItem .subContainer {
+  flex: 1;
+}
+
+.answerItem .content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.answerInput {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0; /* Prevent shrinking */
+  gap: 8px;
+  align-items: center;
+
+  padding: 8px;
+
+  background: var(--color-dark-50);
+  border-radius: 8px;
+}
+
+.answerInput > * {
+  flex-shrink: 0;
+}
+
+.answerInput > *:first-child {
+  flex: 1;
+}
+
+.answerInput input {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.answersWrapper {
+  margin-bottom: 16px;
+}
+
+.button {
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: var(--color-accent-500);
+}
+
+.button:hover {
+  color: var(--color-accent-300);
+  text-decoration: underline;
+}
+
+.footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer button {
+  color: var(--color-accent-500);
+  text-align: center;
+  background: transparent;
+}

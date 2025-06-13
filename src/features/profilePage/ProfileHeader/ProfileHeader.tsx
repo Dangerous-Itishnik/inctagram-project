@@ -1,7 +1,9 @@
 'use client'
 import { Typography } from '@/common/components/Typography'
+import UnfollowButton from '@/common/components/UnfollowButton/UnfollowButton'
 import { Button } from '@/common/components/button'
 import { Link } from '@/i18n/navigation'
+import { useMeQuery } from '@/service/auth'
 import { ProfileUserResponse } from '@/service/publicUsers/publicUsers.service'
 import Image from 'next/image'
 
@@ -12,11 +14,14 @@ type Props = {
 }
 const ProfileHeader = ({ profileUser }: Props) => {
   const { aboutMe, avatars, id, userMetadata, userName } = profileUser
+  const { data: currentUser } = useMeQuery()
+
+  const isOwnProfile = currentUser?.userId === id
 
   return (
     <div className={styles.headerContainer}>
       <div className={styles.imageContainer}>
-        {avatars.length ? (
+        {avatars ? (
           <Image
             alt={`UserPhoto`}
             className={styles.avatar}
@@ -32,7 +37,7 @@ const ProfileHeader = ({ profileUser }: Props) => {
       <div className={styles.container}>
         <div className={styles.containerImageName}>
           <div className={styles.imageContainerMedia}>
-            {avatars.length ? (
+            {avatars ? (
               <Image
                 alt={`UserPhoto`}
                 className={styles.avatar}
@@ -46,30 +51,34 @@ const ProfileHeader = ({ profileUser }: Props) => {
             )}
           </div>
           <div className={styles.userNameContainer}>
-            <Link href={'general-info//???'}>
+            <Link href={`/profile/${id}`}>
               <Typography className={styles.userName} variant={'h3'}>
                 {userName}
               </Typography>
             </Link>
-            <Button className={styles.button} variant={'secondary'}>
-              <Link href={`/profile/${id}/edit`}>
-                <Typography variant={'body1'}>Profile Settings</Typography>
-              </Link>
-            </Button>
+            {isOwnProfile ? (
+              <Button className={styles.button} variant={'secondary'}>
+                <Link href={`/profile/${id}/edit`}>
+                  <Typography variant={'body1'}>Profile Settings</Typography>
+                </Link>
+              </Button>
+            ) : (
+              <UnfollowButton id={id} />
+            )}
           </div>
         </div>
         <div>
           <div className={styles.infoContainer}>
             <div className={styles.infoItem}>
-              <Typography variant={'h3'}>{userMetadata.following}</Typography>
+              <Typography variant={'h3'}>{userMetadata?.following}</Typography>
               <span>Following</span>
             </div>
             <div className={styles.infoItem}>
-              <Typography variant={'h3'}>{userMetadata.followers}</Typography>
+              <Typography variant={'h3'}>{userMetadata?.followers}</Typography>
               <span>Followers</span>
             </div>
             <div className={styles.infoItem}>
-              <Typography variant={'h3'}>{userMetadata.publications}</Typography>
+              <Typography variant={'h3'}>{userMetadata?.publications}</Typography>
               <span>Publications</span>
             </div>
           </div>

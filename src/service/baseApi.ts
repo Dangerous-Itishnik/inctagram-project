@@ -14,5 +14,11 @@ export const baseApi = createApi({
     'Payments',
     'Subscription',
     'Notification',
+    'Comments',
+    'Answer',
+    'Likes',
+    'AnswerLikes',
+    'PostLikes',
+    'User',
   ],
 })

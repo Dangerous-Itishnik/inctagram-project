@@ -10,13 +10,13 @@ export const ImageCard = ({ post }: Props) => {
   return (
     <>
       <div className={styles.imageBox}>
-        {post.images[0] && (
+        {post.images?.[0] && (
           <Image
             alt={`Image`}
             className={styles.image}
             height={post.images[0].height}
             key={post.id}
-            loading={'lazy'}
+            priority
             src={post.images[0].url}
             width={post.images[0].width}
           />

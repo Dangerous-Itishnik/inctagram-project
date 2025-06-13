@@ -3,6 +3,7 @@ import { ComponentProps, ReactNode } from 'react'
 import Close from '@/assets/icons/components/Close'
 import * as Dialog from '@radix-ui/react-dialog'
 import { DialogTitle } from '@radix-ui/react-dialog'
+import { VisuallyHidden } from '@radix-ui/themes'
 
 import styles from './modal.module.scss'
 
@@ -59,7 +60,13 @@ export const Modal = ({
                 onInteractOutside={onInteractOutside}
               >
                 <div>
-                  {title && <DialogTitle className={styles.title}>{title}</DialogTitle>}
+                  {title ? (
+                    <DialogTitle className={styles.title}>{title}</DialogTitle>
+                  ) : (
+                    <DialogTitle asChild>
+                      <VisuallyHidden>Modal</VisuallyHidden>
+                    </DialogTitle>
+                  )}
                   {resolvedClosePosition === 'inside' && (
                     <Dialog.Close className={styles.closeInside} onClick={onClose}>
                       <Close />

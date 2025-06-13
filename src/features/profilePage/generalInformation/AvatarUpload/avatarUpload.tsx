@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import { CustomerSlider } from '@/common/components/Slider/slider'
 import { Button } from '@/common/components/button'
-import { Modal } from '@/features/posts/ui/postModalContent/Modal'
+import { Modal } from '@/features/posts/ui/postModalContent/PostModal/Modal'
 import { useRouter } from '@/i18n/navigation'
 import { useSaveAvatarMutation } from '@/service/avatar/avatar.servise'
 import { profileApi } from '@/service/profile/profile.servise'

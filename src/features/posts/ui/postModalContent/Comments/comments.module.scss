@@ -1,0 +1,32 @@
+.mainComments {
+  overflow: hidden;
+  height: 260px;
+  padding: 16px;
+}
+
+.mainComments .container {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.mainComments .userData {
+  margin-right: 8px;
+}
+
+.mainComments .subContainer {
+  flex: 1;
+}
+
+.mainComments .content {
+  display: flex;
+  gap: 8px;
+}
+
+.mainComments .date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 0.9em;
+  color: var(--color-gray);
+}

@@ -16,11 +16,10 @@ import styles from './SwiperSlider.module.scss'
 
 type Props = {
   imagesUrl: ItemsImages[]
-  start: boolean
 }
 //TODO Это я не знаю что. НАдо исправить
 
-export const SwiperSlider = ({ imagesUrl, start }: Props) => {
+export const SwiperSlider = ({ imagesUrl }: Props) => {
   return (
     <Swiper
       className={styles.postSlider}
@@ -32,16 +31,8 @@ export const SwiperSlider = ({ imagesUrl, start }: Props) => {
       style={{ height: '100%', position: 'relative', width: '100%' }}
     >
       {imagesUrl?.map((image: ItemsImages, index: number) => {
-        if (!image.url && image.width > 1400) {
-          return null
-        }
-
         return (
-          <SwiperSlide
-            className={start ? styles.img : ''}
-            key={index}
-            style={{ position: 'relative' }}
-          >
+          <SwiperSlide className={styles.img} key={index} style={{ position: 'relative' }}>
             <Image
               alt={`Image ${index}`}
               fill

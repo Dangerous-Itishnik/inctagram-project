@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 import { useModal } from '@/common/hooks/useModal'
-import { Modal } from '@/features/posts/ui/postModalContent/Modal'
+import { Modal } from '@/features/posts/ui/postModalContent/PostModal/Modal'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { PostContentQuery } from './PostContentQuery'
