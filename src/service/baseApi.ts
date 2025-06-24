@@ -20,5 +20,8 @@ export const baseApi = createApi({
     'AnswerLikes',
     'PostLikes',
     'User',
+    'Home',
+    'Following',
+    'Followers',
   ],
 })

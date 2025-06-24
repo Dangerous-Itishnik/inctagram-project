@@ -1,8 +1,9 @@
 .container {
   display: flex;
-  gap: 3rem;
+  flex-direction: column;
+  gap: 4px;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 
   width: 100%;
   height: 100px;
@@ -14,6 +15,31 @@
 
 .heart {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+}
+
+.likes {
+  display: flex;
+  gap: 12px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.iconGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.rigth {
+  margin-left: auto;
 }

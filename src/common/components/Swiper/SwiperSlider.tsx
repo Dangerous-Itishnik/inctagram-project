@@ -17,7 +17,6 @@ import styles from './SwiperSlider.module.scss'
 type Props = {
   imagesUrl: ItemsImages[]
 }
-//TODO Это я не знаю что. НАдо исправить
 
 export const SwiperSlider = ({ imagesUrl }: Props) => {
   return (
@@ -36,7 +35,6 @@ export const SwiperSlider = ({ imagesUrl }: Props) => {
             <Image
               alt={`Image ${index}`}
               fill
-              priority
               sizes={'80vw'}
               src={image.url}
               style={{ height: '100%', objectFit: 'cover', width: '100%' }}

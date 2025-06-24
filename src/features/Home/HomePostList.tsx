@@ -1,18 +1,19 @@
+'use client'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import BookmarkOutline from '@/assets/icons/components/BookmarkOutline'
 import MessageCircleOutline from '@/assets/icons/components/MessageCircleOutline'
 import PaperPlaneOutline from '@/assets/icons/components/PaperPlaneOutline'
-import LikeButton from '@/common/components/LikeButton'
+import LikeButton from '@/common/components/LikesButton/LikeButton'
 import PublishButton from '@/common/components/PublishButton/PublishButton'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Button } from '@/common/components/button'
 import HomeDropDown from '@/features/Home/HomeDropDown'
 import Comments from '@/features/posts/ui/postModalContent/Comments/Comments'
+import { Link } from '@/i18n/navigation'
 import { ItemHome, useHomePageQuery } from '@/service/user/user.servise'
 import { formatDistance } from 'date-fns'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import styles from './homePostList.module.scss'
 
@@ -23,21 +24,26 @@ const HomePostList = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const [expandedComments, setExpandedComments] = useState<Set<number>>(new Set())
   const listRef = useRef(null)
-  const { data, isFetching, refetch } = useHomePageQuery({
-    pageNumber: 1,
+
+  const {
+    data: homeData,
+    isFetching,
+    refetch,
+  } = useHomePageQuery({
+    pageNumber,
     pageSize: 12,
   })
 
   useEffect(() => {
-    if (data) {
+    if (homeData) {
       if (pageNumber === 1) {
-        setAllPosts(data?.items)
+        setAllPosts(homeData?.items)
       } else {
         // eslint-disable-next-line no-unsafe-optional-chaining
-        setAllPosts(prev => [...prev, ...data?.items])
+        setAllPosts(prev => [...prev, ...homeData?.items])
       }
     }
-  }, [data, pageNumber])
+  }, [homeData, pageNumber])
 
   const handleLoadMore = useCallback(() => {
     if (!isFetching) {
@@ -68,12 +74,11 @@ const HomePostList = () => {
     <div className={styles.postsContainer}>
       {allPosts.map(user => (
         <div className={styles.postItem} data-id={user.id} key={user.id} ref={listRef}>
-          <header className={styles.postHeader}>
+          <div className={styles.postHeader}>
             <div className={styles.avatarWrapper}>
               <Image
                 alt={'avatar'}
                 height={36}
-                priority
                 sizes={'22vw'}
                 src={user.avatarOwner}
                 style={{ borderRadius: '50%' }}
@@ -87,9 +92,9 @@ const HomePostList = () => {
               {formatDistance(new Date(user.createdAt), new Date(), { addSuffix: true })} .
             </span>
             <div className={styles.dropdownWrapper}>
-              <HomeDropDown id={user.id} />
+              <HomeDropDown context={refetch} id={user.ownerId} userName={user.userName} />
             </div>
-          </header>
+          </div>
 
           <div className={styles.mediaContainer}>
             <SwiperSlider imagesUrl={user.images} />
@@ -106,7 +111,6 @@ const HomePostList = () => {
               <Image
                 alt={'avatar'}
                 height={36}
-                priority
                 sizes={'22vw'}
                 src={user.avatarOwner}
                 style={{ borderRadius: '50%' }}
@@ -120,7 +124,7 @@ const HomePostList = () => {
           </div>
           <div>
             <div className={styles.whoLikes}>
-              {data?.items
+              {homeData?.items
                 ?.filter(item => item.id === user.id)
                 ?.flatMap(item => item.avatarWhoLikes || [])
                 ?.slice(-3)
@@ -130,7 +134,6 @@ const HomePostList = () => {
                       alt={'avatar'}
                       height={36}
                       key={index}
-                      priority
                       sizes={'22vw'}
                       src={url}
                       style={{ borderRadius: '50%' }}
@@ -138,6 +141,11 @@ const HomePostList = () => {
                     />
                   </div>
                 ))}
+              {homeData?.items?.some(item => item.likesCount > 0) && (
+                <span className={styles.likesCount}>
+                  {homeData.items.find(item => item.id === user.id)?.likesCount || 0} Likes
+                </span>
+              )}
             </div>
           </div>
           <div>
@@ -147,7 +155,7 @@ const HomePostList = () => {
 
             {expandedComments.has(user.id) && (
               <div className={styles.commentsSection}>
-                <Comments postId={user.id} />
+                <Comments postId={user.id} theme={'dark'} />
               </div>
             )}
           </div>

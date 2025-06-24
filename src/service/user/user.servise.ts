@@ -3,12 +3,21 @@ import { baseApi } from '@/service/baseApi'
 export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
     deleteFollow: build.mutation<void, number>({
+      invalidatesTags: ['User', 'Home'],
       query: userId => ({
         method: 'DELETE',
         url: `api/v1/users/follower/${userId}`,
       }),
     }),
+    getFollowers: build.query<Follow, string>({
+      providesTags: ['Followers'],
+      query: userName => ({
+        method: 'GET',
+        url: `api/v1/users/${userName}/followers`,
+      }),
+    }),
     getFollowing: build.query<Follow, string>({
+      providesTags: ['Following'],
       query: userName => ({
         method: 'GET',
         url: `api/v1/users/${userName}/following`,
@@ -26,6 +35,7 @@ export const userApi = baseApi.injectEndpoints({
         search?: string
       }
     >({
+      providesTags: ['User'],
       query: ({ cursor, pageNumber = 1, pageSize = 12, search = '' }) => {
         const params = new URLSearchParams()
 
@@ -50,6 +60,7 @@ export const userApi = baseApi.injectEndpoints({
       },
     }),
     homePage: build.query<ApiResponse, GetFollowerPublicationsParams>({
+      providesTags: ['Home'],
       query: ({ endCursorPostId = 0, pageNumber = 1, pageSize = 12 }) => {
         const params = new URLSearchParams()
 
@@ -71,6 +82,7 @@ export const userApi = baseApi.injectEndpoints({
       },
     }),
     userFollow: build.mutation<void, { selectedUserId: number }>({
+      invalidatesTags: ['User', 'Home'],
       query: body => ({
         body,
         method: 'POST',
@@ -82,6 +94,7 @@ export const userApi = baseApi.injectEndpoints({
 
 export const {
   useDeleteFollowMutation,
+  useGetFollowersQuery,
   useGetFollowingQuery,
   useGetUserProfileQuery,
   useGetUsersQuery,
@@ -143,7 +156,7 @@ type Follow = {
   totalCount: number
 }
 
-type Item = {
+export type Item = {
   avatars: Avatar[]
   createdAt: string
   id: number

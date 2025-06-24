@@ -49,6 +49,7 @@ export function useObserver(
         })
       },
       {
+        root: options.root ?? null,
         rootMargin: '50px',
         threshold: options.threshold ?? 0.1,
       }
@@ -74,5 +75,5 @@ export function useObserver(
       clearTimeout(timeoutId)
       isObservingRef.current = false
     }
-  }, [data?.length])
+  }, [data, data?.length, listRef, options.root, options.threshold])
 }

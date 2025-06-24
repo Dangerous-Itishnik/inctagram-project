@@ -1,6 +1,8 @@
+'use client'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { Input } from '@/common/components/Input'
+import { Scroller } from '@/common/components/Scroller/Scroller'
 import { SmallAvatar } from '@/common/components/SmallAvatar/SmallAvatar'
 import { Button } from '@/common/components/button'
 import LikesCount from '@/features/posts/ui/postModalContent/Likes/LikesCount'
@@ -94,54 +96,43 @@ const Answers = ({ commentId, postId }: Props) => {
 
   return (
     <div className={styles.answersContainer}>
-      <div className={styles.answersScroll} ref={listRef}>
-        {allAnswers.map(answer => (
-          <div className={styles.answerItem} key={answer.id}>
-            <div className={styles.userData}>
-              <SmallAvatar profileId={answer.from?.id || answer.commentId} />
-            </div>
-            <div className={styles.subContainer}>
-              <div className={styles.content}>
-                <span style={{ fontWeight: 'bold' }}>{answer.from?.username}</span>
-                <span style={{ fontWeight: 'lighter', marginLeft: '8px' }}>{answer.content}</span>
+      <Scroller customHeight={'500px'}>
+        <div className={styles.answersScroll} ref={listRef}>
+          {allAnswers.map(answer => (
+            <div className={styles.answerItem} key={answer.id}>
+              <div className={styles.userData}>
+                <SmallAvatar profileId={answer.from?.id || answer.commentId} />
               </div>
-              <div className={styles.date}>
-                <span
-                  style={{ color: 'var(--color-light-900)', fontSize: '12px', marginTop: '3px' }}
-                >
-                  {formatDistance(new Date(answer.createdAt), new Date(), { addSuffix: true })}
-                </span>
-                <span>
-                  {answer.isLiked && (
-                    <LikesCount answerId={answer.id} commentId={commentId} postId={postId} />
-                  )}
-                </span>
-                <AnswerLike
-                  answerId={answer.id}
-                  commentId={commentId}
-                  isLiked={answer.isLiked}
-                  postId={postId}
-                />
+              <div className={styles.subContainer}>
+                <div className={styles.content}>
+                  <span>{answer.from?.username}</span>
+                  <span style={{ marginLeft: '8px' }}>{answer.content}</span>
+                </div>
+                <div className={styles.date}>
+                  <span
+                    style={{ color: 'var(--color-light-900)', fontSize: '12px', marginTop: '3px' }}
+                  >
+                    {formatDistance(new Date(answer.createdAt), new Date(), { addSuffix: true })}
+                  </span>
+                  <span>
+                    {answer.isLiked && (
+                      <LikesCount answerId={answer.id} commentId={commentId} postId={postId} />
+                    )}
+                  </span>
+                  <AnswerLike
+                    answerId={answer.id}
+                    commentId={commentId}
+                    isLiked={answer.isLiked}
+                    postId={postId}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-        {hasMore && allAnswers.length > 0 && (
-          <div
-            style={{
-              color: 'var(--color-light-900)',
-              fontSize: '12px',
-              padding: '8px',
-              textAlign: 'center',
-            }}
-          >
-            Loading more answers...
-          </div>
-        )}
-      </div>
+          ))}
+          {hasMore && allAnswers.length > 0 && <div>Loading more answers...</div>}
+        </div>
 
-      <div className={styles.answerInput}>
-        <div style={{ flex: 1 }}>
+        <div className={styles.answerInput}>
           <Input
             label={''}
             onChange={onChangeHandler}
@@ -149,11 +140,16 @@ const Answers = ({ commentId, postId }: Props) => {
             type={'text'}
             value={value}
           />
+          <Button
+            className={styles.button}
+            disabled={!value.trim()}
+            onClick={onAnswer}
+            variant={'secondary'}
+          >
+            Reply
+          </Button>
         </div>
-        <Button disabled={!value.trim()} onClick={onAnswer}>
-          Reply
-        </Button>
-      </div>
+      </Scroller>
     </div>
   )
 }

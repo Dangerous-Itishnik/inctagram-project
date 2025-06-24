@@ -5,6 +5,7 @@ import { Button } from '@/common/components/button'
 import { Link } from '@/i18n/navigation'
 import { useMeQuery } from '@/service/auth'
 import { ProfileUserResponse } from '@/service/publicUsers/publicUsers.service'
+import { useGetUserProfileQuery } from '@/service/user/user.servise'
 import Image from 'next/image'
 
 import styles from './profileHeader.module.scss'
@@ -15,8 +16,9 @@ type Props = {
 const ProfileHeader = ({ profileUser }: Props) => {
   const { aboutMe, avatars, id, userMetadata, userName } = profileUser
   const { data: currentUser } = useMeQuery()
-
+  const { data: UserData, refetch } = useGetUserProfileQuery(userName)
   const isOwnProfile = currentUser?.userId === id
+  const isAuthenticated = !!currentUser
 
   return (
     <div className={styles.headerContainer}>
@@ -26,9 +28,8 @@ const ProfileHeader = ({ profileUser }: Props) => {
             alt={`UserPhoto`}
             className={styles.avatar}
             fill
-            priority
             sizes={'(max-width: 204px) 100vw, (max-width: 1200px) 50vw, 33vw'}
-            src={avatars.length ? avatars[0].url : ''}
+            src={avatars?.[0]?.url || '/fallback.png'}
           />
         ) : (
           <div className={styles.avatar}>фото нет</div>
@@ -42,9 +43,8 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 alt={`UserPhoto`}
                 className={styles.avatar}
                 fill
-                priority
                 sizes={'(max-width: 204px) 100vw, (max-width: 1200px) 50vw, 33vw'}
-                src={avatars.length ? avatars[0].url : ''}
+                src={avatars?.[0]?.url || '/fallback.png'}
               />
             ) : (
               <div className={styles.avatar}>фото нет</div>
@@ -56,25 +56,26 @@ const ProfileHeader = ({ profileUser }: Props) => {
                 {userName}
               </Typography>
             </Link>
-            {isOwnProfile ? (
+            {isOwnProfile && (
               <Button className={styles.button} variant={'secondary'}>
                 <Link href={`/profile/${id}/edit`}>
                   <Typography variant={'body1'}>Profile Settings</Typography>
                 </Link>
               </Button>
-            ) : (
-              <UnfollowButton id={id} />
+            )}
+            {!isOwnProfile && isAuthenticated && (
+              <UnfollowButton context={refetch} id={id} userName={userName} />
             )}
           </div>
         </div>
         <div>
           <div className={styles.infoContainer}>
             <div className={styles.infoItem}>
-              <Typography variant={'h3'}>{userMetadata?.following}</Typography>
+              <Typography variant={'h3'}>{UserData?.followingCount}</Typography>
               <span>Following</span>
             </div>
             <div className={styles.infoItem}>
-              <Typography variant={'h3'}>{userMetadata?.followers}</Typography>
+              <Typography variant={'h3'}>{UserData?.followersCount}</Typography>
               <span>Followers</span>
             </div>
             <div className={styles.infoItem}>

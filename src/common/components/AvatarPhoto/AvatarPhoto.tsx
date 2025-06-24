@@ -29,7 +29,6 @@ export const AvatarPhoto = ({ profileId }: AvatarPhotoProps) => {
               alt={'User avatar'}
               className={styles.avatarImage}
               fill
-              priority
               sizes={'33vw'}
               src={avatarUrl}
             />
@@ -43,7 +42,6 @@ export const AvatarPhoto = ({ profileId }: AvatarPhotoProps) => {
               alt={'Default avatar'}
               className={styles.defaultAvatar}
               height={192}
-              priority
               sizes={'33vw'}
               src={DefaultImage}
               width={192}

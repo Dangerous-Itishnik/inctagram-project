@@ -39,48 +39,44 @@ export const Modal = ({
 
   return (
     <Dialog.Root onOpenChange={handleOpenChange} open={open}>
-      <div>
-        {open && (
-          <Dialog.Portal>
-            <Dialog.Overlay className={styles.modalOverlay} />
-            {resolvedClosePosition === 'outside' && (
-              <Dialog.Close
-                className={styles.closeOutside}
-                onClick={onClose}
-                style={{ cursor: 'pointer' }}
-              >
-                <Close />
-              </Dialog.Close>
-            )}
+      {open && (
+        <Dialog.Portal>
+          <Dialog.Overlay className={styles.modalOverlay} />
+          {resolvedClosePosition === 'outside' && (
+            <Dialog.Close
+              className={styles.closeOutside}
+              onClick={onClose}
+              style={{ cursor: 'pointer' }}
+            >
+              <Close />
+            </Dialog.Close>
+          )}
 
-            <div className={styles.modalWrapper}>
-              <Dialog.Content
-                aria-describedby={undefined}
-                className={styles.modalContent}
-                onInteractOutside={onInteractOutside}
-              >
-                <div>
-                  {title ? (
-                    <DialogTitle className={styles.title}>{title}</DialogTitle>
-                  ) : (
-                    <DialogTitle asChild>
-                      <VisuallyHidden>Modal</VisuallyHidden>
-                    </DialogTitle>
-                  )}
-                  {resolvedClosePosition === 'inside' && (
-                    <Dialog.Close className={styles.closeInside} onClick={onClose}>
-                      <Close />
-                    </Dialog.Close>
-                  )}
-                  <Dialog.Description asChild className={styles.description}>
-                    {children}
-                  </Dialog.Description>
-                </div>
-              </Dialog.Content>
-            </div>
-          </Dialog.Portal>
-        )}
-      </div>
+          <div className={styles.modalWrapper}>
+            <Dialog.Content
+              aria-describedby={undefined}
+              className={styles.modalContent}
+              onInteractOutside={onInteractOutside}
+            >
+              {title ? (
+                <DialogTitle className={styles.title}>{title}</DialogTitle>
+              ) : (
+                <DialogTitle asChild>
+                  <VisuallyHidden>Modal</VisuallyHidden>
+                </DialogTitle>
+              )}
+              {resolvedClosePosition === 'inside' && (
+                <Dialog.Close className={styles.closeInside} onClick={onClose}>
+                  <Close />
+                </Dialog.Close>
+              )}
+              <Dialog.Description asChild className={styles.description}>
+                {children}
+              </Dialog.Description>
+            </Dialog.Content>
+          </div>
+        </Dialog.Portal>
+      )}
     </Dialog.Root>
   )
 }

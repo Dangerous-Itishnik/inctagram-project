@@ -2,25 +2,21 @@
   display: flex;
   flex-direction: column;
 
-  height: 150px; /* Fixed height */
-  margin-top: 8px;
+  height: 150px;
   margin-left: 40px;
   padding-left: 16px;
-
-  border-left: 2px solid var(--color-dark-100);
 }
 
 .answersScroll {
   overflow: hidden auto;
   flex: 1;
-
   min-height: 0;
-  margin-bottom: 12px;
   padding-right: 8px;
 }
 
 .answersScroll::-webkit-scrollbar {
   width: 4px;
+  margin-right: 4px;
 }
 
 .answersScroll::-webkit-scrollbar-track {
@@ -41,12 +37,10 @@
   display: flex;
   gap: 12px;
 
-  margin-bottom: 12px;
-  padding: 8px;
+  padding: 2px;
 
   font-size: 14px;
 
-  background: var(--color-dark-50);
   border-radius: 8px;
 }
 
@@ -71,13 +65,12 @@
 .answerInput {
   display: flex;
   flex-direction: row;
-  flex-shrink: 0; /* Prevent shrinking */
   gap: 8px;
   align-items: center;
+  justify-content: center;
 
   padding: 8px;
 
-  background: var(--color-dark-50);
   border-radius: 8px;
 }
 
@@ -92,6 +85,7 @@
 .answerInput input {
   flex: 1;
   min-width: 0;
+  margin-top: 20px;
   font-size: 14px;
 }
 
@@ -102,13 +96,22 @@
 .button {
   cursor: pointer;
   user-select: none;
-  font-size: 12px;
-  color: var(--color-accent-500);
+
+  font-size: 14px;
+  color: var(--color-accent-300) !important;
+
+  background: transparent;
 }
 
 .button:hover {
-  color: var(--color-accent-300);
+  color: var(--color-accent-500);
   text-decoration: underline;
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .footer {

@@ -43,7 +43,6 @@ const Search = () => {
                   <Image
                     alt={'avatar'}
                     height={36}
-                    priority
                     sizes={'22vw'}
                     src={user.avatars[0]?.url}
                     style={{ borderRadius: '50%' }}

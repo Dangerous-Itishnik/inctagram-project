@@ -13,23 +13,21 @@ const PublishButton = ({ postId }: { postId: number }) => {
     setValue(e.target.value)
   }
   const onPublish = () => {
-    createComment({ content: value, postId })
-      .unwrap()
-      .then(() => {
-        setValue('')
-      })
+    createComment({ content: value, postId }).unwrap()
+    setValue('')
     commentsApi.util.invalidateTags(['Comments'])
   }
 
   return (
     <div className={styles.publishContainer}>
       <Textarea
+        className={styles.textArea}
         label={''}
         maxLength={300}
         minLength={1}
         onChange={onChangeHandler}
         placeholder={'Add a comment...'}
-        style={{ border: 'none' }}
+        value={value}
       />
       <Button onClick={onPublish}>Publish</Button>
     </div>

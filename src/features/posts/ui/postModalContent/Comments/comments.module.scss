@@ -1,7 +1,7 @@
 .mainComments {
   overflow: hidden;
   height: 260px;
-  padding: 16px;
+  padding: 12px;
 }
 
 .mainComments .container {
@@ -29,4 +29,9 @@
 
   font-size: 0.9em;
   color: var(--color-gray);
+}
+
+.scrollContent {
+  width: 100%;
+  background-color: transparent;
 }

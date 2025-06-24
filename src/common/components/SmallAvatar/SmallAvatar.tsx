@@ -16,7 +16,6 @@ export const SmallAvatar = ({ profileId }: Props) => {
       <Image
         alt={'avatar'}
         height={36}
-        priority
         sizes={'22vw'}
         src={avatarURL}
         style={{ borderRadius: '50%' }}

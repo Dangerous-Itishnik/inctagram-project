@@ -29,7 +29,7 @@ export const PostDescription = ({ description, postId, profileId, userName }: Pr
       </div>
       <Comments postId={postId} />
       <PostLikes data={data!} isLiked={isLiked} postId={postId} refetch={refetch} />
-      <div>
+      <div className={styles.footer}>
         <PublishButton postId={postId} />
       </div>
     </div>

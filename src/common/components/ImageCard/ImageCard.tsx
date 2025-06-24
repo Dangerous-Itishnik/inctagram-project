@@ -16,7 +16,6 @@ export const ImageCard = ({ post }: Props) => {
             className={styles.image}
             height={post.images[0].height}
             key={post.id}
-            priority
             src={post.images[0].url}
             width={post.images[0].width}
           />
