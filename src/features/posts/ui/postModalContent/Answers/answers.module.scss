@@ -1,0 +1,127 @@
+.answersContainer {
+  display: flex;
+  flex-direction: column;
+
+  height: 150px;
+  margin-left: 40px;
+  padding-left: 16px;
+}
+
+.answersScroll {
+  overflow: hidden auto;
+  flex: 1;
+  min-height: 0;
+  padding-right: 8px;
+}
+
+.answersScroll::-webkit-scrollbar {
+  width: 4px;
+  margin-right: 4px;
+}
+
+.answersScroll::-webkit-scrollbar-track {
+  background: var(--color-dark-100);
+  border-radius: 2px;
+}
+
+.answersScroll::-webkit-scrollbar-thumb {
+  background: var(--color-light-900);
+  border-radius: 2px;
+}
+
+.answersScroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-light-700);
+}
+
+.answerItem {
+  display: flex;
+  gap: 12px;
+
+  padding: 2px;
+
+  font-size: 14px;
+
+  border-radius: 8px;
+}
+
+.answerItem:last-child {
+  margin-bottom: 0;
+}
+
+.answerItem .userData {
+  flex-shrink: 0;
+}
+
+.answerItem .subContainer {
+  flex: 1;
+}
+
+.answerItem .content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.answerInput {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+
+  border-radius: 8px;
+}
+
+.answerInput > * {
+  flex-shrink: 0;
+}
+
+.answerInput > *:first-child {
+  flex: 1;
+}
+
+.answerInput input {
+  flex: 1;
+  min-width: 0;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.answersWrapper {
+  margin-bottom: 16px;
+}
+
+.button {
+  cursor: pointer;
+  user-select: none;
+
+  font-size: 14px;
+  color: var(--color-accent-300) !important;
+
+  background: transparent;
+}
+
+.button:hover {
+  color: var(--color-accent-500);
+  text-decoration: underline;
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer button {
+  color: var(--color-accent-500);
+  text-align: center;
+  background: transparent;
+}
