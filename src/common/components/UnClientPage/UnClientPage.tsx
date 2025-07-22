@@ -3,9 +3,8 @@ import { Posts } from '@/common/components/Posts/ui/Posts'
 import { TotalUsers } from '@/common/components/TotalUsers/ui/TotalUsers'
 import { PostsAll } from '@/service/publicPosts/publicPosts.service'
 
-import '@/styles/index.scss'
-
 import styles from './page.module.scss'
+import '@/styles/index.scss'
 //export const dynamic = 'force-static'
 
 const fetchData = {

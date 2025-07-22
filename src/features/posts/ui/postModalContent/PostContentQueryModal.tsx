@@ -1,11 +1,10 @@
 'use client'
 import { useState } from 'react'
 
+import { PostContentQuery } from './PostContentQuery'
 import { useModal } from '@/common/hooks/useModal'
 import { Modal } from '@/features/posts/ui/postModalContent/PostModal/Modal'
 import { useRouter, useSearchParams } from 'next/navigation'
-
-import { PostContentQuery } from './PostContentQuery'
 
 type Props = {
   postId: number

@@ -23,5 +23,7 @@ export const baseApi = createApi({
     'Home',
     'Following',
     'Followers',
+    'MESSAGE',
+    'MESSAGES',
   ],
 })

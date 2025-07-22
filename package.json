@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
-    "@it-incubator/eslint-config": "^1.0.3",
+    "@it-incubator/eslint-config": "^1.0.4",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
     "@storybook/addon-essentials": "^8.4.1",
@@ -66,13 +66,19 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-perfectionist": "^2.1.0",
+    "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-storybook": "^0.11.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "prettier": "^3.5.1",
     "sass": "^1.80.4",
     "storybook": "^8.4.1",
-    "stylelint": "^16.10.0",
+    "stylelint": "^16.21.1",
+    "stylelint-config-clean-order": "^7.0.0",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-order": "^6.0.4",
     "typescript": "^5"
   }
 }

@@ -1,6 +1,8 @@
 'use client'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
+import { useObserver } from '../../useObserver'
+import AnswerLike from '../Likes/AnswersLike'
 import { Input } from '@/common/components/Input'
 import { Scroller } from '@/common/components/Scroller/Scroller'
 import { SmallAvatar } from '@/common/components/SmallAvatar/SmallAvatar'
@@ -14,9 +16,6 @@ import {
 import { formatDistance } from 'date-fns'
 
 import styles from '@/features/posts/ui/postModalContent/Answers/answers.module.scss'
-
-import { useObserver } from '../../useObserver'
-import AnswerLike from '../Likes/AnswersLike'
 
 type Props = {
   commentId: number
