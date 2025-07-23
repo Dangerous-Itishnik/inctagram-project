@@ -1,5 +1,3 @@
-import { baseApi } from '@/service/baseApi'
-
 import {
   ArgConfirmationCode,
   AuthResponse,
@@ -9,6 +7,7 @@ import {
   RegEmailResendArg,
   SignUpArgs,
 } from './auth.types'
+import { baseApi } from '@/service/baseApi'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({

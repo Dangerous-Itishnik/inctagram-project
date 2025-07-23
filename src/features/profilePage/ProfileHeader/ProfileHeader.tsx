@@ -2,7 +2,7 @@
 import { Typography } from '@/common/components/Typography'
 import UnfollowButton from '@/common/components/UnfollowButton/UnfollowButton'
 import { Button } from '@/common/components/button'
-import { Link } from '@/i18n/navigation'
+import { Link, useRouter } from '@/i18n/navigation'
 import { useMeQuery } from '@/service/auth'
 import { ProfileUserResponse } from '@/service/publicUsers/publicUsers.service'
 import { useGetUserProfileQuery } from '@/service/user/user.servise'
@@ -15,6 +15,8 @@ type Props = {
 }
 const ProfileHeader = ({ profileUser }: Props) => {
   const { aboutMe, avatars, id, userMetadata, userName } = profileUser
+  const router = useRouter()
+
   const { data: currentUser } = useMeQuery()
   const { data: UserData, refetch } = useGetUserProfileQuery(userName)
   const isOwnProfile = currentUser?.userId === id
@@ -64,7 +66,12 @@ const ProfileHeader = ({ profileUser }: Props) => {
               </Button>
             )}
             {!isOwnProfile && isAuthenticated && (
-              <UnfollowButton context={refetch} id={id} userName={userName} />
+              <>
+                <Button onClick={() => UserData && router.push(`/messenger/${UserData.id}`)}>
+                  <Typography>Send Message</Typography>
+                </Button>
+                <UnfollowButton context={refetch} id={id} userName={userName} />
+              </>
             )}
           </div>
         </div>

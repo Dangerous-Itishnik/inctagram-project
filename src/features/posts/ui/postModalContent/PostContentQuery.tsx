@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { PostEdit } from '../postEdit/PostEdit'
+import { PostDescription } from './PostDescription/PostDescription'
+import { PostModalHeader } from './PostModalHeader'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Typography } from '@/common/components/Typography'
@@ -12,10 +15,6 @@ import { useGetPublicQuery, usePostDeleteMutation } from '@/service/posts/posts.
 import Image from 'next/image'
 
 import styles from './PostModal.module.scss'
-
-import { PostEdit } from '../postEdit/PostEdit'
-import { PostDescription } from './PostDescription/PostDescription'
-import { PostModalHeader } from './PostModalHeader'
 
 type Props = {
   closeEditCloseModal: () => void

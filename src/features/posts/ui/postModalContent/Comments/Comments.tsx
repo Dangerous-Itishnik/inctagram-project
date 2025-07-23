@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useObserver } from '../../useObserver'
 import { Scroller } from '@/common/components/Scroller/Scroller'
 import { SmallAvatar } from '@/common/components/SmallAvatar/SmallAvatar'
 import Answers from '@/features/posts/ui/postModalContent/Answers/Answer'
@@ -9,8 +10,6 @@ import { type Comment, useGetCommentsQuery } from '@/service/comments/comments.s
 import { formatDistance } from 'date-fns'
 
 import styles from './comments.module.scss'
-
-import { useObserver } from '../../useObserver'
 
 type Props = {
   postId: number

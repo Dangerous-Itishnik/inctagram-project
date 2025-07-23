@@ -3,6 +3,8 @@ import { ChangeEvent, useCallback, useRef, useState } from 'react'
 import Cropper, { Area } from 'react-easy-crop'
 import { toast } from 'react-toastify'
 
+import DefaultImage from '../../../../../public/images/DefaultImage.jpg'
+import getCroppedImg from './cropp'
 import { CustomerSlider } from '@/common/components/Slider/slider'
 import { Button } from '@/common/components/button'
 import { Modal } from '@/features/posts/ui/postModalContent/PostModal/Modal'
@@ -12,9 +14,6 @@ import { profileApi } from '@/service/profile/profile.servise'
 import Image from 'next/image'
 
 import styles from './avatarUpload.module.scss'
-
-import DefaultImage from '../../../../../public/images/DefaultImage.jpg'
-import getCroppedImg from './cropp'
 
 type Props = {
   closeModal: () => void

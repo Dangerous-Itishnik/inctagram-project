@@ -1,6 +1,7 @@
 'use client'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useObserver } from '../posts/ui/useObserver'
 import BookmarkOutline from '@/assets/icons/components/BookmarkOutline'
 import MessageCircleOutline from '@/assets/icons/components/MessageCircleOutline'
 import PaperPlaneOutline from '@/assets/icons/components/PaperPlaneOutline'
@@ -16,8 +17,6 @@ import { formatDistance } from 'date-fns'
 import Image from 'next/image'
 
 import styles from './homePostList.module.scss'
-
-import { useObserver } from '../posts/ui/useObserver'
 
 const HomePostList = () => {
   const [allPosts, setAllPosts] = useState<ItemHome[]>([])
