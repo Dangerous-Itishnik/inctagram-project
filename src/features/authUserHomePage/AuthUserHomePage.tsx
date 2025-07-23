@@ -1,15 +1,12 @@
 'use client'
 
-import { MeResponse } from '@/service/auth/auth.types'
+import HomePostList from '@/features/Home/HomePostList'
 
-type AuthUserPageProps = {
-  meData: MeResponse
-}
-
-export const AuthUserHomePage = ({ meData }: AuthUserPageProps) => {
+export const AuthUserHomePage = () => {
   return (
     <>
-      <p>Ты успешно залогинился {meData.userName}!</p>
+      <p>Ты успешно залогинился </p>
+      <HomePostList />
     </>
   )
 }

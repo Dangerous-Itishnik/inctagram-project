@@ -44,3 +44,40 @@ export type Post = {
   updatedAt: string
   userName: string
 }
+type Avatar = {
+  createdAt: string
+  fileSize: number
+  height: number
+  url: string
+  width: number
+}
+type Item = {
+  avatars: Avatar[]
+  createdAt: string
+  id: number
+  isFollowedBy: boolean
+  isFollowing: boolean
+  userId: number
+  userName: string
+}
+export type PostLikesResponse = {
+  items: Item[]
+  notReadCount: number
+  pageSize: number
+  totalCount: number
+}
+
+export type GetPostLikesParams = {
+  cursor?: number
+  pageNumber?: number
+  pageSize?: number
+  postId: number
+  search?: string
+}
+
+export type PostResponse = {
+  items: Post[]
+  notReadCount?: number
+  pageSize: number
+  totalCount: number
+}

@@ -78,7 +78,7 @@ export const AppSideBar = () => {
                 currentPath.startsWith('/messenger') && styles.itemActive
               )}
             >
-              <Link className={styles.link} href={''}>
+              <Link className={styles.link} href={'/messenger'}>
                 <MessageCircleOutline />
                 <span className={styles.notMobile}>Messenger</span>
               </Link>
@@ -86,7 +86,7 @@ export const AppSideBar = () => {
             <li
               className={clsx(styles.item, currentPath.startsWith('/search') && styles.itemActive)}
             >
-              <Link className={styles.link} href={''}>
+              <Link className={styles.link} href={'/search'}>
                 <SearchOutline />
                 <span className={styles.notMobile}>Search</span>
               </Link>

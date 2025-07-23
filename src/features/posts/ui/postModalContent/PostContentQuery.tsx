@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { PostEdit } from '../postEdit/PostEdit'
+import { PostDescription } from './PostDescription/PostDescription'
+import { PostModalHeader } from './PostModalHeader'
 import { InfoModal } from '@/common/components/Modals/InfoModal/InfoModal'
 import { SwiperSlider } from '@/common/components/Swiper/SwiperSlider'
 import { Typography } from '@/common/components/Typography'
@@ -12,10 +15,6 @@ import { useGetPublicQuery, usePostDeleteMutation } from '@/service/posts/posts.
 import Image from 'next/image'
 
 import styles from './PostModal.module.scss'
-
-import { PostEdit } from '../postEdit/PostEdit'
-import { PostDescription } from './PostDescription'
-import { PostModalHeader } from './PostModalHeader'
 
 type Props = {
   closeEditCloseModal: () => void
@@ -97,7 +96,7 @@ export const PostContentQuery = ({
         {modalType === 'view' ? (
           <>
             <div className={styles.imageContainer}>
-              {data && <SwiperSlider imagesUrl={data.images} start={false} />}
+              {data && <SwiperSlider imagesUrl={data.images} />}
             </div>
             <div className={styles.contentView}>
               {data && (
@@ -115,6 +114,7 @@ export const PostContentQuery = ({
                 {data && (
                   <PostDescription
                     description={data.description}
+                    postId={postId}
                     profileId={postId}
                     userName={data.userName}
                   />
@@ -133,7 +133,6 @@ export const PostContentQuery = ({
                       alt={'picture'}
                       className={styles.singleImage}
                       height={500}
-                      loading={'lazy'}
                       src={data.images[0].url}
                       width={400}
                     />

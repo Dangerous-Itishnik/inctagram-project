@@ -1,3 +1,4 @@
+import DefaultImage from '../../../../public/images/DefaultImage.jpg'
 import { Typography } from '@/common/components/Typography'
 import { Button } from '@/common/components/button'
 import { useModal } from '@/common/hooks/useModal'
@@ -7,8 +8,6 @@ import { useGetProfileQuery } from '@/service/profile/profile.servise'
 import Image from 'next/image'
 
 import styles from './avatarPhoto.module.scss'
-
-import DefaultImage from '../../../../public/images/DefaultImage.jpg'
 
 type AvatarPhotoProps = {
   profileId: number
@@ -29,7 +28,6 @@ export const AvatarPhoto = ({ profileId }: AvatarPhotoProps) => {
               alt={'User avatar'}
               className={styles.avatarImage}
               fill
-              priority
               sizes={'33vw'}
               src={avatarUrl}
             />
@@ -43,7 +41,6 @@ export const AvatarPhoto = ({ profileId }: AvatarPhotoProps) => {
               alt={'Default avatar'}
               className={styles.defaultAvatar}
               height={192}
-              priority
               sizes={'33vw'}
               src={DefaultImage}
               width={192}

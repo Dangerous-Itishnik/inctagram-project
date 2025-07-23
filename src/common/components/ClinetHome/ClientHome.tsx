@@ -2,10 +2,9 @@
 import { useEffect } from 'react'
 
 import { storage } from '@/common/utils/storage'
-import { AuthUserHomePage } from '@/features/authUserHomePage'
+import HomePostList from '@/features/Home/HomePostList'
 import { useRouter } from '@/i18n/navigation'
-import { useGoogleLoginMutation, useMeQuery } from '@/service/auth'
-import { Spinner } from '@radix-ui/themes'
+import { useGoogleLoginMutation } from '@/service/auth'
 import { useSearchParams } from 'next/navigation'
 
 export default function ClientHome() {
@@ -13,7 +12,7 @@ export default function ClientHome() {
   const params = useSearchParams()
   const code = params.get('code')
   const [googleLogin] = useGoogleLoginMutation()
-  const { data, isError, isLoading } = useMeQuery()
+  //const { data } = useMeQuery()
 
   useEffect(() => {
     const handleGoogleLogin = async (code: string) => {
@@ -21,6 +20,7 @@ export default function ClientHome() {
         const res = await googleLogin({ code }).unwrap()
 
         storage.setToken(res.accessToken)
+
         router.replace('/createAccount')
       } catch (error) {
         console.error('Google Login Error:', error)
@@ -33,12 +33,7 @@ export default function ClientHome() {
 
       return
     }
-  }, [code, googleLogin, isError, router, data, isLoading])
+  }, [code, googleLogin, router])
 
-  return (
-    <>
-      {isLoading && !data && <Spinner />}
-      {data && !isError && <AuthUserHomePage meData={data} />}
-    </>
-  )
+  return <HomePostList />
 }

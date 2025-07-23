@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: row;
+
+  width: 972px;
+  height: 648px;
+  margin: 50px auto;
+  border: 1px solid var(--color-dark-100);
+}
